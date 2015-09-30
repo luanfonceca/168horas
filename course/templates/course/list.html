@@ -15,7 +15,7 @@
   {% if object_list %}
     <div class="row" id="masonry-grid">
       {% for object in object_list %}
-        <div class="col s12 m6 l3">
+        <div class="col s12 m6 l4">
           <div class="card">
             <div class="card-content light-blue-text">
               <div class="card-title light-blue-text">
@@ -39,7 +39,7 @@
           Aenean viverra rhoncus pede. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Fusce ac felis sit amet ligula pharetra condimentum.
         </p>
         <a href="{% url 'course:create' %}" class="btn-large waves-effect waves-light light-blue darken-4">
-          Quisque ut
+          {% trans 'add course' %}
           <i class="material-icons large right">add</i>
         </a>
       </div>
