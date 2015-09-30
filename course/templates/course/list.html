@@ -14,21 +14,23 @@
 {% block content %}
   {% if object_list %}
     <div class="row" id="masonry-grid">
-      <div class="col s12 m6 l3">
-        <div class="card">
-          <div class="card-content light-blue-text">
-            <div class="card-title light-blue-text">
-              <a href="{{ object.get_absolute_url }}">
-                <h5>{{ object }}</h5>
-              </a>
+      {% for object in object_list %}
+        <div class="col s12 m6 l3">
+          <div class="card">
+            <div class="card-content light-blue-text">
+              <div class="card-title light-blue-text">
+                <a href="{{ object.get_absolute_url }}">
+                  <h5>{{ object }}</h5>
+                </a>
+              </div>
+            </div>
+            <div class="card-action">
+              <a href="{{ object.get_update_url }}">Update</a>
+              <a href="{{ object.get_delete_url }}">delete</a>
             </div>
           </div>
-          <div class="card-action">
-            <a href="{{ object.get_update_url }}">Update</a>
-            <a href="{{ object.get_delete_url }}">delete</a>
-          </div>
         </div>
-      </div>
+      {% endfor %}
     </div>
   {% else %}
       <div class="row center">
