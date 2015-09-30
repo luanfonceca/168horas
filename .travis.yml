@@ -1,11 +1,11 @@
 sudo:
-- false
+  - false
 language:
-- python
+  - python
 install:
-- pip install -r requirements.txt
+  - pip install -r requirements.txt
 script:
-- python manage.py test
+  - python manage.py test
 deploy:
   provider: heroku
   api_key:
@@ -13,3 +13,7 @@ deploy:
   app: web168h
   on:
     repo: luanfonceca/web168h
+after_deploy:
+  - python manage.py migrate --noinput --verbosity=0
+  - python manage.py collectstatic --noinput --verbosity=0
+  - python manage.py compilemessages
