@@ -1,8 +1,15 @@
 sudo:
-  - false
+- false
 language:
-  - python
+- python
 install:
-  - pip install -r requirements.txt
+- pip install -r requirements.txt
 script:
-  - python manage.py test
+- python manage.py test
+deploy:
+  provider: heroku
+  api_key:
+    secure: rtyuwr8h0Q/uj67xT4IdEIYTAyhERVaRf348XirQGRwlynyplihtIiqP1ji1mffrVpZaCk5czBe8WDi32+0fk/I1RRA30CIXqbUHb8R9OhL+HybSeEJvCfkCCN6HoZFLe7NSH2QBBkakzGZWbxq08935Kmn2TRCjHtbgpPMbbbEIM/+18FNzX+Wa8/3osZQ7jEQy3f+AfLKFoT6w5d2l3ebw9CVZ0AfFTPpeld2b7xOqtfkOSUvxaE4AA1mLZSQCwVt1XayFdIi62yVX0JoUxYZJ21ATC2TbUu6SFCLZsLn+44VHDGH2xq7Ccpp5UczMm8ioOMUHnUHc4XdA06Pru2veOV0hPi3mRJP4QWeWPemarmSGv2lgI43CdMzymjv2FAA/exEJZUtvOnEXKZAVqQ7tATehCyBp6U1ktPiaYYWSZQGwiyMIjLwIWf9nvzuh2iaAGYZDvAvJA604d3k5dwxWCV6CM2vZDAH9TAUabPYqpWWMCkbHvoKr8lQuddItQDA2RDW1V3Kj4GXlWC33H99hfuuH3WHPxRDAQATVpLZQYIaotKTP28N06SYzxpTdN2ZcgOzdXjyw9qD3NkUojZdn0YMPAiy1iicAjIHCaqOisD8oA2MrmTNEcKgAhYyRaCqAxSJlivsmYaCbzNxYcJTUf+W1sGr4RpXAQycMH2g=
+  app: 168h
+  on:
+    repo: luanfonceca/168h
