@@ -1,6 +1,7 @@
 # Project specific ignored file
 local_settings.py
 db.sqlite3
+staticfiles/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
