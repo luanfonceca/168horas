@@ -6,6 +6,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 DEBUG = True
+
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -14,8 +15,13 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+DEFAULT_DATABASE = {
+    'ENGINE': 'django.db.backends.sqlite3',
+    'NAME': 'db.sqlite3'
+}
+
 DATABASES = {
-    'default': dj_database_url.config()
+    'default': dj_database_url.config() or DEFAULT_DATABASE
 }
 
 # Local time zone for this installation. Choices can be found here:
