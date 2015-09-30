@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load widget_tweaks %}
+
+{% block content %}
+  <form method="POST">
+    {% csrf_token %}
+
+    <div class="row">
+      {% include "includes/field.html" with field=form.title %}
+    </div>
+
+    <div class="row">
+      <div class="input-field">
+        {% render_field form.description class+="materialize-textarea" %}
+        <label for="{{ form.description.id }}" data-error="{{ form.description.errors.0 }}">
+          {{ form.description.label }}
+        </label>
+        <br>
+        {% if form.description.help_text %}
+          <p class="help-text caption">{{ form.description.help_text }}</p>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12 l12" style="padding-bottom: 20px;">
+        <input id="id_is_public" name="is_public" type="checkbox">
+        <label for="id_is_public">{{ form.is_public.label }}</label><br>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12 l12" style="padding-bottom: 20px;">
+        <input id="id_is_published" name="is_published" type="checkbox">
+        <label for="id_is_published">{{ form.is_published.label }}</label><br>
+      </div>
+    </div>
+
+    <br>
+    <div class="center-align col s4">
+      <a href="{% if object %}{% url 'course:detail' object.slug %}{% else %}{% url 'course:list' %}{% endif %}">
+        {% trans 'cancel' %}
+      </a>
+      &nbsp;
+      <button type="submit" class="btn-large waves-effect waves-light light-blue darken-4">
+        {% trans 'submit' %}
+        <i class="material-icons right">done</i>
+      </button>
+    </div>
+  </form>
+{% endblock %}

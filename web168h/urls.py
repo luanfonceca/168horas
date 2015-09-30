@@ -1,17 +1,12 @@
 from django.conf.urls import patterns, include, url
 
-# Uncomment the next two lines to enable the admin:
-# from django.contrib import admin
-# admin.autodiscover()
+from course.views import CourseList
 
-urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'web168h.views.home', name='home'),
-    # url(r'^web168h/', include('web168h.foo.urls')),
+urlpatterns = patterns(
+    '',
 
-    # Uncomment the admin/doc line below to enable admin documentation:
-    # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-
-    # Uncomment the next line to enable the admin:
-    # url(r'^admin/', include(admin.site.urls)),
+    # Apps
+    url(r'^', include('core.urls')),
+    url(r'^$', CourseList.as_view(), name='index'),
+    url(r'^courses/', include('course.urls', namespace='course')),
 )

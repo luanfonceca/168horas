@@ -1,0 +1,11 @@
+{% load widget_tweaks %}
+{% load tags %}
+
+<div class="input-field col s12 l12">
+  {% render_field field class+=field|get_error_class %}
+
+  <label for="{{ field.id }}" data-error="{{ field.errors.0 }}">{{ field.label }}</label><br>
+  {% if field.help_text %}
+    <p class="help-text caption">{{ field.help_text }}</p>
+  {% endif %}
+</div>
