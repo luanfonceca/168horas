@@ -7,8 +7,6 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 DEBUG = True
 
-TEMPLATE_DEBUG = DEBUG
-
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
@@ -82,11 +80,11 @@ STATICFILES_FINDERS = (
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'mi42r57vm488@3$1#)sw)1#0ii+w9ho=c#sjsaka5x3lt)u&amp;e!'
 
-# List of callables that know how to import templates from various sources.
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -110,24 +108,30 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # Allow all host headers
 ALLOWED_HOSTS = ['*']
 
-TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-)
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+            ],
+        },
+    },
+]
+
 
 DJANGO_APPS = (
+    # The Django sites framework is required
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-)
-
-EXTERNAL_APPS = (
-    'django_extensions',
-    'widget_tweaks',
+    'django.contrib.admin',
 )
 
 LOCAL_APPS = (
@@ -135,7 +139,19 @@ LOCAL_APPS = (
     'course',
 )
 
-INSTALLED_APPS = DJANGO_APPS + EXTERNAL_APPS + LOCAL_APPS
+EXTERNAL_APPS = (
+    'django_extensions',
+    'widget_tweaks',
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
+)
+
+INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + EXTERNAL_APPS
+
+SITE_ID = 1
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -165,6 +181,14 @@ LOGGING = {
         },
     }
 }
+
+
+LOGIN_URL = '/'
+LOGIN_REDIRECT_URL = LOGIN_URL
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_EMAIL_REQUIRED = True
+SOCIALACCOUNT_QUERY_EMAIL = True
+ACCOUNT_LOGOUT_ON_GET = True
 
 
 # Import the custom settings

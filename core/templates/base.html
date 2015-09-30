@@ -1,5 +1,6 @@
 {% load static %}
 {% load i18n %}
+{% load socialaccount %}
 
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -30,7 +31,19 @@
       <div class="nav-wrapper container">
         <a id="logo-container" href="{% url 'index' %}" class="brand-logo">168horas</a>
         <ul class="right hide-on-med-and-down">
-          <li><a href="#">Navbar Link</a></li>
+          <li>
+            {% if request.user.is_authenticated %}
+              <a href="{% url 'account_logout' %}">
+                {{ request.user.first_name }}
+                <i class="material-icons right">cancel</i>
+              </a>
+            {% else %}
+              <a href="{% provider_login_url 'facebook' method='oauth2' %}">
+                {% trans 'Facebook' %}
+                <i class="material-icons right">account_circle</i>
+              </a>
+            {% endif %}
+          </li>
         </ul>
 
         <ul id="nav-mobile" class="side-nav" style="left: -250px;">
