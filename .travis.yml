@@ -13,5 +13,3 @@ deploy:
   app: web168h
   run:
       - python manage.py migrate --noinput --verbosity=0
-      - python manage.py compilemessages
-      - restart
