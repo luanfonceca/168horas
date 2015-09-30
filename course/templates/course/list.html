@@ -12,8 +12,8 @@
 {% endblock %}
 
 {% block content %}
-  <div class="row" id="masonry-grid">
-    {% for object in object_list %}
+  {% if object_list %}
+    <div class="row" id="masonry-grid">
       <div class="col s12 m6 l3">
         <div class="card">
           <div class="card-content light-blue-text">
@@ -29,7 +29,8 @@
           </div>
         </div>
       </div>
-    {% empty %}
+    </div>
+  {% else %}
       <div class="row center">
         <h3 class="light light-blue-text header">Phasellus volutpat metus eget</h3>
         <p class="col s8 offset-s2 caption">
@@ -40,8 +41,7 @@
           <i class="material-icons large right">add</i>
         </a>
       </div>
-    {% endfor %}
-  </div>
+  {% endif %}
 {% endblock content %}
 
 {% block extra_js %}
