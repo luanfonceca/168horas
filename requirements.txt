@@ -3,6 +3,7 @@ Django==1.8.4
 Pygments==2.0.2
 WebOb==1.4.1
 WebTest==2.0.18
+Werkzeug==0.10.4
 appnope==0.1.0
 beautifulsoup4==4.4.1
 blessings==1.6
