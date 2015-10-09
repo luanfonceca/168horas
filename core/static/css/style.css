@@ -307,3 +307,7 @@ a.button-collapse.top-nav.full {
 .help-text {
   margin-top: 0;
 }
+
+.card .card-action a.btn {
+  color: #fff;
+}

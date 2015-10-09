@@ -12,36 +12,37 @@
 {% endblock %}
 
 {% block content %}
-  {% if object_list %}
-    <div class="row" id="masonry-grid">
-      {% for object in object_list %}
+  {% for object in object_list %}
+    <h4>{{ object }}</h4>
+    <div class="row masonry-grid">
+      {% for course in object.courses.all %}
         <div class="col s12 m6 l4">
           <div class="card">
             <div class="card-content light-blue-text">
               <div class="card-title light-blue-text">
-                <a href="{{ object.get_absolute_url }}">
-                  <h5>{{ object }}</h5>
+                <a href="{{ course.get_absolute_url }}">
+                  <h5>{{ course }}</h5>
                 </a>
               </div>
             </div>
             <div class="card-action">
               <div class="center-align">
-                <a class="btn btn-wide btn-large waves-effect waves-light light-blue darken-4" href="{{ object.get_update_url }}" style="width: 100%">
+                <a class="btn btn-wide btn-large waves-effect waves-light light-blue darken-4" href="{{ course.get_update_url }}" style="width: 100%">
                   Join course
                   <i class="material-icons right"><i class="material-icons">arrow_forward</i></i>
                 </a>
               </div>
-              {% if request.user.is_staff or request.user == object.author %}
+              {% if request.user.is_staff or request.user == course.author %}
                 <br>
-                <a href="{{ object.get_update_url }}">Update</a>
-                <a href="{{ object.get_delete_url }}">delete</a>
+                <a href="{{ course.get_update_url }}">Update</a>
+                <a href="{{ course.get_delete_url }}">delete</a>
               {% endif %}
             </div>
           </div>
         </div>
       {% endfor %}
     </div>
-  {% else %}
+  {% empty %}
       <div class="row center">
         <h3 class="light light-blue-text header">Phasellus volutpat metus eget</h3>
         <p class="col s8 offset-s2 caption">
@@ -52,13 +53,13 @@
           <i class="material-icons large right">add</i>
         </a>
       </div>
-  {% endif %}
+  {% endfor %}
 {% endblock content %}
 
 {% block extra_js %}
   <script type="text/javascript">
     $(document).ready(function() {
-      $('#masonry-grid').masonry({
+      $('.masonry-grid').masonry({
         columnWidth: '.col',
         itemSelector: '.col',
       });

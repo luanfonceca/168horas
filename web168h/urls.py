@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 
-from course.views import CourseList
+from category.views import CourseByCategoryList
 
 admin.autodiscover()
 urlpatterns = patterns(
@@ -10,8 +10,9 @@ urlpatterns = patterns(
 
     # Apps
     url(r'^', include('core.urls')),
-    url(r'^$', CourseList.as_view(), name='index'),
+    url(r'^$', CourseByCategoryList.as_view(), name='index'),
     url(r'^courses/', include('course.urls', namespace='course')),
+    url(r'^categories/', include('category.urls', namespace='category')),
     url(r'^accounts/', include('allauth.urls')),
     url(r'^accounts/logout/$',
         'django.contrib.auth.views.logout',

@@ -16,6 +16,11 @@ class Course(TitleSlugDescriptionModel):
     is_published = models.BooleanField(_(u'Is Published'), default=True)
     is_public = models.BooleanField(_(u'Is Public'), default=True)
 
+    # relations
+    category = models.ForeignKey(
+        to='category.Category',
+        related_name='courses')
+
     # managers
     objects = CouseManager.as_manager()
 

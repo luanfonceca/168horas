@@ -4,8 +4,8 @@
 
 {% block header_actions %}
   <div class="right" style="line-height: 122px;">
-    <a class='btn-large waves-effect waves-light light-blue darken-4' href="{% url 'course:create' %}">
-      {% trans 'add course' %}
+    <a class='btn-large waves-effect waves-light light-blue darken-4' href="{% url 'category:create' %}">
+      {% trans 'add category' %}
       <i class="material-icons right" style="line-height: 55px;">add</i>
     </a>
   </div>
@@ -25,17 +25,8 @@
               </div>
             </div>
             <div class="card-action">
-              <div class="center-align">
-                <a class="btn btn-wide btn-large waves-effect waves-light light-blue darken-4" href="{{ object.get_update_url }}" style="width: 100%">
-                  Join course
-                  <i class="material-icons right"><i class="material-icons">arrow_forward</i></i>
-                </a>
-              </div>
-              {% if request.user.is_staff or request.user == object.author %}
-                <br>
-                <a href="{{ object.get_update_url }}">Update</a>
-                <a href="{{ object.get_delete_url }}">delete</a>
-              {% endif %}
+              <a href="{{ object.get_update_url }}">Update</a>
+              <a href="{{ object.get_delete_url }}">delete</a>
             </div>
           </div>
         </div>
@@ -47,8 +38,8 @@
         <p class="col s8 offset-s2 caption">
           Aenean viverra rhoncus pede. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Fusce ac felis sit amet ligula pharetra condimentum.
         </p>
-        <a href="{% url 'course:create' %}" class="btn-large waves-effect waves-light light-blue darken-4">
-          {% trans 'add course' %}
+        <a href="{% url 'category:create' %}" class="btn-large waves-effect waves-light light-blue darken-4">
+          {% trans 'add category' %}
           <i class="material-icons large right">add</i>
         </a>
       </div>

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load widget_tweaks %}
+
+{% block content %}
+  <form method="POST">
+    {% csrf_token %}
+
+    <div class="row">
+      {% include "includes/field.html" with field=form.title %}
+    </div>
+
+    <br>
+    <div class="center-align col s4">
+      <a href="{% if object %}{% url 'category:detail' object.slug %}{% else %}{% url 'category:list' %}{% endif %}">
+        {% trans 'cancel' %}
+      </a>
+      &nbsp;
+      <button type="submit" class="btn-large waves-effect waves-light light-blue darken-4">
+        {% trans 'submit' %}
+        <i class="material-icons right">done</i>
+      </button>
+    </div>
+  </form>
+{% endblock %}

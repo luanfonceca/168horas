@@ -137,6 +137,7 @@ DJANGO_APPS = (
 LOCAL_APPS = (
     'core',
     'course',
+    'category',
 )
 
 EXTERNAL_APPS = (

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block header_actions %}
+  <div class="right" style="line-height: 122px;">
+    <a class='dropdown-button btn-large waves-effect waves-light light-blue darken-4' href='javascript:;' data-activates='category-actions'>
+      {% trans 'Actions' %}
+      <i class="material-icons right" style="line-height: 55px;">arrow_drop_down</i>
+    </a>
+    <ul id='category-actions' class='dropdown-content'>
+      <li>
+        <a href="{{ object.get_update_url }}">
+          {% trans 'update' %}
+          <i class="material-icons right">edit</i>
+        </a>
+      </li>
+      <li>
+        <a href="{{ object.get_delete_url }}">
+          {% trans 'delete' %}
+          <i class="material-icons right">delete</i>
+        </a>
+      </li>
+    </ul>
+  </div>
+{% endblock %}
+
+{% block content %}
+  <h3>{{ object.title }}</h3>
+  <blockquote>{{ object.description|linebreaks }}</blockquote>
+{% endblock %}
