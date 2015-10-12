@@ -2,14 +2,16 @@
 
 {% load i18n %}
 
-{% block header_actions %}
-  <div class="right" style="line-height: 122px;">
-    <a class='btn-large waves-effect waves-light light-blue darken-4' href="{% url 'course:create' %}">
-      {% trans 'add course' %}
-      <i class="material-icons right" style="line-height: 55px;">add</i>
-    </a>
-  </div>
-{% endblock %}
+{% if request.user.is_admin %}
+  {% block header_actions %}
+    <div class="right" style="line-height: 122px;">
+      <a class='btn-large waves-effect waves-light light-blue darken-4' href="{% url 'course:create' %}">
+        {% trans 'add course' %}
+        <i class="material-icons right" style="line-height: 55px;">add</i>
+      </a>
+    </div>
+  {% endblock %}
+{% endif %}
 
 {% block content %}
   {% for object in object_list %}

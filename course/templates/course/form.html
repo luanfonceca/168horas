@@ -4,6 +4,8 @@
 {% load widget_tweaks %}
 
 {% block content %}
+  {{ form.errors }}
+
   <form method="POST">
     {% csrf_token %}
 
@@ -21,6 +23,13 @@
         {% if form.description.help_text %}
           <p class="help-text caption">{{ form.description.help_text }}</p>
         {% endif %}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12 l12" style="padding-bottom: 20px;">
+        {{ form.category }}
+        <label for="id_category">{{ form.category.label }}</label><br>
       </div>
     </div>
 
@@ -51,3 +60,11 @@
     </div>
   </form>
 {% endblock %}
+
+{% block extra_js %}
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('select').material_select();
+    });
+  </script>
+{% endblock extra_js %}

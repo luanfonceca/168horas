@@ -3,15 +3,19 @@ from django.core.urlresolvers import reverse
 from django_webtest import WebTest
 from model_mommy import mommy
 
+from category.models import Category
 from course.models import Course
 
 
 class CourseTest(WebTest):
+    def setUp(self):
+        self.category = mommy.make(Category)
+
     def test_factory_create(self):
         '''
         Test that we can create an instance via our object factory.
         '''
-        instance = mommy.make(Course)
+        instance = mommy.make(Course, category=self.category)
         self.assertTrue(isinstance(instance, Course))
 
     def test_list_empty_view(self):
@@ -52,7 +56,7 @@ class CourseTest(WebTest):
         '''
         Test that we can view an instance via the detail view.
         '''
-        instance = mommy.make(Course)
+        instance = mommy.make(Course, category=self.category)
         response = self.app.get(instance.get_absolute_url())
         self.assertEqual(response.context['object'], instance)
 
@@ -60,7 +64,7 @@ class CourseTest(WebTest):
         '''
         Test that we can update an instance via the update view.
         '''
-        instance = mommy.make(Course)
+        instance = mommy.make(Course, category=self.category)
         response = self.app.get(instance.get_update_url())
 
         new_title = 'Donec sodales sagittis'
@@ -74,7 +78,7 @@ class CourseTest(WebTest):
         '''
         Test that we can delete an instance via the delete view.
         '''
-        instance = mommy.make(Course)
+        instance = mommy.make(Course, category=self.category)
 
         response = self.app.get(instance.get_delete_url())
         response = response.form.submit().follow()
