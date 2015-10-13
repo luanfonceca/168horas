@@ -8,14 +8,14 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('category', '0001_initial'),
-        ('course', '0001_initial'),
+        ('event', '0001_initial'),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='course',
+            model_name='event',
             name='category',
-            field=models.ForeignKey(related_name='courses', default=None, to='category.Category'),
+            field=models.ForeignKey(related_name='events', default=None, to='category.Category'),
             preserve_default=False,
         ),
     ]

@@ -49,7 +49,7 @@
 
     <br>
     <div class="center-align col s4">
-      <a href="{% if object %}{% url 'course:detail' object.slug %}{% else %}{% url 'course:list' %}{% endif %}">
+      <a href="{% if object %}{% url 'event:detail' object.slug %}{% else %}{% url 'event:list' %}{% endif %}">
         {% trans 'cancel' %}
       </a>
       &nbsp;

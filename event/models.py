@@ -11,7 +11,7 @@ class CouseManager(models.QuerySet):
         return self.filter(is_public=True)
 
 
-class Course(TitleSlugDescriptionModel):
+class Event(TitleSlugDescriptionModel):
     created_at = CreationDateTimeField(_(u'Created At'))
     is_published = models.BooleanField(_(u'Is Published'), default=True)
     is_public = models.BooleanField(_(u'Is Public'), default=True)
@@ -19,23 +19,23 @@ class Course(TitleSlugDescriptionModel):
     # relations
     category = models.ForeignKey(
         to='category.Category',
-        related_name='courses')
+        related_name='events')
 
     # managers
     objects = CouseManager.as_manager()
 
     class Meta:
-        verbose_name = _(u'Course')
-        verbose_name_plural = _(u'Courses')
+        verbose_name = _(u'Event')
+        verbose_name_plural = _(u'Events')
 
     def __str__(self):
         return unicode(self.title)
 
     def get_absolute_url(self):
-        return reverse('course:detail', kwargs={'slug': self.slug})
+        return reverse('event:detail', kwargs={'slug': self.slug})
 
     def get_update_url(self):
-        return reverse('course:update', kwargs={'slug': self.slug})
+        return reverse('event:update', kwargs={'slug': self.slug})
 
     def get_delete_url(self):
-        return reverse('course:delete', kwargs={'slug': self.slug})
+        return reverse('event:delete', kwargs={'slug': self.slug})

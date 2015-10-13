@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Course',
+            name='Event',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('title', models.CharField(max_length=255, verbose_name='title')),
@@ -23,8 +23,8 @@ class Migration(migrations.Migration):
                 ('is_public', models.BooleanField(default=True, verbose_name='Is Public')),
             ],
             options={
-                'verbose_name': 'Course',
-                'verbose_name_plural': 'Courses',
+                'verbose_name': 'Event',
+                'verbose_name_plural': 'Events',
             },
         ),
     ]

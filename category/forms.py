@@ -5,5 +5,5 @@ from category.models import Category
 
 class CategoryForm(forms.ModelForm):
     class Meta:
-        exclude = ('created_at', 'courses')
+        exclude = ('created_at', 'events')
         model = Category

@@ -136,7 +136,7 @@ DJANGO_APPS = (
 
 LOCAL_APPS = (
     'core',
-    'course',
+    'event',
     'category',
 )
 

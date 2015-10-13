@@ -3,6 +3,7 @@ from django.utils.translation import ugettext as _
 
 from vanilla import model_views as views
 
+from event.models import Event
 from category.models import Category
 from category.forms import CategoryForm
 
@@ -19,10 +20,15 @@ class BaseCategoryView(object):
         return context
 
 
-class CourseByCategoryList(BaseCategoryView, views.ListView):
-    template_name = 'category/list_courses_by_category.html'
+class EventByCategoryList(BaseCategoryView, views.ListView):
+    template_name = 'category/list_events_by_category.html'
     queryset = Category.objects.all()
-    page_title = _(u'Maecenas vestibulum')
+    page_title = _(u'All categories')
+
+    def get_context_data(self, **kwargs):
+        context = super(EventByCategoryList, self).get_context_data(**kwargs)
+        context.update(next_events=Event.objects.all()[:3])
+        return context
 
 
 class CategoryList(BaseCategoryView, views.ListView):
