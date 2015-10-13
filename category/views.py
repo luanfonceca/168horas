@@ -27,7 +27,8 @@ class EventByCategoryList(BaseCategoryView, views.ListView):
 
     def get_context_data(self, **kwargs):
         context = super(EventByCategoryList, self).get_context_data(**kwargs)
-        context.update(next_events=Event.objects.all()[:3])
+        next_events = Event.objects.get_next()[:3]
+        context.update(next_events=next_events)
         return context
 
 

@@ -2,7 +2,7 @@
 {% load tags %}
 
 <div class="input-field col s12 l12">
-  {% render_field field class+=field|get_error_class %}
+  {% render_field field class+=field|get_error_class class+=class %}
 
   <label for="{{ field.id }}">{{ field.label }}</label><br>
   {% for error in field.errors %}

@@ -15,6 +15,14 @@
     </div>
 
     <div class="row">
+      {% include "includes/field.html" with field=form.link %}
+    </div>
+
+    <div class="row">
+      {% include "includes/field.html" with field=form.scheduled_date class='datepicker' %}
+    </div>
+
+    <div class="row">
       <div class="input-field">
         {% render_field form.description class+="materialize-textarea" %}
         <label for="{{ form.description.id }}" data-error="{{ form.description.errors.0 }}">
@@ -31,7 +39,7 @@
       {% include "includes/checkbox.html" with field=form.categories queryset=object.categories field_name='categories' %}
     </div>
 
-
+    <!--
     <div class="row">
       <div class="input-field col s12 l12" style="padding-bottom: 20px;">
         {{ form.is_public }}
@@ -45,6 +53,7 @@
         <label for="id_is_published">{{ form.is_published.label }}</label><br>
       </div>
     </div>
+    -->
 
     <br>
     <div class="center-align col s4">
@@ -64,6 +73,11 @@
   <script type="text/javascript">
     $(document).ready(function() {
       $('select').material_select();
+      $('.datepicker').pickadate({
+        format: 'dd/mm/yyyy',
+        selectMonths: true,
+        selectYears: 15
+      });
     });
   </script>
 {% endblock extra_js %}

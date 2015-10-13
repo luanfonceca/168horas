@@ -28,7 +28,7 @@
           </div>
           <div class="card-action">
             <div class="center-align">
-              <a class="btn btn-wide btn-large waves-effect waves-light light-blue darken-4" href="{{ event.get_update_url }}" style="width: 100%">
+              <a class="btn btn-wide btn-large waves-effect waves-light light-blue darken-4" {% if event.link %}href="{{ event.link }}" target="_blank"{% else %}href="{{ event.get_absolute_url }}"{% endif %} style="width: 100%">
                 Join event
                 <i class="material-icons right"><i class="material-icons">arrow_forward</i></i>
               </a>
@@ -46,7 +46,7 @@
   {% for object in object_list %}
     <h4>{{ object }}</h4>
     <div class="row masonry-grid">
-      {% for event in object.events.all %}
+      {% for event in object.events.get_next %}
         <div class="col s12 m6 l4">
           <div class="card">
             <div class="card-content light-blue-text">

@@ -10,8 +10,8 @@ class Category(TitleSlugDescriptionModel):
         verbose_name = _(u'Category')
         verbose_name_plural = _(u'Categories')
 
-    def __str__(self):
-        return unicode(self.title)
+    def __unicode__(self):
+        return self.title
 
     def get_absolute_url(self):
         return reverse('category:detail', kwargs={'slug': self.slug})
