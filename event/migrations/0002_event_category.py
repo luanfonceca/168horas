@@ -14,8 +14,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AddField(
             model_name='event',
-            name='category',
-            field=models.ForeignKey(related_name='events', default=None, to='category.Category'),
-            preserve_default=False,
+            name='categories',
+            field=models.ManyToManyField(related_name='events', to='category.Category'),
         ),
     ]

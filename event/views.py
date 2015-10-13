@@ -32,11 +32,7 @@ class EventCreate(BaseEventView, views.CreateView):
 
 class EventDetail(BaseEventView, views.DetailView):
     template_name = 'event/detail.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(EventDetail, self).get_context_data(**kwargs)
-        context.update(page_title=self.object.category)
-        return context
+    page_title = _(u'Detail event')
 
 
 class EventUpdate(BaseEventView, views.UpdateView):

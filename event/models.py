@@ -17,7 +17,7 @@ class Event(TitleSlugDescriptionModel):
     is_public = models.BooleanField(_(u'Is Public'), default=True)
 
     # relations
-    category = models.ForeignKey(
+    categories = models.ManyToManyField(
         to='category.Category',
         related_name='events')
 

@@ -9,13 +9,14 @@ from event.models import Event
 
 class EventTest(WebTest):
     def setUp(self):
-        self.category = mommy.make(Category)
+        mommy.make(Category)
+        self.categories = Category.objects.all()
 
     def test_factory_create(self):
         '''
         Test that we can create an instance via our object factory.
         '''
-        instance = mommy.make(Event, category=self.category)
+        instance = mommy.make(Event, categories=self.categories)
         self.assertTrue(isinstance(instance, Event))
 
     def test_list_empty_view(self):
@@ -46,6 +47,7 @@ class EventTest(WebTest):
         self.assertFalse(Event.objects.filter(title=title).exists())
 
         response.form['title'] = title
+        response.form['categories'].value = self.categories.first().pk
         response.form.submit().follow()
 
         instance = Event.objects.get(title=title)
@@ -56,7 +58,7 @@ class EventTest(WebTest):
         '''
         Test that we can view an instance via the detail view.
         '''
-        instance = mommy.make(Event, category=self.category)
+        instance = mommy.make(Event, categories=self.categories)
         response = self.app.get(instance.get_absolute_url())
         self.assertEqual(response.context['object'], instance)
 
@@ -64,7 +66,7 @@ class EventTest(WebTest):
         '''
         Test that we can update an instance via the update view.
         '''
-        instance = mommy.make(Event, category=self.category)
+        instance = mommy.make(Event, categories=self.categories)
         response = self.app.get(instance.get_update_url())
 
         new_title = 'Donec sodales sagittis'
@@ -78,7 +80,7 @@ class EventTest(WebTest):
         '''
         Test that we can delete an instance via the delete view.
         '''
-        instance = mommy.make(Event, category=self.category)
+        instance = mommy.make(Event, categories=self.categories)
 
         response = self.app.get(instance.get_delete_url())
         response = response.form.submit().follow()

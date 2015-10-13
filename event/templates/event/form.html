@@ -2,6 +2,7 @@
 
 {% load i18n %}
 {% load widget_tweaks %}
+{% load tags %}
 
 {% block content %}
   {{ form.errors }}
@@ -27,11 +28,9 @@
     </div>
 
     <div class="row">
-      <div class="input-field col s12 l12" style="padding-bottom: 20px;">
-        {{ form.category }}
-        <label for="id_category">{{ form.category.label }}</label><br>
-      </div>
+      {% include "includes/checkbox.html" with field=form.categories queryset=object.categories field_name='categories' %}
     </div>
+
 
     <div class="row">
       <div class="input-field col s12 l12" style="padding-bottom: 20px;">

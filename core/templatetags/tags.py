@@ -8,3 +8,8 @@ def get_error_class(field):
     if field.errors:
         classes.append('invalid')
     return ' '.join(classes)
+
+
+@register.filter
+def exists_pk(queryset, pk):
+    return queryset.filter(pk=pk).exists()
