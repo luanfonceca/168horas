@@ -13,8 +13,8 @@
   {% endblock %}
 {% endif %}
 
-{% if next_events.exists %}
-  {% block outside_content %}
+{% block outside_content %}
+  {% if next_events.exists %}
     <div class="grey lighten-5">
       <div class="container">
         <h4>{% trans 'Next events' %}</h4>
@@ -48,8 +48,8 @@
         </div>
       </div>
     </div>
-  {% endblock %}
-{% endif %}
+  {% endif %}
+{% endblock %}
 
 {% block content %}
   {% for object in object_list %}
