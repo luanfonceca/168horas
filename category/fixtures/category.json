@@ -1,0 +1,56 @@
+[
+{
+    "fields": {
+        "slug": "mollitia-maiores-rem-non-ut-amet-soluta-omnis-accu",
+        "description": "",
+        "title": "Gest\u00e3o em Neg\u00f3cios"
+    },
+    "model": "category.category",
+    "pk": 1
+},
+{
+    "fields": {
+        "slug": "odio-sint-officia",
+        "description": "",
+        "title": "Direito"
+    },
+    "model": "category.category",
+    "pk": 2
+},
+{
+    "fields": {
+        "slug": "odit-provident",
+        "description": "",
+        "title": "Sa\u00fade"
+    },
+    "model": "category.category",
+    "pk": 3
+},
+{
+    "fields": {
+        "slug": "engenharia-e-ciencias-exatas",
+        "description": "",
+        "title": "Engenharia e Ci\u00eancias Exatas"
+    },
+    "model": "category.category",
+    "pk": 4
+},
+{
+    "fields": {
+        "slug": "educacao",
+        "description": "",
+        "title": "Educa\u00e7\u00e3o"
+    },
+    "model": "category.category",
+    "pk": 5
+},
+{
+    "fields": {
+        "slug": "hospitalidade",
+        "description": "",
+        "title": "Hospitalidade"
+    },
+    "model": "category.category",
+    "pk": 6
+}
+]
