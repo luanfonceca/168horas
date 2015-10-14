@@ -53,7 +53,7 @@
 
 {% block content %}
   {% for object in object_list %}
-    <h4><a class="btn-link text-brown" href="{{ object.get_absolute_url }}">{{ object }}</a></h4>
+    <h4><a class="btn-link" href="{{ object.get_absolute_url }}">{{ object }}</a></h4>
     <div class="row masonry-grid">
       {% for event in object.events.get_next %}
         <div class="col s12 m6 l4">
