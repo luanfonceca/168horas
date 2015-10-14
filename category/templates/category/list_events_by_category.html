@@ -13,38 +13,45 @@
   {% endblock %}
 {% endif %}
 
-{% block content %}
-  <h4>{% trans 'Next events' %}</h4>
-  <div class="row masonry-grid">
-    {% for event in next_events.all %}
-      <div class="col s12 m6 l4">
-        <div class="card">
-          <div class="card-content light-blue-text">
-            <div class="card-title light-blue-text">
-              <a href="{{ event.get_absolute_url }}">
-                <h5>{{ event }}</h5>
-              </a>
+{% block outside_content %}
+  <div class="grey lighten-5">
+    <div class="container">
+      <h4>{% trans 'Next events' %}</h4>
+      <div class="row masonry-grid">
+        {% for event in next_events.all %}
+          <div class="col s12 m6 l4">
+            <div class="card">
+              <div class="card-content light-blue-text">
+                <div class="card-title light-blue-text">
+                  <a href="{{ event.get_absolute_url }}">
+                    <h5>{{ event }}</h5>
+                  </a>
+                </div>
+              </div>
+              <div class="card-action">
+                <div class="center-align">
+                  <a class="btn btn-wide btn-large waves-effect waves-light light-blue darken-4" {% if event.link %}href="{{ event.link }}" target="_blank"{% else %}href="{{ event.get_absolute_url }}"{% endif %} style="width: 100%">
+                    Join event
+                    <i class="material-icons right"><i class="material-icons">arrow_forward</i></i>
+                  </a>
+                </div>
+                {% if request.user.is_staff or request.user == event.author %}
+                  <br>
+                  <a href="{{ event.get_update_url }}">Update</a>
+                  <a href="{{ event.get_delete_url }}">delete</a>
+                {% endif %}
+              </div>
             </div>
           </div>
-          <div class="card-action">
-            <div class="center-align">
-              <a class="btn btn-wide btn-large waves-effect waves-light light-blue darken-4" {% if event.link %}href="{{ event.link }}" target="_blank"{% else %}href="{{ event.get_absolute_url }}"{% endif %} style="width: 100%">
-                Join event
-                <i class="material-icons right"><i class="material-icons">arrow_forward</i></i>
-              </a>
-            </div>
-            {% if request.user.is_staff or request.user == event.author %}
-              <br>
-              <a href="{{ event.get_update_url }}">Update</a>
-              <a href="{{ event.get_delete_url }}">delete</a>
-            {% endif %}
-          </div>
-        </div>
+        {% endfor %}
       </div>
-    {% endfor %}
+    </div>
   </div>
+{% endblock %}
+
+{% block content %}
   {% for object in object_list %}
-    <h4>{{ object }}</h4>
+    <h4><a class="btn-link text-brown" href="{{ object.get_absolute_url }}">{{ object }}</a></h4>
     <div class="row masonry-grid">
       {% for event in object.events.get_next %}
         <div class="col s12 m6 l4">
@@ -71,16 +78,22 @@
             </div>
           </div>
         </div>
+      {% empty %}
+        <div class="col s12 m12 l12">
+          <p class="caption">
+            Infelizmente, não dispomos de atividades nessa área. Dissemine a educação. 
+            <a href="{% url 'event:create' %}" class="btn-link">
+              Indique-nos um evento!
+            </a>
+          </p>
+        </div>
       {% endfor %}
     </div>
   {% empty %}
       <div class="row center">
-        <h3 class="light light-blue-text header">Phasellus volutpat metus eget</h3>
-        <p class="col s8 offset-s2 caption">
-          Aenean viverra rhoncus pede. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Fusce ac felis sit amet ligula pharetra condimentum.
-        </p>
+        <h3 class="light light-blue-text header">Infelizmente, não dispomos de atividades. Dissemine a educação.</h3>
         <a href="{% url 'event:create' %}" class="btn-large waves-effect waves-light light-blue darken-4">
-          {% trans 'add event' %}
+          Indique-nos um evento!
           <i class="material-icons large right">add</i>
         </a>
       </div>

@@ -170,6 +170,14 @@ a.button-collapse.top-nav.full {
   #index-banner h4 {
     margin-bottom: 0;
   }
+
+  .top-nav {
+    height: auto !important;
+  }
+
+  .top-nav .right {
+    float: none !important;
+  }
 }
 
 /********************
