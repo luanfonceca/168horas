@@ -23,7 +23,7 @@ class BaseCategoryView(object):
 class EventByCategoryList(BaseCategoryView, views.ListView):
     template_name = 'category/list_events_by_category.html'
     queryset = Category.objects.all()
-    page_title = _(u'All categories')
+    page_title = _(u'Eventos')
 
     def get_context_data(self, **kwargs):
         context = super(EventByCategoryList, self).get_context_data(**kwargs)

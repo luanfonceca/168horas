@@ -14,7 +14,7 @@
     <form method="POST">
       {% csrf_token %}
       <div class="center-align">
-        <a href="{% url 'category:detail' object.slug %}">{% trans 'cancel' %}</a>
+        <a href="{% url 'category:detail' object.slug %}">{% trans 'voltar' %}</a>
         &nbsp;
         <button type="submit" class="btn-large waves-effect waves-light light-blue darken-4">
           {% trans 'delete' %}

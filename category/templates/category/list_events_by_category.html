@@ -6,7 +6,7 @@
   {% block header_actions %}
     <div class="right" style="line-height: 122px;">
       <a class='btn-large waves-effect waves-light light-blue darken-4' href="{% url 'event:create' %}">
-        {% trans 'event' %}
+        {% trans 'evento' %}
         <i class="material-icons right" style="line-height: 55px;">add</i>
       </a>
     </div>
@@ -17,7 +17,7 @@
   {% if next_events.exists %}
     <div class="grey lighten-5">
       <div class="container">
-        <h4>{% trans 'Next events' %}</h4>
+        <h4>{% trans 'Próximos eventos' %}</h4>
         <div class="row masonry-grid">
           {% for event in next_events.all %}
             <div class="col s12 m6 l4">
@@ -36,14 +36,14 @@
                 <div class="card-action">
                   <div class="center-align">
                     <a class="btn btn-wide btn-large waves-effect waves-light light-blue darken-4" {% if event.link %}href="{{ event.link }}" target="_blank"{% else %}href="{{ event.get_absolute_url }}"{% endif %} style="width: 100%">
-                      Join event
+                      Participar
                       <i class="material-icons right"><i class="material-icons">arrow_forward</i></i>
                     </a>
                   </div>
                   {% if request.user.is_staff or request.user == event.author %}
                     <br>
-                    <a href="{{ event.get_update_url }}">Update</a>
-                    <a href="{{ event.get_delete_url }}">delete</a>
+                    <a href="{{ event.get_update_url }}">Atualizar</a>
+                    <a href="{{ event.get_delete_url }}">Remover</a>
                   {% endif %}
                 </div>
               </div>
@@ -72,14 +72,14 @@
             <div class="card-action">
               <div class="center-align">
                 <a class="btn btn-wide btn-large waves-effect waves-light light-blue darken-4" href="{{ event.get_update_url }}" style="width: 100%">
-                  Join event
+                  Participar
                   <i class="material-icons right"><i class="material-icons">arrow_forward</i></i>
                 </a>
               </div>
               {% if request.user.is_staff or request.user == event.author %}
                 <br>
-                <a href="{{ event.get_update_url }}">Update</a>
-                <a href="{{ event.get_delete_url }}">delete</a>
+                <a href="{{ event.get_update_url }}">Atualizar</a>
+                <a href="{{ event.get_delete_url }}">Remover</a>
               {% endif %}
             </div>
           </div>

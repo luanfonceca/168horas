@@ -27,22 +27,22 @@ class EventList(BaseEventView, views.ListView):
 
 class EventCreate(BaseEventView, views.CreateView):
     template_name = 'event/form.html'
-    page_title = _(u'Add event')
+    page_title = _(u'Adicionar evento')
 
 
 class EventDetail(BaseEventView, views.DetailView):
     template_name = 'event/detail.html'
-    page_title = _(u'Detail event')
+    page_title = _(u'Detalhes do evento')
 
 
 class EventUpdate(BaseEventView, views.UpdateView):
     template_name = 'event/form.html'
-    page_title = _(u'Update event')
+    page_title = _(u'Atualizar evento')
 
 
 class EventDelete(BaseEventView, views.DeleteView):
     template_name = 'event/delete.html'
-    page_title = _(u'Delete event')
+    page_title = _(u'Remover evento')
     # success_url = reverse('index')
 
     def get_success_url(self):
