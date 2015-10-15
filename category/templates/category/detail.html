@@ -29,7 +29,7 @@
 
 {% block content %}
   <h3>{{ object.title }}</h3>
-  <blockquote>{{ object.description|linebreaks }}</blockquote>
+  <blockquote class="light-blue-border">{{ object.description|linebreaks }}</blockquote>
   <div class="row masonry-grid">
     {% for event in object.events.get_next %}
       <div class="col s12 m6 l4">

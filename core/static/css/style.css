@@ -319,3 +319,8 @@ a.button-collapse.top-nav.full {
 .card .card-action a.btn {
   color: #fff;
 }
+
+
+.light-blue-border {
+  border-color: #29b6f6 !important;
+}
