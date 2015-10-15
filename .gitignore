@@ -2,6 +2,7 @@
 local_settings.py
 db.sqlite3
 staticfiles/
+uploads/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
