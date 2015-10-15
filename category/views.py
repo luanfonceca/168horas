@@ -45,7 +45,7 @@ class CategoryCreate(BaseCategoryView, views.CreateView):
 
 class CategoryDetail(BaseCategoryView, views.DetailView):
     template_name = 'category/detail.html'
-    page_title = _(u'Vestibulum eu')
+    page_title = _(u'Eventos desta categoria')
 
 
 class CategoryUpdate(BaseCategoryView, views.UpdateView):

@@ -3,29 +3,58 @@
 {% load i18n %}
 
 {% block header_actions %}
-  <div class="right" style="line-height: 122px;">
-    <a class='dropdown-button btn-large waves-effect waves-light light-blue darken-4' href='javascript:;' data-activates='category-actions'>
-      {% trans 'Actions' %}
-      <i class="material-icons right" style="line-height: 55px;">arrow_drop_down</i>
-    </a>
-    <ul id='category-actions' class='dropdown-content'>
-      <li>
-        <a class="light-blue-text" href="{{ object.get_update_url }}">
-          {% trans 'update' %}
-          <i class="material-icons right">edit</i>
-        </a>
-      </li>
-      <li>
-        <a class="light-blue-text" href="{{ object.get_delete_url }}">
-          {% trans 'delete' %}
-          <i class="material-icons right">delete</i>
-        </a>
-      </li>
-    </ul>
-  </div>
+  {% if request.user.is_admin %}
+    <div class="right" style="line-height: 122px;">
+      <a class='dropdown-button btn-large waves-effect waves-light light-blue darken-4' href='javascript:;' data-activates='category-actions'>
+        {% trans 'Actions' %}
+        <i class="material-icons right" style="line-height: 55px;">arrow_drop_down</i>
+      </a>
+      <ul id='category-actions' class='dropdown-content'>
+        <li>
+          <a class="light-blue-text" href="{{ object.get_update_url }}">
+            {% trans 'update' %}
+            <i class="material-icons right">edit</i>
+          </a>
+        </li>
+        <li>
+          <a class="light-blue-text" href="{{ object.get_delete_url }}">
+            {% trans 'delete' %}
+            <i class="material-icons right">delete</i>
+          </a>
+        </li>
+      </ul>
+    </div>
+  {% endif %}
 {% endblock %}
 
 {% block content %}
   <h3>{{ object.title }}</h3>
   <blockquote>{{ object.description|linebreaks }}</blockquote>
+  <div class="row masonry-grid">
+    {% for event in object.events.get_next %}
+      <div class="col s12 m6 l4">
+        {% include "event/includes/card.html" with object=event %}
+      </div>
+    {% empty %}
+      <div class="col s12 m12 l12">
+        <p class="caption">
+          Infelizmente, não dispomos de atividades nessa área. Dissemine a educação. 
+          <a href="{% url 'event:create' %}" class="btn-link">
+            Indique-nos um evento!
+          </a>
+        </p>
+      </div>
+    {% endfor %}
+  </div> 
 {% endblock %}
+
+{% block extra_js %}
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('.masonry-grid').masonry({
+        columnWidth: '.col',
+        itemSelector: '.col',
+      });
+    });
+  </script>
+{% endblock extra_js %}

@@ -2,16 +2,14 @@
 
 {% load i18n %}
 
-{% if request.user.is_admin %}
-  {% block header_actions %}
-    <div class="right" style="line-height: 122px;">
-      <a class='btn-large waves-effect waves-light light-blue darken-4' href="{% url 'event:create' %}">
-        {% trans 'evento' %}
-        <i class="material-icons right" style="line-height: 55px;">add</i>
-      </a>
-    </div>
-  {% endblock %}
-{% endif %}
+{% block header_actions %}
+  <div class="right" style="line-height: 122px;">
+    <a class='btn-large waves-effect waves-light light-blue darken-4' href="{% url 'event:create' %}">
+      {% trans 'evento' %}
+      <i class="material-icons right" style="line-height: 55px;">add</i>
+    </a>
+  </div>
+{% endblock %}
 
 {% block outside_content %}
   {% if next_events.exists %}
@@ -21,28 +19,7 @@
         <div class="row masonry-grid">
           {% for event in next_events.all %}
             <div class="col s12 m6 l4">
-              <div class="card">
-                <div class="card-content light-blue-text">
-                  <div class="card-title light-blue-text">
-                    <a href="{{ event.get_absolute_url }}">
-                      <h5>{{ event }}</h5>
-                    </a>
-                  </div>
-                </div>
-                <div class="card-action">
-                  <div class="center-align">
-                    <a class="btn btn-wide btn-large waves-effect waves-light light-blue darken-4" {% if event.link %}href="{{ event.link }}" target="_blank"{% else %}href="{{ event.get_absolute_url }}"{% endif %} style="width: 100%">
-                      Participar
-                      <i class="material-icons right"><i class="material-icons">arrow_forward</i></i>
-                    </a>
-                  </div>
-                  {% if request.user.is_staff or request.user == event.author %}
-                    <br>
-                    <a href="{{ event.get_update_url }}">Atualizar</a>
-                    <a href="{{ event.get_delete_url }}">Remover</a>
-                  {% endif %}
-                </div>
-              </div>
+              {% include "event/includes/card.html" with object=event %}
             </div>
           {% endfor %}
         </div>
@@ -57,28 +34,7 @@
     <div class="row masonry-grid">
       {% for event in object.events.get_next %}
         <div class="col s12 m6 l4">
-          <div class="card">
-            <div class="card-content light-blue-text">
-              <div class="card-title light-blue-text">
-                <a href="{{ event.get_absolute_url }}">
-                  <h5>{{ event }}</h5>
-                </a>
-              </div>
-            </div>
-            <div class="card-action">
-              <div class="center-align">
-                <a class="btn btn-wide btn-large waves-effect waves-light light-blue darken-4" href="{{ event.get_update_url }}" style="width: 100%">
-                  Participar
-                  <i class="material-icons right"><i class="material-icons">arrow_forward</i></i>
-                </a>
-              </div>
-              {% if request.user.is_staff or request.user == event.author %}
-                <br>
-                <a href="{{ event.get_update_url }}">Atualizar</a>
-                <a href="{{ event.get_delete_url }}">Remover</a>
-              {% endif %}
-            </div>
-          </div>
+          {% include "event/includes/card.html" with object=event %}
         </div>
       {% empty %}
         <div class="col s12 m12 l12">
