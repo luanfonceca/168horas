@@ -5,19 +5,19 @@
 {% block header_actions %}
   <div class="right" style="line-height: 122px;">
     <a class='dropdown-button btn-large waves-effect waves-light light-blue darken-4' href='javascript:;' data-activates='event-actions'>
-      {% trans 'Actions' %}
+      {% trans 'Ações' %}
       <i class="material-icons right" style="line-height: 55px;">arrow_drop_down</i>
     </a>
     <ul id='event-actions' class='dropdown-content'>
       <li>
         <a class="light-blue-text" href="{{ object.get_update_url }}">
-          {% trans 'update' %}
+          {% trans 'atualizar' %}
           <i class="material-icons right">edit</i>
         </a>
       </li>
       <li>
         <a class="light-blue-text" href="{{ object.get_delete_url }}">
-          {% trans 'delete' %}
+          {% trans 'remover' %}
           <i class="material-icons right">delete</i>
         </a>
       </li>
@@ -30,7 +30,7 @@
     <div class="center-align">
       <div class="col s4 offset-s4">
         <a class="btn btn-wide btn-large waves-effect waves-light light-blue darken-4 " href="{{ event.get_update_url }}" style="width: 100%">
-          Join Event
+          Participar
           <i class="material-icons right"><i class="material-icons">arrow_forward</i></i>
         </a>
       </div>
