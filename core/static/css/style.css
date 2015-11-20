@@ -320,6 +320,10 @@ a.button-collapse.top-nav.full {
   color: #fff;
 }
 
+.card .card-image .card-title {
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100%;
+}
 
 .light-blue-border {
   border-color: #29b6f6 !important;
