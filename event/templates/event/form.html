@@ -28,7 +28,7 @@
         <input type="file" name="photo" id="id_photo">
       </div>
       <div class="file-path-wrapper">
-        <input class="file-path validate" type="text" value="{% if object.pk %}{{ object.photo|get_filename }}{% endif %}">
+        <input class="file-path validate" type="text" value="{% if object.pk %}{{ object.photo|get_filename|default:'Vazio' }}{% endif %}">
       </div>
     </div>
     <div class="row">

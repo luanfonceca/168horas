@@ -17,5 +17,5 @@ def exists_pk(queryset, pk):
 
 @register.filter
 def get_filename(image):
-    if image is not None:
+    if image.name is not None:
         return image.name.split('/')[-1]
