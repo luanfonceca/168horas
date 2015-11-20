@@ -29,17 +29,34 @@
 
 {% block content %}
   <div class="row">
-    <div class="center-align">
-      <div class="col s4 offset-s4">
-        <a class="btn btn-wide btn-large waves-effect waves-light light-blue darken-4" {% if object.link %}href="{{ object.link }}" target="_blank"{% else %}href="{{ object.get_absolute_url }}"{% endif %} style="width: 100%">
-          Participar
-          <i class="material-icons right"><i class="material-icons">arrow_forward</i></i>
-        </a>
+    {% if object.photo %}
+      <div class="col s12 m6 l6">
+        <img class="responsive-img" src="{{ object.get_photo_url }}">
       </div>
-    </div>
+      <div class="col s12 m6 l6">
+        <div class="center-align">
+          <h3>{{ object.title }}</h3>
+          
+          <div class="col s8 offset-s2 m10 offset-m1 l6 offset-l3">
+            <a class="btn btn-wide btn-large waves-effect waves-light light-blue darken-4" {% if object.link %}href="{{ object.link }}" target="_blank"{% else %}href="{{ object.get_absolute_url }}"{% endif %} style="width: 100%">
+              Participar
+              <i class="material-icons right"><i class="material-icons">arrow_forward</i></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    {% else %}
+      <div class="center-align">
+        <div class="col s4 offset-s4">
+          <a class="btn btn-wide btn-large waves-effect waves-light light-blue darken-4" {% if object.link %}href="{{ object.link }}" target="_blank"{% else %}href="{{ object.get_absolute_url }}"{% endif %} style="width: 100%">
+            Participar
+            <i class="material-icons right"><i class="material-icons">arrow_forward</i></i>
+          </a>
+        </div>
+      </div>
+    {% endif %}
   </div>
 
-  <h3>{{ object.title }}</h3>
   <blockquote class="light-blue-border">{{ object.description|linebreaks }}</blockquote>
   <hr/>
   <h5>Compartilhar</h5>

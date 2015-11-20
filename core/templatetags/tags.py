@@ -13,3 +13,9 @@ def get_error_class(field):
 @register.filter
 def exists_pk(queryset, pk):
     return queryset.filter(pk=pk).exists()
+
+
+@register.filter
+def get_filename(image):
+    if image is not None:
+        return image.name.split('/')[-1]

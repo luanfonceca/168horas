@@ -1,10 +1,13 @@
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
+from django.utils import timezone
 
 from vanilla import model_views as views
 
 from event.models import Event
 from event.forms import EventForm
+from category.views import BaseCategoryView
+from category.models import Category
 
 
 class BaseEventView(object):
@@ -16,6 +19,24 @@ class BaseEventView(object):
         context = super(BaseEventView, self).get_context_data(**kwargs)
         if hasattr(self, 'page_title'):
             context.update(page_title=self.page_title)
+        return context
+
+
+class EventByCategoryList(BaseCategoryView, views.ListView):
+    template_name = 'event/list_by_category.html'
+    queryset = Category.objects.all()
+    page_title = _(u'Eventos')
+
+    def get_context_data(self, **kwargs):
+        context = super(EventByCategoryList, self).get_context_data(**kwargs)
+        events = Event.objects.filter(
+            scheduled_date__gte=timezone.datetime.today().date()
+        )
+        next_events = events.get_next()[:3]
+        context.update(
+            next_events=next_events,
+            events=events,
+        )
         return context
 
 

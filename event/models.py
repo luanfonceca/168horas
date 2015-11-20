@@ -3,6 +3,8 @@ from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
 from django.utils.timezone import datetime
 
+from web168h import settings
+
 from django_extensions.db.fields import CreationDateTimeField
 from django_extensions.db.models import TitleSlugDescriptionModel
 
@@ -27,6 +29,7 @@ class Event(TitleSlugDescriptionModel):
     created_at = CreationDateTimeField(_(u'Created At'))
     is_published = models.BooleanField(_(u'Is Published'), default=True)
     is_public = models.BooleanField(_(u'Is Public'), default=True)
+    photo = models.ImageField(upload_to='photos/', null=True, blank=True)
 
     # relations
     categories = models.ManyToManyField(
@@ -52,3 +55,7 @@ class Event(TitleSlugDescriptionModel):
 
     def get_delete_url(self):
         return reverse('event:delete', kwargs={'slug': self.slug})
+
+    @property
+    def get_photo_url(self):
+        return '{0}/{1}'.format(settings.MEDIA_URL, self.photo)

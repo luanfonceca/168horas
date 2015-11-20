@@ -1,7 +1,10 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import patterns, include, url, static
 from django.contrib import admin
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
-from category.views import EventByCategoryList
+from web168h import settings
+
+from event.views import EventByCategoryList
 
 admin.autodiscover()
 urlpatterns = patterns(
@@ -17,4 +20,6 @@ urlpatterns = patterns(
     url(r'^accounts/logout/$',
         'django.contrib.auth.views.logout',
         {'next_page': '/'})
-)
+) + static.static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+urlpatterns += staticfiles_urlpatterns()

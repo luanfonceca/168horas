@@ -2,12 +2,13 @@
 
 {% load i18n %}
 {% load widget_tweaks %}
+
 {% load tags %}
 
 {% block content %}
   {{ form.errors }}
 
-  <form method="POST">
+  <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
 
     <div class="row">
@@ -18,12 +19,24 @@
       {% include "includes/field.html" with field=form.link %}
     </div>
 
+    <div class="file-field input-field col s12">
+      <div class="btn">
+        <span>
+          <i class="material-icons left">import_export</i>
+          {{ form.photo.label }}
+        </span>
+        <input type="file" name="photo" id="id_photo">
+      </div>
+      <div class="file-path-wrapper">
+        <input class="file-path validate" type="text" value="{% if object.pk %}{{ object.photo|get_filename }}{% endif %}">
+      </div>
+    </div>
     <div class="row">
       {% include "includes/field.html" with field=form.scheduled_date class='datepicker' %}
     </div>
 
     <div class="row">
-      <div class="input-field">
+      <div class="input-field col s12">
         {% render_field form.description class+="materialize-textarea" %}
         <label for="{{ form.description.id }}" data-error="{{ form.description.errors.0 }}">
           {{ form.description.label }}
@@ -38,22 +51,6 @@
     <div class="row">
       {% include "includes/checkbox.html" with field=form.categories queryset=object.categories field_name='categories' %}
     </div>
-
-    <!--
-    <div class="row">
-      <div class="input-field col s12 l12" style="padding-bottom: 20px;">
-        {{ form.is_public }}
-        <label for="id_is_public">{{ form.is_public.label }}</label><br>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="input-field col s12 l12" style="padding-bottom: 20px;">
-        {{ form.is_published }}
-        <label for="id_is_published">{{ form.is_published.label }}</label><br>
-      </div>
-    </div>
-    -->
 
     <br>
     <div class="center-align col s4">
