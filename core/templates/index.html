@@ -1,1 +1,312 @@
-index.html
+{% load static %}
+{% load i18n %}
+{% load socialaccount %}
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="pt-br"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{{ page_title|default:_('Index') }} - 168horas</title>
+    <meta name="title" content="168horas" />
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}">
+    <meta property="og:image" content="{% static 'img/favicon.ico' %}" />
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="{% static 'css/materialize.css' %}" media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="{% static 'css/style.css' %}" media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="{% static 'css/carousel.css' %}" media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="{% static 'css/testimonials.css' %}" media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="{% static 'css/jquery.bxslider.css' %}" media="screen,projection"/>
+
+    {% block extra_css %}{% endblock %}
+
+    <style type="text/css">
+      .invalid + label:after {
+        top: 40px !important;
+        white-space: pre;
+      }
+
+      main, footer {
+        padding-left: 0;
+      }
+
+      .icon-block i {
+        font-size: 80px;
+      }
+    </style>
+  </head>
+    <body>
+    <div style="height: 65px" class="black white-text">
+      <p class="right">
+        <a class="white-text" href="" style="right: 15px;position: relative;top: 5px;">
+          <i class="material-icons">close</i>
+        </a>
+      </p>
+      <p class="center">
+        Curabitur at lacus ac velit
+        &nbsp;
+        <a href="" class="btn light-blue">Large Button</a>
+      </p>
+    </div>
+
+    <nav class="blue accent-3" role="navigation">
+      <div class="nav-wrapper container">
+        <a id="logo-container" href="{% url 'index' %}" class="brand-logo">168horas</a>
+
+        <ul class="right">
+          <li>
+            <a href="{% provider_login_url 'facebook' method='oauth2' %}">
+              {% trans 'Facebook' %}
+              <i class="material-icons right">account_circle</i>
+            </a>
+          </li>
+        </ul>
+        
+        <ul id="nav-mobile" class="side-nav" style="left: -250px;">
+          <li><a href="#">Navbar Link</a></li>
+        </ul>
+        <a href="#" data-activates="nav-mobile" class="button-collapse">
+          <i class="material-icons">menu</i>
+        </a>
+      </div>
+    </nav>
+    
+    <main style="padding-left:0">
+      {% block outside_content %}{% endblock %}
+
+      <div class="parallax-container">
+        <div class="section no-pad-bot">
+          <div class="container">
+            <h1 class="header center blue-text accent-3" style="margin-top: 100px;">
+              Praesent egestas tristique.
+            </h1>
+            <div class="row center">
+              <h5 class="header col s12 light white-text">
+                Donec elit libero, sodales nec, volutpat a, suscipit non, turpis.
+              </h5>
+            </div>
+            <div class="row center">
+              <a href="http://materializecss.com/getting-started.html" id="download-button" class="btn-large waves-effect waves-light green">Get Started</a>
+            </div>
+            <br><br>
+
+          </div>
+        </div>
+        <div class="parallax">
+          <img src="http://materializecss.com/templates/parallax-template/background1.jpg" alt="Unsplashed background img 1" style="display: block; transform: translate3d(-50%, 167px, 0px);">
+        </div>
+      </div>
+
+      <div class="parallax-container">
+        <div class="section no-pad-bot">
+          <div class="container">
+            <h3 class="header center white-text" style="margin-top: 200px;">
+              Encontre uma atividade para complementar sua 
+              <br>
+              formação em qualquer dia e hora
+            </h3>
+          </div>
+        </div>
+        <div class="parallax">
+          <img src="http://materializecss.com/templates/parallax-template/background1.jpg" alt="Unsplashed background img 1" style="display: block; transform: translate3d(-50%, 167px, 0px);">
+        </div>
+      </div>
+      
+      <div class="container">
+        <div class="section">
+          <!--   Icon Section   -->
+          <div class="row">
+            <div class="col s6 m3 l3">
+              <div class="icon-block">
+                <h2 class="center blue-text accent-3"><i class="material-icons">flash_on</i></h2>
+                <h5 class="center">Speeds up development</h5>
+
+                <p class="light">We did most of the heavy lifting for you to provide a default stylings that incorporate our custom components. Additionally, we refined animations and transitions to provide a smoother experience for developers.</p>
+              </div>
+            </div>
+
+            <div class="col s6 m3 l3">
+              <div class="icon-block">
+                <h2 class="center blue-text accent-3"><i class="material-icons">group</i></h2>
+                <h5 class="center">User Experience Focused</h5>
+
+                <p class="light">By utilizing elements and principles of Material Design, we were able to create a framework that incorporates components and animations that provide more feedback to users. Additionally, a single underlying responsive system across all platforms allow for a more unified user experience.</p>
+              </div>
+            </div>
+
+            <div class="col s6 m3 l3">
+              <div class="icon-block">
+                <h2 class="center blue-text accent-3"><i class="material-icons">settings</i></h2>
+                <h5 class="center">Easy to work with</h5>
+
+                <p class="light">We have provided detailed documentation as well as specific code examples to help new users get started. We are also always open to feedback and can answer any questions a user may have about Materialize.</p>
+              </div>
+            </div>
+
+            <div class="col s6 m3 l3">
+              <div class="icon-block">
+                <h2 class="center blue-text accent-3"><i class="material-icons">settings</i></h2>
+                <h5 class="center">Easy to work with</h5>
+
+                <p class="light">We have provided detailed documentation as well as specific code examples to help new users get started. We are also always open to feedback and can answer any questions a user may have about Materialize.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <section class="section-testimonials text-center bg-inverse" style="padding-bottom: 80px;padding-top: 80px;">
+        <div class="container">
+          <h3 class="sr-only">Testimonials</h3>
+          <div class="testimonials_slider">
+            <div>
+              <p class="blockquote">
+                <img src="{% static 'img/face1.jpg' %}" height="80" width="80" alt="Avatar" class="img-circle" style="margin: 0 auto;">
+                <p class="h3">Good design at the front-end suggests that everything is in order at the back-end, whether or not that is the case.</p>
+                <footer>Dmitry Fadeyev</footer>
+              </p>
+            </div>
+            <div>
+              <p class="blockquote">
+                <img src="{% static 'img/face2.jpg' %}" height="80" width="80" alt="Avatar" class="img-circle" style="margin: 0 auto;">
+                <p class="h3">It’s not about knowing all the gimmicks and photo tricks. If you haven’t got the eye, no program will give it to you.</p>
+                <footer>David Carson</footer>
+              </p>
+            </div>
+            <div>
+              <p class="blockquote">
+                <img src="{% static 'img/face3.jpg' %}" height="80" width="80" alt="Avatar" class="img-circle" style="margin: 0 auto;">
+                <p class="h3">There’s a point when you’re done simplifying. Otherwise, things get really complicated.</p>
+                <footer>Frank Chimero</footer>
+              </p>
+            </div>
+            <div>
+              <p class="blockquote">
+                <img src="{% static 'img/face4.jpg' %}" height="80" width="80" alt="Avatar" class="img-circle" style="margin: 0 auto;">
+                <p class="h3">Designing for clients that don’t appreciate the value of design is like buying new tires for a rental car.</p>
+                <footer>Joel Fisher</footer>
+              </p>
+            </div>
+            <div>
+              <p class="blockquote">
+                <img src="{% static 'img/face5.jpg' %}" height="80" width="80" alt="Avatar" class="img-circle" style="margin: 0 auto;">
+                <p class="h3">Every picture owes more to other pictures painted before than it owes to nature.</p>
+                <footer>E.H. Gombrich</footer>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div class="parallax-container">
+      <div class="section no-pad-bot">
+        <div class="container">
+          <h3 class="header center white-text" style="margin-top: 200px;">
+            Encontre uma atividade para complementar sua 
+            <br>
+            formação em qualquer dia e hora
+          </h3>
+        </div>
+      </div>
+      <div class="parallax">
+        <img src="http://materializecss.com/templates/parallax-template/background1.jpg" alt="Unsplashed background img 1" style="display: block; transform: translate3d(-50%, 167px, 0px);">
+      </div>
+    </div>
+
+    <div class="container">
+        <div class="section">
+          <!--   Icon Section   -->
+          <div class="row">
+            <div class="col s12 m4 l4">
+              <div class="icon-block">
+                <h2 class="center blue-text accent-3">
+                  <img src="{% static 'img/face5.jpg' %}" height="150" width="150" alt="Avatar" class="img-circle" style="margin: 0 auto;">
+                </h2>
+                <h5 class="center">User Experience Focused</h5>
+
+                <p class="light">By utilizing elements and principles of Material Design, we were able to create a framework that incorporates components and animations that provide more feedback to users. Additionally, a single underlying responsive system across all platforms allow for a more unified user experience.</p>
+              </div>
+            </div>
+
+            <div class="col s12 m4 l4">
+              <div class="icon-block">
+                <h2 class="center blue-text accent-3">
+                  <img src="{% static 'img/face5.jpg' %}" height="150" width="150" alt="Avatar" class="img-circle" style="margin: 0 auto;">
+                </h2>
+                <h5 class="center">Easy to work with</h5>
+
+                <p class="light">We have provided detailed documentation as well as specific code examples to help new users get started. We are also always open to feedback and can answer any questions a user may have about Materialize.</p>
+              </div>
+            </div>
+
+            <div class="col s12 m4 l4">
+              <div class="icon-block">
+                <h2 class="center blue-text accent-3">
+                  <img src="{% static 'img/face5.jpg' %}" height="150" width="150" alt="Avatar" class="img-circle" style="margin: 0 auto;">
+                </h2>
+                <h5 class="center">Easy to work with</h5>
+
+                <p class="light">We have provided detailed documentation as well as specific code examples to help new users get started. We are also always open to feedback and can answer any questions a user may have about Materialize.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <footer class="page-footer blue accent-3" style="margin-top: 0px;">
+      <div class="container">
+        <div class="row">
+          <div class="col l4 s6">
+            <h5 class="white-text">Sobre o 168Horas</h5>
+            <p class="white-text">
+              Morbi vestibulum volutpat enim. Phasellus tempus. Donec interdum, metus et hendrerit aliquet, dolor diam sagittis ligula.
+            </p>
+          </div>
+          <div class="col l4 s6">
+            <h5 class="white-text">Redes Sociais</h5>
+            <div class="white" style="width: 140px">
+              <div class="addthis_vertical_follow_toolbox" style="padding: 5px 15px 10px 15px;"></div>
+            </div>
+          </div>
+          <div class="col l4 s12" style="height: 100px;">
+            <h5 class="white-text">Incubadora</h5>
+            <a href="https://unp.br/empreende/" class="btn btn-wide btn-large white" target="_blank">
+              <img style="padding-top: 0;" src="{% static 'img/empreende.png' %}">
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-copyright">
+        <div class="container center-align">
+          © 2015 168Horas, all rights reserved.
+        </div>
+      </div>
+    </footer>
+    
+    <script type="text/javascript" src="{% static 'js/jquery-2.1.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/masonry.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.bxslider.js' %}"></script>
+
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-561e9bbe286b261c" async="async"></script>
+
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $('.testimonials_slider').bxSlider({
+          auto: true,
+          slideMargin: 10,
+          pager: false,
+          infiniteLoop: false,
+        });
+      });
+    </script>
+
+    {% block extra_js %}{% endblock %}
+   </body>
+</html>

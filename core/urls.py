@@ -1,3 +1,10 @@
-from django.conf.urls import patterns
+from django.conf.urls import patterns, url
 
-urlpatterns = patterns('',)
+from core import views
+
+urlpatterns = patterns(
+    '',
+    url(regex=r'^$',
+        view=views.Index.as_view(),
+        name='index'),
+)
