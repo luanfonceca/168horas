@@ -4,7 +4,7 @@
 
 {% block header_actions %}
   <div class="right" style="line-height: 122px;">
-    <a class='btn-large waves-effect waves-light light-blue darken-4' href="{% url 'event:create' %}">
+    <a class='btn-large waves-effect waves-light blue darken-4 darken-4' href="{% url 'event:create' %}">
       {% trans 'evento' %}
       <i class="material-icons right" style="line-height: 55px;">add</i>
     </a>
@@ -49,8 +49,8 @@
     </div>
   {% empty %}
       <div class="row center">
-        <h3 class="light light-blue-text header">Infelizmente, não dispomos de atividades. Dissemine a educação.</h3>
-        <a href="{% url 'event:create' %}" class="btn-large waves-effect waves-light light-blue darken-4">
+        <h3 class="light blue darken-4-text header">Infelizmente, não dispomos de atividades. Dissemine a educação.</h3>
+        <a href="{% url 'event:create' %}" class="btn-large waves-effect waves-light blue darken-4 darken-4">
           Indique-nos um evento!
           <i class="material-icons large right">add</i>
         </a>

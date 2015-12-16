@@ -180,125 +180,6 @@ a.button-collapse.top-nav.full {
   }
 }
 
-/********************
-  EI Color Styles
-********************/
-.persian-green.lighten-5 {
-  background-color: #FFEBEE !important;
-}
-
-.persian-green-text.text-lighten-5 {
-  color: #FFEBEE !important;
-}
-
-.persian-green.lighten-4 {
-  background-color: #B3FFFC !important;
-}
-
-.persian-green-text.text-lighten-4 {
-  color: #B3FFFC !important;
-}
-
-.persian-green.lighten-3 {
-  background-color: #EF9A9A !important;
-}
-
-.persian-green-text.text-lighten-3 {
-  color: #EF9A9A !important;
-}
-
-.persian-green.lighten-2 {
-  background-color: #E57373 !important;
-}
-
-.persian-green-text.text-lighten-2 {
-  color: #E57373 !important;
-}
-
-.persian-green.lighten-1 {
-  background-color: #EF5350 !important;
-}
-
-.persian-green-text.text-lighten-1 {
-  color: #EF5350 !important;
-}
-
-.persian-green {
-  background-color: #00B2AB !important;
-}
-
-.persian-green-text {
-  color: #00B2AB !important;
-}
-
-.persian-green-border {
-  border-color: #00B2AB !important;
-}
-
-.persian-green.darken-1 {
-  background-color: #E53935 !important;
-}
-
-.persian-green-text.text-darken-1 {
-  color: #E53935 !important;
-}
-
-.persian-green.darken-2 {
-  background-color: #D32F2F !important;
-}
-
-.persian-green-text.text-darken-2 {
-  color: #D32F2F !important;
-}
-
-.persian-green.darken-3 {
-  background-color: #C62828 !important;
-}
-
-.persian-green-text.text-darken-3 {
-  color: #C62828 !important;
-}
-
-.persian-green.darken-4 {
-  background-color: #B71C1C !important;
-}
-
-.persian-green-text.text-darken-4 {
-  color: #B71C1C !important;
-}
-
-.persian-green.accent-1 {
-  background-color: #FF8A80 !important;
-}
-
-.persian-green-text.text-accent-1 {
-  color: #FF8A80 !important;
-}
-
-.persian-green.accent-2 {
-  background-color: #FF5252 !important;
-}
-
-.persian-green-text.text-accent-2 {
-  color: #FF5252 !important;
-}
-
-.persian-green.accent-3 {
-  background-color: #FF1744 !important;
-}
-
-.persian-green-text.text-accent-3 {
-  color: #FF1744 !important;
-}
-
-.persian-green.accent-4 {
-  background-color: #D50000 !important;
-}
-
-.persian-green-text.text-accent-4 {
-  color: #D50000 !important;
-}
-
 .side-nav {
   width: 240px;
 }
@@ -325,10 +206,19 @@ a.button-collapse.top-nav.full {
   width: 100%;
 }
 
-.light-blue-border {
+.blue darken-4-border {
   border-color: #29b6f6 !important;
 }
 
 .event-image.responsive-img {
   max-height: 400px;
+}
+
+#first-call {
+  height: calc(80vh);
+}
+
+#first-call .parallax img {
+  display: block;
+  transform: translate3d(-50%, 0px, 0px);
 }

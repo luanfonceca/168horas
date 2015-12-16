@@ -5,7 +5,7 @@
 
 {% block content %}
   <div class="row center">
-    <h3 class="light light-blue-text header">{{ object }}</h3>
+    <h3 class="light blue darken-4-text header">{{ object }}</h3>
     <p class="col s8 offset-s2 caption">
       Tem certeza que deseja remover esse evento? Ele ainda pode ser muito importante para outros alunos.
     </p>
@@ -16,7 +16,7 @@
       <div class="center-align">
         <a href="{% url 'event:detail' object.slug %}">{% trans 'voltar' %}</a>
         &nbsp;
-        <button type="submit" class="btn-large waves-effect waves-light light-blue darken-4">
+        <button type="submit" class="btn-large waves-effect waves-light blue darken-4 darken-4">
           {% trans 'delete' %}
           <i class="material-icons right">delete</i>
         </button>

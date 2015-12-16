@@ -1,6 +1,3 @@
-h3, .h3 {
-  font-size: 1.75rem; }
-
 .img-responsive, .figure > img, .carousel-inner > .carousel-item > img,
 .carousel-inner > .carousel-item > a > img {
   display: block;
@@ -224,9 +221,7 @@ h3, .h3 {
     .section-signup {
       padding-top: 5.625rem; } }
 
-.section-testimonials {
-  background: #663fb5 url(../img/bg-testimonials.jpg) no-repeat center bottom;
-  background-size: cover; }
+.section-testimonials { }
   .section-testimonials .blockquote {
     margin: 0 auto 2rem;
     border-left: 0 none; }

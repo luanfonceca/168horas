@@ -19,6 +19,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="{% static 'css/materialize.css' %}" media="screen,projection"/>
     <link type="text/css" rel="stylesheet" href="{% static 'css/style.css' %}" media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="{% static 'css/style-responsive.css' %}" media="screen,projection"/>
     {% block extra_css %}{% endblock %}
     <style type="text/css">
       .invalid + label:after {
@@ -27,8 +28,8 @@
       }
     </style>
   </head>
-    <body>
-    <nav class="light-blue lighten-1" role="navigation">
+  <body>
+    <nav class="blue darken-4" role="navigation">
       <div class="nav-wrapper container">
         <a id="logo-container" href="{% url 'index' %}" class="brand-logo">168horas</a>
         <ul class="right hide-on-med-and-down">
@@ -42,9 +43,9 @@
 
                 <!-- Dropdown Structure -->
                 <ul id='staff-dropdown' class='dropdown-content'>
-                  <li><a class="light-blue-text" href="{% url 'category:list' %}">{% trans 'Categories' %}</a></li>
+                  <li><a class="blue darken-4-text" href="{% url 'category:list' %}">{% trans 'Categories' %}</a></li>
                   <li class="divider"></li>
-                  <li><a class="light-blue-text" href="{% url 'account_logout' %}">{% trans 'Logout' %}</a></li>
+                  <li><a class="blue darken-4-text" href="{% url 'account_logout' %}">{% trans 'Logout' %}</a></li>
                 </ul>
               {% else %}
                 <a href="{% url 'account_logout' %}">
@@ -69,14 +70,16 @@
         </a>
       </div>
     </nav>
-    <nav class="top-nav light-blue lighten-1">
-      <div class="container">
-        <div class="nav-wrapper">
-          <a class="page-title">{{ page_title|default:_('Index') }}</a>
-          {% block header_actions %}{% endblock %}
+    {% if page_title %}
+      <nav class="top-nav blue darken-4">
+        <div class="container">
+          <div class="nav-wrapper">
+            <a class="page-title">{{ page_title }}</a>
+            {% block header_actions %}{% endblock %}
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+    {% endif %}
 
     {% block outside_content %}{% endblock %}
     
@@ -86,7 +89,7 @@
       </div>
     </div>
 
-    <footer class="page-footer light-blue lighten-1">
+    <footer class="page-footer blue darken-4">
       <div class="container">
         <div class="row">
           <div class="col l4 s6">
@@ -123,5 +126,5 @@
     <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-561e9bbe286b261c" async="async"></script>
 
     {% block extra_js %}{% endblock %}
-   </body>
+  </body>
 </html>

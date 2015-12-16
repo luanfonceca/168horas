@@ -5,7 +5,7 @@
 {% if request.user.is_admin %}
   {% block header_actions %}
     <div class="right" style="line-height: 122px;">
-      <a class='btn-large waves-effect waves-light light-blue darken-4' href="{% url 'category:create' %}">
+      <a class='btn-large waves-effect waves-light blue darken-4 darken-4' href="{% url 'category:create' %}">
         {% trans 'add category' %}
         <i class="material-icons right" style="line-height: 55px;">add</i>
       </a>
@@ -19,8 +19,8 @@
       {% for object in object_list %}
         <div class="col s12 m6 l4">
           <div class="card">
-            <div class="card-content light-blue-text">
-              <div class="card-title light-blue-text">
+            <div class="card-content blue darken-4-text">
+              <div class="card-title blue darken-4-text">
                 <a href="{{ object.get_absolute_url }}">
                   <h5>{{ object }}</h5>
                 </a>
@@ -36,11 +36,11 @@
     </div>
   {% else %}
       <div class="row center">
-        <h3 class="light light-blue-text header">Phasellus volutpat metus eget</h3>
+        <h3 class="light blue darken-4-text header">Phasellus volutpat metus eget</h3>
         <p class="col s8 offset-s2 caption">
           Aenean viverra rhoncus pede. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Fusce ac felis sit amet ligula pharetra condimentum.
         </p>
-        <a href="{% url 'category:create' %}" class="btn-large waves-effect waves-light light-blue darken-4">
+        <a href="{% url 'category:create' %}" class="btn-large waves-effect waves-light blue darken-4 darken-4">
           {% trans 'add category' %}
           <i class="material-icons large right">add</i>
         </a>
