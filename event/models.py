@@ -29,7 +29,9 @@ class Event(TitleSlugDescriptionModel):
     created_at = CreationDateTimeField(_(u'Created At'))
     is_published = models.BooleanField(_(u'Is Published'), default=True)
     is_public = models.BooleanField(_(u'Is Public'), default=True)
-    photo = models.ImageField(upload_to='photos/', null=True, blank=True)
+    photo = models.ImageField(
+        upload_to='photos/', null=True, blank=True,
+        help_text='Images in the resolution: 300x300.')
 
     # relations
     categories = models.ManyToManyField(

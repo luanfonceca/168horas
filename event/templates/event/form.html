@@ -30,6 +30,9 @@
       <div class="file-path-wrapper">
         <input class="file-path validate" type="text" value="{% if object.pk %}{{ object.photo|get_filename|default:'Vazio' }}{% endif %}">
       </div>
+      {% if form.photo.help_text %}
+        <p class="help-text caption">{{ form.photo.help_text }}</p>
+      {% endif %}
     </div>
     <div class="row">
       {% include "includes/field.html" with field=form.scheduled_date class='datepicker' %}
