@@ -222,3 +222,8 @@ a.button-collapse.top-nav.full {
   display: block;
   transform: translate3d(-50%, 0px, 0px);
 }
+
+
+.card .responsive-img {
+  height: 300px !important;
+}

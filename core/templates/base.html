@@ -42,10 +42,11 @@
                 </a>
 
                 <!-- Dropdown Structure -->
-                <ul id='staff-dropdown' class='dropdown-content'>
-                  <li><a class="white-text" href="{% url 'category:list' %}">{% trans 'Categories' %}</a></li>
+                <ul id='staff-dropdown' class='dropdown-content white'>
+                  <li><a class="blue-text" href="{% url 'category:list' %}">{% trans 'Categories' %}</a></li>
+                  <li><a class="blue-text" href="{% url 'category:list' %}">{% trans 'Settings' %}</a></li>
                   <li class="divider"></li>
-                  <li><a class="white-text" href="{% url 'account_logout' %}">{% trans 'Logout' %}</a></li>
+                  <li><a class="blue-text" href="{% url 'account_logout' %}">{% trans 'Logout' %}</a></li>
                 </ul>
               {% else %}
                 <a href="{% url 'account_logout' %}">
