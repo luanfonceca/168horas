@@ -5,7 +5,7 @@
 {% block header_actions %}
   {% if request.user.is_admin %}
     <div class="right" style="line-height: 122px;">
-      <a class='dropdown-button btn-large waves-effect waves-light blue darken-4 darken-4' href='javascript:;' data-activates='category-actions'>
+      <a class='dropdown-button btn-large waves-effect waves-light blue darken-3 darken-4' href='javascript:;' data-activates='category-actions'>
         {% trans 'Actions' %}
         <i class="material-icons right" style="line-height: 55px;">arrow_drop_down</i>
       </a>
@@ -29,7 +29,7 @@
 
 {% block content %}
   <h3>{{ object.title }}</h3>
-  <blockquote class="blue darken-4-border">{{ object.description|linebreaks }}</blockquote>
+  <blockquote class="blue darken-3-border">{{ object.description|linebreaks }}</blockquote>
   <div class="row masonry-grid">
     {% for event in object.events.get_next %}
       <div class="col s12 m6 l4">
