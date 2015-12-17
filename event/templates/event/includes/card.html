@@ -7,8 +7,8 @@
       </a>
     </div>
   {% else %}
-    <div class="card-content blue darken-4-text">
-      <div class="card-title blue darken-4-text">
+    <div class="card-content white-text">
+      <div class="card-title white-text">
         <a href="{{ object.get_absolute_url }}">
           <h5>{{ object }}</h5>
         </a>
@@ -17,7 +17,7 @@
   {% endif %}
   <div class="card-action">
     <div class="center-align">
-      <a class="btn btn-wide btn-large waves-effect waves-light blue darken-4 darken-4" {% if object.link %}href="{{ object.link }}" target="_blank"{% else %}href="{{ object.get_absolute_url }}"{% endif %} style="width: 100%">
+      <a class="btn btn-wide btn-large waves-effect waves-light blue darken-4 darken-4 white-text" {% if object.link %}href="{{ object.link }}" target="_blank"{% else %}href="{{ object.get_absolute_url }}"{% endif %} style="width: 100%">
         Participar
         <i class="material-icons right"><i class="material-icons">arrow_forward</i></i>
       </a>

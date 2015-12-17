@@ -4,9 +4,10 @@ from event import views
 
 urlpatterns = patterns(
     '',
-    url(regex=r'^$',
-        view=views.EventList.as_view(),
-        name='list'),
+    url(r'^$', views.EventByCategoryList.as_view(), name='index'),
+    # url(regex=r'^$',
+    #     view=views.EventList.as_view(),
+    #     name='list'),
     url(regex=r'^create/$',
         view=views.EventCreate.as_view(),
         name='create'),
