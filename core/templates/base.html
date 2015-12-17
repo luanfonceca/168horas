@@ -35,25 +35,18 @@
         <ul class="right hide-on-med-and-down">
           <li>
             {% if request.user.is_authenticated %}
-              {% if request.user.is_staff %}
-                <a class='dropdown-button' href='#' data-activates='staff-dropdown'>
-                  {{ request.user }}
-                  <i class="material-icons right">arrow_drop_down_circle</i>
-                </a>
-
-                <!-- Dropdown Structure -->
-                <ul id='staff-dropdown' class='dropdown-content white'>
+              <a class='dropdown-button' href='#' data-activates='staff-dropdown'>
+                {{ request.user }}
+                <i class="material-icons right">arrow_drop_down_circle</i>
+              </a>
+              <ul id='staff-dropdown' class='dropdown-content white'>
+                {% if request.user.is_staff %}
                   <li><a class="blue-text" href="{% url 'category:list' %}">{% trans 'Categories' %}</a></li>
-                  <li><a class="blue-text" href="{% url 'category:list' %}">{% trans 'Settings' %}</a></li>
-                  <li class="divider"></li>
-                  <li><a class="blue-text" href="{% url 'account_logout' %}">{% trans 'Logout' %}</a></li>
+                {% endif %}
+                <li><a class="blue-text" href="{% url 'profile' %}">{% trans 'Profile' %}</a></li>
+                <li class="divider"></li>
+                <li><a class="blue-text" href="{% url 'account_logout' %}">{% trans 'Logout' %}</a></li>
                 </ul>
-              {% else %}
-                <a href="{% url 'account_logout' %}">
-                  {{ request.user }}
-                  <i class="material-icons right">cancel</i>
-                </a>
-              {% endif %}
             {% else %}
               <a href="{% provider_login_url 'facebook' method='oauth2' %}">
                 {% trans 'Facebook' %}
@@ -125,6 +118,12 @@
     <script type="text/javascript" src="{% static 'js/masonry.min.js' %}"></script>
 
     <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-561e9bbe286b261c" async="async"></script>
+
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $('select').not('.disabled').material_select();
+      });
+    </script>
 
     {% block extra_js %}{% endblock %}
   </body>

@@ -1,9 +1,0 @@
-{% load tags %}
-
-<div class="input-field col s12 l12" style="padding-bottom: 20px;">
-  <label>{{ form.categories.label }}</label><br>
-  {% for value, label in form.categories.field.choices %}
-    <input {% if object and object.categories|exists_pk:value %}checked="checked"{% endif %} type="checkbox" id="id_categories_{{ forloop.counter0 }}" value="{{ value }}" name="categories" />
-    <label for="id_categories_{{ forloop.counter0 }}">{{ label }}</label><br>
-  {% endfor %}
-</div><br>

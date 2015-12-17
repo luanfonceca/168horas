@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load widget_tweaks %}
+
+{% load tags %}
+
+{% block content %}
+  {{ form.errors }}
+
+  <form method="POST">
+    {% csrf_token %}
+
+    <div class="row">
+      {% include "includes/field.html" with field=form.state %}
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12 l12" style="padding-bottom: 20px;">
+        <label>{{ form.categories.label }}</label><br>
+        {% for value, label in form.categories.field.choices %}
+          {% if forloop.first %}
+            <div class="left col s12 l6">
+          {% elif forloop.counter == 6 %}
+            </div>
+            <div class="right col s12 l6">
+          {% endif %}
+
+          <input {% if object and object.categories|exists_pk:value %}checked="checked"{% endif %} type="checkbox" id="id_categories_{{ forloop.counter0 }}" value="{{ value }}" name="categories" />
+          <label for="id_categories_{{ forloop.counter0 }}">{{ label }}</label><br>
+
+          {% if forloop.last %}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div><br>
+    </div>
+    
+    <br>
+    <div class="center-align col s4">
+      <button type="submit" class="waves-effect waves-light btn btn-large btn-wide green">
+        {% trans 'Quero aprender' %}
+      </button>
+    </div>
+  </form>
+{% endblock %}
