@@ -1,0 +1,31 @@
+{% load tags %}
+
+{% if two_columns %}
+  <div class="input-field col s12 l12" style="padding-bottom: 20px;">
+    <label>{{ field.label }}</label><br>
+    {% for value, label in field.field.choices %}
+      {% if forloop.first %}
+        <div class="left col s12 l6">
+      {% elif forloop.counter == 6 %}
+        </div>
+        <div class="right col s12 l6">
+      {% endif %}
+
+      <input {% if object and queryset|exists_pk:value %}checked="checked"{% endif %} type="checkbox" id="id_{{ field_name }}_{{ forloop.counter0 }}" value="{{ value }}" name="{{ field_name }}" />
+      <label for="id_{{ field_name }}_{{ forloop.counter0 }}">{{ label }}</label><br>
+
+      {% if forloop.last %}
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div><br>
+{% else %}
+  <div class="input-field col s12 l12" style="padding-bottom: 20px;">
+    <label>{{ field.label }}</label><br>
+    {% for value, label in field.field.choices %}
+      <input {% if object and queryset|exists_pk:value %}checked="checked"{% endif %} type="checkbox" id="id_{{ field_name }}_{{ forloop.counter0 }}" value="{{ value }}" name="{{ field_name }}" />
+      <label for="id_{{ field_name }}_{{ forloop.counter0 }}">{{ label }}</label><br>
+    {% endfor %}
+  </div><br>
+{% endif %}
+

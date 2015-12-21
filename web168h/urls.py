@@ -4,7 +4,6 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 from web168h import settings
 
-from event.views import EventByCategoryList
 
 admin.autodiscover()
 urlpatterns = patterns(
@@ -13,7 +12,6 @@ urlpatterns = patterns(
 
     # Apps
     url(r'^', include('core.urls')),
-    # url(r'^$', EventByCategoryList.as_view(), name='index'),
     url(r'^events/', include('event.urls', namespace='event')),
     url(r'^categories/', include('category.urls', namespace='category')),
     url(r'^accounts/', include('allauth.urls')),

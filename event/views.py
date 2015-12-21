@@ -22,13 +22,13 @@ class BaseEventView(object):
         return context
 
 
-class EventByCategoryList(BaseCategoryView, views.ListView):
+class EventList(BaseCategoryView, views.ListView):
     template_name = 'event/list_by_category.html'
     queryset = Category.objects.all()
-    page_title = _(u'Eventos')
+    page_title = _(u'Events')
 
     def get_context_data(self, **kwargs):
-        context = super(EventByCategoryList, self).get_context_data(**kwargs)
+        context = super(EventList, self).get_context_data(**kwargs)
         events = Event.objects.filter(
             scheduled_date__gte=timezone.datetime.today().date()
         )
@@ -38,12 +38,6 @@ class EventByCategoryList(BaseCategoryView, views.ListView):
             events=events,
         )
         return context
-
-
-class EventList(BaseEventView, views.ListView):
-    template_name = 'event/list.html'
-    queryset = Event.objects.all()
-    page_title = _(u'Maecenas vestibulum')
 
 
 class EventCreate(BaseEventView, views.CreateView):

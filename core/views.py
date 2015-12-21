@@ -1,5 +1,8 @@
 from django.contrib import messages
 from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+
 
 from vanilla import TemplateView, UpdateView
 
@@ -22,11 +25,17 @@ class PageTitleView(object):
         return context
 
 
+class LoginRequiredView(object):
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(LoginRequiredView, self).dispatch(*args, **kwargs)
+
+
 class Index(TemplateView):
     template_name = 'index.html'
 
 
-class Profile(PageTitleView, UpdateView):
+class Profile(PageTitleView, LoginRequiredView, UpdateView):
     template_name = 'profile.html'
     page_title = 'Profile update'
     model = Profile

@@ -5,19 +5,19 @@
 {% block header_actions %}
   {% if request.user.is_staff or request.user == event.author %}
     <div class="right" style="line-height: 122px;">
-      <a class='dropdown-button btn-large waves-effect waves-light blue darken-3 darken-4' href='javascript:;' data-activates='event-actions'>
+      <a class='dropdown-button btn-large waves-effect waves-light blue darken-4' href='javascript:;' data-activates='event-actions'>
         {% trans 'Ações' %}
         <i class="material-icons right" style="line-height: 55px;">arrow_drop_down</i>
       </a>
       <ul id='event-actions' class='dropdown-content'>
         <li>
-          <a class="white-text" href="{{ object.get_update_url }}">
+          <a class="blue-text text-darken-4" href="{{ object.get_update_url }}">
             {% trans 'atualizar' %}
             <i class="material-icons right">edit</i>
           </a>
         </li>
         <li>
-          <a class="white-text" href="{{ object.get_delete_url }}">
+          <a class="blue-text text-darken-4" href="{{ object.get_delete_url }}">
             {% trans 'remover' %}
             <i class="material-icons right">delete</i>
           </a>
