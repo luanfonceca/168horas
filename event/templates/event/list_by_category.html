@@ -48,13 +48,17 @@
       {% endfor %}
     </div>
   {% empty %}
-      <div class="row center">
-        <h3 class="light white-text header">Infelizmente, não dispomos de atividades. Dissemine a educação.</h3>
-        <a href="{% url 'event:create' %}" class="btn-large waves-effect waves-light blue darken-3 darken-4">
-          Indique-nos um evento!
-          <i class="material-icons large right">add</i>
-        </a>
+    <div class="row masonry-grid">
+      <div class="col s12 m6 l6">
+        <div class="row center">
+          <h3 class="light white-text header">Infelizmente, não dispomos de atividades. Dissemine a educação.</h3>
+          <a href="{% url 'event:create' %}" class="btn-large waves-effect waves-light blue darken-3 darken-4">
+            Indique-nos um evento!
+            <i class="material-icons large right">add</i>
+          </a>
+        </div>
       </div>
+    </div>
   {% endfor %}
 {% endblock content %}
 
