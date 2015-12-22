@@ -32,7 +32,7 @@
   <blockquote class="blue darken-3-border">{{ object.description|linebreaks }}</blockquote>
   <div class="row masonry-grid">
     {% for event in object.events.get_next %}
-      <div class="col s12 m6 l4">
+      <div class="col s12 m6 l6">
         {% include "event/includes/card.html" with object=event %}
       </div>
     {% empty %}
