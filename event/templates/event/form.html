@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% load i18n %}
+{% load static %}
 {% load widget_tweaks %}
 
 {% load tags %}
@@ -39,6 +40,11 @@
     </div>
 
     <div class="row">
+      {% include "includes/field.html" with field=form.location class='placepicker' %}
+      <div class="placepicker-map thumbnail"></div>
+    </div>
+
+    <div class="row">
       <div class="input-field col s12">
         {% render_field form.description class+="materialize-textarea" %}
         <label for="{{ form.description.id }}" data-error="{{ form.description.errors.0 }}">
@@ -70,13 +76,22 @@
 {% endblock %}
 
 {% block extra_js %}
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
+  <script type="text/javascript" src="{% static 'js/jquery.placepicker.js' %}"></script>
+
   <script type="text/javascript">
     $(document).ready(function() {
       $('select').material_select();
+      
       $('.datepicker').pickadate({
         format: 'dd/mm/yyyy',
         selectMonths: true,
         selectYears: 15
+      });
+
+      $('#id_location').attr('placeholder', '');
+      $('.placepicker').placepicker({
+        map: '.placepicker-map'
       });
     });
   </script>

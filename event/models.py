@@ -32,6 +32,7 @@ class Event(TitleSlugDescriptionModel):
     photo = models.ImageField(
         upload_to='photos/', null=True, blank=True,
         help_text='Images in the resolution: 300x300.')
+    location = models.CharField(_(u'Location'), max_length=500, null=True, blank=True)
 
     # relations
     categories = models.ManyToManyField(

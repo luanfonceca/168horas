@@ -221,7 +221,7 @@ a.button-collapse.top-nav.full {
 }
 
 #first-call {
-  height: calc(80vh);
+  height: calc(100vh - 63px);
 }
 
 #first-call .parallax img {
