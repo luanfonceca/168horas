@@ -43,6 +43,8 @@
       </div>
     {% else %}
       <div class="center-align">
+        <h3>{{ object.title }}</h3>
+        
         <div class="col s4 offset-s4">
           <a class="btn btn-wide btn-large waves-effect waves-light blue darken-3 darken-4" {% if object.link %}href="{{ object.link }}" target="_blank"{% else %}href="{{ object.get_absolute_url }}"{% endif %} style="width: 100%">
             Participar
@@ -59,12 +61,15 @@
   <h5>Compartilhar</h5>
   <div class="addthis_sharing_toolbox"></div>
 
-  <br/>
-  <h5>Local</h5>
-  <p>
-    {{ object.location }}
-  </p>
-  <br/>
+  {% if not object.is_online %}
+    <br/>
+    <h5>Local</h5>
+    <p>
+      {{ object.location }}
+    </p>
+    <br/>
+  {% endif %}
+
   <br/>
   <p class="red-text">
     * Valide antes com o seu coordenador se este evento é válido para o seu curso ou sua universidade.

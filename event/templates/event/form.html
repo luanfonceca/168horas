@@ -35,11 +35,20 @@
         <p class="help-text caption">{{ form.photo.help_text }}</p>
       {% endif %}
     </div>
+    
     <div class="row">
       {% include "includes/field.html" with field=form.scheduled_date class='datepicker' %}
     </div>
 
     <div class="row">
+      <div class="input-field col s12">
+        <input {% if object and object.is_online %}checked="checked"{% endif %} type="checkbox" id="id_is_online" name="is_online" />
+        <label for="id_is_online">Evento apenas online</label><br>
+      </div>
+    </div>
+    <br>
+
+    <div class="row {% if object and object.is_online %}hide{% endif %}">
       {% include "includes/field.html" with field=form.location class='placepicker' %}
       <div class="placepicker-map thumbnail"></div>
     </div>
@@ -92,6 +101,14 @@
       $('#id_location').attr('placeholder', '');
       $('.placepicker').placepicker({
         map: '.placepicker-map'
+      });
+
+      $('#id_is_online').change(function() {
+        if ($(this).is(':checked')) {
+          $('#id_location').parents('.row').addClass('hide');
+        } else {
+          $('#id_location').parents('.row').removeClass('hide');
+        }
       });
     });
   </script>
