@@ -9,6 +9,7 @@ class Category(TitleSlugDescriptionModel):
     class Meta:
         verbose_name = _(u'Category')
         verbose_name_plural = _(u'Categories')
+        ordering = ('title',)
 
     def __unicode__(self):
         return self.title

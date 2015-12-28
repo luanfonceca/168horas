@@ -16,7 +16,7 @@
     <div class="row" id="masonry-grid">
       {% for object in object_list %}
         <div class="col s12 m6 l6">
-          {% include "event/includes/card.html" with object=event %}
+          {% include "event/includes/card.html" with object=event is_event_card=True %}
         </div>
       {% endfor %}
     </div>

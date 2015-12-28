@@ -32,7 +32,7 @@
   <div class="row masonry-grid">
     {% for event in object.events.get_next %}
       <div class="col s12 m6 l6">
-        {% include "event/includes/card.html" with object=event %}
+        {% include "event/includes/card.html" with object=event is_event_card=True %}
       </div>
     {% empty %}
       <div class="col s12 m12 l12">
