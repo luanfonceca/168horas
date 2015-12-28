@@ -64,7 +64,7 @@
                 <li><a href="{% url 'account_logout' %}">{% trans 'Logout' %}</a></li>
               </ul>
             {% else %}
-              <a href="{% provider_login_url 'facebook' method='oauth2' %}?next='/events/'">
+              <a href="{% provider_login_url 'facebook' method='oauth2' %}?next=/events/">
                 {% trans 'Facebook' %}
                 <i class="material-icons right">account_circle</i>
               </a>
