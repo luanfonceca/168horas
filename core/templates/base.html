@@ -34,11 +34,12 @@
         <a href="{% if request.user.is_authenticated %}{% url 'event:list' %}{% else %}{% url 'index' %}{% endif %}" class="brand-logo center">
           <img src="{% static 'img/logo.svg' %}" style="position: relative; top: 6.5px;">
         </a>
-        <ul id="nav-mobile" class="left hide-on-med-and-down">
+        <!--<ul id="nav-mobile" class="left hide-on-med-and-down">
           <li>
-            <form>
+            <form action="{% url 'event:list' %}">
+              {% csrf_token %}
               <div class="input-field">
-                <input id="search" type="search" required="required" placeholder="Encontre eventos">
+                <input id="id_search" name="search" type="search" required="required" placeholder="Encontre eventos">
                 <label for="search">
                   <i class="material-icons">search</i>
                 </label>
@@ -46,7 +47,7 @@
               </div>
             </form>
           </li>
-        </ul>
+        </ul>-->
         <ul class="right hide-on-med-and-down">
           <li>
             {% if request.user.is_authenticated %}
