@@ -92,7 +92,7 @@ ul.side-nav.fixed:hover {
   font-weight: bold;
 }
 
-#logo-container {
+.brand-logo {
   height: 57px;
   margin-bottom: 32px;
 }
@@ -212,7 +212,7 @@ a.button-collapse.top-nav.full {
   width: 100%;
 }
 
-.blue darken-3-border {
+.blue darken-4-border {
   border-color: #29b6f6 !important;
 }
 
@@ -232,3 +232,28 @@ a.button-collapse.top-nav.full {
 .card .responsive-img {
   height: 300px !important;
 }*/
+
+#navigation-menu .input-field input[type=search] {
+  display: block;
+  line-height: inherit;
+  padding-left: 4rem;
+  margin-bottom: 0;
+  width: calc(100% - 4rem);
+}
+
+#navigation-menu .input-field {
+  position: relative;
+  min-width: 300px;
+  overflow: hidden;
+  margin-top: 0rem;
+}
+
+#navigation-menu .input-field input[type=search] ~ .mdi-navigation-close {
+  position: absolute;
+  top: 0;
+  right: 1rem;
+  color: transparent;
+  cursor: pointer;
+  font-size: 2rem;
+  transition: .3s color;
+}

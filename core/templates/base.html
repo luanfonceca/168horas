@@ -29,49 +29,58 @@
     </style>
   </head>
   <body>
-    <nav class="blue darken-3" role="navigation">
+    <nav role="navigation" id="navigation-menu">
       <div class="nav-wrapper container">
-        <a id="logo-container" href="{% if request.user.is_authenticated %}{% url 'event:list' %}{% else %}{% url 'index' %}{% endif %}" class="brand-logo">
+        <a href="{% if request.user.is_authenticated %}{% url 'event:list' %}{% else %}{% url 'index' %}{% endif %}" class="brand-logo center">
           <img src="{% static 'img/logo.svg' %}" style="position: relative; top: 6.5px;">
         </a>
+        <ul id="nav-mobile" class="left hide-on-med-and-down">
+          <li>
+            <form>
+              <div class="input-field">
+                <input id="search" type="search" required="required" placeholder="Encontre eventos">
+                <label for="search">
+                  <i class="material-icons">search</i>
+                </label>
+                <i class="material-icons">close</i>
+              </div>
+            </form>
+          </li>
+        </ul>
         <ul class="right hide-on-med-and-down">
           <li>
             {% if request.user.is_authenticated %}
               <a class='dropdown-button' href='#' data-activates='staff-dropdown'>
-                {{ request.user }}
+                {{ request.user.get_full_name }}
                 <i class="material-icons right">arrow_drop_down_circle</i>
               </a>
               <ul id='staff-dropdown' class='dropdown-content white'>
                 {% if request.user.is_staff %}
-                  <li><a class="blue-text" href="{% url 'category:list' %}">{% trans 'Categories' %}</a></li>
+                  <li><a href="{% url 'category:list' %}">{% trans 'Categories' %}</a></li>
                 {% endif %}
-                <li><a class="blue-text" href="{% url 'profile' %}">{% trans 'Profile' %}</a></li>
+                <li><a href="{% url 'profile' %}">{% trans 'Profile' %}</a></li>
                 <li class="divider"></li>
-                <li><a class="blue-text" href="{% url 'account_logout' %}">{% trans 'Logout' %}</a></li>
-                </ul>
+                <li><a href="{% url 'account_logout' %}">{% trans 'Logout' %}</a></li>
+              </ul>
             {% else %}
-              <a href="{% provider_login_url 'facebook' method='oauth2' %}">
+              <a href="{% provider_login_url 'facebook' method='oauth2' %}?next='/events/'">
                 {% trans 'Facebook' %}
                 <i class="material-icons right">account_circle</i>
               </a>
             {% endif %}
           </li>
         </ul>
-
-        <ul id="nav-mobile" class="side-nav" style="left: -250px;">
-          <li><a href="#">Navbar Link</a></li>
-        </ul>
-        <a href="#" data-activates="nav-mobile" class="button-collapse">
-          <i class="material-icons">menu</i>
-        </a>
       </div>
     </nav>
+
     {% if page_title %}
-      <nav class="top-nav blue darken-3">
+      <nav class="top-nav" style="z-index: 2;">
         <div class="container">
           <div class="nav-wrapper">
-            <a class="page-title">{{ page_title }}</a>
-            {% block header_actions %}{% endblock %}
+            <div class="row">
+              <a class="page-title">{{ page_title|truncatewords:3 }}</a>
+              {% block header_actions %}{% endblock %}
+            </div>
           </div>
         </div>
       </nav>
@@ -85,7 +94,19 @@
       </div>
     </div>
 
-    <footer class="page-footer blue darken-3">
+    {% if not request.user.is_authenticated and not index_page %}
+      <div id="force-login-modal" class="modal">
+        <div class="modal-content">
+          <h4>Modal Header</h4>
+          <p>A bunch of text</p>
+        </div>
+        <div class="modal-footer">
+          {% include "includes/login_button.html" %}
+        </div>
+      </div>
+    {% endif %}
+
+    <footer class="page-footer">
       <div class="container">
         <div class="row">
           <div class="col l4 s6">
@@ -108,7 +129,7 @@
           </div>
         </div>
       </div>
-      <div class="footer-copyright blue darken-4">
+      <div class="footer-copyright blue darken-4 white-text">
         <div class="container center-align">
           © {% now 'Y' %} - 168 Horas, all rights reserved.
         </div>
@@ -124,6 +145,13 @@
     <script type="text/javascript">
       $(document).ready(function() {
         $('select').not('.disabled').material_select();
+
+        var forceLogin = $('#force-login-modal');
+        if (forceLogin.length) {
+          $(forceLogin).openModal({
+            dismissible: false
+          });
+        };
       });
     </script>
 

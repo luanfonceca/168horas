@@ -4,28 +4,23 @@ from django.utils import timezone
 
 from vanilla import model_views as views
 
+from core.views import PageTitleView
 from event.models import Event
 from event.forms import EventForm
 from category.views import BaseCategoryView
 from category.models import Category
 
 
-class BaseEventView(object):
+class BaseEventView(PageTitleView):
     model = Event
     form_class = EventForm
     lookup_field = 'slug'
-
-    def get_context_data(self, **kwargs):
-        context = super(BaseEventView, self).get_context_data(**kwargs)
-        if hasattr(self, 'page_title'):
-            context.update(page_title=self.page_title)
-        return context
 
 
 class EventList(BaseCategoryView, views.ListView):
     template_name = 'event/list_by_category.html'
     queryset = Category.objects.all()
-    page_title = _(u'Events')
+    page_title = _(u'Eventos')
 
     def get_context_data(self, **kwargs):
         context = super(EventList, self).get_context_data(**kwargs)
@@ -47,18 +42,14 @@ class EventCreate(BaseEventView, views.CreateView):
 
 class EventDetail(BaseEventView, views.DetailView):
     template_name = 'event/detail.html'
-    page_title = _(u'Detalhes do evento')
 
 
 class EventUpdate(BaseEventView, views.UpdateView):
     template_name = 'event/form.html'
-    page_title = _(u'Atualizar evento')
 
 
 class EventDelete(BaseEventView, views.DeleteView):
     template_name = 'event/delete.html'
-    page_title = _(u'Remover evento')
-    # success_url = reverse('index')
 
     def get_success_url(self):
         return reverse('event:list')

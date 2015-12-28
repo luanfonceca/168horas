@@ -5,10 +5,7 @@
 
 {% block content %}
   <div class="row center">
-    <h3 class="light white-text header">{{ object }}</h3>
-    <p class="col s8 offset-s2 caption">
-      Tem certeza que deseja remover esse evento? Ele ainda pode ser muito importante para outros alunos.
-    </p>
+    <h3>Tem certeza que deseja remover esse evento? Ele ainda pode ser muito importante para outros alunos.</h3>
   </div>
   <div class="row">
     <form method="POST">
@@ -16,7 +13,7 @@
       <div class="center-align">
         <a href="{% url 'event:detail' object.slug %}">{% trans 'voltar' %}</a>
         &nbsp;
-        <button type="submit" class="btn-large waves-effect waves-light blue darken-3 darken-4">
+        <button type="submit" class="btn-large waves-effect waves-light blue darken-4">
           {% trans 'delete' %}
           <i class="material-icons right">delete</i>
         </button>

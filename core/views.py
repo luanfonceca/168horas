@@ -16,13 +16,19 @@ class FormValidRedirectMixing(object):
 
 
 class PageTitleView(object):
+    page_title = None
+
     def get_context_data(self, **kwargs):
         context = super(PageTitleView, self).get_context_data(**kwargs)
-        if hasattr(self, 'page_title'):
-            context.update(page_title=self.page_title)
-        elif hasattr(self, 'get_page_title'):
-            context.update(page_title=self.get_page_title())
+        context.update(page_title=self.get_page_title())
         return context
+
+    def get_page_title(self):
+        if self.page_title is not None:
+            return self.page_title
+
+        if self.object is not None:
+            return self.object.title
 
 
 class LoginRequiredView(object):
@@ -33,6 +39,11 @@ class LoginRequiredView(object):
 
 class Index(TemplateView):
     template_name = 'index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(Index, self).get_context_data(**kwargs)
+        context.update(index_page=True)
+        return context
 
 
 class Profile(PageTitleView, LoginRequiredView, UpdateView):
