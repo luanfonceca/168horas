@@ -27,7 +27,7 @@ class PageTitleView(object):
         if self.page_title is not None:
             return self.page_title
 
-        if self.object is not None:
+        if hasattr(self, 'object') and self.object is not None:
             return self.object.title
 
 
