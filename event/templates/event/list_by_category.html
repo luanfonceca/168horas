@@ -18,7 +18,7 @@
         <h4>{% trans 'Próximos eventos' %}</h4>
         <div class="row masonry-grid">
           {% for event in next_events.all %}
-            <div class="col s12 m6 l6">
+            <div class="col s12 m4 l4">
               {% include "event/includes/card.html" with object=event %}
             </div>
           {% endfor %}
