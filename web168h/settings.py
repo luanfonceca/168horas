@@ -1,9 +1,13 @@
 # Django settings for web168h project.
 
-import dj_database_url
 import os
 
+import dj_database_url
+from raven import fetch_git_sha
+
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+PROJECT_DIR = os.path.abspath(os.path.join(BASE_DIR, os.pardir))
 
 DEBUG = True
 
@@ -145,6 +149,7 @@ LOCAL_APPS = (
 EXTERNAL_APPS = (
     'django_extensions',
     'widget_tweaks',
+    'raven.contrib.django.raven_compat',
 
     'allauth',
     'allauth.account',
@@ -193,6 +198,13 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 ACCOUNT_EMAIL_REQUIRED = True
 SOCIALACCOUNT_QUERY_EMAIL = True
 ACCOUNT_LOGOUT_ON_GET = True
+
+
+# Sentry client config
+RAVEN_CONFIG = {
+    'release': fetch_git_sha(PROJECT_DIR),
+    'dsn': 'SENTRY_URL'
+}
 
 
 # Import the custom settings
