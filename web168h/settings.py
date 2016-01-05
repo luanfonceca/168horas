@@ -3,7 +3,6 @@
 import os
 
 import dj_database_url
-from raven import fetch_git_sha
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -198,13 +197,6 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 ACCOUNT_EMAIL_REQUIRED = True
 SOCIALACCOUNT_QUERY_EMAIL = True
 ACCOUNT_LOGOUT_ON_GET = True
-
-
-# Sentry client config
-RAVEN_CONFIG = {
-    'release': fetch_git_sha(PROJECT_DIR),
-    'dsn': 'SENTRY_URL'
-}
 
 
 # Import the custom settings
