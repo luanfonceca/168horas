@@ -31,7 +31,7 @@
   <blockquote class="blue darken-4-border">{{ object.description|linebreaks }}</blockquote>
   <div class="row masonry-grid">
     {% for event in object.events.get_next %}
-      <div class="col s12 m6 l6">
+      <div class="col s12 m4 l4">
         {% include "event/includes/card.html" with object=event is_event_card=True %}
       </div>
     {% empty %}
@@ -46,14 +46,3 @@
     {% endfor %}
   </div> 
 {% endblock %}
-
-{% block extra_js %}
-  <script type="text/javascript">
-    $(window).load(function() {
-      $('.masonry-grid').masonry({
-        columnWidth: '.col',
-        itemSelector: '.col',
-      });
-    });
-  </script>
-{% endblock extra_js %}

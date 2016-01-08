@@ -33,7 +33,7 @@
     <h4><a class="btn-link" href="{{ object.get_absolute_url }}">{{ object }}</a></h4>
     <div class="row masonry-grid">
       {% for event in object.events.get_next %}
-        <div class="col s12 m6 l6">
+        <div class="col s12 m4 l4">
           {% include "event/includes/card.html" with object=event is_event_card=True %}
         </div>
       {% empty %}
@@ -61,14 +61,3 @@
     </div>
   {% endfor %}
 {% endblock content %}
-
-{% block extra_js %}
-  <script type="text/javascript">
-    $(window).load(function() {
-      $('.masonry-grid').masonry({
-        columnWidth: '.col',
-        itemSelector: '.col',
-      });
-    });
-  </script>
-{% endblock extra_js %}
