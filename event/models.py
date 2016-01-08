@@ -1,7 +1,10 @@
 from django.db import models
+from django.db.models.signals import post_save
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
 from django.utils.timezone import datetime
+
+from PIL import Image
 
 from web168h import settings
 
@@ -64,3 +67,18 @@ class Event(TitleSlugDescriptionModel):
     @property
     def get_photo_url(self):
         return '{0}/{1}'.format(settings.MEDIA_URL, self.photo)
+
+
+def resize_event_photo(sender, instance, **kwargs):
+    try:
+        image = Image.open(instance.photo.path)
+    except ValueError:
+        return
+
+    if (image.width, image.height) == (400, 400):
+        return
+
+    image = image.resize((400, 400), Image.ANTIALIAS)
+    image.save(instance.photo.path, quality=90)
+
+post_save.connect(resize_event_photo, sender=Event)

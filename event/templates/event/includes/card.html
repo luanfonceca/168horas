@@ -2,7 +2,7 @@
   {% if object.photo %}
     <div class="card-image">
       <a href="{{ object.get_absolute_url }}" class="hoverable">
-        <img class="responsive-img" src="{{ object.get_photo_url }}" style="height: 400px"/>
+        <img src="{{ object.get_photo_url }}"/>
         <span class="card-title truncate">{{ object }}</span>
       </a>
     </div>
