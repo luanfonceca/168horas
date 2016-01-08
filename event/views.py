@@ -4,14 +4,14 @@ from django.utils import timezone
 
 from vanilla import model_views as views
 
-from core.views import PageTitleView
+from core.mixins import PageTitleMixin
 from event.models import Event
 from event.forms import EventForm
 from category.views import BaseCategoryView
 from category.models import Category
 
 
-class BaseEventView(PageTitleView):
+class BaseEventView(PageTitleMixin):
     model = Event
     form_class = EventForm
     lookup_field = 'slug'

@@ -3,12 +3,12 @@ from django.utils.translation import ugettext as _
 
 from vanilla import model_views as views
 
-from core.views import PageTitleView
+from core.mixins import PageTitleMixin
 from category.models import Category
 from category.forms import CategoryForm
 
 
-class BaseCategoryView(PageTitleView):
+class BaseCategoryView(PageTitleMixin):
     model = Category
     form_class = CategoryForm
     lookup_field = 'slug'
