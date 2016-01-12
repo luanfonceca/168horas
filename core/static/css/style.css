@@ -257,3 +257,12 @@ a.button-collapse.top-nav.full {
   font-size: 2rem;
   transition: .3s color;
 }
+
+ul.descricao {
+  padding-left: 20px;
+  
+}
+
+ul.descricao li {
+  list-style-type: disc;
+}

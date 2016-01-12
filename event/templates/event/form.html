@@ -17,6 +17,16 @@
     </div>
 
     <div class="row">
+      <div class="input-field col s12">
+        <label for="{{ form.description.id }}" data-error="{{ form.description.errors.0 }}">
+          {{ form.description.label }}
+        </label>
+        <br><br>
+        {% render_field form.description class+="materialize-textarea" %}
+      </div>
+    </div>
+
+    <div class="row">
       {% include "includes/field.html" with field=form.link %}
     </div>
 
@@ -54,19 +64,6 @@
     </div>
 
     <div class="row">
-      <div class="input-field col s12">
-        {% render_field form.description class+="materialize-textarea" %}
-        <label for="{{ form.description.id }}" data-error="{{ form.description.errors.0 }}">
-          {{ form.description.label }}
-        </label>
-        <br>
-        {% if form.description.help_text %}
-          <p class="help-text caption">{{ form.description.help_text }}</p>
-        {% endif %}
-      </div>
-    </div>
-
-    <div class="row">
       {% include "includes/checkbox.html" with field=form.categories queryset=object.categories field_name='categories' two_columns=True %}
     </div>
 
@@ -87,6 +84,32 @@
 {% block extra_js %}
   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
   <script type="text/javascript" src="{% static 'js/jquery.placepicker.js' %}"></script>
+
+  <script type="text/javascript" src="{% static 'js/tinymce/tinymce.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/tinymce/langs/pt_BR.js' %}"></script>
+  <script type="text/javascript">
+    tinymce.init({
+      selector: '#id_description',
+      menubar: false,
+      toolbar: 'undo redo | bold italic | underline strikethrough | ' +
+               'alignleft aligncenter alignright alignjustify | ' +
+               'link unlink | ',
+      skin: 'light',
+      plugins: 'link',
+      language: 'pt_BR',
+      apply_source_formatting: false,
+      formats: {
+        bold: {
+          inline: 'b'
+        },
+        italic: {
+          inline: 'i'
+        },
+      },
+      valid_elements: "b,i,b/strong,i/em"
+    });
+  </script>
+
 
   <script type="text/javascript">
     $(document).ready(function() {
