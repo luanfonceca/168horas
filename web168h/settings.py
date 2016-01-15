@@ -122,7 +122,6 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
-                'core.context_processors.google_analytics',
             ],
         },
     },
@@ -198,11 +197,6 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 ACCOUNT_EMAIL_REQUIRED = True
 SOCIALACCOUNT_QUERY_EMAIL = True
 ACCOUNT_LOGOUT_ON_GET = True
-
-# Google Analytics
-GOOGLE_ANALYTICS_PROPERTY_ID = 'UA-72196916-1'
-
-GOOGLE_ANALYTICS_DOMAIN = '168h.com.br'
 
 
 # Import the custom settings
