@@ -258,11 +258,14 @@ a.button-collapse.top-nav.full {
   transition: .3s color;
 }
 
-ul.descricao {
+#event-description ul.descricao {
   padding-left: 20px;
-  
 }
 
-ul.descricao li {
+#event-description ul.descricao li {
   list-style-type: disc;
+}
+
+#event-description p {
+  margin: 0 !important;
 }

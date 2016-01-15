@@ -62,8 +62,10 @@
     {% endif %}
   </div>
 
-  <h5>Sobre</h5>
-  {{ object.description|safe|linebreaks }}
+  <div id="event-description">
+    <h5>Sobre</h5>
+    {{ object.description|safe|linebreaks }}
+  </div>
   <br/>
   <h5>Compartilhar</h5>
   <div class="addthis_sharing_toolbox"></div>
