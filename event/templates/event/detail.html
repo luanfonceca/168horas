@@ -3,7 +3,7 @@
 {% load i18n %}
 
 {% block header_actions %}
-  {% if request.user.is_staff or request.user == event.author %}
+  {% if request.user.is_staff or request.user.profile == object.created_by %}
     <div class="right" style="line-height: 122px;">
       <a class='dropdown-button btn-large waves-effect waves-light white blue-text text-darken-4' href='javascript:;' data-activates='event-actions'>
         {% trans 'Ações' %}
@@ -66,9 +66,6 @@
     <h5>Sobre</h5>
     {{ object.description|safe|linebreaks }}
   </div>
-  <br/>
-  <h5>Compartilhar</h5>
-  <div class="addthis_sharing_toolbox"></div>
 
   {% if not object.is_online %}
     <br/>
@@ -78,6 +75,34 @@
     </p>
     <br/>
   {% endif %}
+
+  {% if object.is_organizer and object.created_by.organizer_name %}
+    <br/>
+    <h5>Organizador</h5>
+    <p>
+      {{ object.created_by.organizer_name }}
+      {% if object.created_by.organizer_email %}
+        -
+        <a href="mailto:{{ object.created_by.organizer_email }}" target="_blank">
+          {{ object.created_by.organizer_email }}
+        </a>
+      {% endif %}
+      {% if object.created_by.organizer_phone %}
+        -
+        {{ object.created_by.organizer_phone }}
+      {% endif %}
+    </p>
+  {% elif object.is_organizer and request.user.profile == object.created_by %}
+    <br/>
+    <h5>Organizador</h5>
+    <p>
+      Click <a href="{% url 'profile' %}#organizer-information">aqui</a> para preencher as informações do Facilitador.
+    </p>
+  {% endif %}
+
+  <br/>
+  <h5>Compartilhar</h5>
+  <div class="addthis_sharing_toolbox"></div>
 
   <br/>
   <p class="red-text">

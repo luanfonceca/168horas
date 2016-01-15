@@ -5,9 +5,9 @@ from core import views
 urlpatterns = patterns(
     '',
     url(regex=r'^$',
-        view=views.Index.as_view(),
+        view=views.IndexView.as_view(),
         name='index'),
     url(regex=r'^profile/$',
-        view=views.Profile.as_view(),
+        view=views.ProfileView.as_view(),
         name='profile'),
 )

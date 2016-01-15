@@ -3,6 +3,7 @@ local_settings.py
 db.sqlite3
 staticfiles/
 media/photos/*
+media/signatures/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

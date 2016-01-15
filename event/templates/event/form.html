@@ -27,6 +27,14 @@
     </div>
 
     <div class="row">
+      <div class="col s12">
+        <input {% if object and object.is_organizer %}checked="checked"{% endif %} type="checkbox" id="id_is_organizer" name="is_organizer" />
+        <label for="id_is_organizer">Você é o Facilitador deste evento?</label><br>
+      </div>
+    </div>
+    <br>
+
+    <div class="row">
       {% include "includes/field.html" with field=form.link %}
     </div>
 
@@ -51,7 +59,7 @@
     </div>
 
     <div class="row">
-      <div class="input-field col s12">
+      <div class="col s12">
         <input {% if object and object.is_online %}checked="checked"{% endif %} type="checkbox" id="id_is_online" name="is_online" />
         <label for="id_is_online">Evento apenas online</label><br>
       </div>

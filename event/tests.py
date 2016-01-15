@@ -1,4 +1,5 @@
 from django.core.urlresolvers import reverse
+from django.contrib.auth.models import User
 
 from django_webtest import WebTest
 from model_mommy import mommy
@@ -9,6 +10,7 @@ from event.models import Event
 
 class EventTest(WebTest):
     def setUp(self):
+        self.user = mommy.make(User, username='admin')
         self.category = mommy.make(Category, title='Praesent nec nisl')
 
     def test_factory_create(self):
@@ -44,7 +46,7 @@ class EventTest(WebTest):
         '''
         Test that we can create an instance via the create view.
         '''
-        response = self.app.get(reverse('event:create'))
+        response = self.app.get(reverse('event:create'), user='admin')
         title = 'Maecenas ullamcorper dui'
         self.assertFalse(Event.objects.filter(title=title).exists())
 
@@ -55,6 +57,10 @@ class EventTest(WebTest):
         instance = Event.objects.get(title=title)
         self.assertTrue(Event.objects.filter(title=title).exists())
         self.assertEqual(instance.title, title)
+        self.assertEqual(instance.created_by, self.user.profile)
+        self.assertQuerysetEqual(
+            instance.categories.all(),
+            ['<Category: Praesent nec nisl>'])
 
     def test_detail_view(self):
         '''
@@ -68,15 +74,23 @@ class EventTest(WebTest):
         '''
         Test that we can update an instance via the update view.
         '''
-        instance = mommy.make(Event, categories=[self.category])
+        instance = mommy.make(
+            Event,
+            categories=[self.category],
+            created_by=self.user.profile)
         response = self.app.get(instance.get_update_url())
 
+        old_created_by = instance.created_by
         new_title = 'Donec sodales sagittis'
         response.form['title'] = new_title
         response.form.submit().follow()
 
         instance = Event.objects.get(pk=instance.pk)
         self.assertEqual(instance.title, new_title)
+        self.assertEqual(instance.created_by, old_created_by)
+        self.assertQuerysetEqual(
+            instance.categories.all(),
+            ['<Category: Praesent nec nisl>'])
 
     def test_delete_view(self):
         '''

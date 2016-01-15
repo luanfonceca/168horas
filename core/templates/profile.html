@@ -12,34 +12,85 @@
     {% csrf_token %}
 
     <div class="row">
-      {% include "includes/field.html" with field=form.state %}
-    </div>
+      <div class="col s12">
+        <ul class="tabs">
+          <li class="tab col s3"><a href="#profile-information">Localidade e Interesses</a></li>
+          <li class="tab col s3"><a href="#organizer-information">Informações do Facilitador</a></li>
+        </ul>
+      </div>
+      <div id="profile-information" class="col s12">
+        <br>
+        <div class="row">
+          {% include "includes/field.html" with field=form.state %}
+        </div>
 
-    <div class="row">
-      <div class="input-field col s12 l12" style="padding-bottom: 20px;">
-        <label>{{ form.categories.label }}</label><br>
-        {% for value, label in form.categories.field.choices %}
-          {% if forloop.first %}
-            <div class="left col s12 l6">
-          {% elif forloop.counter == 6 %}
-            </div>
-            <div class="right col s12 l6">
+        <div class="row">
+          <div class="input-field col s12 l12" style="padding-bottom: 20px;">
+            <label>{{ form.categories.label }}</label><br>
+            {% for value, label in form.categories.field.choices %}
+              {% if forloop.first %}
+                <div class="left col s12 l6">
+              {% elif forloop.counter == 6 %}
+                </div>
+                <div class="right col s12 l6">
+              {% endif %}
+
+              <input {% if object and object.categories|exists_pk:value %}checked="checked"{% endif %} type="checkbox" id="id_categories_{{ forloop.counter0 }}" value="{{ value }}" name="categories" />
+              <label for="id_categories_{{ forloop.counter0 }}">{{ label }}</label><br>
+
+              {% if forloop.last %}
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div><br><br>
+        </div>
+      </div>
+      <div id="organizer-information" class="col s12">
+        <br>
+        <p class="caption">
+          Essas informações são necessárias para emissão de certificados e venda de ingressos.
+        </p>
+
+        <div class="row">
+          {% include "includes/field.html" with field=form.organizer_name %}
+        </div>
+
+        <div class="row">
+          {% include "includes/field.html" with field=form.organizer_email %}
+        </div>
+
+        <div class="row">
+          {% include "includes/field.html" with field=form.organizer_phone %}
+        </div>
+
+        <div class="file-field input-field col s12">
+          <div class="btn">
+            <span>
+              <i class="material-icons left">import_export</i>
+              {{ form.digital_signature.label }}
+            </span>
+            <input type="file" name="digital_signature" id="id_digital_signature">
+          </div>
+          <div class="file-path-wrapper">
+            <input class="file-path validate" type="text" value="{% if object.pk %}{{ object.digital_signature|get_filename|default:'Vazio' }}{% endif %}">
+          </div>
+          {% if form.digital_signature.help_text %}
+            <p class="help-text caption">{{ form.digital_signature.help_text }}</p>
           {% endif %}
-
-          <input {% if object and object.categories|exists_pk:value %}checked="checked"{% endif %} type="checkbox" id="id_categories_{{ forloop.counter0 }}" value="{{ value }}" name="categories" />
-          <label for="id_categories_{{ forloop.counter0 }}">{{ label }}</label><br>
-
-          {% if forloop.last %}
-            </div>
-          {% endif %}
-        {% endfor %}
-      </div><br>
-    </div>
+          <br>
+        </div>
     
-    <br>
+        <div class="row">
+          {% include "includes/field.html" with field=form.cpf col_sizes='s6' %}
+          {% include "includes/field.html" with field=form.cnpj col_sizes='s6' %}
+          <p class="help-text caption center-align">Preencha o CPF ou CNPJ.</p>
+        </div>
+      </div>
+    </div>
+
     <div class="center-align col s4">
       <button type="submit" class="waves-effect waves-light btn btn-large btn-wide green">
-        {% trans 'Quero aprender' %}
+        {% trans 'Salvar alterações' %}
       </button>
     </div>
   </form>

@@ -1,5 +1,6 @@
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
+from django.http import HttpResponseRedirect
 from django.utils import timezone
 
 from vanilla import model_views as views
@@ -38,6 +39,12 @@ class EventList(BaseCategoryView, views.ListView):
 class EventCreate(BaseEventView, views.CreateView):
     template_name = 'event/form.html'
     page_title = _(u'Adicionar evento')
+
+    def form_valid(self, form):
+        self.object = form.save()
+        self.object.created_by = self.request.user.profile
+        self.object.save()
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class EventDetail(BaseEventView, views.DetailView):

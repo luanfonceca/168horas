@@ -32,14 +32,20 @@ class Event(TitleSlugDescriptionModel):
     created_at = CreationDateTimeField(_(u'Created At'))
     is_published = models.BooleanField(_(u'Is Published'), default=True)
     is_public = models.BooleanField(_(u'Is Public'), default=True)
+    is_organizer = models.BooleanField(_(u'Is Organizer'), default=False)
+    is_online = models.BooleanField(default=False)
     photo = models.ImageField(
         upload_to='photos/', null=True, blank=True,
         help_text='Images in the resolution: 400x400.')
     location = models.CharField(
         _(u'Location'), max_length=500, null=True, blank=True)
-    is_online = models.BooleanField(default=False)
 
     # relations
+    created_by = models.ForeignKey(
+        verbose_name=_(u'Created by'),
+        to='core.Profile',
+        null=True, blank=True,
+        related_name='events')
     categories = models.ManyToManyField(
         verbose_name=_(u'Categorias'),
         to='category.Category',

@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='profile',
             name='cnpj',
-            field=models.CharField(max_length=18, null=True, verbose_name=b'CPF', blank=True),
+            field=models.CharField(max_length=18, null=True, verbose_name=b'CNPJ', blank=True),
         ),
         migrations.AddField(
             model_name='profile',
@@ -28,7 +28,17 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='profile',
+            name='organizer_email',
+            field=models.EmailField(max_length=200, null=True, blank=True),
+        ),
+        migrations.AddField(
+            model_name='profile',
             name='organizer_name',
             field=models.CharField(max_length=200, null=True, blank=True),
+        ),
+        migrations.AddField(
+            model_name='profile',
+            name='organizer_phone',
+            field=models.CharField(max_length=30, null=True, blank=True),
         ),
     ]
