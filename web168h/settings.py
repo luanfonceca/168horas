@@ -35,7 +35,7 @@ TIME_ZONE = 'America/Chicago'
 # http://www.i18nguy.com/unicode/language-identifiers.html
 TIME_ZONE = 'America/Sao_Paulo'
 
-LANGUAGE_CODE = 'pt-BR'
+LANGUAGE_CODE = 'en-US'
 
 LANGUAGES = (
     ('pt_BR', 'PT-BR'),
