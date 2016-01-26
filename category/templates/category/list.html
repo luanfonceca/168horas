@@ -6,7 +6,7 @@
   {% block header_actions %}
     <div class="right" style="line-height: 122px;">
       <a class='btn-large waves-effect waves-light white blue-text text-darken-4' href="{% url 'category:create' %}">
-        {% trans 'add category' %}
+        {% trans 'Add category' %}
         <i class="material-icons right" style="line-height: 55px;">add</i>
       </a>
     </div>
@@ -18,21 +18,19 @@
     <div class="row masonry-grid">
       {% for object in object_list %}
         <div class="col s12 m4 l4">
-          {% include "event/includes/card.html" %}
+          {% include "activity/includes/card.html" %}
         </div>
       {% endfor %}
     </div>
   {% else %}
-      <div class="row center">
-        <h3 class="light white-text header">Phasellus volutpat metus eget</h3>
-        <p class="col s8 offset-s2 caption">
-          Aenean viverra rhoncus pede. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Fusce ac felis sit amet ligula pharetra condimentum.
-        </p>
-        <a href="{% url 'category:create' %}" class="btn-large waves-effect waves-light blue darken-4">
-          {% trans 'add category' %}
-          <i class="material-icons large right">add</i>
+    <div class="col s12 m12 l12">
+      <p class="caption">
+        {% trans 'Unfortunately, we have no activities in the area. Spread education.' %}
+        <a href="{% url 'activity:create' %}" class="btn-link">
+          {% trans 'Tell us an activity!' %}
         </a>
-      </div>
+      </p>
+    </div>
   {% endif %}
 {% endblock content %}
 

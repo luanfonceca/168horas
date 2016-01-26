@@ -1,0 +1,35 @@
+{% load i18n %}
+
+<div class="card">
+  {% if object.photo %}
+    <div class="card-image">
+      <a href="{{ object.get_absolute_url }}" class="hoverable">
+        <img src="{{ object.get_photo_url }}"/>
+        <span class="card-title truncate">{{ object }}</span>
+      </a>
+    </div>
+  {% else %}
+    <div class="card-content">
+      <div class="card-title white-text">
+        <a href="{{ object.get_absolute_url }}">
+          <h5>{{ object }}</h5>
+        </a>
+      </div>
+    </div>
+  {% endif %}
+  <div class="card-action">
+    {% if is_activity_card %}
+      <div class="center-align">
+        <a class="btn btn-wide btn-large waves-effect waves-light blue darken-4 white-text" {% if object.link %}href="{{ object.link }}" target="_blank"{% else %}href="{{ object.get_absolute_url }}"{% endif %} style="width: 100%">
+          {% trans 'Join' %}
+          <i class="material-icons right"><i class="material-icons">arrow_forward</i></i>
+        </a>
+      </div>
+    {% endif %}
+    {% if request.user.is_staff or request.user == object.author %}
+      <br>
+      <a href="{{ object.get_update_url }}">{% trans 'Update' %}</a>
+      <a href="{{ object.get_delete_url }}">{% trans 'Delete' %}</a>
+    {% endif %}
+  </div>
+</div>

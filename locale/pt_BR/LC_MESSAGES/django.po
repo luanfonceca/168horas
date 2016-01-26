@@ -1,0 +1,298 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-01-26 07:43-0200\n"
+"PO-Revision-Date: 2016-01-26 06:38-0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 1.7.6\n"
+
+#: activity/models.py:30 event/models.py:30
+msgid "Link"
+msgstr "Link"
+
+#: activity/models.py:31
+msgid "Date"
+msgstr "Data"
+
+#: activity/models.py:32 event/models.py:32
+msgid "Created At"
+msgstr "Criado Em"
+
+#: activity/models.py:33 event/models.py:33
+msgid "Is Published"
+msgstr "Está publicado"
+
+#: activity/models.py:34 event/models.py:34
+msgid "Is Public"
+msgstr "Está Público"
+
+#: activity/models.py:35 event/models.py:35
+msgid "Is Organizer"
+msgstr "Organizador"
+
+#: activity/models.py:38
+msgid "Event photo"
+msgstr "Foto do evento"
+
+#: activity/models.py:40
+msgid "Images in the resolution: 400x400."
+msgstr "Imagens na resolução de 400x400."
+
+#: activity/models.py:42 event/models.py:41
+msgid "Location"
+msgstr "Local"
+
+#: activity/models.py:46 event/models.py:45
+msgid "Created by"
+msgstr "Criado por"
+
+#: activity/models.py:51 category/views.py:19 event/models.py:50
+msgid "Categorias"
+msgstr "Categorias"
+
+#: activity/models.py:59 activity/templates/activity/list_by_category.html:8
+msgid "Activity"
+msgstr "Atividade"
+
+#: activity/models.py:60 activity/views.py:24
+msgid "Activities"
+msgstr "Atividades"
+
+#: activity/templates/activity/delete.html:7
+msgid ""
+"Are you sure you want to remove this event? It can still be very important "
+"for other students."
+msgstr ""
+"Tem certeza de que deseja remover este evento? Ele ainda pode ser muito "
+"importante para outros alunos."
+
+#: activity/templates/activity/delete.html:14
+#: activity/templates/activity/form.html:81
+#: category/templates/category/delete.html:13
+#: category/templates/category/form.html:17
+msgid "back"
+msgstr "voltar"
+
+#: activity/templates/activity/delete.html:17
+#: activity/templates/activity/detail.html:21
+#: activity/templates/activity/includes/card.html:32
+#: category/templates/category/delete.html:16
+msgid "Delete"
+msgstr "Remover"
+
+#: activity/templates/activity/detail.html:9
+#: category/templates/category/detail.html:9
+msgid "Actions"
+msgstr "Ações"
+
+#: activity/templates/activity/detail.html:15
+#: activity/templates/activity/includes/card.html:31
+msgid "Update"
+msgstr "Atualizar"
+
+#: activity/templates/activity/detail.html:30
+#: activity/templates/activity/detail.html:47
+#: activity/templates/activity/detail.html:57
+#: activity/templates/activity/includes/card.html:24
+msgid "Join"
+msgstr "Participar"
+
+#: activity/templates/activity/detail.html:66
+msgid "Description"
+msgstr "Descrição"
+
+#: activity/templates/activity/detail.html:72
+msgid "Local"
+msgstr "Local"
+
+#: activity/templates/activity/detail.html:81
+#: activity/templates/activity/detail.html:97
+msgid "Organizer"
+msgstr "Facilitador"
+
+#: activity/templates/activity/detail.html:99
+#, python-format
+msgid ""
+"\n"
+"      <p>\n"
+"        Click <a href=\"%(PROFILE_URL)s#organizer-information\">here</a> to "
+"fill the Organizer information.\n"
+"      </p>\n"
+"    "
+msgstr ""
+"\n"
+"      <p>\n"
+"        Click <a href=\"%(PROFILE_URL)s#organizer-information\">aqui</a> "
+"para preencher as informações do Organizador.\n"
+"      </p>\n"
+"    "
+
+#: activity/templates/activity/detail.html:107
+msgid "Share"
+msgstr "Compartilhar"
+
+#: activity/templates/activity/detail.html:112
+msgid ""
+"* ADDITIONAL ACTIVITIES: Check with your coordinator if this activity is "
+"valid for your course and university."
+msgstr ""
+"* ATIVIDADES COMPLEMENTARES: Válide com seu coordenador se essa atividade é "
+"válida para seu curso e universidade."
+
+#: activity/templates/activity/form.html:32
+msgid "Are you the Organizer of this activity?"
+msgstr "Você é o Organizador desta atividade?"
+
+#: activity/templates/activity/form.html:64
+msgid "Online only activity?"
+msgstr "Atividade online?"
+
+#: activity/templates/activity/form.html:85
+msgid "Save"
+msgstr "Salvar"
+
+#: activity/templates/activity/list.html:8 activity/views.py:41
+msgid "Add activity"
+msgstr "Adicionar atividade"
+
+#: activity/templates/activity/list_by_category.html:18
+msgid "Next activities"
+msgstr "Próximas atividades"
+
+#: activity/templates/activity/list_by_category.html:42
+#: category/templates/category/detail.html:40
+#: category/templates/category/list.html:28
+msgid "Unfortunately, we have no activities in the area. Spread education."
+msgstr ""
+
+#: activity/templates/activity/list_by_category.html:44
+#: category/templates/category/detail.html:42
+#: category/templates/category/list.html:30
+msgid "Tell us an activity!"
+msgstr "Indique-nos uma atividade!"
+
+#: category/models.py:10
+msgid "Category"
+msgstr "Categoria"
+
+#: category/models.py:11 core/templates/base.html:65
+msgid "Categories"
+msgstr "Categorias"
+
+#: category/templates/category/delete.html:7
+msgid ""
+"Are you sure you want to remove this category? She can be important for "
+"other activities."
+msgstr ""
+"Tem certeza que deseja remover essa categoria? Ela ainda pode ser muito "
+"importante para outras atividades."
+
+#: category/templates/category/detail.html:15
+msgid "update"
+msgstr "atualizar"
+
+#: category/templates/category/detail.html:21
+#: event/templates/event/delete.html:17
+msgid "delete"
+msgstr "remover"
+
+#: category/templates/category/form.html:21
+msgid "save"
+msgstr ""
+
+#: category/templates/category/list.html:9
+#, fuzzy
+#| msgid "Category"
+msgid "Add category"
+msgstr "Categoria"
+
+#: core/templates/base.html:19
+msgid "Index"
+msgstr ""
+
+#: core/templates/base.html:63
+msgid "Profile"
+msgstr ""
+
+#: core/templates/base.html:68
+msgid "Logout"
+msgstr ""
+
+#: core/templates/base.html:72
+msgid "Facebook"
+msgstr ""
+
+#: core/templates/profile.html:93
+msgid "Salvar alterações"
+msgstr ""
+
+#: event/models.py:31
+msgid "Data"
+msgstr ""
+
+#: event/models.py:58
+msgid "Event"
+msgstr ""
+
+#: event/models.py:59
+msgid "Events"
+msgstr ""
+
+#: event/templates/event/delete.html:14 event/templates/event/form.html:81
+msgid "voltar"
+msgstr ""
+
+#: event/templates/event/detail.html:9
+msgid "Ações"
+msgstr ""
+
+#: event/templates/event/detail.html:15
+msgid "atualizar"
+msgstr ""
+
+#: event/templates/event/detail.html:21
+msgid "remover"
+msgstr ""
+
+#: event/templates/event/form.html:85
+msgid "salvar"
+msgstr ""
+
+#: event/templates/event/list.html:8 event/templates/event/list.html.py:30
+msgid "add event"
+msgstr ""
+
+#: event/templates/event/list_by_category.html:8
+msgid "evento"
+msgstr ""
+
+#: event/templates/event/list_by_category.html:18
+msgid "Próximos eventos"
+msgstr ""
+
+#: event/views.py:24
+msgid "Eventos"
+msgstr ""
+
+#: event/views.py:41
+msgid "Adicionar evento"
+msgstr ""
+
+#~ msgid "add activity"
+#~ msgstr "adicionar atividade"
+
+#~ msgid "Unfortunately, we have no activities in the area. Share education."
+#~ msgstr ""
+#~ "Infelizmente, não dispomos de atividades nessa área. Dissemine a educação."

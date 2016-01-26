@@ -4,13 +4,14 @@
 
 {% block content %}
   <div class="row center">
-    <h3>{% trans 'Are you sure you want to remove this category? She can be important for other activities.' %}</h3>
+    <h3>{% trans 'Are you sure you want to remove this event? It can still be very important for other students.' %}</h3>
   </div>
   <div class="row">
     <form method="POST">
       {% csrf_token %}
+
       <div class="center-align">
-        <a href="{% url 'category:detail' object.slug %}">{% trans 'back' %}</a>
+        <a href="{% url 'activity:detail' object.slug %}">{% trans 'back' %}</a>
         &nbsp;
         <button type="submit" class="btn-large waves-effect waves-light blue darken-4">
           {% trans 'Delete' %}

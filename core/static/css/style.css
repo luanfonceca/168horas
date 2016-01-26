@@ -216,7 +216,7 @@ a.button-collapse.top-nav.full {
   border-color: #29b6f6 !important;
 }
 
-.event-image.responsive-img {
+.activity-image.responsive-img {
   max-height: 400px;
 }
 
@@ -258,14 +258,14 @@ a.button-collapse.top-nav.full {
   transition: .3s color;
 }
 
-#event-description ul.descricao {
+#activity-description ul.descricao {
   padding-left: 20px;
 }
 
-#event-description ul.descricao li {
+#activity-description ul.descricao li {
   list-style-type: disc;
 }
 
-#event-description p {
+#activity-description p {
   margin: 0 !important;
 }

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block header_actions %}
+  <div class="right" style="line-height: 122px;">
+    <a class='btn-large waves-effect waves-light blue darken-4' href="{% url 'activity:create' %}">
+      {% trans 'Add activity' %}
+      <i class="material-icons right" style="line-height: 55px;">add</i>
+    </a>
+  </div>
+{% endblock %}
+
+{% block content %}
+  {% if object_list %}
+    <div class="row" id="masonry-grid">
+      {% for object in object_list %}
+        <div class="col s12 m4 l4">
+          {% include "activity/includes/card.html" with object=activity is_activity_card=True %}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endblock content %}
+
+{% block extra_js %}
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('#masonry-grid').masonry({
+        columnWidth: '.col',
+        itemSelector: '.col',
+      });
+    });
+  </script>
+{% endblock extra_js %}

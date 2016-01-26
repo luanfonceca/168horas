@@ -13,6 +13,7 @@ urlpatterns = patterns(
     # Apps
     url(r'^', include('core.urls')),
     url(r'^events/', include('event.urls', namespace='event')),
+    url(r'^activities/', include('activity.urls', namespace='activity')),
     url(r'^categories/', include('category.urls', namespace='category')),
     url(r'^accounts/', include('allauth.urls')),
     url(r'^accounts/logout/$',

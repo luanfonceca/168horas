@@ -8,19 +8,23 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="pt-br"> <!--<![endif]-->
   <head>
+    <meta name="google-site-verification" content="6_eE-6Qrv6NouNfJQ8jbJQ77mbBQuWqRxb24MAgTPtU" />
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>{{ page_title|default:_('Index') }} - 168 Horas</title>
     <meta name="title" content="168 Horas" />
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
-    <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}">
     <meta property="og:image" content="{% static 'img/favicon.ico' %}" />
+    <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}">
+
+    <title>{{ page_title|default:_('Index') }} - 168 Horas</title>
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="{% static 'css/materialize.css' %}" media="screen,projection"/>
     <link type="text/css" rel="stylesheet" href="{% static 'css/style.css' %}" media="screen,projection"/>
     <link type="text/css" rel="stylesheet" href="{% static 'css/style-responsive.css' %}" media="screen,projection"/>
+    
     {% block extra_css %}{% endblock %}
+
     <style type="text/css">
       .invalid + label:after {
         top: 40px !important;
@@ -31,12 +35,12 @@
   <body>
     <nav role="navigation" id="navigation-menu">
       <div class="nav-wrapper container">
-        <a href="{% if request.user.is_authenticated %}{% url 'event:list' %}{% else %}{% url 'index' %}{% endif %}" class="brand-logo">
+        <a href="{% if request.user.is_authenticated %}{% url 'activity:list' %}{% else %}{% url 'index' %}{% endif %}" class="brand-logo">
           <img src="{% static 'img/logo.svg' %}" style="position: relative; top: 6.5px;">
         </a>
         <!--<ul id="nav-mobile" class="left hide-on-med-and-down">
           <li>
-            <form action="{% url 'event:list' %}">
+            <form action="{% url 'activity:list' %}">
               {% csrf_token %}
               <div class="input-field">
                 <input id="id_search" name="search" type="search" required="required" placeholder="Encontre eventos">
@@ -64,7 +68,7 @@
                 <li><a href="{% url 'account_logout' %}">{% trans 'Logout' %}</a></li>
               </ul>
             {% else %}
-              <a href="{% provider_login_url 'facebook' method='oauth2' %}?next=/events/">
+              <a href="{% provider_login_url 'facebook' method='oauth2' %}?next=/activities/">
                 {% trans 'Facebook' %}
                 <i class="material-icons right">account_circle</i>
               </a>

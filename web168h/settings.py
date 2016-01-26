@@ -33,7 +33,18 @@ TIME_ZONE = 'America/Chicago'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'pt-br'
+TIME_ZONE = 'America/Sao_Paulo'
+
+LANGUAGE_CODE = 'pt-BR'
+
+LANGUAGES = (
+    ('pt_BR', 'PT-BR'),
+)
+
+LOCALE_PATHS = (
+    os.path.join(PROJECT_DIR, "locale"),
+)
+
 
 USE_L10N = True
 
@@ -141,6 +152,7 @@ DJANGO_APPS = (
 
 LOCAL_APPS = (
     'core',
+    'activity',
     'event',
     'category',
 )
@@ -191,7 +203,7 @@ LOGGING = {
 
 
 LOGIN_URL = '/'
-LOGIN_REDIRECT_URL = '/events/'
+LOGIN_REDIRECT_URL = '/activities/'
 SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/profile/'
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 ACCOUNT_EMAIL_REQUIRED = True
