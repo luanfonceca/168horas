@@ -10,6 +10,9 @@ def create_activities(apps, schema_editor):
 
     for event in Event.objects.all():
         activity = Activity.objects.create(
+            title=event.title,
+            slug=event.slug,
+            description=event.description,
             link=event.link,
             scheduled_date=event.scheduled_date,
             created_at=event.created_at,
