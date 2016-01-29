@@ -149,7 +149,7 @@
 
 
     <!-- Google Analytics Tracking Code for http://168h.com.br -->
-    <script>
+    <script type="text/javascript">
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -160,7 +160,7 @@
     </script>
 
     <!-- Hotjar Tracking Code for http://168h.com.br -->
-    <script>
+    <script type="text/javascript">
       (function(h,o,t,j,a,r){
         h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
         h._hjSettings={hjid:131099,hjsv:5};
@@ -169,6 +169,17 @@
         r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
         a.appendChild(r);
       })(window,document,'//static.hotjar.com/c/hotjar-','.js?sv=');
+    </script>
+
+    <!-- Google Adsense -->
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        var ads = $('.adsbygoogle');
+        $.each(ads, function(value, index){
+          (adsbygoogle = window.adsbygoogle || []).push({});
+        });
+      });
     </script>
 
     <script type="text/javascript">
