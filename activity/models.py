@@ -51,6 +51,11 @@ class Activity(TitleSlugDescriptionModel):
         verbose_name=_(u'Categorias'),
         to='category.Category',
         related_name='activities')
+    attendees = models.ManyToManyField(
+        verbose_name=_(u'Attendees'),
+        to='core.Profile',
+        through='attendee.Attendee',
+        related_name='activities+')
 
     # managers
     objects = ActivityManager.as_manager()
@@ -70,6 +75,9 @@ class Activity(TitleSlugDescriptionModel):
 
     def get_delete_url(self):
         return reverse('activity:delete', kwargs={'slug': self.slug})
+
+    def get_attendee_join_url(self):
+        return reverse('attendee:join', kwargs={'activity_slug': self.slug})
 
     @property
     def get_photo_url(self):

@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block header_actions %}
+  <div class="right" style="line-height: 122px;">
+    <a class='dropdown-button btn-large waves-effect waves-light white blue-text text-darken-4' href='javascript:;' data-activates='activity-actions' style="width: 200px;">
+      {% trans 'Actions' %}
+      <i class="material-icons right" style="line-height: 55px;">arrow_drop_down</i>
+    </a>
+    <ul id='activity-actions' class='dropdown-content'>
+      <li>
+        <a class="blue-text text-darken-4" href="{{ activity.get_absolute_url }}">
+          {% trans 'Activity' %}
+          <i class="material-icons right">search</i>
+        </a>
+      </li>
+      <li>
+        <a class="blue-text text-darken-4" href="{% url 'attendee:send_certificates' activity_slug=activity.slug %}">
+          {% trans 'Send certificates' %}
+          <i class="material-icons right">insert_drive_file</i>
+        </a>
+      </li>
+      <li>
+        <a class="blue-text text-darken-4" href="{% url 'attendee:export' activity_slug=activity.slug %}">
+          {% trans 'Export attendees' %}
+          <i class="material-icons right">file_download</i>
+        </a>
+      </li>
+    </ul>
+  </div>
+{% endblock %}
+
+{% block content %}
+  {% if object_list %}
+    <div class="row masonry-grid">
+      {% for object in object_list %}
+        <div class="col s12 m3 l3">
+          {% include "attendee/includes/card.html" %}
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="col s12 m12 l12">
+      <p class="caption">
+        {% trans 'Unfortunately, we have no attendees in this activity.' %}
+      </p>
+    </div>
+  {% endif %}
+{% endblock content %}

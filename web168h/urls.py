@@ -14,6 +14,8 @@ urlpatterns = patterns(
     url(r'^', include('core.urls')),
     url(r'^events/', include('event.urls', namespace='event')),
     url(r'^activities/', include('activity.urls', namespace='activity')),
+    url(r'^activities/(?P<activity_slug>[\w-]+)/attendees/',
+        include('attendee.urls', namespace='attendee')),
     url(r'^categories/', include('category.urls', namespace='category')),
     url(r'^accounts/', include('allauth.urls')),
     url(r'^accounts/logout/$',
