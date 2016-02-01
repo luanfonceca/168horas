@@ -48,7 +48,7 @@ class Activity(TitleSlugDescriptionModel):
         null=True, blank=True,
         related_name='activities')
     categories = models.ManyToManyField(
-        verbose_name=_(u'Categorias'),
+        verbose_name=_(u'Categories'),
         to='category.Category',
         related_name='activities')
     attendees = models.ManyToManyField(

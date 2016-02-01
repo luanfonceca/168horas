@@ -89,8 +89,13 @@
     </div>
 
     <div class="center-align col s4">
-      <button type="submit" class="waves-effect waves-light btn btn-large btn-wide green">
-        {% trans 'Salvar alterações' %}
+      <a href="{% url 'activity:list' %}">
+        {% trans 'back' %}
+      </a>
+      &nbsp;
+      <button type="submit" class="waves-effect waves-light btn btn-large btn-wide blue darken-4">
+        {% trans 'Save' %}
+        <i class="material-icons right">done</i>
       </button>
     </div>
   </form>

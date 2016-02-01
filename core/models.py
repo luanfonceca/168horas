@@ -3,30 +3,36 @@ from django.conf import settings
 from django.core.exceptions import AppRegistryNotReady
 from django.db.models.signals import post_save
 from django.core.urlresolvers import reverse_lazy
+from django.utils.translation import ugettext as _
 
 from localflavor.br import br_states
 
 
 class Profile(models.Model):
     state = models.CharField(
-        'State', max_length=50, choices=br_states.STATE_CHOICES)
-    cpf = models.CharField('CPF', max_length=14, null=True, blank=True)
-    cnpj = models.CharField('CNPJ', max_length=18, null=True, blank=True)
+        _('State'), max_length=50, choices=br_states.STATE_CHOICES)
+    cpf = models.CharField(_('CPF'), max_length=14, null=True, blank=True)
+    cnpj = models.CharField(_('CNPJ'), max_length=18, null=True, blank=True)
     digital_signature = models.ImageField(
+        _('Digital Signature'),
         upload_to='signatures/', null=True, blank=True,
-        help_text='PNG signatures in the resolution: 200x200.')
-    organizer_name = models.CharField(max_length=200, null=True, blank=True)
-    organizer_email = models.EmailField(max_length=200, null=True, blank=True)
-    organizer_phone = models.CharField(max_length=30, null=True, blank=True)
+        help_text=_('PNG signatures in the resolution: 200x200.'))
+    organizer_name = models.CharField(
+        _('Organizer Name'), max_length=200, null=True, blank=True)
+    organizer_email = models.EmailField(
+        _('Organizer Email'), max_length=200, null=True, blank=True)
+    organizer_phone = models.CharField(
+        _('Organizer Phone'), max_length=30, null=True, blank=True)
 
     # relations
     user = models.OneToOneField(
         to=settings.AUTH_USER_MODEL, null=True, blank=True)
-    categories = models.ManyToManyField(to='category.Category')
+    categories = models.ManyToManyField(
+        to='category.Category', verbose_name=_('Categories'))
 
     class Meta:
-        verbose_name = 'Profile'
-        verbose_name_plural = 'Profiles'
+        verbose_name = _('Profile')
+        verbose_name_plural = _('Profiles')
 
     def __unicode__(self):
         return self.user.username

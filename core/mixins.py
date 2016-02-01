@@ -11,9 +11,17 @@ class LoginRequiredMixin(object):
 
 
 class FormValidRedirectMixing(object):
-    def success_redirect(self, message):
-        messages.success(self.request, message)
+    def success_redirect(self, message, level=messages.SUCCESS):
+        messages.add_message(self.request, level, message)
         return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_message(self):
+        if self.success_message is not None:
+            return self.success_message
+
+    def form_valid(self, form):
+        self.object = form.save()
+        return self.success_redirect(self.get_success_message())
 
 
 class PageTitleMixin(object):

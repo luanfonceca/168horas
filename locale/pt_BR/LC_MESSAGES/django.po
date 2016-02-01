@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-26 07:43-0200\n"
-"PO-Revision-Date: 2016-01-26 06:38-0300\n"
+"POT-Creation-Date: 2016-02-01 21:19-0200\n"
+"PO-Revision-Date: 2016-02-01 20:20-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid "Link"
 msgstr "Link"
 
-#: activity/models.py:31
+#: activity/models.py:31 event/models.py:31
 msgid "Date"
 msgstr "Data"
 
@@ -58,8 +58,9 @@ msgstr "Local"
 msgid "Created by"
 msgstr "Criado por"
 
-#: activity/models.py:51 category/views.py:19 event/models.py:50
-msgid "Categorias"
+#: activity/models.py:51 category/models.py:11 core/models.py:31
+#: core/templates/base.html:65
+msgid "Categories"
 msgstr "Categorias"
 
 #: activity/models.py:59 activity/templates/activity/list_by_category.html:8
@@ -81,7 +82,8 @@ msgstr ""
 #: activity/templates/activity/delete.html:14
 #: activity/templates/activity/form.html:81
 #: category/templates/category/delete.html:13
-#: category/templates/category/form.html:17
+#: category/templates/category/form.html:17 core/templates/profile.html:93
+#: event/templates/event/delete.html:14 event/templates/event/form.html:81
 msgid "back"
 msgstr "voltar"
 
@@ -109,20 +111,20 @@ msgstr "Atualizar"
 msgid "Join"
 msgstr "Participar"
 
-#: activity/templates/activity/detail.html:66
+#: activity/templates/activity/detail.html:75
 msgid "Description"
 msgstr "Descrição"
 
-#: activity/templates/activity/detail.html:72
+#: activity/templates/activity/detail.html:81
 msgid "Local"
 msgstr "Local"
 
-#: activity/templates/activity/detail.html:81
-#: activity/templates/activity/detail.html:97
+#: activity/templates/activity/detail.html:90
+#: activity/templates/activity/detail.html:106
 msgid "Organizer"
 msgstr "Facilitador"
 
-#: activity/templates/activity/detail.html:99
+#: activity/templates/activity/detail.html:108
 #, python-format
 msgid ""
 "\n"
@@ -139,11 +141,11 @@ msgstr ""
 "      </p>\n"
 "    "
 
-#: activity/templates/activity/detail.html:107
+#: activity/templates/activity/detail.html:116
 msgid "Share"
 msgstr "Compartilhar"
 
-#: activity/templates/activity/detail.html:112
+#: activity/templates/activity/detail.html:121
 msgid ""
 "* ADDITIONAL ACTIVITIES: Check with your coordinator if this activity is "
 "valid for your course and university."
@@ -160,6 +162,7 @@ msgid "Online only activity?"
 msgstr "Atividade online?"
 
 #: activity/templates/activity/form.html:85
+#: category/templates/category/form.html:21 core/templates/profile.html:97
 msgid "Save"
 msgstr "Salvar"
 
@@ -171,14 +174,14 @@ msgstr "Adicionar atividade"
 msgid "Next activities"
 msgstr "Próximas atividades"
 
-#: activity/templates/activity/list_by_category.html:42
-#: category/templates/category/detail.html:40
+#: activity/templates/activity/list_by_category.html:49
+#: category/templates/category/detail.html:49
 #: category/templates/category/list.html:28
 msgid "Unfortunately, we have no activities in the area. Spread education."
-msgstr ""
+msgstr "Infelizmente, não temos nenhuma atividade na área. Espalhe a educação."
 
-#: activity/templates/activity/list_by_category.html:44
-#: category/templates/category/detail.html:42
+#: activity/templates/activity/list_by_category.html:51
+#: category/templates/category/detail.html:51
 #: category/templates/category/list.html:30
 msgid "Tell us an activity!"
 msgstr "Indique-nos uma atividade!"
@@ -186,10 +189,6 @@ msgstr "Indique-nos uma atividade!"
 #: category/models.py:10
 msgid "Category"
 msgstr "Categoria"
-
-#: category/models.py:11 core/templates/base.html:65
-msgid "Categories"
-msgstr "Categorias"
 
 #: category/templates/category/delete.html:7
 msgid ""
@@ -208,39 +207,73 @@ msgstr "atualizar"
 msgid "delete"
 msgstr "remover"
 
-#: category/templates/category/form.html:21
-msgid "save"
-msgstr ""
-
 #: category/templates/category/list.html:9
-#, fuzzy
-#| msgid "Category"
 msgid "Add category"
-msgstr "Categoria"
+msgstr "Adicionar Categoria"
+
+#: category/views.py:19 event/models.py:50
+msgid "Categorias"
+msgstr "Categorias"
+
+#: core/models.py:13
+msgid "State"
+msgstr "Estado"
+
+#: core/models.py:14
+msgid "CPF"
+msgstr "CPF"
+
+#: core/models.py:15
+msgid "CNPJ"
+msgstr "CNPJ"
+
+#: core/models.py:17
+msgid "Digital Signature"
+msgstr "Assinatura Digital"
+
+#: core/models.py:19
+msgid "PNG signatures in the resolution: 200x200."
+msgstr "Assinaturas Digitais em PNG na resolução de 200x200."
+
+#: core/models.py:21
+msgid "Organizer Name"
+msgstr "Nome do Facilitador"
+
+#: core/models.py:23
+msgid "Organizer Email"
+msgstr "Email do Facilitador"
+
+#: core/models.py:25
+msgid "Organizer Phone"
+msgstr "Telefone do Facilitador"
+
+#: core/models.py:34 core/templates/base.html:63
+msgid "Profile"
+msgstr "Perfil"
+
+#: core/models.py:35
+msgid "Profiles"
+msgstr "Perfis"
 
 #: core/templates/base.html:19
 msgid "Index"
-msgstr ""
-
-#: core/templates/base.html:63
-msgid "Profile"
-msgstr ""
+msgstr "Início"
 
 #: core/templates/base.html:68
 msgid "Logout"
-msgstr ""
+msgstr "Sair"
 
 #: core/templates/base.html:72
 msgid "Facebook"
-msgstr ""
+msgstr "Facebook"
 
-#: core/templates/profile.html:93
-msgid "Salvar alterações"
-msgstr ""
+#: core/views.py:31
+msgid "Profile update"
+msgstr "Atualizar perfil"
 
-#: event/models.py:31
-msgid "Data"
-msgstr ""
+#: core/views.py:33
+msgid "Profile updated."
+msgstr "Perfil atualizado."
 
 #: event/models.py:58
 msgid "Event"
@@ -248,10 +281,6 @@ msgstr ""
 
 #: event/models.py:59
 msgid "Events"
-msgstr ""
-
-#: event/templates/event/delete.html:14 event/templates/event/form.html:81
-msgid "voltar"
 msgstr ""
 
 #: event/templates/event/detail.html:9
@@ -289,6 +318,9 @@ msgstr ""
 #: event/views.py:41
 msgid "Adicionar evento"
 msgstr ""
+
+#~ msgid "save"
+#~ msgstr "\t"
 
 #~ msgid "add activity"
 #~ msgstr "adicionar atividade"
