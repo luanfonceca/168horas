@@ -1,3 +1,5 @@
+from django.utils.translation import ugettext as _
+
 from vanilla import TemplateView, UpdateView
 
 from core.mixins import PageTitleMixin, LoginRequiredMixin
@@ -15,7 +17,7 @@ class IndexView(TemplateView):
 
 class ProfileView(PageTitleMixin, LoginRequiredMixin, UpdateView):
     template_name = 'profile.html'
-    page_title = 'Profile update'
+    page_title = _('Profile update')
     model = Profile
     fields = (
         'state', 'categories',

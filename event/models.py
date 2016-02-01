@@ -28,7 +28,7 @@ class CouseManager(models.QuerySet):
 
 class Event(TitleSlugDescriptionModel):
     link = models.URLField(_(u'Link'), max_length=300, null=True, blank=True)
-    scheduled_date = models.DateField(_(u'Data'), null=True, blank=True)
+    scheduled_date = models.DateField(_(u'Date'), null=True, blank=True)
     created_at = CreationDateTimeField(_(u'Created At'))
     is_published = models.BooleanField(_(u'Is Published'), default=True)
     is_public = models.BooleanField(_(u'Is Public'), default=True)
