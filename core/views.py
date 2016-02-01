@@ -1,4 +1,5 @@
 from django.utils.translation import ugettext as _
+from django.shortcuts import redirect
 
 from vanilla import TemplateView, UpdateView
 
@@ -13,6 +14,10 @@ class IndexView(TemplateView):
         context = super(IndexView, self).get_context_data(**kwargs)
         context.update(index_page=True)
         return context
+
+    def get(self, *args, **kwargs):
+        if self.request.user.is_authenticated():
+            return redirect('activity:list')
 
 
 class ProfileView(PageTitleMixin, LoginRequiredMixin, UpdateView):
