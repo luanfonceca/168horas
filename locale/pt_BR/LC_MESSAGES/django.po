@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-01 18:18-0200\n"
-"PO-Revision-Date: 2016-02-01 17:19-0300\n"
+"POT-Creation-Date: 2016-02-01 21:19-0200\n"
+"PO-Revision-Date: 2016-02-01 20:20-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -82,7 +82,7 @@ msgstr ""
 #: activity/templates/activity/delete.html:14
 #: activity/templates/activity/form.html:81
 #: category/templates/category/delete.html:13
-#: category/templates/category/form.html:17
+#: category/templates/category/form.html:17 core/templates/profile.html:93
 #: event/templates/event/delete.html:14 event/templates/event/form.html:81
 msgid "back"
 msgstr "voltar"
@@ -162,7 +162,7 @@ msgid "Online only activity?"
 msgstr "Atividade online?"
 
 #: activity/templates/activity/form.html:85
-#: category/templates/category/form.html:21 core/templates/profile.html:93
+#: category/templates/category/form.html:21 core/templates/profile.html:97
 msgid "Save"
 msgstr "Salvar"
 
@@ -267,9 +267,13 @@ msgstr "Sair"
 msgid "Facebook"
 msgstr "Facebook"
 
-#: core/views.py:20
+#: core/views.py:31
 msgid "Profile update"
 msgstr "Atualizar perfil"
+
+#: core/views.py:33
+msgid "Profile updated."
+msgstr "Perfil atualizado."
 
 #: event/models.py:58
 msgid "Event"
