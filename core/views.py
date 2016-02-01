@@ -19,6 +19,7 @@ class IndexView(TemplateView):
     def get(self, *args, **kwargs):
         if self.request.user.is_authenticated():
             return redirect('activity:list')
+        return super(IndexView, self).get(*args, **kwargs)
 
 
 class ProfileView(mixins.PageTitleMixin,
