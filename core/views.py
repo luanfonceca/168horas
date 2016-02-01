@@ -1,9 +1,10 @@
 from django.utils.translation import ugettext as _
+from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import redirect
 
 from vanilla import TemplateView, UpdateView
 
-from core.mixins import PageTitleMixin, LoginRequiredMixin
+from core import mixins
 from core.models import Profile
 
 
@@ -20,10 +21,15 @@ class IndexView(TemplateView):
             return redirect('activity:list')
 
 
-class ProfileView(PageTitleMixin, LoginRequiredMixin, UpdateView):
+class ProfileView(mixins.PageTitleMixin,
+                  mixins.LoginRequiredMixin,
+                  mixins.FormValidRedirectMixing,
+                  UpdateView):
     template_name = 'profile.html'
-    page_title = _('Profile update')
     model = Profile
+    page_title = _('Profile update')
+    success_url = reverse_lazy('activity:list')
+    success_message = _('Profile updated.')
     fields = (
         'state', 'categories',
         'organizer_name', 'digital_signature', 'cpf', 'cnpj',

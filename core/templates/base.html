@@ -140,7 +140,21 @@
         </div>
       </div>
     </footer>
-    
+
+    <!-- Messages -->
+    <div class="hide messages">
+      {% for message in messages %}
+        <div class="message">
+          <span>
+            <i class="material-icons left">
+              {% if message.tags == 'success' %}check_circle{% else %}warning{% endif %}
+            </i>
+            {{ message }}
+          </span>
+        </div>
+      {% endfor %}
+    </div>
+
     <script type="text/javascript" src="{% static 'js/jquery-2.1.1.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/masonry.min.js' %}"></script>
@@ -192,6 +206,10 @@
             dismissible: false
           });
         };
+
+        $('.messages .message').each(function() {
+          Materialize.toast($(this), 5000);
+        });
       });
 
       $(window).load(function() {
