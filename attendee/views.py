@@ -1,6 +1,10 @@
 from django.utils.translation import ugettext as _
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
+from django.contrib import messages
+from django.db import IntegrityError
+from django.shortcuts import redirect
+
 
 from vanilla import model_views as views
 from djqscsv import render_to_csv_response
@@ -44,6 +48,20 @@ class AttendeeJoin(BaseAttendeeView, views.CreateView):
         activity = self.get_activity()
         return _(u'Join to {activity}').format(activity=activity)
 
+    def get(self, request, *args, **kwargs):
+        already_joined = Attendee.objects.filter(
+            profile=self.request.user.profile,
+            activity=self.get_activity(),
+        ).exists()
+
+        if already_joined:
+            messages.add_message(
+                request=self.request, level=messages.SUCCESS,
+                message=_('You already joined up for this event!')
+            )
+
+        return super(AttendeeJoin, self).get(request, *args, **kwargs)
+
     def get_form(self, data=None, files=None, **kwargs):
         kwargs.update(initial={
             'name': self.request.user.get_full_name(),
@@ -54,11 +72,21 @@ class AttendeeJoin(BaseAttendeeView, views.CreateView):
         )
 
     def form_valid(self, form):
-        self.object = Attendee(**form.cleaned_data)
+        self.activity = self.get_activity()
+        self.object = form.save(commit=False)
         self.object.profile = self.request.user.profile
-        self.object.activity = self.get_activity()
-        self.object.save()
-        return HttpResponseRedirect(self.get_success_url())
+        self.object.activity = self.activity
+
+        try:
+            self.object.save()
+        except IntegrityError:
+            messages.add_message(
+                request=self.request, level=messages.ERROR,
+                message=_('This user already joined up for this event!')
+            )
+            return redirect(self.activity.get_attendee_join_url())
+        else:
+            return HttpResponseRedirect(self.get_success_url())
 
 
 class ExportAttendeeList(BaseAttendeeView, views.DetailView):

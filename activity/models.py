@@ -6,10 +6,10 @@ from django.utils.timezone import datetime
 
 from PIL import Image
 
-from web168h import settings
-
 from django_extensions.db.fields import CreationDateTimeField
 from django_extensions.db.models import TitleSlugDescriptionModel
+
+from web168h import settings
 
 
 class ActivityManager(models.QuerySet):
@@ -40,6 +40,10 @@ class Activity(TitleSlugDescriptionModel):
         help_text=_('Images in the resolution: 400x400.'))
     location = models.CharField(
         _(u'Location'), max_length=500, null=True, blank=True)
+    capacity = models.IntegerField(
+        _(u'Capacity'), default=50, null=True, blank=True)
+    price = models.DecimalField(
+        _(u'Price'), max_digits=10, decimal_places=2, null=True, blank=True)
 
     # relations
     created_by = models.ForeignKey(
@@ -95,5 +99,6 @@ def resize_activity_photo(sender, instance, **kwargs):
 
     image = image.resize((400, 400), Image.ANTIALIAS)
     image.save(instance.photo.path, quality=90)
+
 
 post_save.connect(resize_activity_photo, sender=Activity)

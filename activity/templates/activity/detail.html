@@ -107,7 +107,7 @@
     {% url 'profile' as profile_url %}
     {% blocktrans with profile_url=profile_url %}
       <p>
-        Click <a href="{{ PROFILE_URL }}#organizer-information">here</a> to fill the Organizer information.
+        Click <a href="{{ profile_url }}#organizer-information">here</a> to fill the Organizer information.
       </p>
     {% endblocktrans %}
   {% endif %}

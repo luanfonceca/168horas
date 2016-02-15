@@ -163,7 +163,6 @@ EXTERNAL_APPS = (
     'django_extensions',
     'widget_tweaks',
     'raven.contrib.django.raven_compat',
-
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -211,6 +210,10 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 ACCOUNT_EMAIL_REQUIRED = True
 SOCIALACCOUNT_QUERY_EMAIL = True
 ACCOUNT_LOGOUT_ON_GET = True
+
+
+# Email configs
+NO_REPLY_EMAIL = 'noreply@168h.com.br'
 
 
 # Import the custom settings

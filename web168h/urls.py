@@ -20,7 +20,7 @@ urlpatterns = patterns(
     url(r'^accounts/', include('allauth.urls')),
     url(r'^accounts/logout/$',
         'django.contrib.auth.views.logout',
-        {'next_page': '/'})
+        {'next_page': '/'}),
 ) + static.static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += staticfiles_urlpatterns()

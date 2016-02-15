@@ -22,7 +22,6 @@ django-common==0.1.51
 django-extensions==1.5.7
 django-image-tools-2==1.0
 django-localflavor==1.2
-django-pagseguro2==1.0.12
 django-queryset-csv==0.3.3
 django-tinymce==2.2.0
 django-toolbelt==0.0.1
@@ -30,6 +29,7 @@ django-vanilla-views==1.0.4
 django-webtest==1.7.8
 django-widget-tweaks==1.4.1
 django-wysiwyg==0.7.1
+djrill==2.0
 ecdsa==0.13
 gnureadline==6.3.3
 greenlet==0.4.9
@@ -40,6 +40,7 @@ ipython-genutils==0.1.0
 ipython==4.0.0
 mock==1.0.0
 model-mommy==1.2.5
+newrelic==2.60.0.46
 oauthlib==1.0.3
 paramiko==1.16.0
 path.py==8.1.1

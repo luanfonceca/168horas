@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
     dependencies = [
         ('attendee', '0001_initial'),
         ('core', '0003_auto_20160115_1337'),
-        ('activity', '0003_auto_20160126_0757'),
+        ('activity', '0004_auto_20160201_1807'),
     ]
 
     operations = [

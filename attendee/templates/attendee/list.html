@@ -9,12 +9,12 @@
       <i class="material-icons right" style="line-height: 55px;">arrow_drop_down</i>
     </a>
     <ul id='activity-actions' class='dropdown-content'>
-      <li>
+      <!--<li>
         <a class="blue-text text-darken-4" href="{{ activity.get_absolute_url }}">
           {% trans 'Activity' %}
           <i class="material-icons right">search</i>
         </a>
-      </li>
+      </li>-->
       <li>
         <a class="blue-text text-darken-4" href="{% url 'attendee:send_certificates' activity_slug=activity.slug %}">
           {% trans 'Send certificates' %}

@@ -1,0 +1,21 @@
+{% load i18n %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>168 Horas</title>
+  </head>
+
+  <body>
+    {% blocktrans with get_full_name=object.user.get_full_name activity_title=activity.title organizer_email=created_by.organizer_email organizer_name=created_by.organizer_name %}
+      <p>Hi {{ get_full_name }}, welcome to the "{{ activity_title }}"!</p>
+
+      <p>
+        If you have any doubts about this activity feel free to get in touch with the Organizer:
+        <a href="mailto:{{ organizer_email }}" target="_blank">{{ organizer_name }}</a> by email.
+      </p>
+
+      <p>Thank you.</p>
+    {% endblocktrans %}
+  </body>
+</html>
