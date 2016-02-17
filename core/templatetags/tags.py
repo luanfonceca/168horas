@@ -19,3 +19,8 @@ def exists_pk(queryset, pk):
 def get_filename(image):
     if image.name is not None:
         return image.name.split('/')[-1]
+
+
+@register.filter
+def already_joined(activity, profile):
+    return activity.attendees.filter(pk=profile.pk)

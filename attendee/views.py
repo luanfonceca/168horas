@@ -57,7 +57,7 @@ class AttendeeJoin(BaseAttendeeView, views.CreateView):
         if already_joined:
             messages.add_message(
                 request=self.request, level=messages.SUCCESS,
-                message=_('You already joined up for this event!')
+                message=_('You already joined up for this activity!')
             )
 
         return super(AttendeeJoin, self).get(request, *args, **kwargs)
@@ -82,11 +82,21 @@ class AttendeeJoin(BaseAttendeeView, views.CreateView):
         except IntegrityError:
             messages.add_message(
                 request=self.request, level=messages.ERROR,
-                message=_('This user already joined up for this event!')
+                message=_('This user already joined up for this activity!')
             )
             return redirect(self.activity.get_attendee_join_url())
         else:
+            messages.add_message(
+                request=self.request, level=messages.SUCCESS,
+                message=_('Successfully joined up for this activity!')
+            )
             return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        self.activity = self.get_activity()
+        if self.activity.created_by != self.request.user.profile:
+            return self.activity.get_absolute_url()
+        return super(AttendeeJoin, self).get_success_url()
 
 
 class ExportAttendeeList(BaseAttendeeView, views.DetailView):

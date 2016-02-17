@@ -1,5 +1,7 @@
 {% load i18n %}
 
+{% load tags %}
+
 <div class="card">
   {% if object.photo %}
     <div class="card-image">
@@ -20,10 +22,17 @@
   <div class="card-action">
     {% if is_activity_card %}
       <div class="center-align">
-        <a class="btn btn-wide btn-large waves-effect waves-light blue darken-4 white-text" {% if object.link %}href="{{ object.link }}" target="_blank"{% else %}href="{{ object.get_absolute_url }}"{% endif %} style="width: 100%">
-          {% trans 'Join' %}
-          <i class="material-icons right"><i class="material-icons">arrow_forward</i></i>
-        </a>
+        {% if request.user.is_authenticated and object|already_joined:request.user.profile %}
+          <a class='disabled btn btn-wide btn-large waves-effect waves-light' href="javascript:;" style="width: 100%">
+            {% trans 'Already Joined' %}
+            <i class="material-icons right" style="line-height: 55px;">check</i>
+          </a>
+        {% else %}
+          <a class='btn btn-wide btn-large waves-effect waves-light' {% if object.link %}href="{{ object.link }}" target="_blank"{% else %}href="{{ object.get_attendee_join_url }}"{% endif %} style="width: 100%">
+            {% trans 'Join' %}
+            <i class="material-icons right" style="line-height: 55px;">arrow_forward</i>
+          </a>
+        {% endif %}
       </div>
     {% endif %}
     {% if request.user.is_staff or request.user == object.author %}

@@ -2,6 +2,8 @@
 
 {% load i18n %}
 
+{% load tags %}
+
 {% block header_actions %}
   {% if request.user.is_staff or request.user.profile == object.created_by %}
     <div class="right" style="line-height: 122px;">
@@ -26,10 +28,17 @@
     </div>
   {% else %}
     <div class="right" style="line-height: 122px;">
-      <a class='btn-large waves-effect waves-light white blue-text text-darken-4' {% if object.link %}href="{{ object.link }}" target="_blank"{% else %}href="{{ object.get_attendee_join_url }}"{% endif %}>
-        {% trans 'Join' %}
-        <i class="material-icons right" style="line-height: 55px;">arrow_forward</i>
-      </a>
+      {% if request.user.is_authenticated and object|already_joined:request.user.profile %}
+        <a class='disabled btn-large waves-effect waves-light white blue-text text-darken-4' href="javascript:;">
+          {% trans 'Already Joined' %}
+          <i class="material-icons right" style="line-height: 55px;">check</i>
+        </a>
+      {% else %}
+        <a class='btn-large waves-effect waves-light white blue-text text-darken-4' {% if object.link %}href="{{ object.link }}" target="_blank"{% else %}href="{{ object.get_attendee_join_url }}"{% endif %}>
+          {% trans 'Join' %}
+          <i class="material-icons right" style="line-height: 55px;">arrow_forward</i>
+        </a>
+      {% endif %}
     </div>
   {% endif %}
 {% endblock %}
@@ -43,20 +52,34 @@
       <div class="col s12 m6 l6">
         <h3>{{ object.title }}</h3>
 
-        <a class="btn btn-wide btn-large waves-effect waves-light blue darken-4" {% if object.link %}href="{{ object.link }}" target="_blank"{% else %}href="{{ object.get_attendee_join_url }}"{% endif %}>
-          {% trans 'Join' %}
-          <i class="material-icons right"><i class="material-icons">arrow_forward</i></i>
-        </a>
+        {% if request.user.is_authenticated and object|already_joined:request.user.profile %}
+          <a class='disabled btn-large waves-effect waves-light white blue-text text-darken-4' href="javascript:;">
+            {% trans 'Already Joined' %}
+            <i class="material-icons right" style="line-height: 55px;">check</i>
+          </a>
+        {% else %}
+          <a class="btn btn-wide btn-large waves-effect waves-light blue darken-4" {% if object.link %}href="{{ object.link }}" target="_blank"{% else %}href="{{ object.get_attendee_join_url }}"{% endif %}>
+            {% trans 'Join' %}
+            <i class="material-icons right"><i class="material-icons">arrow_forward</i></i>
+          </a>
+        {% endif %}
       </div>
     {% else %}
       <div class="center-align">
         <h3>{{ object.title }}</h3>
 
         <div class="col s4 offset-s4">
-          <a class="btn btn-wide btn-large waves-effect waves-light blue darken-4" {% if object.link %}href="{{ object.link }}" target="_blank"{% else %}href="{{ object.get_attendee_join_url }}"{% endif %} style="width: 100%">
-            {% trans 'Join' %}
-            <i class="material-icons right"><i class="material-icons">arrow_forward</i></i>
-          </a>
+          {% if request.user.is_authenticated and object|already_joined:request.user.profile %}
+            <a class='disabled btn-large waves-effect waves-light white blue-text text-darken-4' href="javascript:;">
+              {% trans 'Already Joined' %}
+              <i class="material-icons right" style="line-height: 55px;">check</i>
+            </a>
+          {% else %}
+            <a class="btn btn-wide btn-large waves-effect waves-light blue darken-4" {% if object.link %}href="{{ object.link }}" target="_blank"{% else %}href="{{ object.get_attendee_join_url }}"{% endif %} style="width: 100%">
+              {% trans 'Join' %}
+              <i class="material-icons right"><i class="material-icons">arrow_forward</i></i>
+            </a>
+          {% endif %}
         </div>
       </div>
     {% endif %}
