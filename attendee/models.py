@@ -64,26 +64,29 @@ class Attendee(models.Model):
         if social:
             return social.get_avatar_url()
 
+    def send_welcome_email(self):
+        context = {
+            'object': self,
+            'activity': self.activity,
+            'created_by': self.activity.created_by,
+        }
+        message = render_to_string(
+            'mailing/welcome_attendee.txt', context)
+        html_message = render_to_string(
+            'mailing/welcome_attendee.html', context)
+        subject = _(u'Welcome to the "{}"!'.format(self.activity.title))
+        recipients = [self.profile.user.email]
+
+        send_mail(
+            subject=subject, message=message, html_message=html_message,
+            from_email=settings.NO_REPLY_EMAIL, recipient_list=recipients
+        )
+
 
 def send_attendee_joined_email(sender, instance, created, **kwargs):
     if not created:
         return
+    instance.send_welcome_email()
 
-    context = {
-        'object': instance,
-        'activity': instance.activity,
-        'created_by': instance.activity.created_by,
-    }
-    message = render_to_string(
-        'mailing/welcome_attendee.txt', context)
-    html_message = render_to_string(
-        'mailing/welcome_attendee.html', context)
-    subject = _(u'Welcome to the "{}"!'.format(instance.activity.title))
-    recipients = [instance.profile.user.email]
 
-    send_mail(
-        subject=subject, message=message, html_message=html_message,
-        from_email=settings.NO_REPLY_EMAIL, recipient_list=recipients
-    )
-
-post_save.connect(send_attendee_joined_email, sender=Attendee)
+# post_save.connect(send_attendee_joined_email, sender=Attendee)
