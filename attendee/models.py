@@ -89,4 +89,4 @@ def send_attendee_joined_email(sender, instance, created, **kwargs):
     instance.send_welcome_email()
 
 
-# post_save.connect(send_attendee_joined_email, sender=Attendee)
+post_save.connect(send_attendee_joined_email, sender=Attendee)
