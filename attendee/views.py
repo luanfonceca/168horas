@@ -9,7 +9,7 @@ from django.shortcuts import redirect
 from vanilla import model_views as views
 from djqscsv import render_to_csv_response
 
-from core.mixins import PageTitleMixin
+from core.mixins import PageTitleMixin, LoginRequiredMixin
 from activity.models import Activity
 from attendee.models import Attendee
 from attendee.forms import AttendeeForm
@@ -41,7 +41,7 @@ class AttendeeList(BaseAttendeeView, views.ListView):
         return queryset
 
 
-class AttendeeJoin(BaseAttendeeView, views.CreateView):
+class AttendeeJoin(BaseAttendeeView, LoginRequiredMixin, views.CreateView):
     template_name = 'attendee/form.html'
 
     def get_page_title(self):
