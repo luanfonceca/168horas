@@ -1,13 +1,17 @@
 {% load i18n %}
+{% load static %}
 
-<div class="card">
+<div class="card hoverable">
   <div class="card-image">
-    <a href="{{ object.get_absolute_url }}" class="hoverable">
-      <img src="{{ object.get_photo_url }}"/>
-      <span class="card-title truncate">{{ object }}</span>
-    </a>
+    <img src="{{ object.get_photo_url }}"/>
+    <span class="card-title truncate">{{ object }}</span>
   </div>
-  <div class="card-action">
-    <a href="{{ object.get_send_email_url }}" target="_blank">{% trans 'Send email' %}</a>
+  <div class="card-action center">
+    <a href="{{ object.get_send_email_url }}" class="btn" target="_blank">
+      <i class="material-icons">email</i>
+    </a>
+    <a href="{{ object.get_send_email_url }}" class="btn check-attendee" target="_blank">
+      <i class="material-icons">check_box_outline_blank</i>
+    </a>
   </div>
 </div>

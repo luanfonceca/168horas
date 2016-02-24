@@ -2,8 +2,12 @@ from django.utils.translation import ugettext as _
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
+from django.core.exceptions import ValidationError
 from django.db import IntegrityError
+from django.db.models import Q
 from django.shortcuts import redirect
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 
 from vanilla import model_views as views
@@ -35,10 +39,36 @@ class AttendeeList(BaseAttendeeView, views.ListView):
     template_name = 'attendee/list.html'
     page_title = _(u'Attendees')
 
+    def get_context_data(self, **kwargs):
+        context = super(AttendeeList, self).get_context_data(**kwargs)
+        context.update(search=self.request.GET.get('search'))
+        return context
+
     def get_queryset(self):
         queryset = super(AttendeeList, self).get_queryset()
         queryset = queryset.filter(activity=self.get_activity())
+
+        search = self.request.GET.get('search')
+        if search:
+            queryset = queryset.filter(
+                Q(name__icontains=search) |
+                Q(email__icontains=search) |
+                Q(phone__icontains=search) |
+                Q(code__icontains=search)
+            )
         return queryset
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        self.activity = self.get_activity()
+        if self.request.user.profile != self.activity.created_by and \
+           not self.request.user.is_superuser:
+            messages.add_message(
+                request=self.request, level=messages.ERROR,
+                message=_('You are not allowed to see this page!')
+            )
+            return redirect(self.activity)
+        return super(AttendeeList, self).dispatch(*args, **kwargs)
 
 
 class AttendeeJoin(BaseAttendeeView, LoginRequiredMixin, views.CreateView):
@@ -121,3 +151,30 @@ class ExportAttendeeList(BaseAttendeeView, views.DetailView):
             filename=filename,
             field_header_map=field_header_map
         )
+
+
+class AttendeeCheck(BaseAttendeeView, views.UpdateView):
+    lookup_field = 'code'
+
+    def post(self, request, *args, **kwargs):
+        self.activity = self.get_activity()
+        self.object = self.get_object()
+
+        try:
+            self.object.checkin()
+        except ValidationError, e:
+            messages.add_message(
+                request=self.request, level=messages.ERROR, message=e.message
+            )
+        else:
+            messages.add_message(
+                request=self.request, level=messages.ERROR,
+                message=_('Successfully checked in the attendee {0}!').format(
+                    self.object
+                )
+            )
+        return redirect(self.activity)
+
+
+class AttendeeUncheck(ExportAttendeeList):
+    pass

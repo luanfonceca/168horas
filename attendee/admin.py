@@ -1,3 +1,9 @@
 from django.contrib import admin
 
-# Register your models here.
+from attendee.models import Attendee
+
+
+class AttendeeAdmin(admin.ModelAdmin):
+    pass
+
+admin.site.register(Attendee, AttendeeAdmin)

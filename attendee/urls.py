@@ -16,4 +16,10 @@ urlpatterns = patterns(
     url(regex=r'^export/$',
         view=views.ExportAttendeeList.as_view(),
         name='export'),
+    url(regex=r'^check/(?P<code>[0-9A-Z]+)/$',
+        view=views.AttendeeCheck.as_view(),
+        name='check'),
+    url(regex=r'^uncheck/(?P<code>[0-9A-Z]+)/$',
+        view=views.AttendeeUncheck.as_view(),
+        name='uncheck'),
 )

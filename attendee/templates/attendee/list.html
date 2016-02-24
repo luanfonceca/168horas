@@ -2,6 +2,46 @@
 
 {% load i18n %}
 
+{% block extra_css %}
+  <style type="text/css">
+    .card.hoverable {
+      cursor: pointer;
+    }
+
+    .search-wrapper {
+      width: 600px;
+      position: relative;
+      bottom: 75px;
+      margin-bottom: -80px;
+    }
+    .search-wrapper #id_search {
+      padding-right: 40px;
+      box-sizing: border-box;
+    }
+
+    .search-wrapper .search-wrapper-icon {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 1024px) {
+      .search-wrapper {
+        width: 400px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .search-wrapper {
+        width: 100%;
+        position: initial;
+        margin-bottom: -20px;
+      }
+    }
+  </style>
+{% endblock %}
+
 {% block header_actions %}
   <div class="right" style="line-height: 122px;">
     <a class='dropdown-button btn-large waves-effect waves-light white blue-text text-darken-4' href='javascript:;' data-activates='activity-actions' style="width: 250px;">
@@ -32,19 +72,76 @@
 {% endblock %}
 
 {% block content %}
+  <div class="row">
+    <div class="col s12 m12 l12">
+      <div>
+        <h4>
+          {% blocktrans count total=object_list.count %}
+            {{ total }} Attendee
+          {% plural %}
+            {{ total }} Attendees
+          {% endblocktrans %}
+        </h4>
+      </div>
+      <div class="right search-wrapper">
+        <form>
+          <div class="input-field">
+            <input id="id_search" name="search" type="text" class="validate" placeholder="{% trans 'Search for attendees...' %}" value="{{ search|default_if_none:'' }}">
+            {% if search %}
+              <i id="search-close-icon" class="material-icons search-wrapper-icon">close</i>
+            {% else %}
+              <i id="search-icon" class="material-icons search-wrapper-icon">search</i>
+            {% endif %}
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
   {% if object_list %}
     <div class="row masonry-grid">
       {% for object in object_list %}
-        <div class="col s12 m3 l3">
+        <form action="{% url 'attendee:check' activity_slug=activity.slug code=object.code %}" method="POST" class="col s12 m4 l3">
+          {% csrf_token %}
           {% include "attendee/includes/card.html" %}
-        </div>
+        </form>
       {% endfor %}
     </div>
   {% else %}
     <div class="col s12 m12 l12">
       <p class="caption">
-        {% trans 'Unfortunately, we have no attendees in this activity.' %}
+        {% if search %}
+          {% trans 'Unfortunately, we have no attendees based on that search in this activity.' %}
+        {% else %}
+          {% trans 'Unfortunately, we have no attendees in this activity.' %}
+        {% endif %}
       </p>
     </div>
   {% endif %}
 {% endblock content %}
+
+{% block extra_js %}
+  <script type="text/javascript">
+    function submitParentForm(element) {
+      $(element).parents('form').submit();
+    }
+
+    $(document).ready(function() {
+      $("#search-icon").click(function() {
+        submitParentForm(this);
+      });
+
+      $("#search-close-icon").click(function() {
+        $("#id_search").val('');
+        submitParentForm(this);
+      });
+
+      $(".card, .card .card-action .check-attendee").click(function(){
+        submitParentForm(this);
+      });
+       
+      $(".card .card-action a").click(function(e) {
+        e.stopPropagation();
+      });
+    });
+  </script>
+{% endblock %}
