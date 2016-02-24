@@ -100,7 +100,11 @@
   {% if object_list %}
     <div class="row masonry-grid">
       {% for object in object_list %}
-        <form action="{% url 'attendee:check' activity_slug=activity.slug code=object.code %}" method="POST" class="col s12 m4 l3">
+        {% if object.attended_at %}
+          <form action="{% url 'attendee:uncheck' activity_slug=activity.slug code=object.code %}" method="POST" class="col s12 m4 l3">
+        {% else %}
+          <form action="{% url 'attendee:check' activity_slug=activity.slug code=object.code %}" method="POST" class="col s12 m4 l3">
+        {% endif %}
           {% csrf_token %}
           {% include "attendee/includes/card.html" %}
         </form>

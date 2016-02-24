@@ -10,8 +10,10 @@
     <a href="{{ object.get_send_email_url }}" class="btn" target="_blank">
       <i class="material-icons">email</i>
     </a>
-    <a href="{{ object.get_send_email_url }}" class="btn check-attendee" target="_blank">
-      <i class="material-icons">check_box_outline_blank</i>
+    <a href="javascript:;" class="btn check-attendee">
+      <i class="material-icons">
+        {% if object.attended_at %}check_box{% else %}check_box_outline_blank{% endif %}
+      </i>
     </a>
   </div>
 </div>

@@ -169,12 +169,31 @@ class AttendeeCheck(BaseAttendeeView, views.UpdateView):
         else:
             messages.add_message(
                 request=self.request, level=messages.ERROR,
-                message=_('Successfully checked in the attendee {0}!').format(
-                    self.object
-                )
+                message=_(
+                    'Successfully checked in the attendee "{0}"!'
+                ).format(self.object)
             )
-        return redirect(self.activity)
+        return redirect(self.activity.get_attendee_list_url())
 
 
-class AttendeeUncheck(ExportAttendeeList):
-    pass
+class AttendeeUncheck(BaseAttendeeView, views.UpdateView):
+    lookup_field = 'code'
+
+    def post(self, request, *args, **kwargs):
+        self.activity = self.get_activity()
+        self.object = self.get_object()
+
+        try:
+            self.object.uncheck()
+        except ValidationError, e:
+            messages.add_message(
+                request=self.request, level=messages.ERROR, message=e.message
+            )
+        else:
+            messages.add_message(
+                request=self.request, level=messages.ERROR,
+                message=_(
+                    'Successfully unchecked the attendee "{0}"!'
+                ).format(self.object)
+            )
+        return redirect(self.activity.get_attendee_list_url())
