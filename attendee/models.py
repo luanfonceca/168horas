@@ -44,7 +44,7 @@ class Attendee(models.Model):
         unique_together = ('activity', 'profile')
 
     def __unicode__(self):
-        return '{0.name}'.format(self)
+        return u'{0.name}'.format(self)
 
     def get_absolute_url(self):
         return reverse(
