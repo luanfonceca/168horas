@@ -10,7 +10,7 @@ from django.template.loader import render_to_string
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.core.mail import send_mail
 from django.conf import settings
-from django.utils import timezone
+from django.utils.timezone import datetime
 
 
 from django_extensions.db.fields import CreationDateTimeField
@@ -58,7 +58,7 @@ class Attendee(models.Model):
         social = self.profile.user.socialaccount_set.first()
         if social:
             return social.get_avatar_url()
-        return static('attendee/default-profile.png')
+        return static('attendee/img/default-profile.png')
 
     def get_absolute_url(self):
         return reverse(
@@ -89,7 +89,7 @@ class Attendee(models.Model):
     def checkin(self):
         if self.attended_at:
             raise ValidationError(_('This Attendee was already checked in.'))
-        self.attended_at = timezone.now()
+        self.attended_at = datetime.now()
         self.save()
 
     def uncheck(self):

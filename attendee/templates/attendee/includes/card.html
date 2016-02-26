@@ -2,18 +2,23 @@
 {% load static %}
 
 <div class="card hoverable">
-  <div class="card-image">
+  <div class="card-image tooltipped" data-position="top" data-delay="50" data-tooltip="{% if object.attended_at %}{% trans 'Click to Uncheck this attendee.' %}{% else %}{% trans 'Click to Check in this attendee.' %}{% endif %}">
     <img src="{{ object.get_photo_url }}"/>
     <span class="card-title truncate">{{ object }}</span>
   </div>
   <div class="card-action center">
-    <a href="{{ object.get_send_email_url }}" class="btn" target="_blank">
+    <a href="{{ object.get_send_email_url }}" class="btn tooltipped" data-position="top" data-delay="50" data-tooltip="{% trans 'Click to send an email to this Attendee.' %}" target="_blank">
       <i class="material-icons">email</i>
     </a>
-    <a href="javascript:;" class="btn check-attendee">
+    <a href="javascript:;" class="btn check-attendee tooltipped" data-position="top" data-delay="50" data-tooltip="{% if object.attended_at %}{% trans 'Click to Uncheck this attendee.' %}{% else %}{% trans 'Click to Check in this attendee.' %}{% endif %}">
       <i class="material-icons">
         {% if object.attended_at %}check_box{% else %}check_box_outline_blank{% endif %}
       </i>
     </a>
+    <!--
+    <a href="{% url 'attendee:certificate' activity_slug=activity.slug code=object.code %}" class="btn">
+      <i class="material-icons">file_download</i>
+    </a>
+    -->
   </div>
 </div>

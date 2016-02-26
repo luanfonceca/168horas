@@ -1,0 +1,35 @@
+.card.hoverable {
+  cursor: pointer;
+}
+
+.search-wrapper {
+  width: 600px;
+  position: relative;
+  bottom: 75px;
+  margin-bottom: -80px;
+}
+.search-wrapper #id_search {
+  padding-right: 40px;
+  box-sizing: border-box;
+}
+
+.search-wrapper .search-wrapper-icon {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
+}
+
+@media (max-width: 1024px) {
+  .search-wrapper {
+    width: 400px;
+  }
+}
+
+@media (max-width: 768px) {
+  .search-wrapper {
+    width: 100%;
+    position: initial;
+    margin-bottom: -20px;
+  }
+}

@@ -129,30 +129,6 @@ class AttendeeJoin(BaseAttendeeView, LoginRequiredMixin, views.CreateView):
         return super(AttendeeJoin, self).get_success_url()
 
 
-class ExportAttendeeList(BaseAttendeeView, views.DetailView):
-    def get(self, request, *args, **kwargs):
-        activity = self.get_activity()
-        filename = "%s_attendees" % activity.slug.replace('-', '_')
-        field_header_map = {
-            'id': _('Id'),
-            'name': _('Name'),
-            'cpf': _('CPF'),
-            'email': _('Email'),
-            'phone': _('Phone'),
-            'code': _('Code'),
-            'attended_at': _('Attended at'),
-        }
-        attendees = activity.attendee_set.values(
-            *field_header_map.keys()
-        )
-        return render_to_csv_response(
-            attendees,
-            append_datestamp=True,
-            filename=filename,
-            field_header_map=field_header_map
-        )
-
-
 class AttendeeCheck(BaseAttendeeView, views.UpdateView):
     lookup_field = 'code'
 
@@ -168,7 +144,7 @@ class AttendeeCheck(BaseAttendeeView, views.UpdateView):
             )
         else:
             messages.add_message(
-                request=self.request, level=messages.ERROR,
+                request=self.request, level=messages.SUCCESS,
                 message=_(
                     'Successfully checked in the attendee "{0}"!'
                 ).format(self.object)
@@ -191,9 +167,15 @@ class AttendeeUncheck(BaseAttendeeView, views.UpdateView):
             )
         else:
             messages.add_message(
-                request=self.request, level=messages.ERROR,
+                request=self.request, level=messages.SUCCESS,
                 message=_(
                     'Successfully unchecked the attendee "{0}"!'
                 ).format(self.object)
             )
         return redirect(self.activity.get_attendee_list_url())
+
+
+class AttendeeCertificate(BaseAttendeeView, views.DetailView):
+    lookup_field = 'code'
+    template_name = 'attendee/certificate.html'
+    page_title = _('Certificate')

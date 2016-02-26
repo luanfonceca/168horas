@@ -90,6 +90,9 @@ class Activity(TitleSlugDescriptionModel):
     def get_photo_url(self):
         return '{0}/{1}'.format(settings.MEDIA_URL, self.photo)
 
+    def check_all(self):
+        return self.attendee_set.update(attended_at=datetime.now())
+
 
 def resize_activity_photo(sender, instance, **kwargs):
     try:
