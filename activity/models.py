@@ -83,9 +83,15 @@ class Activity(TitleSlugDescriptionModel):
     def get_attendee_join_url(self):
         return reverse('attendee:join', kwargs={'activity_slug': self.slug})
 
+    def get_attendee_list_url(self):
+        return reverse('attendee:list', kwargs={'activity_slug': self.slug})
+
     @property
     def get_photo_url(self):
         return '{0}/{1}'.format(settings.MEDIA_URL, self.photo)
+
+    def check_all(self):
+        return self.attendee_set.update(attended_at=datetime.now())
 
 
 def resize_activity_photo(sender, instance, **kwargs):

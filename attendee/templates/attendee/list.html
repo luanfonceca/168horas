@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 
 {% load i18n %}
+{% load static %}
+
+{% block extra_css %}
+  <link type="text/css" rel="stylesheet" href="{% static 'attendee/css/style.css' %}" media="screen,projection"/>
+{% endblock %}
 
 {% block header_actions %}
   <div class="right" style="line-height: 122px;">
@@ -9,20 +14,20 @@
       <i class="material-icons right" style="line-height: 55px;">arrow_drop_down</i>
     </a>
     <ul id='activity-actions' class='dropdown-content'>
-      <!--<li>
-        <a class="blue-text text-darken-4" href="{{ activity.get_absolute_url }}">
-          {% trans 'Activity' %}
-          <i class="material-icons right">search</i>
-        </a>
-      </li>
       <li>
-        <a class="blue-text text-darken-4" href="{% url 'attendee:send_certificates' activity_slug=activity.slug %}">
+        <a class="blue-text text-darken-4" href="{% url 'activity:attendee_send_certificates' slug=activity.slug %}">
           {% trans 'Send certificates' %}
           <i class="material-icons right">insert_drive_file</i>
         </a>
-      </li>-->
+      </li>
       <li>
-        <a class="blue-text text-darken-4" href="{% url 'attendee:export' activity_slug=activity.slug %}">
+        <a class="blue-text text-darken-4" href="{% url 'activity:attendee_check_all' slug=activity.slug %}">
+          {% trans 'Check all' %}
+          <i class="material-icons right">done_all</i>
+        </a>
+      </li>
+      <li>
+        <a class="blue-text text-darken-4" href="{% url 'activity:attendee_export' slug=activity.slug %}">
           {% trans 'Export attendees' %}
           <i class="material-icons right">file_download</i>
         </a>
@@ -32,19 +37,57 @@
 {% endblock %}
 
 {% block content %}
+  <div class="row">
+    <div class="col s12 m12 l12">
+      <div>
+        <h4>
+          {% blocktrans count total=object_list.count %}
+            {{ total }} Attendee
+          {% plural %}
+            {{ total }} Attendees
+          {% endblocktrans %}
+        </h4>
+      </div>
+      <div class="right search-wrapper">
+        <form>
+          <div class="input-field">
+            <input id="id_search" name="search" type="text" class="validate" placeholder="{% trans 'Search for attendees...' %}" value="{{ search|default_if_none:'' }}">
+            {% if search %}
+              <i id="search-close-icon" class="material-icons search-wrapper-icon">close</i>
+            {% else %}
+              <i id="search-icon" class="material-icons search-wrapper-icon">search</i>
+            {% endif %}
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
   {% if object_list %}
     <div class="row masonry-grid">
       {% for object in object_list %}
-        <div class="col s12 m3 l3">
+        {% if object.attended_at %}
+          <form action="{% url 'attendee:uncheck' activity_slug=activity.slug code=object.code %}" method="POST" class="col s12 m4 l3">
+        {% else %}
+          <form action="{% url 'attendee:check' activity_slug=activity.slug code=object.code %}" method="POST" class="col s12 m4 l3">
+        {% endif %}
+          {% csrf_token %}
           {% include "attendee/includes/card.html" %}
-        </div>
+        </form>
       {% endfor %}
     </div>
   {% else %}
     <div class="col s12 m12 l12">
       <p class="caption">
-        {% trans 'Unfortunately, we have no attendees in this activity.' %}
+        {% if search %}
+          {% trans 'Unfortunately, we have no attendees based on that search in this activity.' %}
+        {% else %}
+          {% trans 'Unfortunately, we have no attendees in this activity.' %}
+        {% endif %}
       </p>
     </div>
   {% endif %}
 {% endblock content %}
+
+{% block extra_js %}
+  <script type="text/javascript" src="{% static 'attendee/js/script.js' %}"></script>
+{% endblock %}

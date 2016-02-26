@@ -4,10 +4,13 @@ import string
 from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse
 from django.db import models
+from django.core.exceptions import ValidationError
 from django.db.models.signals import post_save
 from django.template.loader import render_to_string
+from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.core.mail import send_mail
 from django.conf import settings
+from django.utils.timezone import datetime
 
 
 from django_extensions.db.fields import CreationDateTimeField
@@ -46,14 +49,6 @@ class Attendee(models.Model):
     def __unicode__(self):
         return u'{0.name}'.format(self)
 
-    def get_absolute_url(self):
-        return reverse(
-            'attendee:list', kwargs={'activity_slug': self.activity.slug}
-        ) + '#{.profile.user.username}'.format(self)
-
-    def get_send_email_url(self):
-        return 'mailto:{.profile.user.email}'.format(self)
-
     @property
     def has_attended(self):
         return True if self.attended_at else False
@@ -63,6 +58,15 @@ class Attendee(models.Model):
         social = self.profile.user.socialaccount_set.first()
         if social:
             return social.get_avatar_url()
+        return static('attendee/img/default-profile.png')
+
+    def get_absolute_url(self):
+        return reverse(
+            'attendee:list', kwargs={'activity_slug': self.activity.slug}
+        ) + '#{.profile.user.username}'.format(self)
+
+    def get_send_email_url(self):
+        return 'mailto:{.email}'.format(self)
 
     def send_welcome_email(self):
         context = {
@@ -74,13 +78,25 @@ class Attendee(models.Model):
             'mailing/welcome_attendee.txt', context)
         html_message = render_to_string(
             'mailing/welcome_attendee.html', context)
-        subject = _(u'Welcome to the "{}"!'.format(self.activity.title))
+        subject = _(u'Welcome to the "{}"!').format(self.activity.title)
         recipients = [self.profile.user.email]
 
         send_mail(
             subject=subject, message=message, html_message=html_message,
             from_email=settings.NO_REPLY_EMAIL, recipient_list=recipients
         )
+
+    def checkin(self):
+        if self.attended_at:
+            raise ValidationError(_('This Attendee was already checked in.'))
+        self.attended_at = datetime.now()
+        self.save()
+
+    def uncheck(self):
+        if not self.attended_at:
+            raise ValidationError(_('This Attendee is not checked in yet.'))
+        self.attended_at = None
+        self.save()
 
 
 def send_attendee_joined_email(sender, instance, created, **kwargs):
