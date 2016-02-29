@@ -19,7 +19,4 @@ urlpatterns = patterns(
     url(regex=r'^uncheck/(?P<code>[0-9A-Z]+)/$',
         view=views.AttendeeUncheck.as_view(),
         name='uncheck'),
-    url(regex=r'^certificate/(?P<code>[0-9A-Z]+)/$',
-        view=views.AttendeeCertificate.as_view(),
-        name='certificate'),
 )

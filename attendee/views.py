@@ -11,7 +11,6 @@ from django.utils.decorators import method_decorator
 
 
 from vanilla import model_views as views
-from easy_pdf.views import PDFTemplateResponseMixin
 
 from core.mixins import PageTitleMixin, LoginRequiredMixin
 from activity.models import Activity
@@ -173,14 +172,6 @@ class AttendeeUncheck(BaseAttendeeView, views.UpdateView):
                 ).format(self.object)
             )
         return redirect(self.activity.get_attendee_list_url())
-
-
-class AttendeeCertificate(BaseAttendeeView,
-                          PDFTemplateResponseMixin,
-                          views.DetailView):
-    lookup_field = 'code'
-    template_name = 'attendee/certificate.html'
-    page_title = _('Certificate')
 
 
 class AttendeeSort(BaseAttendeeView,

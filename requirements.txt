@@ -20,7 +20,7 @@ django-address==0.1.3
 django-allauth==0.23.0
 django-common==0.1.51
 django-extensions==1.5.7
-django-image-tools-2==1.0
+#django-image-tools-2==1.0
 django-localflavor==1.2
 django-queryset-csv==0.3.3
 django-tinymce==2.2.0

@@ -14,12 +14,12 @@
       <i class="material-icons right" style="line-height: 55px;">arrow_drop_down</i>
     </a>
     <ul id='activity-actions' class='dropdown-content'>
-      <li>
-        <a class="blue-text text-darken-4" href="{% url 'activity:attendee_send_certificates' slug=activity.slug %}">
+      <!--<li>
+        <a class="blue-text text-darken-4" href="{% url 'activity:attendee_export' slug=activity.slug %}">
           {% trans 'Send certificates' %}
           <i class="material-icons right">insert_drive_file</i>
         </a>
-      </li>
+      </li>-->
       <li>
         <a class="blue-text text-darken-4" href="{% url 'activity:attendee_check_all' slug=activity.slug %}">
           {% trans 'Check all' %}
