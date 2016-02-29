@@ -2,6 +2,7 @@ CherryPy==4.0.0
 Django==1.8.4
 Fabric==1.10.2
 Pillow==3.0.0
+PyPDF2==1.25.1
 PyYAML==3.11
 Pygments==2.0.2
 WebOb==1.4.1
@@ -19,6 +20,7 @@ dj-static==0.0.6
 django-address==0.1.3
 django-allauth==0.23.0
 django-common==0.1.51
+django-easy-pdf==0.1.0
 django-extensions==1.5.7
 django-image-tools-2==1.0
 django-localflavor==1.2
@@ -29,11 +31,13 @@ django-vanilla-views==1.0.4
 django-webtest==1.7.8
 django-widget-tweaks==1.4.1
 django-wysiwyg==0.7.1
+django-xhtml2pdf==0.0.4.dev0
 djrill==2.0
 ecdsa==0.13
 gnureadline==6.3.3
 greenlet==0.4.9
 gunicorn==19.3.0
+html5lib==0.9999999
 httpretty==0.8.6
 ipdb==0.8.1
 ipython-genutils==0.1.0
@@ -46,11 +50,13 @@ paramiko==1.16.0
 path.py==8.1.1
 pexpect==3.3
 pickleshare==0.5
+pisa==3.0.33
 psycopg2==2.6.1
 pycrypto==2.6.1
 python-dateutil==2.4.2
 python-openid==2.2.5
 raven==5.9.2
+reportlab==3.3.0
 requests-oauthlib==0.5.0
 requests==2.7.0
 silk-config==0.3.5
@@ -61,4 +67,5 @@ static3==0.6.1
 traitlets==4.0.0
 waitress==0.8.10
 wsgiref==0.1.2
+xhtml2pdf==0.0.6
 xmltodict==0.9.2
