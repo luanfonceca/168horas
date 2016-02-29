@@ -191,4 +191,4 @@ class AttendeeSort(BaseAttendeeView,
 
     def get_object(self):
         queryset = self.get_queryset()
-        return queryset.order_by('?').first()
+        return queryset.filter(attended_at__isnull=False).order_by('?').first()
