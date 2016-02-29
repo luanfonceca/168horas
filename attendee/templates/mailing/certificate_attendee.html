@@ -1,0 +1,23 @@
+{% load i18n %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>168 Horas</title>
+  </head>
+
+  <body>
+    {% blocktrans with activity_title=object.title name=name certificate_url=certificate_url %}
+      <p>Hi {{ name }}, we from the 168 horas are here to send you the certificate from the "{{ activity_title }}"!</p>
+
+      <p>
+        Click <a href="{{ certificate_url }}" target="_blank">here</a> to download your certificagte.
+      </p>
+      <p>
+        If the link doesnt work, copy and paste this link on your browser: {{ certificate_url }}
+      </p>
+
+      <p>Thank you.</p>
+    {% endblocktrans %}
+  </body>
+</html>

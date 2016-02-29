@@ -108,3 +108,23 @@ class ActivityAttendeeCheckAll(BaseActivityView, views.DetailView):
                 )
             )
         return redirect(self.object.get_attendee_list_url())
+
+
+class ActivitySendCertificates(BaseActivityView, views.DetailView):
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+
+        try:
+            self.object.send_certificates()
+        except ValidationError, e:
+            messages.add_message(
+                request=self.request, level=messages.ERROR, message=e.message
+            )
+        else:
+            messages.add_message(
+                request=self.request, level=messages.SUCCESS,
+                message=_(
+                    'Successfully sended all the certificates!'
+                )
+            )
+        return redirect(self.object.get_attendee_list_url())

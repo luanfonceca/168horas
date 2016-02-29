@@ -26,6 +26,6 @@ urlpatterns = patterns(
         view=views.ActivityAttendeeCheckAll.as_view(),
         name='attendee_check_all'),
     url(regex=r'^(?P<slug>[\w-]+)/attendee/send/certificates/$',
-        view=views.ActivityAttendeeCheckAll.as_view(),
+        view=views.ActivitySendCertificates.as_view(),
         name='attendee_send_certificates'),
 )

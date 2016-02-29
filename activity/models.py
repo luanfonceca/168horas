@@ -1,8 +1,11 @@
 from django.db import models
 from django.db.models.signals import post_save
 from django.core.urlresolvers import reverse
+from django.contrib.sites.models import Site
 from django.utils.translation import ugettext as _
 from django.utils.timezone import datetime
+from django.template.loader import render_to_string
+from django.core.mail import send_mail
 
 from PIL import Image
 
@@ -90,8 +93,42 @@ class Activity(TitleSlugDescriptionModel):
     def get_photo_url(self):
         return '{0}/{1}'.format(settings.MEDIA_URL, self.photo)
 
+    def get_attended_ones(self):
+        return self.attendee_set.filter(attended_at__isnull=False)
+
     def check_all(self):
         return self.attendee_set.update(attended_at=datetime.now())
+
+    def send_certificates(self):
+        attendees = self.get_attended_ones().values('name', 'code', 'email')
+        subject = _(u'Certificate from "{}"!').format(self.title)
+
+        def get_full_certificate_url(slug, code):
+            return 'http://{domain}{url}'.format(
+                domain=Site.objects.get_current().domain,
+                url=reverse('attendee:certificate', kwargs={
+                    'activity_slug': slug,
+                    'code': code
+                })
+            )
+
+        for attendee in attendees:
+            context = {
+                'object': self,
+                'name': attendee.get('name'),
+                'certificate_url': get_full_certificate_url(
+                    self.slug, attendee.get('code'))
+            }
+            message = render_to_string(
+                'mailing/certificate_attendee.txt', context)
+            html_message = render_to_string(
+                'mailing/certificate_attendee.html', context)
+            recipients = [attendee.get('email')]
+
+            send_mail(
+                subject=subject, message=message, html_message=html_message,
+                from_email=settings.NO_REPLY_EMAIL, recipient_list=recipients
+            )
 
 
 def resize_activity_photo(sender, instance, **kwargs):

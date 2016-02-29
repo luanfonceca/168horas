@@ -1,0 +1,9 @@
+{% load i18n %}
+
+{% blocktrans with activity_title=object.title name=name certificate_url=certificate_url %}
+  Hi {{ name }}, we from the 168 horas are here to send you the certificate from the "{{ activity_title }}"!
+
+  Copy and past this link on your browser: {{ certificate_url }}.
+
+  Thank you.
+{% endblocktrans %}
