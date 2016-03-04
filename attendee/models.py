@@ -7,6 +7,7 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from django.db.models.signals import post_save
 from django.template.loader import render_to_string
+from django.contrib.sites.models import Site
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.core.mail import send_mail
 from django.conf import settings
@@ -67,6 +68,18 @@ class Attendee(models.Model):
 
     def get_send_email_url(self):
         return 'mailto:{.email}'.format(self)
+
+    def get_certificate_url(self, full_url=True):
+        url = reverse('attendee:certificate', kwargs={
+            'activity_slug': self.activity.slug,
+            'code': self.code,
+        })
+        if full_url:
+            return 'http://{domain}{url}'.format(
+                domain=Site.objects.get_current().domain, url=url
+            )
+        else:
+            return url
 
     def send_welcome_email(self):
         context = {

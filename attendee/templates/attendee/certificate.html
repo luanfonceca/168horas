@@ -1,9 +1,80 @@
+{% load i18n %}
+{% load staticfiles %}
+
 <!DOCTYPE html>
 <html>
-<head>
-	<title></title>
-</head>
-<body>
-	certificado: {{ object.name }}
-</body>
+  <head>
+    <meta charset="utf-8">
+    <title>
+      {% blocktrans with name=attendee.name %}
+        Certificate of presence to "{{ name }}".
+      {% endblocktrans %}
+    </title>
+    <style>
+      @page landscape {
+        size: A4 landscape;
+      }
+
+      .content {
+        padding: auto 50px;
+        margin-bottom: 40px;
+      }
+
+      .footer {
+        background-color: #1261b3;
+        margin-top: 40px;
+        padding-top: 25px;
+        text-align:center;
+        color:#fff;
+        font-size:30px;
+      }
+
+      .footer .small-text, p {
+        font-size: 18px;
+      }
+
+      strong {
+        font-size: 24px;
+        font-weight: bolder;
+        color: #1261b3
+      }
+    </style>
+  </head>
+  <body>
+    <img src="{% static 'attendee/img/certificate-header.png' %}">
+
+    <div class="content">
+      <p>
+        {% trans 'We certify that:' %}<br/>
+        <strong>{{ attendee.name }}</strong>
+      </p>
+    </div>
+
+    <div class="content">
+      <p>
+        {% trans 'Has attended to:' %}<br/>
+        <strong>{{ activity.title }}</strong>
+      </p>
+    </div>
+
+    <div class="content">
+      <p>
+        {% trans 'Date:' %} {{ activity.scheduled_date }}
+        <br/>
+        {% trans 'Hours:' %} {% blocktrans count hours=activity.hours %}{{ hours }} hour{% plural %}{{ hours }} hours{% endblocktrans %}
+        <br/>
+        {% trans 'Organizer:' %} {{ activity.created_by.organizer_name|default:activity.created_by.user.get_full_name }}
+      </p>
+    </div>
+    
+    <div class="content">
+      <p style="font-size:16px;">
+        {% trans 'To confirm the authenticity of this certificate, open the following URL:' %}
+        <br/>
+        {{ attendee.get_certificate_url }}
+      </p>
+    </div>
+
+    <img src="{% static 'attendee/img/certificate-footer.png' %}">
+  </body>
 </html>

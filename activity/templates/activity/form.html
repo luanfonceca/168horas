@@ -53,9 +53,13 @@
         <p class="help-text caption">{{ form.photo.help_text }}</p>
       {% endif %}
     </div>
-    
+
     <div class="row">
       {% include "includes/field.html" with field=form.scheduled_date class='datepicker' %}
+    </div>
+
+    <div class="row">
+      {% include "includes/field.html" with field=form.hours %}
     </div>
 
     <div class="row">

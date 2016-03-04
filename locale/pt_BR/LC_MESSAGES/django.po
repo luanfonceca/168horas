@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-26 12:18-0300\n"
-"PO-Revision-Date: 2016-02-26 12:24-0300\n"
+"POT-Creation-Date: 2016-03-04 15:53-0300\n"
+"PO-Revision-Date: 2016-03-04 15:57-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -18,72 +18,80 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 1.7.6\n"
 
-#: activity/models.py:30 event/models.py:30
+#: activity/models.py:33 event/models.py:30
 msgid "Link"
 msgstr "Link"
 
-#: activity/models.py:31 event/models.py:31
+#: activity/models.py:34 event/models.py:31
 msgid "Date"
 msgstr "Data"
 
-#: activity/models.py:32 attendee/models.py:32 event/models.py:32
+#: activity/models.py:37
+msgid "Total of hours to be used in the Certificate."
+msgstr "Total de horas que serão utilizadas no Certificado."
+
+#: activity/models.py:38 attendee/models.py:33 event/models.py:32
 #: ticket/models.py:22
 msgid "Created At"
 msgstr "Criado Em"
 
-#: activity/models.py:33 event/models.py:33
+#: activity/models.py:39 event/models.py:33
 msgid "Is Published"
 msgstr "Está publicado"
 
-#: activity/models.py:34 event/models.py:34
+#: activity/models.py:40 event/models.py:34
 msgid "Is Public"
 msgstr "Está Público"
 
-#: activity/models.py:35 event/models.py:35
+#: activity/models.py:41 event/models.py:35
 msgid "Is Organizer"
 msgstr "Organizador"
 
-#: activity/models.py:38
+#: activity/models.py:44
 msgid "Event photo"
 msgstr "Foto do evento"
 
-#: activity/models.py:40
+#: activity/models.py:46
 msgid "Images in the resolution: 400x400."
 msgstr "Imagens na resolução de 400x400."
 
-#: activity/models.py:42 event/models.py:41
+#: activity/models.py:48 event/models.py:41
 msgid "Location"
 msgstr "Local"
 
-#: activity/models.py:44
+#: activity/models.py:50
 msgid "Capacity"
 msgstr "Capacidade"
 
-#: activity/models.py:46 ticket/models.py:21
+#: activity/models.py:52 ticket/models.py:21
 msgid "Price"
 msgstr "Preço"
 
-#: activity/models.py:50 event/models.py:45
+#: activity/models.py:56 event/models.py:45
 msgid "Created by"
 msgstr "Criado por"
 
-#: activity/models.py:55 category/models.py:11 core/models.py:31
+#: activity/models.py:61 category/models.py:11 core/models.py:31
 #: core/templates/base.html:65
 msgid "Categories"
 msgstr "Categorias"
 
-#: activity/models.py:59 attendee/models.py:46 attendee/views.py:40
+#: activity/models.py:65 attendee/models.py:47 attendee/views.py:40
 msgid "Attendees"
 msgstr "Participantes"
 
-#: activity/models.py:68 activity/templates/activity/list_by_category.html:8
+#: activity/models.py:74 activity/templates/activity/list_by_category.html:8
 #: ticket/templates/ticket/list.html:14
 msgid "Activity"
 msgstr "Atividade"
 
-#: activity/models.py:69 activity/views.py:28
+#: activity/models.py:75 activity/views.py:28
 msgid "Activities"
 msgstr "Atividades"
+
+#: activity/models.py:107
+msgid "Certificate from \"{}\"!"
+msgstr "Certificado de \"{}\"!"
 
 #: activity/templates/activity/delete.html:7
 msgid ""
@@ -94,7 +102,7 @@ msgstr ""
 "importante para outros alunos."
 
 #: activity/templates/activity/delete.html:14
-#: activity/templates/activity/form.html:81
+#: activity/templates/activity/form.html:85
 #: attendee/templates/attendee/form.html:24
 #: category/templates/category/delete.html:13
 #: category/templates/category/form.html:17 core/templates/profile.html:93
@@ -182,11 +190,11 @@ msgstr ""
 msgid "Are you the Organizer of this activity?"
 msgstr "Você é o Organizador desta atividade?"
 
-#: activity/templates/activity/form.html:64
+#: activity/templates/activity/form.html:68
 msgid "Online only activity?"
 msgstr "Atividade online?"
 
-#: activity/templates/activity/form.html:85
+#: activity/templates/activity/form.html:89
 #: attendee/templates/attendee/form.html:28
 #: category/templates/category/form.html:21 core/templates/profile.html:97
 #: ticket/templates/ticket/form.html:28
@@ -217,7 +225,7 @@ msgstr "Indique-nos uma atividade!"
 msgid "Id"
 msgstr "Id"
 
-#: activity/views.py:75 attendee/models.py:27 ticket/models.py:19
+#: activity/views.py:75 attendee/models.py:28 ticket/models.py:19
 msgid "Name"
 msgstr "Nome"
 
@@ -225,15 +233,15 @@ msgstr "Nome"
 msgid "CPF"
 msgstr "CPF"
 
-#: activity/views.py:77 attendee/models.py:29
+#: activity/views.py:77 attendee/models.py:30
 msgid "Email"
 msgstr "Email"
 
-#: activity/views.py:78 attendee/models.py:30
+#: activity/views.py:78 attendee/models.py:31
 msgid "Phone"
 msgstr "Telefone"
 
-#: activity/views.py:79 attendee/models.py:31
+#: activity/views.py:79 attendee/models.py:32
 msgid "Code"
 msgstr "Código"
 
@@ -245,25 +253,72 @@ msgstr "Credenciado em"
 msgid "Successfully checked all the attendees!"
 msgstr "Credenciados todos os participantes com sucesso!"
 
-#: attendee/models.py:34
+#: activity/views.py:127
+msgid "Successfully sended all the certificates!"
+msgstr "Enviado todos os certificados com sucesso!"
+
+#: attendee/models.py:35
 msgid "Attended At"
 msgstr "Credenciado Em"
 
-#: attendee/models.py:45
+#: attendee/models.py:46
 msgid "Attendee"
 msgstr "Participante"
 
-#: attendee/models.py:81
+#: attendee/models.py:94
 msgid "Welcome to the \"{}\"!"
 msgstr "Bem vindo ao \"{}\"!"
 
-#: attendee/models.py:91
+#: attendee/models.py:104
 msgid "This Attendee was already checked in."
 msgstr "Esse Participante já foi credenciado."
 
-#: attendee/models.py:97
+#: attendee/models.py:110
 msgid "This Attendee is not checked in yet."
 msgstr "Esse Participante ainda não foi credenciado."
+
+#: attendee/templates/attendee/certificate.html:9
+#, python-format
+msgid ""
+"\n"
+"        Certificate of presence to \"%(name)s\".\n"
+"      "
+msgstr ""
+"\n"
+"       Certificado de presença de \"%(name)s\".\n"
+"      "
+
+#: attendee/templates/attendee/certificate.html:48
+msgid "We certify that:"
+msgstr "Nós certificamos que:"
+
+#: attendee/templates/attendee/certificate.html:55
+msgid "Has attended to:"
+msgstr "Compareceu ao:"
+
+#: attendee/templates/attendee/certificate.html:62
+msgid "Date:"
+msgstr "Data:"
+
+#: attendee/templates/attendee/certificate.html:64
+msgid "Hours:"
+msgstr "Horas:"
+
+#: attendee/templates/attendee/certificate.html:64
+#, python-format
+msgid "%(hours)s hour"
+msgid_plural "%(hours)s hours"
+msgstr[0] "%(hours)s hora"
+msgstr[1] "%(hours)s horas"
+
+#: attendee/templates/attendee/certificate.html:66
+msgid "Organizer:"
+msgstr "Facilitador:"
+
+#: attendee/templates/attendee/certificate.html:72
+msgid ""
+"To confirm the authenticity of this certificate, open the following URL:"
+msgstr "Para confirmar a autenticidade deste certificado, abra a seguinte URL:"
 
 #: attendee/templates/attendee/includes/card.html:5
 #: attendee/templates/attendee/includes/card.html:13
@@ -323,6 +378,60 @@ msgstr "Infelizmente, não dispomos de participantes nessa atividade."
 #: attendee/templates/attendee/list.html:84
 msgid "Unfortunately, we have no attendees in this activity."
 msgstr "Infelizmente, não dispomos de participantes nessa atividade."
+
+#: attendee/templates/mailing/certificate_attendee.html:10
+#, python-format
+msgid ""
+"\n"
+"      <p>Hi %(name)s, we from the 168 horas are here to send you the "
+"certificate from the \"%(activity_title)s\"!</p>\n"
+"\n"
+"      <p>\n"
+"        Click <a href=\"%(certificate_url)s\" target=\"_blank\">here</a> to "
+"download your certificagte.\n"
+"      </p>\n"
+"      <p>\n"
+"        If the link doesnt work, copy and paste this link on your browser: "
+"%(certificate_url)s\n"
+"      </p>\n"
+"\n"
+"      <p>Thank you.</p>\n"
+"    "
+msgstr ""
+"\n"
+"      <p>Olá %(name)s, nós do 168 horas estamos aqui para te enviar o "
+"certificado do \"%(activity_title)s\"!</p>\n"
+"\n"
+"      <p>\n"
+"        Clique <a href=\"%(certificate_url)s\" target=\"_blank\">aqui</a> "
+"para baixar seu certificado.\n"
+"      </p>\n"
+"      <p>\n"
+"        Se o link não funcionar, copie e cole este link no seu navegador: "
+"%(certificate_url)s\n"
+"      </p>\n"
+"\n"
+"      <p>Obrigado.</p>\n"
+"    "
+
+#: attendee/templates/mailing/certificate_attendee.txt:3
+#, python-format
+msgid ""
+"\n"
+"  Hi %(name)s, we from the 168 horas are here to send you the certificate "
+"from the \"%(activity_title)s\"!\n"
+"\n"
+"  Copy and past this link on your browser: %(certificate_url)s.\n"
+"\n"
+"  Thank you.\n"
+msgstr ""
+"\n"
+"  Olá %(name)s, nós do 168 horas estamos aqui para te enviar o certificado "
+"do \"%(activity_title)s\"!\n"
+"\n"
+"   Copie e cole este link no seu navegador: %(certificate_url)s\n"
+"\n"
+"  Obrigado.\n"
 
 #: attendee/templates/mailing/welcome_attendee.html:10
 #, python-format
@@ -404,7 +513,7 @@ msgstr "Registrado com sucesso o participante \"{0}\"!"
 msgid "Successfully unchecked the attendee \"{0}\"!"
 msgstr "Descredenciado com sucesso o participante \"{0}\"!"
 
-#: attendee/views.py:181
+#: attendee/views.py:183
 msgid "Certificate"
 msgstr "Certificado"
 
@@ -562,8 +671,6 @@ msgid "Export tickets"
 msgstr ""
 
 #: ticket/templates/ticket/list.html:46
-#, fuzzy
-#| msgid "Unfortunately, we have no activities in the area. Share education."
 msgid "Unfortunately, we have no tickets in this activity."
 msgstr ""
 "Infelizmente, não dispomos de atividades nessa área. Dissemine a educação."
