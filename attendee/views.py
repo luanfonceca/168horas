@@ -181,3 +181,14 @@ class AttendeeCertificate(BaseAttendeeView,
     lookup_field = 'code'
     template_name = 'attendee/certificate.html'
     page_title = _('Certificate')
+
+
+class AttendeeSort(BaseAttendeeView,
+                   views.DetailView):
+    lookup_field = 'code'
+    template_name = 'attendee/sort.html'
+    page_title = _('Sort')
+
+    def get_object(self):
+        queryset = self.get_queryset()
+        return queryset.filter(attended_at__isnull=False).order_by('?').first()
