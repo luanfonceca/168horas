@@ -6,19 +6,37 @@
     <img src="{{ object.get_photo_url }}"/>
     <span class="card-title truncate">{{ object }}</span>
   </div>
+
   <div class="card-action center">
-    <a href="{{ object.get_send_email_url }}" class="btn tooltipped" data-position="top" data-delay="50" data-tooltip="{% trans 'Click to send an email to this Attendee.' %}" target="_blank">
-      <i class="material-icons">email</i>
+    <a class='dropdown-button btn-large waves-effect waves-light white blue-text text-darken-4' href='javascript:;' data-activates='activity-actions-{{ attendee.code }}' style="width: 100%;">
+      {% trans 'Actions' %}
+      <i class="material-icons right" style="line-height: 55px;">arrow_drop_down</i>
     </a>
-    <a href="javascript:;" class="btn check-attendee tooltipped" data-position="top" data-delay="50" data-tooltip="{% if object.attended_at %}{% trans 'Click to Uncheck this attendee.' %}{% else %}{% trans 'Click to Check in this attendee.' %}{% endif %}">
-      <i class="material-icons">
-        {% if object.attended_at %}check_box{% else %}check_box_outline_blank{% endif %}
-      </i>
-    </a>
-    <!--
-    <a href="{% url 'attendee:certificate' activity_slug=activity.slug code=object.code %}" class="btn">
-      <i class="material-icons">file_download</i>
-    </a>
-    -->
+    <ul id='activity-actions-{{ attendee.code }}' class='dropdown-content'>
+      <li>
+        <a href="{{ object.get_send_email_url }}" class="tooltipped blue-text text-darken-4" data-position="top" data-delay="50" data-tooltip="{% trans 'Click to send an email to this Attendee.' %}" target="_blank">
+          {% trans 'Send email' %}
+          <i class="material-icons">email</i>
+        </a>
+      </li>
+      <li>
+        <a class="blue-text text-darken-4" href="{% url 'attendee:certificate' activity_slug=activity.slug code=object.code %}">
+          {% trans 'Open certificate' %}
+          <i class="material-icons">file_download</i>
+        </a>
+      </li>
+      <li>
+        <a href="javascript:;" class="check-attendee tooltipped blue-text text-darken-4" data-position="top" data-delay="50" data-tooltip="{% if object.attended_at %}{% trans 'Click to Uncheck this attendee.' %}{% else %}{% trans 'Click to Check in this attendee.' %}{% endif %}">
+          <i class="material-icons">
+            {% if object.attended_at %}
+              {% trans 'Uncheck attendee.' %}
+            {% else %}
+              {% trans 'Check in attendee.' %}
+            {% endif %}
+            {% if object.attended_at %}check_box{% else %}check_box_outline_blank{% endif %}
+          </i>
+        </a>
+      </li>
+    </ul>
   </div>
 </div>

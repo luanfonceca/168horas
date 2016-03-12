@@ -13,6 +13,12 @@
       </a>
       <ul id='activity-actions' class='dropdown-content'>
         <li>
+          <a class="blue-text text-darken-4" href="{{ object.get_attendee_list_url }}">
+            {% trans 'Attendees' %}
+            <i class="material-icons right">view_agenda</i>
+          </a>
+        </li>
+        <li>
           <a class="blue-text text-darken-4" href="{{ object.get_update_url }}">
             {% trans 'Update' %}
             <i class="material-icons right">edit</i>
