@@ -29,15 +29,7 @@
 
 {% block content %}
   <blockquote class="blue darken-4-border">{{ object.description|linebreaks }}</blockquote>
-  <div class="row">
-    <!-- Card entre as categorias -->
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-5507175708449774"
-         data-ad-slot="4968977042"
-         data-ad-format="auto"></ins>
-  </div>
-  
+
   <div class="row masonry-grid">
     {% for activity in object.activities.get_next %}
       <div class="col s12 m4 l4">
@@ -53,5 +45,5 @@
         </p>
       </div>
     {% endfor %}
-  </div> 
+  </div>
 {% endblock %}

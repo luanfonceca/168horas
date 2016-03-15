@@ -16,24 +16,20 @@
       <li>
         <a href="{{ object.get_send_email_url }}" class="tooltipped blue-text text-darken-4" data-position="top" data-delay="50" data-tooltip="{% trans 'Click to send an email to this Attendee.' %}" target="_blank">
           {% trans 'Send email' %}
-          <i class="material-icons">email</i>
+          <i class="material-icons right">email</i>
         </a>
       </li>
       <li>
         <a class="blue-text text-darken-4" href="{% url 'attendee:certificate' activity_slug=activity.slug code=object.code %}">
           {% trans 'Open certificate' %}
-          <i class="material-icons">file_download</i>
+          <i class="material-icons right">file_download</i>
         </a>
       </li>
       <li>
         <a href="javascript:;" class="check-attendee tooltipped blue-text text-darken-4" data-position="top" data-delay="50" data-tooltip="{% if object.attended_at %}{% trans 'Click to Uncheck this attendee.' %}{% else %}{% trans 'Click to Check in this attendee.' %}{% endif %}">
-          <i class="material-icons">
-            {% if object.attended_at %}
-              {% trans 'Uncheck attendee.' %}
-            {% else %}
-              {% trans 'Check in attendee.' %}
-            {% endif %}
-            {% if object.attended_at %}check_box{% else %}check_box_outline_blank{% endif %}
+          {% if object.attended_at %}{% trans 'Uncheck.' %}{% else %}{% trans 'Check in.' %}{% endif %}
+          <i class="material-icons right">
+            {% if object.attended_at %}check_box_outline_blank{% else %}check_box{% endif %}
           </i>
         </a>
       </li>
