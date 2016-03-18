@@ -38,10 +38,20 @@ class BaseAttendeeView(PageTitleMixin):
 class AttendeeList(BaseAttendeeView, views.ListView):
     template_name = 'attendee/list.html'
     page_title = _(u'Attendees')
+    paginate_by = 1
+    allow_empty = True
 
     def get_context_data(self, **kwargs):
         context = super(AttendeeList, self).get_context_data(**kwargs)
-        context.update(search=self.request.GET.get('search'))
+        queryset = self.get_queryset()
+        paginator = self.get_paginator(queryset, self.paginate_by)
+        pagination = paginator.page(self.request.GET.get('page', 1))
+
+        context.update(
+            search=self.request.GET.get('search'),
+            pagination=pagination,
+            total_count=queryset.count(),
+        )
         return context
 
     def get_queryset(self):

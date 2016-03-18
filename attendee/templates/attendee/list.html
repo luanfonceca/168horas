@@ -41,7 +41,7 @@
     <div class="col s12 m12 l12">
       <div>
         <h4>
-          {% blocktrans count total=object_list.count %}
+          {% blocktrans count total=total_count %}
             {{ total }} Attendee
           {% plural %}
             {{ total }} Attendees
@@ -58,10 +58,37 @@
               <i id="search-icon" class="material-icons search-wrapper-icon">search</i>
             {% endif %}
           </div>
+
+          <ul class="pagination center">
+            <input type="hidden" name="page" id="id_page" value="{{ pagination.number }}" />
+
+            {% if pagination.has_previous %}
+              <li class="waves-effect">
+                <a href="javascript:;" data-page="{{ pagination.previous_page_number }}">
+                  <i class="material-icons">chevron_left</i>
+                </a>
+              </li>
+            {% endif %}
+
+            {% for page in pagination.paginator.page_range %}
+              <li {% if page == pagination.number %}class="active"{% else %}class="waves-effect"{% endif %}>
+                <a href="javascript:;" data-page="{{ page }}">{{ page }}</a>
+              </li>
+            {% endfor %}
+
+            {% if pagination.has_next %}
+              <li class="waves-effect">
+                <a href="javascript:;" data-page="{{ pagination.next_page_number }}">
+                  <i class="material-icons">chevron_right</i>
+                </a>
+              </li>
+            {% endif %}
+          </ul>
         </form>
       </div>
     </div>
   </div>
+
   {% if object_list %}
     <div class="row masonry-grid">
       {% for object in object_list %}
@@ -90,4 +117,14 @@
 
 {% block extra_js %}
   <script type="text/javascript" src="{% static 'attendee/js/script.js' %}"></script>
+
+  <script type="text/javascript">
+    // Somehow this code doesnt work on the script.js
+    $(document).ready(function() {
+      $(".pagination a").click(function() {
+        $('#id_page').val($(this).data('page'));
+        submitParentForm(this);
+      });
+    });
+  </script>
 {% endblock %}
