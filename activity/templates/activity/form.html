@@ -63,6 +63,15 @@
     </div>
 
     <div class="row">
+      <div class="col s6">
+        {% include "includes/field.html" with field=form.price %}
+      </div>
+      <div class="col s6">
+        {% include "includes/field.html" with field=form.capacity %}
+      </div>
+    </div>
+
+    <div class="row">
       <div class="col s12">
         <input {% if object and object.is_online %}checked="checked"{% endif %} type="checkbox" id="id_is_online" name="is_online" />
         <label for="id_is_online">{% trans 'Online only activity?' %}</label><br>

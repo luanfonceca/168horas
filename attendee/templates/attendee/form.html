@@ -14,7 +14,21 @@
 
     <div class="row">
       {% for field in form %}
-        {% include "includes/field.html" with field=field col_sizes='s12 m6' %}
+        {% if field.name == 'expectations' %}
+          <div class="input-field col s12 m6">
+            <label for="{{ field.id }}" data-error="{{ field.errors.0 }}">
+              {{ field.label }}
+            </label>
+            <br><br>
+            {% render_field field class+="materialize-textarea" %}
+          </div>
+        {% elif field.name == 'born_at' %}
+          <div class="input-field col s12 m6">
+            {% include "includes/field.html" with field=field class='datepicker' %}
+          </div>
+        {% else %}
+          {% include "includes/field.html" with field=field col_sizes='s12 m6' %}
+        {% endif %}
       {% endfor %}
     </div>
 
@@ -31,3 +45,15 @@
     </div>
   </form>
 {% endblock %}
+
+{% block extra_js %}
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('.datepicker').pickadate({
+        format: 'dd/mm/yyyy',
+        selectMonths: true,
+        selectYears: 100
+      });
+    });
+  </script>
+{% endblock extra_js %}

@@ -13,6 +13,9 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.utils.timezone import datetime
 
+from paypal.standard.models import ST_PP_COMPLETED
+from paypal.standard.ipn.signals import (
+    valid_ipn_received, invalid_ipn_received)
 
 from django_extensions.db.fields import CreationDateTimeField
 
@@ -25,6 +28,11 @@ def code_generate(size=10):
 
 
 class Attendee(models.Model):
+    PENDING, CANCELED, PAID = range(3)
+    STATUS_RATES = (
+        (PENDING, _('Pending')), (CANCELED, _('Canceled')), (PAID, _('Paid')),
+    )
+
     name = models.CharField(_('Name'), max_length=200)
     cpf = models.CharField('CPF', max_length=14)
     email = models.EmailField(_('Email'))
@@ -33,6 +41,18 @@ class Attendee(models.Model):
     created_at = CreationDateTimeField(_(u'Created At'))
     attended_at = models.DateTimeField(
         _(u'Attended At'), null=True, blank=True)
+    payment_status = models.SmallIntegerField(
+        _('Payment Status'), choices=STATUS_RATES, default=PENDING,
+        null=True, blank=True)
+
+    # Extra informations
+    startup = models.CharField(
+        _('Startup'), max_length=50, null=True,
+        help_text=_('If you already have one'))
+    course = models.CharField(_('Course'), max_length=50, null=True)
+    university = models.CharField(_('University'), max_length=50, null=True)
+    born_at = models.DateTimeField(_(u'Born At'), null=True)
+    expectations = models.TextField(_('Your expectations'), null=True)
 
     # relations
     activity = models.ForeignKey(
@@ -82,17 +102,40 @@ class Attendee(models.Model):
             return url
 
     def send_welcome_email(self):
+        created_by = self.activity.created_by
         context = {
-            'object': self,
-            'activity': self.activity,
-            'created_by': self.activity.created_by,
+            'name': self.name,
+            'activity_title': self.activity.title,
+            'organizer_email': created_by.organizer_email,
+            'organizer_name': created_by.organizer_name,
+            'payment_url': self.activity.get_full_attendee_payment_url(),
+            'price': self.activity.price,
+            'is_pending': self.payment_status == self.PENDING
         }
         message = render_to_string(
             'mailing/welcome_attendee.txt', context)
         html_message = render_to_string(
             'mailing/welcome_attendee.html', context)
         subject = _(u'Welcome to the "{}"!').format(self.activity.title)
-        recipients = [self.profile.user.email]
+        recipients = [self.email]
+
+        send_mail(
+            subject=subject, message=message, html_message=html_message,
+            from_email=settings.NO_REPLY_EMAIL, recipient_list=recipients
+        )
+
+    def send_payment_confirmation_email(self):
+        context = {
+            'name': self.name,
+            'activity_title': self.activity.title,
+            'payment_url': self.activity.get_full_attendee_payment_url(),
+        }
+        message = render_to_string(
+            'mailing/payment_confirmation.txt', context)
+        html_message = render_to_string(
+            'mailing/payment_confirmation.html', context)
+        subject = _(u'Welcome to the "{}"!').format(self.activity.title)
+        recipients = [self.email]
 
         send_mail(
             subject=subject, message=message, html_message=html_message,
@@ -118,4 +161,29 @@ def send_attendee_joined_email(sender, instance, created, **kwargs):
     instance.send_welcome_email()
 
 
+def show_me_the_money(sender, **kwargs):
+    import ipdb; ipdb.set_trace()
+    ipn_obj = sender
+    if ipn_obj.payment_status == ST_PP_COMPLETED:
+        # WARNING !
+        # Check that the receiver email is the same we previously
+        # set on the business field request. (The user could tamper
+        # with those fields on payment form before send it to PayPal)
+        if ipn_obj.receiver_email != "receiver_email@example.com":
+            # Not a valid payment
+            return
+        # Undertake some action depending upon `ipn_obj`.
+        if ipn_obj.custom == "Upgrade all users!":
+            Attendee.objects.update(paid=True)
+    # attendee.status = attendee.PAID
+    # attendee.save()
+    # attendee.send_payment_confirmation_email()
+
+
+def refuse_to_give_the_money(sender, **kwargs):
+    import ipdb; ipdb.set_trace()
+
+
+valid_ipn_received.connect(show_me_the_money)
+invalid_ipn_received.connect(refuse_to_give_the_money)
 post_save.connect(send_attendee_joined_email, sender=Attendee)

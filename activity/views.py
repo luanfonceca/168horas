@@ -79,6 +79,14 @@ class ActivityAttendeeExport(BaseActivityView, views.DetailView):
             'code': _('Code'),
             'attended_at': _('Attended at'),
         }
+        if self.object.slug == 'minus-vel-harum':
+            field_header_map.update({
+                'startup': _('Startup'),
+                'course': _('Course'),
+                'university': _('University'),
+                'born_at': _('Born At'),
+                'expectations': _('Your expectations'),
+            })
         attendees = self.object.attendee_set.values(
             *field_header_map.keys()
         )

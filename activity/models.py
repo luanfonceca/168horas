@@ -92,6 +92,16 @@ class Activity(TitleSlugDescriptionModel):
     def get_attendee_list_url(self):
         return reverse('attendee:list', kwargs={'activity_slug': self.slug})
 
+    def get_attendee_payment_url(self):
+        return reverse('attendee:payment', kwargs={'activity_slug': self.slug})
+
+    def get_full_attendee_payment_url(self):
+        domain = Site.objects.get_current().domain
+        return 'http://{domain}{url}'.format(
+            domain=domain,
+            url=self.get_attendee_payment_url()
+        )
+
     @property
     def get_photo_url(self):
         return '{0}/{1}'.format(settings.MEDIA_URL, self.photo)

@@ -1,0 +1,16 @@
+{% load i18n %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>168 Horas</title>
+  </head>
+
+  <body>
+    {% blocktrans with activity_title=activity_title name=name %}
+      <p>Hi {{ name }}, we from the 168 horas are here to confirm that your payment to "{{ activity_title }}" is completed!</p>
+
+      <p>Thank you.</p>
+    {% endblocktrans %}
+  </body>
+</html>

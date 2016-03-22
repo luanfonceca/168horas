@@ -7,9 +7,26 @@
   </head>
 
   <body>
-    {% blocktrans with get_full_name=object.user.get_full_name activity_title=activity.title organizer_email=created_by.organizer_email organizer_name=created_by.organizer_name %}
-      <p>Hi {{ get_full_name }}, welcome to the "{{ activity_title }}"!</p>
+    {% blocktrans with name=name activity_title=activity_title %}
+      <p>Hi {{ name }}, welcome to the "{{ activity_title }}"!</p>
+    {% endblocktrans %}
 
+    {% if price and is_pending %}
+      {% blocktrans with payment_url=payment_url %}
+        <p>
+          Para finalizar o seu cadastro é necessário que você pague o seu ingresso utilizando o Paypal, o 168horas te redirecionou para a página de pagamento do Paypal, caso esse redirecionameto não tenha ocorrido clique
+          <a href="{{ payment_url }}" target="_blank">aqui</a>.
+        </p>
+        <p>
+          Para ter certeza, ao acessa essa página você verá a informação "Status" marcada como <strong>Completo</strong>, caso contrário ela estará como <strong>Pendente</strong> ou algum outro status dependendo da situação do pagamento.
+        </p>
+        <p>
+          Não se preocupe, assim que o pagamento for efetuado você receberá outro email avisando a confirmação do pagamento!
+        </p>
+      {% endblocktrans %}
+    {% endif %}
+    
+    {% blocktrans with organizer_email=organizer_email organizer_name=organizer_name %}
       <p>
         If you have any doubts about this activity feel free to get in touch with the Organizer:
         <a href="mailto:{{ organizer_email }}" target="_blank">{{ organizer_name }}</a> by email.

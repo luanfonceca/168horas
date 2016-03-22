@@ -149,6 +149,7 @@ DJANGO_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
+    'django.contrib.humanize'
 )
 
 LOCAL_APPS = (
@@ -167,6 +168,7 @@ EXTERNAL_APPS = (
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
+    'paypal.standard.ipn',
 )
 
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + EXTERNAL_APPS
@@ -215,6 +217,9 @@ ACCOUNT_LOGOUT_ON_GET = True
 # Email configs
 NO_REPLY_EMAIL = 'noreply@168h.com.br'
 
+
+# Paypal configs
+PAYPAL_TEST = True
 
 # Import the custom settings
 try:

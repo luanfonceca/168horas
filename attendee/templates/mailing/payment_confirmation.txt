@@ -1,0 +1,7 @@
+{% load i18n %}
+
+{% blocktrans with activity_title=activity_title name=name %}
+  Hi {{ name }}, we from the 168 horas are here to confirm that your payment to "{{ activity_title }}" is completed!
+
+  Thank you.
+{% endblocktrans %}
