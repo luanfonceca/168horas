@@ -41,7 +41,7 @@ class Activity(TitleSlugDescriptionModel):
     is_organizer = models.BooleanField(_(u'Is Organizer'), default=False)
     is_online = models.BooleanField(default=False)
     photo = models.ImageField(
-        _(u'Event photo'),
+        _(u'Activity photo'),
         upload_to='photos/', null=True, blank=True,
         help_text=_('Images in the resolution: 400x400.'))
     location = models.CharField(

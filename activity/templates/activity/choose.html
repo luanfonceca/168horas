@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% load tags %}
+
+{% block extra_css %}
+  <style type="text/css">
+    .hoverable:hover {
+      cursor: pointer;
+    }
+
+    .row .center {
+      padding: 40px 0px;
+    }
+
+    @media (max-width: 420px) {
+      .row a:first-child {
+        margin-bottom: 20px;
+      }
+    }
+
+    .row a i {
+      font-size: 80px;
+    }
+  </style>
+{% endblock extra_css %}
+
+{% block content %}
+  <div class="row">
+    <a href="{% url 'activity:share' %}" class="col s12 m5 l5 hoverable grey lighten-4">
+      <div class="center">
+        <i class="material-icons">share</i>
+        <h4>{% trans 'Share an activity' %}</h4>
+      </div>
+    </a>
+
+    <a href="{% url 'activity:create' %}" class="col s12 m5 l5 offset-l1 hoverable grey lighten-4">
+      <div class="center">
+        <i class="material-icons">plus_one</i>
+        <h4>{% trans 'Add a new activity' %}</h4>
+      </div>
+    </a>
+  </div>
+{% endblock content %}

@@ -32,20 +32,6 @@
         </li>
       </ul>
     </div>
-  {% else %}
-    <div class="right" style="line-height: 122px;">
-      {% if request.user.is_authenticated and object|already_joined:request.user.profile %}
-        <a class='disabled btn-large waves-effect waves-light white blue-text text-darken-4' href="javascript:;">
-          {% trans 'Already Joined' %}
-          <i class="material-icons right" style="line-height: 55px;">check</i>
-        </a>
-      {% else %}
-        <a class='btn-large waves-effect waves-light white blue-text text-darken-4' {% if object.link %}href="{{ object.link }}" target="_blank"{% else %}href="{{ object.get_attendee_join_url }}"{% endif %}>
-          {% trans 'Join' %}
-          <i class="material-icons right" style="line-height: 55px;">arrow_forward</i>
-        </a>
-      {% endif %}
-    </div>
   {% endif %}
 {% endblock %}
 

@@ -7,6 +7,7 @@ from django.core.exceptions import ValidationError
 from django.contrib import messages
 
 from vanilla import model_views as views
+from vanilla.views import TemplateView
 from djqscsv import render_to_csv_response
 
 from core.mixins import PageTitleMixin
@@ -40,15 +41,24 @@ class ActivityList(BaseCategoryView, views.ListView):
         return context
 
 
+class ActivityChoose(PageTitleMixin, TemplateView):
+    template_name = 'activity/choose.html'
+    page_title = _(u'Add or Share an activity')
+
+
 class ActivityCreate(BaseActivityView, views.CreateView):
-    template_name = 'activity/form.html'
+    template_name = 'activity/form_create.html'
     page_title = _(u'Add activity')
 
     def form_valid(self, form):
         self.object = form.save()
         self.object.created_by = self.request.user.profile
         self.object.save()
-        return HttpResponseRedirect(self.get_success_url())
+
+
+class ActivityShare(ActivityCreate, views.CreateView):
+    template_name = 'activity/form_share.html'
+    page_title = _(u'Share activity')
 
 
 class ActivityDetail(BaseActivityView, views.DetailView):

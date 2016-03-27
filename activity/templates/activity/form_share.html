@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% load tags %}
+
+{% block content %}
+  {{ form.errors }}
+
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="row">
+      {% include "includes/field.html" with field=form.title %}
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12">
+        <label for="{{ form.description.id }}" data-error="{{ form.description.errors.0 }}">
+          {{ form.description.label }}
+        </label>
+        <br><br>
+        {% render_field form.description class+="materialize-textarea" %}
+      </div>
+    </div>
+
+    <div class="row">
+      {% include "includes/field.html" with field=form.link %}
+    </div>
+
+    <div class="file-field input-field col s12">
+      <div class="btn">
+        <span>
+          <i class="material-icons left">import_export</i>
+          {{ form.photo.label }}
+        </span>
+        <input type="file" name="photo" id="id_photo">
+      </div>
+      <div class="file-path-wrapper">
+        <input class="file-path validate" type="text" value="{% if object.pk %}{{ object.photo|get_filename|default:'Vazio' }}{% endif %}">
+      </div>
+      {% if form.photo.help_text %}
+        <p class="help-text caption">{{ form.photo.help_text }}</p>
+      {% endif %}
+    </div>
+
+    <div class="row">
+      {% include "includes/field.html" with field=form.scheduled_date class='datepicker' %}
+    </div>
+
+    <div class="row">
+      <div class="col s12">
+        <input {% if object and object.is_online %}checked="checked"{% endif %} type="checkbox" id="id_is_online" name="is_online" />
+        <label for="id_is_online">{% trans 'Online only activity?' %}</label><br>
+      </div>
+    </div>
+    <br>
+
+    <div class="row {% if object and object.is_online %}hide{% endif %}">
+      {% include "includes/field.html" with field=form.location class='placepicker' %}
+      <div class="placepicker-map thumbnail"></div>
+    </div>
+
+    <div class="row">
+      {% include "includes/checkbox.html" with field=form.categories queryset=object.categories field_name='categories' two_columns=True %}
+    </div>
+
+    <br>
+    <div class="center-align col s4">
+      <a href="{% if object %}{% url 'activity:detail' object.slug %}{% else %}{% url 'activity:list' %}{% endif %}">
+        {% trans 'back' %}
+      </a>
+      &nbsp;
+      <button type="submit" class="btn-large waves-effect waves-light blue darken-4">
+        {% trans 'Save' %}
+        <i class="material-icons right">done</i>
+      </button>
+    </div>
+  </form>
+{% endblock %}
+
+{% block extra_js %}
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
+  <script type="text/javascript" src="{% static 'js/jquery.placepicker.js' %}"></script>
+
+  <script type="text/javascript" src="{% static 'js/tinymce/tinymce.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/tinymce/langs/pt_BR.js' %}"></script>
+  <script type="text/javascript">
+    tinymce.init({
+      selector: '#id_description',
+      menubar: false,
+      toolbar: 'undo redo | bold italic | underline strikethrough | ' +
+               'alignleft aligncenter alignright alignjustify | ' +
+               'bullist, numlist | link unlink | ',
+      skin: 'light',
+      plugins: 'link',
+      language: 'pt_BR',
+      force_br_newlines: false,
+      apply_source_formatting: false,
+      formats: {
+        bold: {
+          inline: 'b'
+        },
+        italic: {
+          inline: 'i'
+        },
+      },
+      extended_valid_elements: "b,i,b/strong,i/em",
+    });
+  </script>
+
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('select').material_select();
+      
+      $('.datepicker').pickadate({
+        format: 'dd/mm/yyyy',
+        selectMonths: true,
+        selectYears: 15
+      });
+
+      $('#id_location').attr('placeholder', '');
+      $('.placepicker').placepicker({
+        map: '.placepicker-map'
+      });
+
+      $('#id_is_online').change(function() {
+        if ($(this).is(':checked')) {
+          $('#id_location').parents('.row').addClass('hide');
+        } else {
+          $('#id_location').parents('.row').removeClass('hide');
+        }
+      });
+    });
+  </script>
+{% endblock extra_js %}
