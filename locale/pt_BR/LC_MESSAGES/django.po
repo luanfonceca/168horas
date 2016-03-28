@@ -761,7 +761,7 @@ msgstr "Preencher Senha"
 msgid ""
 "Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
 msgstr ""
-"já tem uma conta? Então, por favor <a href href=\"%(login_url)s\">acesse</a>."
+"Já tem uma conta? Então, por favor <a href=\"%(login_url)s\">acesse</a>."
 
 #: core/templates/account/signup.html:14
 msgid ""
