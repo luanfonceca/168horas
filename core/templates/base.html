@@ -60,7 +60,7 @@
                 <i class="material-icons right">arrow_drop_down_circle</i>
               </a>
               <ul id='staff-dropdown' class='dropdown-content white'>
-                <li><a href="{% url 'profile' %}">{% trans 'Profile' %}</a></li>
+                <li><a href="{% url 'account_profile' %}">{% trans 'Profile' %}</a></li>
                 {% if request.user.is_staff %}
                   <li><a href="{% url 'category:list' %}">{% trans 'Categories' %}</a></li>
                 {% endif %}
@@ -68,8 +68,8 @@
                 <li><a href="{% url 'account_logout' %}">{% trans 'Logout' %}</a></li>
               </ul>
             {% else %}
-              <a href="{% provider_login_url 'facebook' method='oauth2' %}?next=/activities/">
-                {% trans 'Facebook' %}
+              <a href="{% url 'account_login' %}">
+                {% trans 'Sign In' %}
                 <i class="material-icons right">account_circle</i>
               </a>
             {% endif %}
@@ -78,38 +78,29 @@
       </div>
     </nav>
 
-    {% if page_title %}
-      <nav class="top-nav" style="z-index: 2;">
-        <div class="container">
-          <div class="nav-wrapper">
-            <div class="row">
-              <a class="page-title">{{ page_title|truncatewords:3 }}</a>
-              {% block header_actions %}{% endblock %}
+    <main>
+      {% if page_title %}
+        <nav class="top-nav" style="z-index: 2;">
+          <div class="container">
+            <div class="nav-wrapper">
+              <div class="row">
+                <a class="page-title">{{ page_title|truncatewords:3 }}</a>
+                {% block header_actions %}{% endblock %}
+              </div>
             </div>
           </div>
-        </div>
-      </nav>
-    {% endif %}
+        </nav>
+      {% endif %}
 
-    {% block outside_content %}{% endblock %}
-    
-    <div class="container">
-      <div class="section">
-        {% block content %}{% endblock %}
-      </div>
-    </div>
+      {% block outside_content %}{% endblock %}
 
-    {% if not request.user.is_authenticated and not index_page %}
-      <div id="force-login-modal" class="modal">
-        <div class="modal-content">
-          <h4>Você está a um clique de aprender!</h4>
-          <p>Não perca tempo, faça login e aprenda agora mesmo.</p>
-        </div>
-        <div class="modal-footer">
-          {% include "includes/login_button.html" %}
+      <div class="container">
+        <div class="section">
+          {% block content %}{% endblock %}
         </div>
       </div>
-    {% endif %}
+    </main>
+
 
     <footer class="page-footer">
       <div class="container">
@@ -153,6 +144,14 @@
           </span>
         </div>
       {% endfor %}
+      {% for error in form.non_field_errors %}
+        <div class="message">
+          <span>
+            <i class="material-icons left">warning</i>
+            {{ error }}
+          </span>
+        </div>
+      {% endfor %}
     </div>
 
     <script type="text/javascript" src="{% static 'js/jquery-2.1.1.min.js' %}"></script>
@@ -188,13 +187,6 @@
     <script type="text/javascript">
       $(document).ready(function() {
         $('select').not('.disabled').material_select();
-
-        var forceLogin = $('#force-login-modal');
-        if (forceLogin.length) {
-          $(forceLogin).openModal({
-            dismissible: false
-          });
-        };
 
         $('.messages .message').each(function() {
           Materialize.toast($(this), 5000);

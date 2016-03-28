@@ -1,5 +1,3 @@
-{% load socialaccount %}
-
-<a href="{% provider_login_url 'facebook' method='oauth2' %}?next={{ next_url|default:request.path }}" class="waves-effect waves-light btn btn-large btn-wide green">
+<a href="{% url 'activity:list' %}" class="waves-effect waves-light btn btn-large btn-wide green">
   Quero aprender algo novo
 </a>

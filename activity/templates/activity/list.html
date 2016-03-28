@@ -4,32 +4,48 @@
 
 {% block header_actions %}
   <div class="right" style="line-height: 122px;">
-    <a class='btn-large waves-effect waves-light blue darken-4' href="{% url 'activity:create' %}">
-      {% trans 'Add activity' %}
+    <a class='btn-large waves-effect waves-light white blue-text text-darken-4' href="{% url 'activity:create' %}">
+      {% trans 'Activity' %}
       <i class="material-icons right" style="line-height: 55px;">add</i>
     </a>
   </div>
 {% endblock %}
 
+{% block outside_content %}
+  {% if next_activities.exists %}
+    <div class="grey lighten-5">
+      <div class="container">
+        <h4>{% trans 'Next activities' %}</h4>
+        <div class="row masonry-grid">
+          {% for activity in next_activities.all %}
+            <div class="col s12 m4 l4">
+              {% include "activity/includes/card.html" with object=activity is_activity_card=True %}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+{% endblock %}
+
 {% block content %}
-  {% if object_list %}
-    <div class="row" id="masonry-grid">
-      {% for object in object_list %}
+  {% for object in object_list %}
+    <h4><a class="btn-link" href="{{ object.get_absolute_url }}">{{ object }}</a></h4>
+    <div class="row masonry-grid">
+      {% for activity in object.activities.get_next %}
         <div class="col s12 m4 l4">
           {% include "activity/includes/card.html" with object=activity is_activity_card=True %}
         </div>
+      {% empty %}
+        <div class="col s12 m12 l12">
+          <p class="caption">
+            {% trans 'Unfortunately, we have no activities in the area. Spread education.' %}
+            <a href="{% url 'activity:create' %}" class="btn-link">
+              {% trans 'Tell us an activity!' %}
+            </a>
+          </p>
+        </div>
       {% endfor %}
     </div>
-  {% endif %}
+  {% endfor %}
 {% endblock content %}
-
-{% block extra_js %}
-  <script type="text/javascript">
-    $(document).ready(function() {
-      $('#masonry-grid').masonry({
-        columnWidth: '.col',
-        itemSelector: '.col',
-      });
-    });
-  </script>
-{% endblock extra_js %}

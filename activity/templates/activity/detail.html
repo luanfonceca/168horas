@@ -124,7 +124,7 @@
   {% elif object.is_organizer and request.user.profile == object.created_by %}
     <br/>
     <h5>{% trans 'Organizer' %}</h5>
-    {% url 'profile' as profile_url %}
+    {% url 'account_profile' as profile_url %}
     {% blocktrans with profile_url=profile_url %}
       <p>
         Click <a href="{{ profile_url }}#organizer-information">here</a> to fill the Organizer information.
