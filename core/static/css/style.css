@@ -172,7 +172,7 @@ a.button-collapse.top-nav.full {
     height: auto !important;
   }
 
-  .top-nav .right {
+  .top-nav .right.actions {
     float: none !important;
   }
 }
