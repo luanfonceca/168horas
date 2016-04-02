@@ -29,6 +29,8 @@ class Attendee(models.Model):
     cpf = models.CharField('CPF', max_length=14)
     email = models.EmailField(_('Email'))
     phone = models.CharField(_('Phone'), max_length=50, blank=True)
+    educational_institution = models.CharField(
+        _('Educational Institution'), max_length=200, null=True, blank=True)
     code = models.CharField(_('Code'), max_length=10, default=code_generate)
     created_at = CreationDateTimeField(_(u'Created At'))
     attended_at = models.DateTimeField(

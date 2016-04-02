@@ -64,6 +64,7 @@ class AttendeeList(BaseAttendeeView, views.ListView):
                 Q(name__icontains=search) |
                 Q(email__icontains=search) |
                 Q(phone__icontains=search) |
+                Q(cpf__icontains=search) |
                 Q(code__icontains=search)
             )
         return queryset

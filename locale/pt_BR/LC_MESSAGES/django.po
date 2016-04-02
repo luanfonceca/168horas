@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-28 05:40-0300\n"
-"PO-Revision-Date: 2016-03-28 05:40-0300\n"
+"POT-Creation-Date: 2016-04-02 11:04-0300\n"
+"PO-Revision-Date: 2016-04-02 11:13-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -30,7 +30,7 @@ msgstr "Data"
 msgid "Total of hours to be used in the Certificate."
 msgstr "Total de horas que serão utilizadas no Certificado."
 
-#: activity/models.py:38 attendee/models.py:33 event/models.py:32
+#: activity/models.py:38 attendee/models.py:35 event/models.py:32
 #: ticket/models.py:22
 msgid "Created At"
 msgstr "Criado Em"
@@ -76,8 +76,8 @@ msgstr "Criado por"
 msgid "Categories"
 msgstr "Categorias"
 
-#: activity/models.py:65 activity/templates/activity/detail.html:17
-#: attendee/models.py:47 attendee/views.py:40
+#: activity/models.py:65 activity/templates/activity/detail.html:23
+#: attendee/models.py:49 attendee/views.py:40
 msgid "Attendees"
 msgstr "Participantes"
 
@@ -105,7 +105,7 @@ msgstr ""
 
 #: activity/templates/activity/delete.html:14
 #: activity/templates/activity/form.html:85
-#: attendee/templates/attendee/form.html:24
+#: attendee/templates/attendee/form.html:22
 #: category/templates/category/delete.html:13
 #: category/templates/category/form.html:17
 #: core/templates/account/password_change.html:26
@@ -116,13 +116,13 @@ msgid "back"
 msgstr "voltar"
 
 #: activity/templates/activity/delete.html:17
-#: activity/templates/activity/detail.html:29
+#: activity/templates/activity/detail.html:48
 #: activity/templates/activity/includes/card.html:41
 #: category/templates/category/delete.html:16
 msgid "Delete"
 msgstr "Remover"
 
-#: activity/templates/activity/detail.html:11
+#: activity/templates/activity/detail.html:17
 #: attendee/templates/attendee/includes/card.html:12
 #: attendee/templates/attendee/list.html:13
 #: category/templates/category/detail.html:9
@@ -130,39 +130,39 @@ msgstr "Remover"
 msgid "Actions"
 msgstr "Ações"
 
-#: activity/templates/activity/detail.html:23
-#: activity/templates/activity/includes/card.html:40
-msgid "Update"
-msgstr "Atualizar"
-
-#: activity/templates/activity/detail.html:39
-#: activity/templates/activity/detail.html:63
-#: activity/templates/activity/detail.html:80
+#: activity/templates/activity/detail.html:30
+#: activity/templates/activity/detail.html:55
+#: activity/templates/activity/detail.html:73
 #: activity/templates/activity/includes/card.html:27
 msgid "Already Joined"
 msgstr "Inscrito"
 
-#: activity/templates/activity/detail.html:44
-#: activity/templates/activity/detail.html:68
-#: activity/templates/activity/detail.html:85
+#: activity/templates/activity/detail.html:35
+#: activity/templates/activity/detail.html:60
+#: activity/templates/activity/detail.html:78
 #: activity/templates/activity/includes/card.html:32
 msgid "Join"
 msgstr "Participar"
 
-#: activity/templates/activity/detail.html:95
+#: activity/templates/activity/detail.html:42
+#: activity/templates/activity/includes/card.html:40
+msgid "Update"
+msgstr "Atualizar"
+
+#: activity/templates/activity/detail.html:88
 msgid "Description"
 msgstr "Descrição"
 
-#: activity/templates/activity/detail.html:101
+#: activity/templates/activity/detail.html:94
 msgid "Local"
 msgstr "Local"
 
-#: activity/templates/activity/detail.html:110
-#: activity/templates/activity/detail.html:126
+#: activity/templates/activity/detail.html:103
+#: activity/templates/activity/detail.html:119
 msgid "Organizer"
 msgstr "Facilitador"
 
-#: activity/templates/activity/detail.html:128
+#: activity/templates/activity/detail.html:121
 #, python-format
 msgid ""
 "\n"
@@ -179,11 +179,11 @@ msgstr ""
 "      </p>\n"
 "    "
 
-#: activity/templates/activity/detail.html:136
+#: activity/templates/activity/detail.html:129
 msgid "Share"
 msgstr "Compartilhar"
 
-#: activity/templates/activity/detail.html:141
+#: activity/templates/activity/detail.html:134
 msgid ""
 "* ADDITIONAL ACTIVITIES: Check with your coordinator if this activity is "
 "valid for your course and university."
@@ -200,7 +200,7 @@ msgid "Online only activity?"
 msgstr "Atividade online?"
 
 #: activity/templates/activity/form.html:89
-#: attendee/templates/attendee/form.html:28
+#: attendee/templates/attendee/form.html:26
 #: category/templates/category/form.html:21 core/templates/profile.html:97
 #: ticket/templates/ticket/form.html:28
 msgid "Save"
@@ -229,59 +229,63 @@ msgstr "Indique-nos uma atividade!"
 msgid "Add activity"
 msgstr "Adicionar atividade"
 
-#: activity/views.py:70
+#: activity/views.py:72
 msgid "Id"
 msgstr "Id"
 
-#: activity/views.py:71 attendee/models.py:28 ticket/models.py:19
+#: activity/views.py:73 attendee/models.py:28 ticket/models.py:19
 msgid "Name"
 msgstr "Nome"
 
-#: activity/views.py:72 core/models.py:14
+#: activity/views.py:74 core/models.py:14
 msgid "CPF"
 msgstr "CPF"
 
-#: activity/views.py:73 attendee/models.py:30
+#: activity/views.py:75 attendee/models.py:30
 msgid "Email"
 msgstr "Email"
 
-#: activity/views.py:74 attendee/models.py:31
+#: activity/views.py:76 attendee/models.py:31
 msgid "Phone"
 msgstr "Telefone"
 
-#: activity/views.py:75 attendee/models.py:32
+#: activity/views.py:77 attendee/models.py:34
 msgid "Code"
 msgstr "Código"
 
-#: activity/views.py:76
+#: activity/views.py:78
 msgid "Attended at"
 msgstr "Credenciado em"
 
-#: activity/views.py:103
+#: activity/views.py:105
 msgid "Successfully checked all the attendees!"
 msgstr "Credenciados todos os participantes com sucesso!"
 
-#: activity/views.py:123
+#: activity/views.py:125
 msgid "Successfully sended all the certificates!"
 msgstr "Enviado todos os certificados com sucesso!"
 
-#: attendee/models.py:35
+#: attendee/models.py:33
+msgid "Educational Institution"
+msgstr "Instituição de Ensino"
+
+#: attendee/models.py:37
 msgid "Attended At"
 msgstr "Credenciado Em"
 
-#: attendee/models.py:46
+#: attendee/models.py:48
 msgid "Attendee"
 msgstr "Participante"
 
-#: attendee/models.py:94
+#: attendee/models.py:96
 msgid "Welcome to the \"{}\"!"
 msgstr "Bem vindo ao \"{}\"!"
 
-#: attendee/models.py:104
+#: attendee/models.py:106
 msgid "This Attendee was already checked in."
 msgstr "Esse Participante já foi credenciado."
 
-#: attendee/models.py:110
+#: attendee/models.py:112
 msgid "This Attendee is not checked in yet."
 msgstr "Esse Participante ainda não foi credenciado."
 
@@ -348,20 +352,16 @@ msgid "Send email"
 msgstr "Enviar email"
 
 #: attendee/templates/attendee/includes/card.html:24
-#, fuzzy
-#| msgid "Send certificates"
 msgid "Open certificate"
-msgstr "Enviar certificados"
+msgstr "Abrir certificado"
 
 #: attendee/templates/attendee/includes/card.html:30
 msgid "Uncheck."
-msgstr ""
+msgstr "Descredenciar"
 
 #: attendee/templates/attendee/includes/card.html:30
-#, fuzzy
-#| msgid "Check all"
 msgid "Check in."
-msgstr "Credenciar todos"
+msgstr "Credenciar."
 
 #: attendee/templates/attendee/list.html:19
 #: ticket/templates/ticket/list.html:20
@@ -408,9 +408,9 @@ msgstr "Infelizmente, não dispomos de participantes nessa atividade."
 msgid "Unfortunately, we have no attendees in this activity."
 msgstr "Infelizmente, não dispomos de participantes nessa atividade."
 
-#: attendee/templates/attendee/sort.html:10 attendee/views.py:200
+#: attendee/templates/attendee/sort.html:10 attendee/views.py:201
 msgid "Sort"
-msgstr ""
+msgstr "Ordenar"
 
 #: attendee/templates/mailing/certificate_attendee.html:10
 #, python-format
@@ -515,38 +515,38 @@ msgstr ""
 "\n"
 "  Obrigado.\n"
 
-#: attendee/views.py:78
+#: attendee/views.py:79
 msgid "You are not allowed to see this page!"
 msgstr "Você não é permitido para ver essa página!"
 
-#: attendee/views.py:89
+#: attendee/views.py:90
 #, python-brace-format
 msgid "Join to {activity}"
 msgstr "Participe da {activity}"
 
-#: attendee/views.py:100
+#: attendee/views.py:101
 msgid "You already joined up for this activity!"
 msgstr "Você j;a faz parte desta atividade!"
 
-#: attendee/views.py:125
+#: attendee/views.py:126
 msgid "This user already joined up for this activity!"
 msgstr "Esse usuário já faz parte desta atividade!"
 
-#: attendee/views.py:131
+#: attendee/views.py:132
 msgid "Successfully joined up for this activity!"
 msgstr "Inscrito com sucesso nesta atividade!"
 
-#: attendee/views.py:159
+#: attendee/views.py:160
 #, python-brace-format
 msgid "Successfully checked in the attendee \"{0}\"!"
 msgstr "Registrado com sucesso o participante \"{0}\"!"
 
-#: attendee/views.py:182
+#: attendee/views.py:183
 #, python-brace-format
 msgid "Successfully unchecked the attendee \"{0}\"!"
 msgstr "Descredenciado com sucesso o participante \"{0}\"!"
 
-#: attendee/views.py:193
+#: attendee/views.py:194
 msgid "Certificate"
 msgstr "Certificado"
 
@@ -580,10 +580,8 @@ msgid "Categorias"
 msgstr "Categorias"
 
 #: core/forms.py:7 core/forms.py:8
-#, fuzzy
-#| msgid "Name"
 msgid "Full Name"
-msgstr "Nome"
+msgstr "Nome Completo"
 
 #: core/models.py:13
 msgid "State"
@@ -688,6 +686,7 @@ msgid "Sign In"
 msgstr "Acessar"
 
 #: core/templates/account/messages/logged_in.txt:6
+#, python-format
 msgid "Successfully signed in as %(user)s."
 msgstr "Acesso efetuado com sucesso como %(user)s."
 
