@@ -39,6 +39,7 @@ class ActivityList(BaseCategoryView, views.ListView):
 class ActivityCreate(BaseActivityView, views.CreateView):
     template_name = 'activity/form.html'
     page_title = _(u'Add activity')
+    full_page_title = True
 
     def form_valid(self, form):
         self.object = form.save()
@@ -49,6 +50,7 @@ class ActivityCreate(BaseActivityView, views.CreateView):
 
 class ActivityDetail(BaseActivityView, views.DetailView):
     template_name = 'activity/detail.html'
+    full_page_title = True
 
 
 class ActivityUpdate(BaseActivityView, views.UpdateView):

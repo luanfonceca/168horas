@@ -90,9 +90,12 @@ nav.top-nav {
   box-shadow: none;
 }
 
-nav.top-nav a.page-title {
+nav.top-nav .page-title {
+  /*line-height: 122px;
+  font-size: 48px;*/
   line-height: 122px;
-  font-size: 48px;
+  font-size: 2.28rem;
+  font-weight: 400px;
 }
 
 a.button-collapse.top-nav {
@@ -124,7 +127,7 @@ a.button-collapse.top-nav.full {
     text-align: center;
   }
 
-  nav .nav-wrapper a.page-title {
+  nav .nav-wrapper .page-title {
     font-size: 36px;
   }
 }
