@@ -30,6 +30,7 @@ class ProfileView(mixins.PageTitleMixin,
     template_name = 'profile.html'
     model = Profile
     page_title = _('Profile update')
+    full_page_title = True
     success_url = reverse_lazy('activity:list')
     success_message = _('Profile updated.')
     fields = (
@@ -44,37 +45,46 @@ class ProfileView(mixins.PageTitleMixin,
 
 class CustomLoginView(mixins.PageTitleMixin, account_views.LoginView):
     page_title = _('Sign In')
+    full_page_title = True
 
 
 class CustomSignupView(mixins.PageTitleMixin, account_views.SignupView):
     page_title = _('Sign Up')
+    full_page_title = True
 
 
 class CustomPasswordChangeView(mixins.PageTitleMixin,
                                account_views.PasswordChangeView):
     page_title = _('Change Password')
+    full_page_title = True
 
 
 class CustomPasswordSetView(mixins.PageTitleMixin,
                             account_views.PasswordSetView):
     page_title = _('Set Password')
+    full_page_title = True
 
 
 class CustomPasswordResetView(mixins.PageTitleMixin,
                               account_views.PasswordResetView):
     page_title = _('Password Reset')
+    full_page_title = True
 
 
 class CustomPasswordResetDoneView(mixins.PageTitleMixin,
                                   account_views.PasswordResetDoneView):
     page_title = _('Password Reset')
+    full_page_title = True
 
 
 class CustomPasswordResetFromKeyView(mixins.PageTitleMixin,
                                      account_views.PasswordResetFromKeyView):
     page_title = _('Change Password')
+    full_page_title = True
 
 
 class CustomPasswordResetFromKeyDoneView(
-     mixins.PageTitleMixin, account_views.PasswordResetFromKeyDoneView):
+     mixins.PageTitleMixin,
+     account_views.PasswordResetFromKeyDoneView):
     page_title = _('Change Password')
+    full_page_title = True

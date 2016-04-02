@@ -83,7 +83,7 @@
         <nav class="top-nav" style="z-index: 2;">
           <div class="container">
             <div class="nav-wrapper">
-              <div class="row" {% if full_page_title %}style="text-align:center;"{% endif %}>
+              <div class="row {% if full_page_title %}center{% endif %}">
                 {% if full_page_title %}
                   <span class="page-title">{{ page_title|truncatewords:10 }}</span>
                 {% else %}

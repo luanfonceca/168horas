@@ -84,6 +84,7 @@ class AttendeeList(BaseAttendeeView, views.ListView):
 
 class AttendeeJoin(BaseAttendeeView, LoginRequiredMixin, views.CreateView):
     template_name = 'attendee/form.html'
+    full_page_title = True
 
     def get_page_title(self):
         activity = self.get_activity()

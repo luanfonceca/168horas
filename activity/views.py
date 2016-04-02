@@ -55,6 +55,7 @@ class ActivityDetail(BaseActivityView, views.DetailView):
 
 class ActivityUpdate(BaseActivityView, views.UpdateView):
     template_name = 'activity/form.html'
+    full_page_title = True
 
 
 class ActivityDelete(BaseActivityView, views.DeleteView):
