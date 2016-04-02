@@ -21,6 +21,39 @@
     .icon-block i {
       font-size: 80px;
     }
+
+    #first-call .header span:first-child {
+      font-size: 140px;
+    }
+    
+    #first-call .header span:last-child {
+      font-size: 80px;
+      margin-left: 10px;
+      letter-spacing: -5px;
+    }
+
+    nav {
+      height: 64px;
+    }
+
+    #network h1 {
+      margin-top: 120px;
+      font-size: 60px;
+    }
+
+    @media (max-width: 481px) {
+      #first-call .header span:first-child {
+        font-size: 120px;
+      }
+
+      #first-call .header span:last-child {
+        font-size: 60px;
+      }
+
+      #network h1 {
+        margin-top: 60px;
+      }
+    }
   </style>
 {% endblock %}
 
@@ -29,8 +62,8 @@
     <div class="section no-pad-bot" style="margin-top: calc(50vh - 200px);">
       <div class="container">
         <h1 class="header center white-text" style="font-family: GalanoGrotesque; letter-spacing: -7.5px;text-transform: uppercase;">
-          <span style="font-size: 140px;">168</span>
-          <span style="font-size: 80px;margin-left: 10px;letter-spacing: -5px;">horas</span>
+          <span>168</span>
+          <span>horas</span>
         </h1>
         <div class="center" style="margin-top: -20px">
           <h2 class="header col s12 light white-text" style="font-size: 40px;">
@@ -144,10 +177,10 @@
   </section>
   -->
 
-  <div class="parallax-container" style="margin-bottom: -55px;">
+  <div id="network" class="parallax-container" style="margin-bottom: -55px;">
     <div class="section no-pad-bot">
       <div class="container">
-        <h1 class="center white-text" style="margin-top: 120px; font-size: 60px;">
+        <h1 class="center white-text">
           Rede colaborativa
         </h1>
         <h4 class="center white-text">
