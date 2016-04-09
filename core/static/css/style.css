@@ -264,12 +264,26 @@ a.button-collapse.top-nav.full {
 #activity-description p {
   margin: 0 !important;
 }
+
+#activity-header .center-align .dropdown-button {
+  width: 100%;
+}
+
+@media (max-width: 600px) {
+  #activity-header .dropdown-button {
+    width: 100%;
+  }
+
+  #activity-header .activity-image {
+    text-align: center;
+  }
+}
+
 /*
 #activity-actions {
   float: right;
 }
 
-@media (max-width: 481px) {
   #activity-actions {
     padding-top: 30px;
     float: none;

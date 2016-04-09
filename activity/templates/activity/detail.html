@@ -5,119 +5,25 @@
 {% load tags %}
 
 {% block content %}
-  <div class="row">
-    {% if object.photo %}
-      <div class="activity-image col s12 m6 l6">
-        <img class="responsive-img" src="{{ object.get_photo_url }}">
-      </div>
-      <div class="col s12 m6 l6">
-        <div id="activity-actions">
-          {% if request.user.is_staff or request.user.profile == object.created_by %}
-            <a class='dropdown-button btn-large waves-effect waves-light blue darken-4 white-text' href='javascript:;' data-activates='activity-actions'>
-              {% trans 'Actions' %}
-              <i class="material-icons right" style="line-height: 55px;">arrow_drop_down</i>
-            </a>
-            <ul id='activity-actions' class='dropdown-content'>
-              <li>
-                <a class="blue-text text-darken-4" href="{{ object.get_attendee_list_url }}">
-                  {% trans 'Attendees' %}
-                  <i class="material-icons right">group</i>
-                </a>
-              </li>
-              <li>
-                {% if request.user.is_authenticated and object|already_joined:request.user.profile %}
-                  <a class='disabled blue-text text-darken-4' href="javascript:;">
-                    {% trans 'Already Joined' %}
-                    <i class="material-icons right">check</i>
-                  </a>
-                {% else %}
-                  <a class='blue-text text-darken-4' {% if object.link %}href="{{ object.link }}" target="_blank"{% else %}href="{{ object.get_attendee_join_url }}"{% endif %}>
-                    {% trans 'Join' %}
-                    <i class="material-icons right">arrow_forward</i>
-                  </a>
-                {% endif %}
-              </li>
-              <li>
-                <a class="blue-text text-darken-4" href="{{ object.get_update_url }}">
-                  {% trans 'Update' %}
-                  <i class="material-icons right">edit</i>
-                </a>
-              </li>
-              <li>
-                <a class="blue-text text-darken-4" href="{{ object.get_delete_url }}">
-                  {% trans 'Delete' %}
-                  <i class="material-icons right">delete</i>
-                </a>
-              </li>
-            </ul>
-          {% elif request.user.is_authenticated and object|already_joined:request.user.profile %}
-            <a class='disabled btn-large waves-effect waves-light white blue-text text-darken-4' href="javascript:;">
-              {% trans 'Already Joined' %}
-              <i class="material-icons right" style="line-height: 55px;">check</i>
-            </a>
-          {% else %}
-            <a class="btn btn-wide btn-large waves-effect waves-light blue darken-4" {% if object.link %}href="{{ object.link }}" target="_blank"{% else %}href="{{ object.get_attendee_join_url }}"{% endif %} style="width: 100%">
-              {% trans 'Join' %}
-              <i class="material-icons right"><i class="material-icons">arrow_forward</i></i>
-            </a>
-          {% endif %}
+  <div id="activity-header">
+    <div class="row">
+      {% if object.photo %}
+        <div class="activity-image col s12 m6 l6">
+          <img class="responsive-img" src="{{ object.get_photo_url }}">
         </div>
-      </div>
-    {% else %}
-      <div class="center-align">
-        <div class="col s4 offset-s4">
-          {% if request.user.is_staff or request.user.profile == object.created_by %}
-            <a class='dropdown-button btn-large waves-effect waves-light blue darken-4 white-text' href='javascript:;' data-activates='activity-actions'>
-              {% trans 'Actions' %}
-              <i class="material-icons right" style="line-height: 55px;">arrow_drop_down</i>
-            </a>
-            <ul id='activity-actions' class='dropdown-content'>
-              <li>
-                <a class="blue-text text-darken-4" href="{{ object.get_attendee_list_url }}">
-                  {% trans 'Attendees' %}
-                  <i class="material-icons right">group</i>
-                </a>
-              </li>
-              <li>
-                {% if request.user.is_authenticated and object|already_joined:request.user.profile %}
-                  <a class='disabled blue-text text-darken-4' href="javascript:;">
-                    {% trans 'Already Joined' %}
-                    <i class="material-icons right">check</i>
-                  </a>
-                {% else %}
-                  <a class='blue-text text-darken-4' {% if object.link %}href="{{ object.link }}" target="_blank"{% else %}href="{{ object.get_attendee_join_url }}"{% endif %}>
-                    {% trans 'Join' %}
-                    <i class="material-icons right">arrow_forward</i>
-                  </a>
-                {% endif %}
-              </li>
-              <li>
-                <a class="blue-text text-darken-4" href="{{ object.get_update_url }}">
-                  {% trans 'Update' %}
-                  <i class="material-icons right">edit</i>
-                </a>
-              </li>
-              <li>
-                <a class="blue-text text-darken-4" href="{{ object.get_delete_url }}">
-                  {% trans 'Delete' %}
-                  <i class="material-icons right">delete</i>
-                </a>
-              </li>
-            </ul>
-          {% elif request.user.is_authenticated and object|already_joined:request.user.profile %}
-            <a class='disabled btn-large waves-effect waves-light white blue-text text-darken-4' href="javascript:;">
-              {% trans 'Already Joined' %}
-              <i class="material-icons right" style="line-height: 55px;">check</i>
-            </a>
-          {% else %}
-            <a class="btn btn-wide btn-large waves-effect waves-light blue darken-4" {% if object.link %}href="{{ object.link }}" target="_blank"{% else %}href="{{ object.get_attendee_join_url }}"{% endif %} style="width: 100%">
-              {% trans 'Join' %}
-              <i class="material-icons right"><i class="material-icons">arrow_forward</i></i>
-            </a>
-          {% endif %}
+        <div class="col s12 m6 l6">
+          <div class="right-align">
+            {% include "activity/includes/action-button.html" %}
+          </div>
         </div>
-      </div>
-    {% endif %}
+      {% else %}
+        <div class="center-align">
+          <div class="col col s12 m6 offset-m3 l6 offset-l3">
+            {% include "activity/includes/action-button.html" %}
+          </div>
+        </div>
+      {% endif %}
+    </div>
   </div>
 
   <div id="activity-description">
@@ -125,45 +31,60 @@
     {{ object.description|safe|linebreaks }}
   </div>
 
-  {% if not object.is_online %}
+  {% if object.scheduled_date %}
     <br/>
-    <h5>{% trans 'Local' %}</h5>
-    <p>
-      {{ object.location }}
-    </p>
+    <div id="activity-scheduled-date">
+      <h5>{% trans 'Date' %}</h5>
+      {{ object.scheduled_date }}
+    </div>
+  {% endif %}
+
+  {% if not object.is_online and object.location %}
     <br/>
+    <div id="activity-location">
+      <h5>{% trans 'Local' %}</h5>
+      <p>
+        {{ object.location }}
+      </p>
+    </div>
   {% endif %}
 
   {% if object.is_organizer and object.created_by.organizer_name %}
     <br/>
-    <h5>{% trans 'Organizer' %}</h5>
-    <p>
-      {{ object.created_by.organizer_name }}
-      {% if object.created_by.organizer_email %}
-        -
-        <a href="mailto:{{ object.created_by.organizer_email }}" target="_blank">
-          {{ object.created_by.organizer_email }}
-        </a>
-      {% endif %}
-      {% if object.created_by.organizer_phone %}
-        -
-        {{ object.created_by.organizer_phone }}
-      {% endif %}
-    </p>
+    <div id="activity-location">
+      <h5>{% trans 'Organizer' %}</h5>
+      <p style="margin-bottom: 0">
+        {{ object.created_by.organizer_name }}
+        {% if object.created_by.organizer_email %}
+          -
+          <a href="mailto:{{ object.created_by.organizer_email }}" target="_blank">
+            {{ object.created_by.organizer_email }}
+          </a>
+        {% endif %}
+        {% if object.created_by.organizer_phone %}
+          -
+          {{ object.created_by.organizer_phone }}
+        {% endif %}
+      </p>
+    </div>
   {% elif object.is_organizer and request.user.profile == object.created_by %}
     <br/>
-    <h5>{% trans 'Organizer' %}</h5>
-    {% url 'account_profile' as profile_url %}
-    {% blocktrans with profile_url=profile_url %}
-      <p>
-        Click <a href="{{ profile_url }}#organizer-information">here</a> to fill the Organizer information.
-      </p>
-    {% endblocktrans %}
+    <div id="activity-location">
+      <h5>{% trans 'Organizer' %}</h5>
+      {% url 'account_profile' as profile_url %}
+      {% blocktrans with profile_url=profile_url %}
+        <p style="margin-bottom: 0">
+          Click <a href="{{ profile_url }}#organizer-information">here</a> to fill the Organizer information.
+        </p>
+      {% endblocktrans %}
+    </div>
   {% endif %}
 
-  <br/>
-  <h5>{% trans 'Share' %}</h5>
-  <div class="addthis_sharing_toolbox"></div>
+  <div id="activity-share">
+    <br/>
+    <h5>{% trans 'Share' %}</h5>
+    <div class="addthis_sharing_toolbox"></div>
+  </div>
 
   <br/>
   <p class="red-text">
