@@ -19,7 +19,7 @@ from core.mixins import PageTitleMixin, LoginRequiredMixin
 from activity.models import Activity
 from attendee.models import Attendee
 from attendee.forms import (
-    AttendeeForm, AttendeeExtraInformationForm, AttendeePaymentForm)
+    AttendeeForm, AttendeePaymentForm)
 
 
 class BaseAttendeeView(PageTitleMixin):
@@ -41,7 +41,8 @@ class BaseAttendeeView(PageTitleMixin):
 class AttendeeList(BaseAttendeeView, views.ListView):
     template_name = 'attendee/list.html'
     page_title = _(u'Attendees')
-    # allow_empty = True
+    paginate_by = 30
+    allow_empty = True
 
     def get_context_data(self, **kwargs):
         context = super(AttendeeList, self).get_context_data(**kwargs)
@@ -66,6 +67,7 @@ class AttendeeList(BaseAttendeeView, views.ListView):
                 Q(name__icontains=search) |
                 Q(email__icontains=search) |
                 Q(phone__icontains=search) |
+                Q(cpf__icontains=search) |
                 Q(code__icontains=search)
             )
         return queryset
@@ -85,17 +87,11 @@ class AttendeeList(BaseAttendeeView, views.ListView):
 
 class AttendeeJoin(BaseAttendeeView, LoginRequiredMixin, views.CreateView):
     template_name = 'attendee/form.html'
+    full_page_title = True
 
     def get_page_title(self):
         activity = self.get_activity()
         return _(u'Join to {activity}').format(activity=activity)
-
-    def get_form_class(self):
-        activity = self.get_activity()
-        form = AttendeeForm
-        if activity.slug == 'minus-vel-harum':
-            form = AttendeeExtraInformationForm
-        return form
 
     def get_context_data(self, **kwargs):
         context = super(AttendeeJoin, self).get_context_data(**kwargs)

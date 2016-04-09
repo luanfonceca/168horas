@@ -21,6 +21,39 @@
     .icon-block i {
       font-size: 80px;
     }
+
+    #first-call .header span:first-child {
+      font-size: 140px;
+    }
+    
+    #first-call .header span:last-child {
+      font-size: 80px;
+      margin-left: 10px;
+      letter-spacing: -5px;
+    }
+
+    nav {
+      height: 64px;
+    }
+
+    #network h1 {
+      margin-top: 120px;
+      font-size: 60px;
+    }
+
+    @media (max-width: 481px) {
+      #first-call .header span:first-child {
+        font-size: 80px;
+      }
+
+      #first-call .header span:last-child {
+        font-size: 50px;
+      }
+
+      #network h1 {
+        margin-top: 60px;
+      }
+    }
   </style>
 {% endblock %}
 
@@ -29,8 +62,8 @@
     <div class="section no-pad-bot" style="margin-top: calc(50vh - 200px);">
       <div class="container">
         <h1 class="header center white-text" style="font-family: GalanoGrotesque; letter-spacing: -7.5px;text-transform: uppercase;">
-          <span style="font-size: 140px;">168</span>
-          <span style="font-size: 80px;margin-left: 10px;letter-spacing: -5px;">horas</span>
+          <span>168</span>
+          <span>horas</span>
         </h1>
         <div class="center" style="margin-top: -20px">
           <h2 class="header col s12 light white-text" style="font-size: 40px;">
@@ -64,14 +97,14 @@
           <div class="icon-block">
             <h2 class="center blue-text text-darken-4"><i class="material-icons">spellcheck</i></h2>
             <h5 class="center">O que?</h5>
-            <p class="light">O que você quer aprender hoje? Escolha eventos educacionais separados em diversas categorias.</p>
+            <p class="light">O que você quer aprender hoje? Escolha atividades educacionais separadas em diversas categorias.</p>
           </div>
         </div>
         <div class="col s12 m4 l4">
           <div class="icon-block">
             <h2 class="center blue-text text-darken-4"><i class="material-icons">list</i></h2>
             <h5 class="center">Como?</h5>
-            <p class="light">Escolha entre palestras, cursos, workshops, congressos e muitos outros eventos educacionias, online e/ou presenciais.</p>
+            <p class="light">Escolha entre palestras, cursos, workshops, congressos e muitos outros tipos de atividades educacionias, onlines e/ou presenciais.</p>
           </div>
         </div>
 
@@ -79,7 +112,7 @@
           <div class="icon-block">
             <h2 class="center blue-text text-darken-4"><i class="material-icons">location_on</i></h2>
             <h5 class="center">Onde?</h5>
-            <p class="light">Onde você deseja aprender? você pode escolher entre eventos educacionais espalhados por todo o país ou aprender no conforto da sua casa.</p>
+            <p class="light">Onde você deseja aprender? você pode escolher entre atividades educacionais espalhadas por todo o país ou aprender no conforto da sua casa.</p>
           </div>
         </div>
       </div>
@@ -144,14 +177,14 @@
   </section>
   -->
 
-  <div class="parallax-container">
+  <div id="network" class="parallax-container" style="margin-bottom: -55px;">
     <div class="section no-pad-bot">
       <div class="container">
-        <h1 class="center blue-text text-darken-4" style="margin-top: 120px; font-size: 60px;">
+        <h1 class="center white-text">
           Rede colaborativa
         </h1>
         <h4 class="center white-text">
-          Amplie a voz da educação indicando gratuitamente eventos educacionais em nossa plataforma!
+          Amplie a voz da educação indicando gratuitamente atividades educacionais em nossa plataforma!
         </h4>
       </div>
     </div>
@@ -159,49 +192,6 @@
       <img src="{% static 'img/rede-colaborativa.jpg' %}" style="display: block;top: -200px;"/>
     </div>
   </div>
-
-  <section style="padding-top: 40px;">
-    <div class="container">
-      <h2 class="center">Nosso time</h2>
-      <div class="section">
-        <!--   Icon Section   -->
-        <div class="row">
-          <div class="col s12 m4 l4">
-            <div class="icon-block">
-              <h2 class="center blue-text text-darken-4">
-                <img src="{% static 'img/luan.jpg' %}" height="150" width="150" alt="Luan Fonseca" class="img-circle" style="margin: 0 auto;">
-              </h2>
-              <div class="center">
-                <h5 class="center">Luan Fonseca</h5>
-              </div>
-            </div>
-          </div>
-
-          <div class="col s12 m4 l4">
-            <div class="icon-block">
-              <h2 class="center blue-text text-darken-4">
-                <img src="{% static 'img/flawber.jpg' %}" height="150" width="150" alt="Flawber Freitas" class="img-circle" style="margin: 0 auto;">
-              </h2>
-              <div class="center">
-                <h5 class="center">Flawber Freitas</h5>
-              </div>
-            </div>
-          </div>
-
-          <div class="col s12 m4 l4">
-            <div class="icon-block">
-              <h2 class="center blue-text text-darken-4">
-                <img src="{% static 'img/rafael.jpg' %}" height="150" width="150" alt="Rafael Noberto" class="img-circle" style="margin: 0 auto;">
-              </h2>
-              <div class="center">
-                <h5 class="center">Rafael Noberto</h5>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 {% endblock %}
 
 {% block extra_js %}

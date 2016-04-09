@@ -37,6 +37,8 @@ class Attendee(models.Model):
     cpf = models.CharField('CPF', max_length=14)
     email = models.EmailField(_('Email'))
     phone = models.CharField(_('Phone'), max_length=50, blank=True)
+    educational_institution = models.CharField(
+        _('Educational Institution'), max_length=200, null=True, blank=True)
     code = models.CharField(_('Code'), max_length=10, default=code_generate)
     created_at = CreationDateTimeField(_(u'Created At'))
     attended_at = models.DateTimeField(
@@ -44,15 +46,6 @@ class Attendee(models.Model):
     payment_status = models.SmallIntegerField(
         _('Payment Status'), choices=STATUS_RATES, default=PENDING,
         null=True, blank=True)
-
-    # Extra informations
-    startup = models.CharField(
-        _('Startup'), max_length=50, null=True,
-        help_text=_('If you already have one'))
-    course = models.CharField(_('Course'), max_length=50, null=True)
-    university = models.CharField(_('University'), max_length=50, null=True)
-    born_at = models.DateTimeField(_(u'Born At'), null=True)
-    expectations = models.TextField(_('Your expectations'), null=True)
 
     # relations
     activity = models.ForeignKey(

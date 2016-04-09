@@ -1,25 +1,20 @@
 from django import forms
 
 from paypal.standard.forms import PayPalPaymentsForm
+from localflavor.br.forms import BRCPFField
 
 from attendee.models import Attendee
 
 
 class AttendeeForm(forms.ModelForm):
+    cpf = BRCPFField()
+
     class Meta:
         model = Attendee
         fields = (
-            'name', 'email', 'cpf', 'phone',
-        )
+            'name', 'email', 'educational_institution',
+            'cpf', 'phone'
 
-
-class AttendeeExtraInformationForm(forms.ModelForm):
-    class Meta:
-        model = Attendee
-        fields = (
-            'name', 'email', 'cpf', 'phone',
-            'startup', 'course', 'university',
-            'born_at', 'expectations',
         )
 
 

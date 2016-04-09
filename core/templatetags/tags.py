@@ -23,4 +23,4 @@ def get_filename(image):
 
 @register.filter
 def already_joined(activity, profile):
-    return activity.attendees.filter(pk=profile.pk)
+    return activity.attendees.filter(pk=profile.pk).exists()
