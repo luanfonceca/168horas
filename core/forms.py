@@ -17,3 +17,15 @@ class CustomSignupForm(forms.Form):
             user.first_name = self.cleaned_data.get('full_name')
         finally:
             user.save()
+
+
+class ContactForm(forms.Form):
+    name = forms.CharField(
+        required=True, label=_('Name'),
+        widget=forms.TextInput(attrs={'placeholder': _('Name')}))
+    subject = forms.CharField(
+        required=True, label=_('Subject'),
+        widget=forms.TextInput(attrs={'placeholder': _('Subject')}))
+    message = forms.CharField(
+        required=True, label=_('Message'),
+        widget=forms.TextInput(attrs={'placeholder': _('Message')}))

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load widget_tweaks %}
+
+{% load tags %}
+
+{% block content %}
+  {{ form.errors }}
+
+  <form method="POST">
+    {% csrf_token %}
+
+    <div class="row">
+      {% include "includes/field.html" with field=form.name col_sizes='s12 m6' %}
+      {% include "includes/field.html" with field=form.subject col_sizes='s12 m6' %}
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12">
+        <label for="{{ form.message.id }}" data-error="{{ form.message.errors.0 }}">
+          {{ form.message.label }}
+        </label>
+        <br><br>
+        {% render_field form.message class+="materialize-textarea" %}
+      </div>
+    </div>
+    
+    <div class="center-align col s4">
+      <a href="{% url 'activity:list' %}">
+        {% trans 'back' %}
+      </a>
+      &nbsp;
+      <button type="submit" class="waves-effect waves-light btn btn-large btn-wide blue darken-4">
+        {% trans 'Save' %}
+        <i class="material-icons right">done</i>
+      </button>
+    </div>
+  </form>
+{% endblock %}

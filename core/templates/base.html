@@ -53,6 +53,7 @@
           </li>
         </ul>-->
         <ul class="right hide-on-med-and-down">
+          {% block extra_links %}{% endblock %}
           <li>
             {% if request.user.is_authenticated %}
               <a class="dropdown-button" href="javascript:;" data-activates="staff-dropdown">

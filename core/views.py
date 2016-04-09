@@ -2,11 +2,12 @@ from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import redirect
 
-from vanilla import TemplateView, UpdateView
+from vanilla import TemplateView, UpdateView, FormView
 from allauth.account import views as account_views
 
 from core import mixins
 from core.models import Profile
+from core.forms import ContactForm
 
 
 class IndexView(TemplateView):
@@ -21,6 +22,22 @@ class IndexView(TemplateView):
         if self.request.user.is_authenticated():
             return redirect('activity:list')
         return super(IndexView, self).get(*args, **kwargs)
+
+
+class ContactView(mixins.PageTitleMixin,
+                  mixins.FormValidRedirectMixing,
+                  FormView):
+    template_name = 'contact.html'
+    page_title = _('Get in touch')
+    full_page_title = True
+    success_url = reverse_lazy('contact')
+    success_message = _('Thanks, we will contact you soon!')
+    form_class = ContactForm
+
+    def get(self, *args, **kwargs):
+        if self.request.user.is_authenticated():
+            return redirect('activity:list')
+        return super(ContactView, self).get(*args, **kwargs)
 
 
 class ProfileView(mixins.PageTitleMixin,
