@@ -59,6 +59,11 @@ class AttendeeList(BaseAttendeeView, views.ListView):
 
     def get_queryset(self):
         queryset = super(AttendeeList, self).get_queryset()
+
+        self.activity = self.get_activity()
+        if self.activity.price:
+            queryset = queryset.filter(payment_status=Attendee.COMPLETE)
+
         queryset = queryset.filter(activity=self.get_activity())
 
         search = self.request.GET.get('search')
