@@ -167,6 +167,7 @@ EXTERNAL_APPS = (
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.google',
 )
 
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + EXTERNAL_APPS
@@ -203,13 +204,36 @@ LOGGING = {
 }
 
 
-LOGIN_URL = '/'
+# All auth and Django authentication settings
+LOGIN_URL = '/accounts/login'
 LOGIN_REDIRECT_URL = '/activities/'
-SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/profile/'
 ACCOUNT_EMAIL_VERIFICATION = 'none'
-ACCOUNT_EMAIL_REQUIRED = True
-SOCIALACCOUNT_QUERY_EMAIL = True
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_LOGOUT_ON_GET = True
+ACCOUNT_USER_DISPLAY = 'core.custom_adapter.custom_user_display'
+ACCOUNT_SIGNUP_FORM_CLASS = 'core.forms.CustomSignupForm'
+ACCOUNT_EMAIL_REQUIRED = True
+SOCIALACCOUNT_QUERY_EMAIL = ACCOUNT_EMAIL_REQUIRED
+SOCIALACCOUNT_AUTO_SIGNUP = True
+SOCIALACCOUNT_ADAPTER = 'core.custom_adapter.CustomSocialAccountAdapter'
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'https://www.googleapis.com/auth/userinfo.profile',
+            'https://www.googleapis.com/auth/userinfo.email'
+        ],
+        'AUTH_PARAMS': {'access_type': 'online'}
+    },
+    'facebook': {
+        'SCOPE': ['email', 'public_profile'],
+        'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+        'METHOD': 'oauth2',
+        'LOCALE_FUNC': lambda request: 'pt_BR',
+        'VERIFIED_EMAIL': False,
+    }
+}
 
 
 # Email configs

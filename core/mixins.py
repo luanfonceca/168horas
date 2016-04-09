@@ -26,10 +26,12 @@ class FormValidRedirectMixing(object):
 
 class PageTitleMixin(object):
     page_title = None
+    full_page_title = None
 
     def get_context_data(self, **kwargs):
         context = super(PageTitleMixin, self).get_context_data(**kwargs)
         context.update(page_title=self.get_page_title())
+        context.update(full_page_title=self.get_full_page_title())
         return context
 
     def get_page_title(self):
@@ -38,3 +40,6 @@ class PageTitleMixin(object):
 
         if hasattr(self, 'object') and self.object is not None:
             return self.object.title
+
+    def get_full_page_title(self):
+        return self.full_page_title

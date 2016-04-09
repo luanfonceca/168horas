@@ -4,64 +4,107 @@
 
 {% load tags %}
 
-{% block header_actions %}
-  {% if request.user.is_staff or request.user.profile == object.created_by %}
-    <div class="right" style="line-height: 122px;">
-      <a class='dropdown-button btn-large waves-effect waves-light white blue-text text-darken-4' href='javascript:;' data-activates='activity-actions'>
-        {% trans 'Actions' %}
-        <i class="material-icons right" style="line-height: 55px;">arrow_drop_down</i>
-      </a>
-      <ul id='activity-actions' class='dropdown-content'>
-        <li>
-          <a class="blue-text text-darken-4" href="{{ object.get_attendee_list_url }}">
-            {% trans 'Attendees' %}
-            <i class="material-icons right">group</i>
-          </a>
-        </li>
-        <li>
-          <a class="blue-text text-darken-4" href="{{ object.get_update_url }}">
-            {% trans 'Update' %}
-            <i class="material-icons right">edit</i>
-          </a>
-        </li>
-        <li>
-          <a class="blue-text text-darken-4" href="{{ object.get_delete_url }}">
-            {% trans 'Delete' %}
-            <i class="material-icons right">delete</i>
-          </a>
-        </li>
-      </ul>
-    </div>
-  {% endif %}
-{% endblock %}
-
 {% block content %}
   <div class="row">
     {% if object.photo %}
-      <div class="col s12 m6 l6">
-        <img class="activity-image" src="{{ object.get_photo_url }}">
+      <div class="activity-image col s12 m6 l6">
+        <img class="responsive-img" src="{{ object.get_photo_url }}">
       </div>
       <div class="col s12 m6 l6">
-        <h3>{{ object.title }}</h3>
-
-        {% if request.user.is_authenticated and object|already_joined:request.user.profile %}
-          <a class='disabled btn-large waves-effect waves-light white blue-text text-darken-4' href="javascript:;">
-            {% trans 'Already Joined' %}
-            <i class="material-icons right" style="line-height: 55px;">check</i>
-          </a>
-        {% else %}
-          <a class="btn btn-wide btn-large waves-effect waves-light blue darken-4" {% if object.link %}href="{{ object.link }}" target="_blank"{% else %}href="{{ object.get_attendee_join_url }}"{% endif %}>
-            {% trans 'Join' %}
-            <i class="material-icons right"><i class="material-icons">arrow_forward</i></i>
-          </a>
-        {% endif %}
+        <div id="activity-actions">
+          {% if request.user.is_staff or request.user.profile == object.created_by %}
+            <a class='dropdown-button btn-large waves-effect waves-light blue darken-4 white-text' href='javascript:;' data-activates='activity-actions'>
+              {% trans 'Actions' %}
+              <i class="material-icons right" style="line-height: 55px;">arrow_drop_down</i>
+            </a>
+            <ul id='activity-actions' class='dropdown-content'>
+              <li>
+                <a class="blue-text text-darken-4" href="{{ object.get_attendee_list_url }}">
+                  {% trans 'Attendees' %}
+                  <i class="material-icons right">group</i>
+                </a>
+              </li>
+              <li>
+                {% if request.user.is_authenticated and object|already_joined:request.user.profile %}
+                  <a class='disabled blue-text text-darken-4' href="javascript:;">
+                    {% trans 'Already Joined' %}
+                    <i class="material-icons right">check</i>
+                  </a>
+                {% else %}
+                  <a class='blue-text text-darken-4' {% if object.link %}href="{{ object.link }}" target="_blank"{% else %}href="{{ object.get_attendee_join_url }}"{% endif %}>
+                    {% trans 'Join' %}
+                    <i class="material-icons right">arrow_forward</i>
+                  </a>
+                {% endif %}
+              </li>
+              <li>
+                <a class="blue-text text-darken-4" href="{{ object.get_update_url }}">
+                  {% trans 'Update' %}
+                  <i class="material-icons right">edit</i>
+                </a>
+              </li>
+              <li>
+                <a class="blue-text text-darken-4" href="{{ object.get_delete_url }}">
+                  {% trans 'Delete' %}
+                  <i class="material-icons right">delete</i>
+                </a>
+              </li>
+            </ul>
+          {% elif request.user.is_authenticated and object|already_joined:request.user.profile %}
+            <a class='disabled btn-large waves-effect waves-light white blue-text text-darken-4' href="javascript:;">
+              {% trans 'Already Joined' %}
+              <i class="material-icons right" style="line-height: 55px;">check</i>
+            </a>
+          {% else %}
+            <a class="btn btn-wide btn-large waves-effect waves-light blue darken-4" {% if object.link %}href="{{ object.link }}" target="_blank"{% else %}href="{{ object.get_attendee_join_url }}"{% endif %} style="width: 100%">
+              {% trans 'Join' %}
+              <i class="material-icons right"><i class="material-icons">arrow_forward</i></i>
+            </a>
+          {% endif %}
+        </div>
       </div>
     {% else %}
       <div class="center-align">
-        <h3>{{ object.title }}</h3>
-
         <div class="col s4 offset-s4">
-          {% if request.user.is_authenticated and object|already_joined:request.user.profile %}
+          {% if request.user.is_staff or request.user.profile == object.created_by %}
+            <a class='dropdown-button btn-large waves-effect waves-light blue darken-4 white-text' href='javascript:;' data-activates='activity-actions'>
+              {% trans 'Actions' %}
+              <i class="material-icons right" style="line-height: 55px;">arrow_drop_down</i>
+            </a>
+            <ul id='activity-actions' class='dropdown-content'>
+              <li>
+                <a class="blue-text text-darken-4" href="{{ object.get_attendee_list_url }}">
+                  {% trans 'Attendees' %}
+                  <i class="material-icons right">group</i>
+                </a>
+              </li>
+              <li>
+                {% if request.user.is_authenticated and object|already_joined:request.user.profile %}
+                  <a class='disabled blue-text text-darken-4' href="javascript:;">
+                    {% trans 'Already Joined' %}
+                    <i class="material-icons right">check</i>
+                  </a>
+                {% else %}
+                  <a class='blue-text text-darken-4' {% if object.link %}href="{{ object.link }}" target="_blank"{% else %}href="{{ object.get_attendee_join_url }}"{% endif %}>
+                    {% trans 'Join' %}
+                    <i class="material-icons right">arrow_forward</i>
+                  </a>
+                {% endif %}
+              </li>
+              <li>
+                <a class="blue-text text-darken-4" href="{{ object.get_update_url }}">
+                  {% trans 'Update' %}
+                  <i class="material-icons right">edit</i>
+                </a>
+              </li>
+              <li>
+                <a class="blue-text text-darken-4" href="{{ object.get_delete_url }}">
+                  {% trans 'Delete' %}
+                  <i class="material-icons right">delete</i>
+                </a>
+              </li>
+            </ul>
+          {% elif request.user.is_authenticated and object|already_joined:request.user.profile %}
             <a class='disabled btn-large waves-effect waves-light white blue-text text-darken-4' href="javascript:;">
               {% trans 'Already Joined' %}
               <i class="material-icons right" style="line-height: 55px;">check</i>
@@ -110,7 +153,7 @@
   {% elif object.is_organizer and request.user.profile == object.created_by %}
     <br/>
     <h5>{% trans 'Organizer' %}</h5>
-    {% url 'profile' as profile_url %}
+    {% url 'account_profile' as profile_url %}
     {% blocktrans with profile_url=profile_url %}
       <p>
         Click <a href="{{ profile_url }}#organizer-information">here</a> to fill the Organizer information.

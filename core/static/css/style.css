@@ -30,18 +30,6 @@ main {
   padding: 20px 20px;
 }
 
-header, main, footer {
-  padding-left: 240px;
-}
-
-.parallax-demo header, .parallax-demo main, .parallax-demo footer {
-  padding-left: 0;
-}
-
-footer {
-  padding-left: 0;
-}
-
 @media only screen and (max-width : 992px) {
   header, main, footer {
     padding-left: 0;
@@ -102,9 +90,20 @@ nav.top-nav {
   box-shadow: none;
 }
 
-nav.top-nav a.page-title {
+nav.top-nav .page-title {
   line-height: 122px;
-  font-size: 48px;
+  font-size: 2.28rem;
+  font-weight: 400px;
+}
+
+@media (max-width: 620px) {
+  nav.top-nav {
+    padding-top: 30px;
+  }
+
+  nav.top-nav .page-title {
+    line-height: 0px !important;
+  }
 }
 
 a.button-collapse.top-nav {
@@ -134,10 +133,6 @@ a.button-collapse.top-nav.full {
 @media only screen and (max-width : 992px) {
   nav .nav-wrapper {
     text-align: center;
-  }
-
-  nav .nav-wrapper a.page-title {
-    font-size: 36px;
   }
 }
 
@@ -181,7 +176,7 @@ a.button-collapse.top-nav.full {
     height: auto !important;
   }
 
-  .top-nav .right {
+  .top-nav .right.actions {
     float: none !important;
   }
 }
@@ -269,3 +264,14 @@ a.button-collapse.top-nav.full {
 #activity-description p {
   margin: 0 !important;
 }
+/*
+#activity-actions {
+  float: right;
+}
+
+@media (max-width: 481px) {
+  #activity-actions {
+    padding-top: 30px;
+    float: none;
+  }      
+}*/

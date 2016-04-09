@@ -38,7 +38,7 @@ class BaseAttendeeView(PageTitleMixin):
 class AttendeeList(BaseAttendeeView, views.ListView):
     template_name = 'attendee/list.html'
     page_title = _(u'Attendees')
-    paginate_by = 1
+    paginate_by = 30
     allow_empty = True
 
     def get_context_data(self, **kwargs):
@@ -64,6 +64,7 @@ class AttendeeList(BaseAttendeeView, views.ListView):
                 Q(name__icontains=search) |
                 Q(email__icontains=search) |
                 Q(phone__icontains=search) |
+                Q(cpf__icontains=search) |
                 Q(code__icontains=search)
             )
         return queryset
@@ -83,6 +84,7 @@ class AttendeeList(BaseAttendeeView, views.ListView):
 
 class AttendeeJoin(BaseAttendeeView, LoginRequiredMixin, views.CreateView):
     template_name = 'attendee/form.html'
+    full_page_title = True
 
     def get_page_title(self):
         activity = self.get_activity()

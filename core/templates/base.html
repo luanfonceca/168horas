@@ -36,7 +36,7 @@
     <nav role="navigation" id="navigation-menu">
       <div class="nav-wrapper container">
         <a href="{% if request.user.is_authenticated %}{% url 'activity:list' %}{% else %}{% url 'index' %}{% endif %}" class="brand-logo">
-          <img src="{% static 'img/logo.svg' %}" style="position: relative; top: 6.5px;">
+          <img src="{% static 'img/logo.svg' %}" style="position: relative;top: -1px;">
         </a>
         <!--<ul id="nav-mobile" class="left hide-on-med-and-down">
           <li>
@@ -55,12 +55,16 @@
         <ul class="right hide-on-med-and-down">
           <li>
             {% if request.user.is_authenticated %}
-              <a class='dropdown-button' href='#' data-activates='staff-dropdown'>
+              <a class="dropdown-button" href="javascript:;" data-activates="staff-dropdown">
                 {{ request.user.get_full_name }}
                 <i class="material-icons right">arrow_drop_down_circle</i>
               </a>
-              <ul id='staff-dropdown' class='dropdown-content white'>
-                <li><a href="{% url 'profile' %}">{% trans 'Profile' %}</a></li>
+              <ul id="staff-dropdown" class="dropdown-content white">
+                <li>
+                  <a href="{% url 'account_profile' %}">
+                    {% trans 'Profile' %}
+                  </a>
+                </li>
                 {% if request.user.is_staff %}
                   <li><a href="{% url 'category:list' %}">{% trans 'Categories' %}</a></li>
                 {% endif %}
@@ -68,48 +72,83 @@
                 <li><a href="{% url 'account_logout' %}">{% trans 'Logout' %}</a></li>
               </ul>
             {% else %}
-              <a href="{% provider_login_url 'facebook' method='oauth2' %}?next=/activities/">
-                {% trans 'Facebook' %}
+              <a href="{% url 'account_login' %}">
+                {% trans 'Sign In' %}
                 <i class="material-icons right">account_circle</i>
               </a>
             {% endif %}
           </li>
         </ul>
+        <ul class="right hide-on-large-only">
+          <li>
+            <a class="button-collapse" href="javascript:;" data-activates="responsive-staff-dropdown">
+              <i class="material-icons">menu</i>
+            </a>
+            <ul id="responsive-staff-dropdown" class="side-nav">
+              {% if request.user.is_authenticated %}
+                <li>
+                  <a class="blue-text text-darken-4" href="{% url 'account_profile' %}">
+                    {% trans 'Profile' %}
+                  </a>
+                </li>
+                {% if request.user.is_staff %}
+                  <li>
+                    <a class="blue-text text-darken-4" href="{% url 'category:list' %}">
+                      {% trans 'Categories' %}
+                    </a>
+                  </li>
+                {% endif %}
+                <li class="divider"></li>
+                <li>
+                  <a class="blue-text text-darken-4" href="{% url 'account_logout' %}">
+                    {% trans 'Logout' %}
+                  </a>
+                </li>
+              {% else %}
+                <li>
+                  <a class="blue-text text-darken-4" href="{% url 'account_login' %}">
+                    {% trans 'Sign In' %}
+                    <i class="material-icons right">account_circle</i>
+                  </a>
+                </li>
+              {% endif %}
+            </ul>
+          </li>
+        </ul>
       </div>
     </nav>
 
-    {% if page_title %}
-      <nav class="top-nav" style="z-index: 2;">
-        <div class="container">
-          <div class="nav-wrapper">
-            <div class="row">
-              <a class="page-title">{{ page_title|truncatewords:3 }}</a>
-              {% block header_actions %}{% endblock %}
+    <main>
+      {% if page_title %}
+        <nav class="top-nav" style="z-index: 2;">
+          <div class="container">
+            <div class="nav-wrapper">
+              <div class="row {% if full_page_title %}center{% endif %}">
+                {% if full_page_title %}
+                  <span class="page-title">{{ page_title|truncatewords:10 }}</span>
+                {% else %}
+                  <a class="page-title" href="javascript:;">
+                    {{ page_title|truncatewords:3 }}
+                  </a>
+                {% endif %}
+                {% block header_actions %}{% endblock %}
+              </div>
             </div>
           </div>
-        </div>
-      </nav>
-    {% endif %}
+        </nav>
+      {% endif %}
 
-    {% block outside_content %}{% endblock %}
-    
-    <div class="container">
-      <div class="section">
-        {% block content %}{% endblock %}
+      <div style="margin-top: -20px;margin-bottom: 20px;">
+        {% block outside_content %}{% endblock %}
       </div>
-    </div>
 
-    {% if not request.user.is_authenticated and not index_page %}
-      <div id="force-login-modal" class="modal">
-        <div class="modal-content">
-          <h4>Você está a um clique de aprender!</h4>
-          <p>Não perca tempo, faça login e aprenda agora mesmo.</p>
-        </div>
-        <div class="modal-footer">
-          {% include "includes/login_button.html" %}
+      <div class="container" style="">
+        <div class="section" style="padding-bottom: 0">
+          {% block content %}{% endblock %}
         </div>
       </div>
-    {% endif %}
+    </main>
+
 
     <footer class="page-footer">
       <div class="container">
@@ -117,7 +156,7 @@
           <div class="col l4 s6">
             <h5 class="white-text">Sobre o 168 Horas</h5>
             <p class="white-text">
-              Encontre e indique eventos educacionais para complementar sua formação em qualquer lugar, dia e hora!
+              Encontre, indique e compartilhe atividades educacionais para complementar sua formação em qualquer lugar, dia e hora!
             </p>
           </div>
           <div class="col l4 s6">
@@ -136,7 +175,7 @@
       </div>
       <div class="footer-copyright blue darken-4 white-text">
         <div class="container center-align">
-          © {% now 'Y' %} - 168 Horas, all rights reserved.
+          ©{% now 'Y' %} - 168 Horas LDTA. - Todos os direitos reservados.
         </div>
       </div>
     </footer>
@@ -150,6 +189,14 @@
               {% if message.tags == 'success' %}check_circle{% else %}warning{% endif %}
             </i>
             {{ message }}
+          </span>
+        </div>
+      {% endfor %}
+      {% for error in form.non_field_errors %}
+        <div class="message">
+          <span>
+            <i class="material-icons left">warning</i>
+            {{ error }}
           </span>
         </div>
       {% endfor %}
@@ -189,15 +236,12 @@
       $(document).ready(function() {
         $('select').not('.disabled').material_select();
 
-        var forceLogin = $('#force-login-modal');
-        if (forceLogin.length) {
-          $(forceLogin).openModal({
-            dismissible: false
-          });
-        };
-
         $('.messages .message').each(function() {
           Materialize.toast($(this), 5000);
+        });
+
+        $(".button-collapse").sideNav({
+          edge: 'right'
         });
       });
 
