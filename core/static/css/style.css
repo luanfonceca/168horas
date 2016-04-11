@@ -270,8 +270,10 @@ a.button-collapse.top-nav.full {
 }
 
 @media (max-width: 600px) {
-  #activity-header .dropdown-button {
+  #activity-header .dropdown-button,
+  #activity-header .btn-large {
     width: 100%;
+    margin-top: 10px;
   }
 
   #activity-header .activity-image {
