@@ -96,6 +96,12 @@ class Activity(TitleSlugDescriptionModel):
     def get_photo_url(self):
         return '{0}/{1}'.format(settings.MEDIA_URL, self.photo)
 
+    @property
+    def is_closed(self):
+        if self.slug == 'flisol-natal-2016':
+            return True
+        return False
+
     def get_attended_ones(self):
         return self.attendee_set.filter(attended_at__isnull=False)
 
