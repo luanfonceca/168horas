@@ -25,7 +25,7 @@ def code_generate(size=10):
 
 
 class Attendee(models.Model):
-    name = models.CharField(_('Name'), max_length=200)
+    name = models.CharField(_('Name'), max_length=300)
     cpf = models.CharField('CPF', max_length=14)
     email = models.EmailField(_('Email'))
     phone = models.CharField(_('Phone'), max_length=50, blank=True)
