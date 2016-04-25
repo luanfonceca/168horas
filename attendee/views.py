@@ -15,6 +15,7 @@ from django.utils.decorators import method_decorator
 from vanilla import model_views as views
 from easy_pdf.views import PDFTemplateResponseMixin
 
+
 from core.mixins import PageTitleMixin, LoginRequiredMixin
 from activity.models import Activity
 from attendee.models import Attendee
@@ -95,8 +96,8 @@ class AttendeeJoin(BaseAttendeeView, LoginRequiredMixin, views.CreateView):
     full_page_title = True
 
     def get_page_title(self):
-        activity = self.get_activity()
-        return _(u'Join to {activity}').format(activity=activity)
+        self.activity = self.get_activity()
+        return _(u'Join to {activity}').format(activity=self.activity)
 
     def get_context_data(self, **kwargs):
         context = super(AttendeeJoin, self).get_context_data(**kwargs)
@@ -107,16 +108,23 @@ class AttendeeJoin(BaseAttendeeView, LoginRequiredMixin, views.CreateView):
         return context
 
     def get(self, request, *args, **kwargs):
-        already_joined = Attendee.objects.filter(
+        self.activity = self.get_activity()
+        attendee = Attendee.objects.filter(
             profile=self.request.user.profile,
             activity=self.get_activity(),
-        ).exists()
+        )
 
-        if already_joined:
+        if attendee.exists():
             messages.add_message(
                 request=self.request, level=messages.SUCCESS,
                 message=_('You already joined up for this activity!')
             )
+
+            attendee = attendee.get()
+            if attendee.payment_status == Attendee.PENDING:
+                return redirect(self.activity.get_attendee_payment_url())
+            elif attendee.payment_status == Attendee.PAID:
+                return redirect(self.activity.get_absolute_url())
 
         return super(AttendeeJoin, self).get(request, *args, **kwargs)
 
@@ -184,8 +192,8 @@ class AttendeePayment(BaseAttendeeView,
         )
 
     def get_page_title(self):
-        activity = self.get_activity()
-        return _(u'Payment for {activity}').format(activity=activity)
+        self.activity = self.get_activity()
+        return _(u'Payment for {activity}').format(activity=self.activity)
 
     def get_form(self, data=None, files=None, **kwargs):
         domain = Site.objects.get_current().domain
@@ -197,7 +205,8 @@ class AttendeePayment(BaseAttendeeView,
         return_url = self.activity.get_full_attendee_payment_url()
 
         kwargs.update(initial={
-            'business': 'luanfonceca@gmail.com',
+            # 'business': 'luanfonceca@gmail.com',
+            'business': 'luanfonceca-facilitator@gmail.com',
             'currency_code': 'BRL',
             'amount': self.activity.price,
             'item_name': 'Ticket for "{0}"'.format(self.activity),
@@ -214,12 +223,14 @@ class AttendeePayment(BaseAttendeeView,
         )
 
     def post(self, request, *args, **kwargs):
-        activity = self.get_activity()
+        self.activity = self.get_activity()
+        self.attendee = self.get_object()
+        self.attendee.confirm_payment()
         message = _('Payment Successfully charged.')
         messages.add_message(
             request=self.request, level=messages.ERROR, message=message
         )
-        return redirect(activity.get_absolute_url())
+        return redirect(self.activity.get_absolute_url())
 
 
 class AttendeeCheck(BaseAttendeeView, views.UpdateView):

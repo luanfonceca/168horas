@@ -74,6 +74,14 @@ class Attendee(models.Model):
             return social.get_avatar_url()
         return static('attendee/img/default-profile.png')
 
+    @classmethod
+    def get_from_ipn(cls, invoice):
+        prefix, slug, code = invoice.split('-')
+        return cls.objects.get(
+            activity__slug=slug,
+            code=code
+        )
+
     def get_absolute_url(self):
         return reverse(
             'attendee:list', kwargs={'activity_slug': self.activity.slug}
@@ -147,6 +155,15 @@ class Attendee(models.Model):
         self.attended_at = None
         self.save()
 
+    def confirm_payment(self):
+        self.payment_status = Attendee.PAID
+        self.save()
+        self.send_payment_confirmation_email()
+
+    def cancel_pyment(self):
+        self.payment_status = Attendee.CANCELED
+        self.save()
+
 
 def send_attendee_joined_email(sender, instance, created, **kwargs):
     if not created:
@@ -154,29 +171,11 @@ def send_attendee_joined_email(sender, instance, created, **kwargs):
     instance.send_welcome_email()
 
 
-def show_me_the_money(sender, **kwargs):
-    import ipdb; ipdb.set_trace()
-    ipn_obj = sender
-    if ipn_obj.payment_status == ST_PP_COMPLETED:
-        # WARNING !
-        # Check that the receiver email is the same we previously
-        # set on the business field request. (The user could tamper
-        # with those fields on payment form before send it to PayPal)
-        if ipn_obj.receiver_email != "receiver_email@example.com":
-            # Not a valid payment
-            return
-        # Undertake some action depending upon `ipn_obj`.
-        if ipn_obj.custom == "Upgrade all users!":
-            Attendee.objects.update(paid=True)
-    # attendee.status = attendee.PAID
-    # attendee.save()
-    # attendee.send_payment_confirmation_email()
+def confirm_payment(sender, **kwargs):
+    if sender.payment_status == ST_PP_COMPLETED:
+        attendee = Attendee.get_from_ipn(sender.invoice)
+        attendee.confirm_payment()
 
 
-def refuse_to_give_the_money(sender, **kwargs):
-    import ipdb; ipdb.set_trace()
-
-
-valid_ipn_received.connect(show_me_the_money)
-invalid_ipn_received.connect(refuse_to_give_the_money)
+valid_ipn_received.connect(confirm_payment)
 post_save.connect(send_attendee_joined_email, sender=Attendee)
