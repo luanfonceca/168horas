@@ -188,7 +188,7 @@ msgid ""
 "* ADDITIONAL ACTIVITIES: Check with your coordinator if this activity is "
 "valid for your course and university."
 msgstr ""
-"* ATIVIDADES COMPLEMENTARES: Válide com o coordenador do seu curso se essa atividade é "
+"* ATIVIDADES COMPLEMENTARES: Valide com o coordenador do seu curso se essa atividade é "
 "válida para seu curso e universidade."
 
 #: activity/templates/activity/form.html:32
