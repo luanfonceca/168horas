@@ -1,19 +1,51 @@
 {% extends "base.html" %}
 
 {% load i18n %}
+{% load humanize %}
 
 {% load tags %}
 
 {% block content %}
+  <div class="hide">
+    <input type="hidden" name="latitude" id="id_latitude" value="-5.8264531" />
+    <input type="hidden" name="longitude" id="id_longitude" value="-35.2090325" />
+    <input type="hidden" name="title" id="id_title" value="{{ object }}" />
+  </div>
+
   <div id="activity-header">
     <div class="row">
       {% if object.photo %}
         <div class="activity-image col s12 m6 l6">
-          <img class="responsive-img" src="{{ object.get_photo_url }}">
+          <img style="width:100%" class="responsive-img" src="{{ object.get_photo_url }}" />
         </div>
         <div class="col s12 m6 l6">
-          <div class="right-align">
+          <h5 class="price">R$ {{ activity.price|intcomma }}</h5>
+
+          <div class="short-description">
+            <p>{{ object.description|safe|truncatewords:50 }}</p>
+          </div>
+
+          <div class="activity-scheduled-date">
+            <p>{% trans 'Date:' %} {{ object.scheduled_date }}</p>
+          </div>
+
+          <div class="join">
             {% include "activity/includes/action-button.html" %}
+          </div>
+
+          <div style="margin: 20px 0;width: 100%; height: 250px" id="id_map"></div>
+
+          <div class="categories">
+            <p>
+              {% trans 'Categories:' %}
+              {% for category in object.categories.all %}
+                <a href="{% url 'category:detail' category.slug %}">{{ category }}</a>{% if not forloop.last %},{% endif %}
+              {% endfor %}
+            </p>  
+          </div>
+
+          <div id="activity-share">
+            <div class="addthis_sharing_toolbox"></div>
           </div>
         </div>
       {% else %}
@@ -30,14 +62,6 @@
     <h5>{% trans 'Description' %}</h5>
     {{ object.description|safe|linebreaks }}
   </div>
-
-  {% if object.scheduled_date %}
-    <br/>
-    <div id="activity-scheduled-date">
-      <h5>{% trans 'Date' %}</h5>
-      {{ object.scheduled_date }}
-    </div>
-  {% endif %}
 
   {% if not object.is_online and object.location %}
     <br/>
@@ -80,14 +104,47 @@
     </div>
   {% endif %}
 
-  <div id="activity-share">
-    <br/>
-    <h5>{% trans 'Share' %}</h5>
-    <div class="addthis_sharing_toolbox"></div>
-  </div>
-
   <br/>
   <p class="red-text">
     {% trans '* ADDITIONAL ACTIVITIES: Check with your coordinator if this activity is valid for your course and university.' %}
   </p>
 {% endblock %}
+
+
+{% block extra_js %}
+
+  <script type="text/javascript">
+    // When the window has finished loading create our google map below
+    // google.maps.event.addDomListener(window, 'load', init);
+    function init() {
+      // Get the HTML DOM element that will contain your map 
+      // We are using a div with id="map" seen below in the <body>
+      var mapElement = $('#id_map')[0];
+      var activity = $('#id_title').val();
+      // var location = new google.maps.LatLng($('#id_latitude').val(), $('#id_longitude').val());
+      var location = new google.maps.LatLng(-5.811598, -35.203169);
+
+
+      // Basic options for a simple Google Map
+      // For more options see: https://developers.google.com/maps/documentation/javascript/reference#MapOptions
+      var mapOptions = {
+        zoom: 16,
+        center: location,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        styles: [{"featureType":"administrative","elementType":"labels.text.fill","stylers":[{"color":"#444444"}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#f2f2f2"}]},{"featureType":"poi","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"all","stylers":[{"saturation":-100},{"lightness":45}]},{"featureType":"road.highway","elementType":"all","stylers":[{"visibility":"simplified"}]},{"featureType":"road.arterial","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#46bcec"},{"visibility":"on"}]}]
+      };
+
+      // Create the Google Map using our element and options defined above
+      var map = new google.maps.Map(mapElement, mapOptions);
+
+      // Let's also add a marker while we're at it
+      var marker = new google.maps.Marker({
+          position: location,
+          map: map,
+          title: activity
+      });
+    }
+  </script>
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBePP8WBVrEWnFuhE-Y190-jCXJzOWqWbw&callback=init&sensor=false" type="text/javascript"></script>
+{% endblock extra_js %}

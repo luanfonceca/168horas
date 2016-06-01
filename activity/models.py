@@ -8,6 +8,7 @@ from django.template.loader import render_to_string
 from django.core.mail import send_mail
 
 from PIL import Image
+import requests
 
 from django_extensions.db.fields import CreationDateTimeField
 from django_extensions.db.models import TitleSlugDescriptionModel
@@ -138,6 +139,23 @@ class Activity(TitleSlugDescriptionModel):
                 subject=subject, message=message, html_message=html_message,
                 from_email=settings.NO_REPLY_EMAIL, recipient_list=recipients
             )
+
+    def get_location(self):
+        if not self.location:
+            return None
+
+        response = requests.get(
+            'http://maps.google.com/maps/api/geocode/json?',
+            params=dict(address=self.location, sensor=True)
+        )
+        if response.ok:
+            data = response.json()
+            try:
+                result = data.get('results')[0]
+            except IndexError:
+                return None
+            else:
+                return result.get('geometry').get('location').values()
 
 
 def resize_activity_photo(sender, instance, **kwargs):
