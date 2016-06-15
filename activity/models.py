@@ -139,6 +139,10 @@ class Activity(TitleSlugDescriptionModel):
                 from_email=settings.NO_REPLY_EMAIL, recipient_list=recipients
             )
 
+    @property
+    def get_price_as_cents(self):
+        return int(self.price * 100)
+
 
 def resize_activity_photo(sender, instance, **kwargs):
     try:

@@ -132,7 +132,12 @@ class AttendeeJoin(BaseAttendeeView, LoginRequiredMixin, views.CreateView):
                 request=self.request, level=messages.SUCCESS,
                 message=_('Successfully joined up for this activity!')
             )
-            return HttpResponseRedirect(self.get_success_url())
+            if self.object.price:
+                return HttpResponseRedirect(
+                    self.object.get_payment_url(full_url=False)
+                )
+            else:
+                return HttpResponseRedirect(self.get_success_url())
 
     def get_success_url(self):
         self.activity = self.get_activity()
@@ -204,3 +209,52 @@ class AttendeeSort(BaseAttendeeView,
     def get_object(self):
         queryset = self.get_queryset()
         return queryset.filter(attended_at__isnull=False).order_by('?').first()
+
+
+class AttendeePayment(BaseAttendeeView,
+                      views.DetailView):
+    lookup_field = 'code'
+    template_name = 'attendee/payment.html'
+    page_title = _('Payment')
+
+    def post(self, request, *args, **kwargs):
+        self.activity = self.get_activity()
+        self.object = self.get_object()
+
+        try:
+            self.object.confirm_payment()
+        except ValidationError, e:
+            messages.add_message(
+                request=self.request, level=messages.ERROR, message=e.message
+            )
+        else:
+            messages.add_message(
+                request=self.request, level=messages.SUCCESS,
+                message=_(
+                    'Successfully confirmed your subscription!'
+                )
+            )
+        return redirect(self.activity.get_absolute_url())
+
+
+class AttendeeConfirmPayment(BaseAttendeeView, views.UpdateView):
+    lookup_field = 'code'
+
+    def post(self, request, *args, **kwargs):
+        self.activity = self.get_activity()
+        self.object = self.get_object()
+
+        try:
+            self.object.confirm_payment()
+        except ValidationError, e:
+            messages.add_message(
+                request=self.request, level=messages.ERROR, message=e.message
+            )
+        else:
+            messages.add_message(
+                request=self.request, level=messages.SUCCESS,
+                message=_(
+                    'Successfully confirmed and notified this attendee "{0}"!'
+                ).format(self.object)
+            )
+        return redirect(self.activity.get_attendee_list_url())

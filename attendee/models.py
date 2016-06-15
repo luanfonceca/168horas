@@ -83,6 +83,18 @@ class Attendee(models.Model):
         else:
             return url
 
+    def get_payment_url(self, full_url=True):
+        url = reverse('attendee:payment', kwargs={
+            'activity_slug': self.activity.slug,
+            'code': self.code,
+        })
+        if full_url:
+            return 'http://{domain}{url}'.format(
+                domain=Site.objects.get_current().domain, url=url
+            )
+        else:
+            return url
+
     def send_welcome_email(self):
         context = {
             'object': self,
@@ -112,6 +124,32 @@ class Attendee(models.Model):
             raise ValidationError(_('This Attendee is not checked in yet.'))
         self.attended_at = None
         self.save()
+
+    def send_payment_confirmation(self):
+        context = {
+            'object': self,
+            'activity': self.activity,
+            'created_by': self.activity.created_by,
+        }
+        message = render_to_string(
+            'mailing/payment_confirmation.txt', context)
+        html_message = render_to_string(
+            'mailing/payment_confirmation.html', context)
+        subject = _(u'Payment confirmation of the "{}"!').format(self.activity.title)
+        recipients = [self.profile.user.email]
+
+        send_mail(
+            subject=subject, message=message, html_message=html_message,
+            from_email=settings.NO_REPLY_EMAIL, recipient_list=recipients
+        )
+
+    def confirm_payment(self):
+        if self.payment_status == 'paid':
+            raise ValidationError(_('This Attendee was already confirmed.'))
+        self.payment_status = 'paid'
+        self.save()
+        self.send_payment_confirmation()
+
 
 
 def send_attendee_joined_email(sender, instance, created, **kwargs):
