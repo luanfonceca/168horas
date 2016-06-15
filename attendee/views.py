@@ -132,7 +132,7 @@ class AttendeeJoin(BaseAttendeeView, LoginRequiredMixin, views.CreateView):
                 request=self.request, level=messages.SUCCESS,
                 message=_('Successfully joined up for this activity!')
             )
-            if self.object.price:
+            if self.object.activity.price:
                 return HttpResponseRedirect(
                     self.object.get_payment_url(full_url=False)
                 )
@@ -217,44 +217,12 @@ class AttendeePayment(BaseAttendeeView,
     template_name = 'attendee/payment.html'
     page_title = _('Payment')
 
-    def post(self, request, *args, **kwargs):
-        self.activity = self.get_activity()
-        self.object = self.get_object()
 
-        try:
-            self.object.confirm_payment()
-        except ValidationError, e:
-            messages.add_message(
-                request=self.request, level=messages.ERROR, message=e.message
-            )
-        else:
-            messages.add_message(
-                request=self.request, level=messages.SUCCESS,
-                message=_(
-                    'Successfully confirmed your subscription!'
-                )
-            )
-        return redirect(self.activity.get_absolute_url())
-
-
-class AttendeeConfirmPayment(BaseAttendeeView, views.UpdateView):
-    lookup_field = 'code'
+class AttendeePaymentNotification(BaseAttendeeView,
+                                  views.UpdateView):
+    def get_object(self):
+        queryset = self.get_queryset()
+        return queryset.get(code=self.kwargs.get('transaction_id'))
 
     def post(self, request, *args, **kwargs):
-        self.activity = self.get_activity()
-        self.object = self.get_object()
-
-        try:
-            self.object.confirm_payment()
-        except ValidationError, e:
-            messages.add_message(
-                request=self.request, level=messages.ERROR, message=e.message
-            )
-        else:
-            messages.add_message(
-                request=self.request, level=messages.SUCCESS,
-                message=_(
-                    'Successfully confirmed and notified this attendee "{0}"!'
-                ).format(self.object)
-            )
-        return redirect(self.activity.get_attendee_list_url())
+        return super(AttendeePaymentNotification, self).post()

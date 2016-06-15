@@ -8,12 +8,12 @@
 
 {% block content %}
   <form action="https://desenvolvedor.moip.com.br/sandbox/PagamentoMoIP.do" method="POST">
-    <input type="hidden" name="id_carteira" value="luanfonceca@gmail.com">
-    <input type="hidden" name="url_retorno" value="{{ object.get_payment_url }}">
-    <input type="hidden" name="id_transacao" value="{{ object.code }}">
-    <input type="hidden" name="descricao" value="Pagamento da atividade: {{ activity.title }} para o 168 horas.">
-    <input type="hidden" name="valor" value="{{ activity.get_price_as_cents }}">
-    <input type="hidden" name="nome" value="{{ activity.title }}">
+    <input type="text" name="id_carteira" value="luanfonceca@gmail.com">
+    <input type="text" name="url_retorno" value="{{ object.get_payment_url }}">
+    <input type="text" name="id_transacao" value="{{ object.code }}">
+    <input type="text" name="descricao" value="Pagamento da atividade: {{ activity.title }} para o 168 horas.">
+    <input type="text" name="valor" value="{{ activity.get_price_as_cents }}">
+    <input type="text" name="nome" value="{{ activity.title }}">
     
     <br>
     <div class="center-align col s4">
