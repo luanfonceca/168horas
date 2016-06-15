@@ -30,6 +30,13 @@ class ActivityManager(models.QuerySet):
 
 
 class Activity(TitleSlugDescriptionModel):
+    DRAFT, PRIVATE, PRE_SALE, PUBLISHED, SOLDOUT, CLOSED = range(6)
+    STATUS_CHOICES = (
+        (DRAFT, _('Draft')), (PRIVATE, _('Private')),
+        (PRE_SALE, _('Pre-sale')), (PUBLISHED, _('Published')),
+        (SOLDOUT, _('Soldout')), (CLOSED, _('Closed')),
+    )
+
     link = models.URLField(_(u'Link'), max_length=300, null=True, blank=True)
     scheduled_date = models.DateField(_(u'Date'), null=True, blank=True)
     hours = models.IntegerField(
@@ -54,6 +61,8 @@ class Activity(TitleSlugDescriptionModel):
         _('Short url'), max_length=50,
         null=True, blank=True,
         help_text=_('Result will be like: http://168h.com.br/my-activity/'))
+    status = models.SmallIntegerField(
+        _('Status'), choices=STATUS_CHOICES, default=PUBLISHED)
 
     # relations
     created_by = models.ForeignKey(
@@ -150,6 +159,24 @@ class Activity(TitleSlugDescriptionModel):
             url=reverse('activity_short_url', kwargs={
                 'short_url': self.short_url,
             })
+        )
+
+    def notify_pre_sale_organizer(self, attendee):
+        context = {
+            'object': self,
+            'attendee': attendee,
+        }
+        message = render_to_string(
+            'mailing/pre_sale_notification.txt', context)
+        html_message = render_to_string(
+            'mailing/pre_sale_notification.html', context)
+        subject = _(u'{0} joined on pre-sale to "{1}"!').format(
+            attendee.name, self.title)
+        recipients = [self.created_by.organizer_email]
+
+        send_mail(
+            subject=subject, message=message, html_message=html_message,
+            from_email=settings.NO_REPLY_EMAIL, recipient_list=recipients
         )
 
 

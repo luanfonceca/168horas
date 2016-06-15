@@ -90,6 +90,10 @@
     </div>
 
     <div class="row">
+      {% include "includes/field.html" with field=form.status %}
+    </div>
+
+    <div class="row">
       {% include "includes/checkbox.html" with field=form.categories queryset=object.categories field_name='categories' two_columns=True %}
     </div>
 

@@ -105,9 +105,16 @@ class AttendeeJoin(BaseAttendeeView, LoginRequiredMixin, views.CreateView):
         return super(AttendeeJoin, self).get(request, *args, **kwargs)
 
     def get_form(self, data=None, files=None, **kwargs):
+        if data is None:
+            name = self.request.user.get_full_name()
+            email = self.request.user.email
+        else:
+            name = data.get('name')
+            email = data.get('email')
+
         kwargs.update(initial={
-            'name': self.request.user.get_full_name(),
-            'email': self.request.user.email,
+            'name': name,
+            'email': email,
         })
         return super(AttendeeJoin, self).get_form(
             data=data, files=files, **kwargs
@@ -128,9 +135,15 @@ class AttendeeJoin(BaseAttendeeView, LoginRequiredMixin, views.CreateView):
             )
             return redirect(self.activity.get_attendee_join_url())
         else:
+            message = _('Successfully joined up for this activity!')
+            if self.activity.status == self.activity.PRE_SALE:
+                message = _(
+                    'Successfully joined up for the pre-sale of this activity!'
+                )
+
             messages.add_message(
                 request=self.request, level=messages.SUCCESS,
-                message=_('Successfully joined up for this activity!')
+                message=message
             )
             return HttpResponseRedirect(self.get_success_url())
 
