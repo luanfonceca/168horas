@@ -9,7 +9,7 @@ from django.core.mail import send_mail
 
 from PIL import Image
 
-from django_extensions.db.fields import CreationDateTimeField
+from django_extensions.db.fields import CreationDateTimeField, SlugField
 from django_extensions.db.models import TitleSlugDescriptionModel
 
 from web168h import settings
@@ -50,6 +50,10 @@ class Activity(TitleSlugDescriptionModel):
         _(u'Capacity'), default=50, null=True, blank=True)
     price = models.DecimalField(
         _(u'Price'), max_digits=10, decimal_places=2, null=True, blank=True)
+    short_url = SlugField(
+        _('Short url'), max_length=50,
+        null=True, blank=True,
+        help_text=_('Result will be like: http://168h.com.br/my-activity/'))
 
     # relations
     created_by = models.ForeignKey(
@@ -138,6 +142,15 @@ class Activity(TitleSlugDescriptionModel):
                 subject=subject, message=message, html_message=html_message,
                 from_email=settings.NO_REPLY_EMAIL, recipient_list=recipients
             )
+
+    @property
+    def get_full_short_url(self):
+        return 'http://{domain}{url}'.format(
+            domain=Site.objects.get_current().domain,
+            url=reverse('activity_short_url', kwargs={
+                'short_url': self.short_url,
+            })
+        )
 
 
 def resize_activity_photo(sender, instance, **kwargs):

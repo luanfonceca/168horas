@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-02 11:04-0300\n"
-"PO-Revision-Date: 2016-04-02 11:13-0300\n"
+"POT-Creation-Date: 2016-06-15 15:27-0300\n"
+"PO-Revision-Date: 2016-06-15 15:28-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -22,7 +22,8 @@ msgstr ""
 msgid "Link"
 msgstr "Link"
 
-#: activity/models.py:34 event/models.py:31
+#: activity/models.py:34 activity/templates/activity/detail.html:37
+#: event/models.py:31
 msgid "Date"
 msgstr "Data"
 
@@ -67,31 +68,40 @@ msgstr "Capacidade"
 msgid "Price"
 msgstr "Preço"
 
-#: activity/models.py:56 event/models.py:45
+#: activity/models.py:54
+msgid "Short url"
+msgstr "Url curta"
+
+#: activity/models.py:56
+msgid "Result will be like: http://168h.com.br/my-activity/"
+msgstr "Resultado será algo como: http://168h.com.br/my-activity/"
+
+#: activity/models.py:60 event/models.py:45
 msgid "Created by"
 msgstr "Criado por"
 
-#: activity/models.py:61 category/models.py:11 core/models.py:31
-#: core/templates/base.html:65
+#: activity/models.py:65 category/models.py:11 core/models.py:31
+#: core/templates/base.html:69 core/templates/base.html.py:97
 msgid "Categories"
 msgstr "Categorias"
 
-#: activity/models.py:65 activity/templates/activity/detail.html:23
+#: activity/models.py:69
+#: activity/templates/activity/includes/action-button.html:13
 #: attendee/models.py:49 attendee/views.py:40
 msgid "Attendees"
 msgstr "Participantes"
 
-#: activity/models.py:74 activity/templates/activity/list.html:8
+#: activity/models.py:78 activity/templates/activity/list.html:8
 #: activity/templates/activity/list_by_category.html:8
 #: ticket/templates/ticket/list.html:14
 msgid "Activity"
 msgstr "Atividade"
 
-#: activity/models.py:75 activity/views.py:26
+#: activity/models.py:79 activity/views.py:26
 msgid "Activities"
 msgstr "Atividades"
 
-#: activity/models.py:107
+#: activity/models.py:117
 msgid "Certificate from \"{}\"!"
 msgstr "Certificado de \"{}\"!"
 
@@ -104,7 +114,7 @@ msgstr ""
 "importante para outros alunos."
 
 #: activity/templates/activity/delete.html:14
-#: activity/templates/activity/form.html:85
+#: activity/templates/activity/form.html:99
 #: attendee/templates/attendee/form.html:22
 #: category/templates/category/delete.html:13
 #: category/templates/category/form.html:17
@@ -116,61 +126,41 @@ msgid "back"
 msgstr "voltar"
 
 #: activity/templates/activity/delete.html:17
-#: activity/templates/activity/detail.html:48
+#: activity/templates/activity/includes/action-button.html:43
 #: activity/templates/activity/includes/card.html:41
 #: category/templates/category/delete.html:16
 msgid "Delete"
 msgstr "Remover"
 
-#: activity/templates/activity/detail.html:17
-#: attendee/templates/attendee/includes/card.html:12
-#: attendee/templates/attendee/list.html:13
-#: category/templates/category/detail.html:9
-#: ticket/templates/ticket/list.html:8
-msgid "Actions"
-msgstr "Ações"
-
 #: activity/templates/activity/detail.html:30
-#: activity/templates/activity/detail.html:55
-#: activity/templates/activity/detail.html:73
-#: activity/templates/activity/includes/card.html:27
-msgid "Already Joined"
-msgstr "Inscrito"
-
-#: activity/templates/activity/detail.html:35
-#: activity/templates/activity/detail.html:60
-#: activity/templates/activity/detail.html:78
-#: activity/templates/activity/includes/card.html:32
-msgid "Join"
-msgstr "Participar"
-
-#: activity/templates/activity/detail.html:42
-#: activity/templates/activity/includes/card.html:40
-msgid "Update"
-msgstr "Atualizar"
-
-#: activity/templates/activity/detail.html:88
 msgid "Description"
 msgstr "Descrição"
 
-#: activity/templates/activity/detail.html:94
+#: activity/templates/activity/detail.html:45
 msgid "Local"
 msgstr "Local"
 
-#: activity/templates/activity/detail.html:103
-#: activity/templates/activity/detail.html:119
+#: activity/templates/activity/detail.html:55
+#: activity/templates/activity/detail.html:73
 msgid "Organizer"
 msgstr "Organizador"
 
-#: activity/templates/activity/detail.html:121
-#, python-format
+#: activity/templates/activity/detail.html:75
+#, fuzzy, python-format
+#| msgid ""
+#| "\n"
+#| "      <p>\n"
+#| "        Click <a href=\"%(profile_url)s#organizer-information\">here</a> "
+#| "to fill the Organizer information.\n"
+#| "      </p>\n"
+#| "    "
 msgid ""
 "\n"
-"      <p>\n"
-"        Click <a href=\"%(profile_url)s#organizer-information\">here</a> to "
-"fill the Organizer information.\n"
-"      </p>\n"
-"    "
+"        <p style=\"margin-bottom: 0\">\n"
+"          Click <a href=\"%(profile_url)s#organizer-information\">here</a> "
+"to fill the Organizer information.\n"
+"        </p>\n"
+"      "
 msgstr ""
 "\n"
 "      <p>\n"
@@ -179,32 +169,66 @@ msgstr ""
 "      </p>\n"
 "    "
 
-#: activity/templates/activity/detail.html:129
+#: activity/templates/activity/detail.html:85
 msgid "Share"
 msgstr "Compartilhar"
 
-#: activity/templates/activity/detail.html:134
+#: activity/templates/activity/detail.html:89
+msgid "Short url:"
+msgstr "Url curta"
+
+#: activity/templates/activity/detail.html:97
 msgid ""
 "* ADDITIONAL ACTIVITIES: Check with your coordinator if this activity is "
 "valid for your course and university."
 msgstr ""
-"* ATIVIDADES COMPLEMENTARES: Valide com o coordenador do seu curso se essa atividade é "
-"válida para seu curso e universidade."
+"* ATIVIDADES COMPLEMENTARES: Valide com o coordenador do seu curso se essa "
+"atividade é válida para seu curso e universidade."
 
-#: activity/templates/activity/form.html:32
+#: activity/templates/activity/form.html:40
 msgid "Are you the Organizer of this activity?"
 msgstr "Você é o Organizador desta atividade?"
 
-#: activity/templates/activity/form.html:68
+#: activity/templates/activity/form.html:80
 msgid "Online only activity?"
 msgstr "Atividade online?"
 
-#: activity/templates/activity/form.html:89
+#: activity/templates/activity/form.html:103
 #: attendee/templates/attendee/form.html:26
 #: category/templates/category/form.html:21 core/templates/profile.html:97
 #: ticket/templates/ticket/form.html:28
 msgid "Save"
 msgstr "Salvar"
+
+#: activity/templates/activity/includes/action-button.html:7
+#: attendee/templates/attendee/includes/card.html:12
+#: attendee/templates/attendee/list.html:13
+#: category/templates/category/detail.html:9
+#: ticket/templates/ticket/list.html:8
+msgid "Actions"
+msgstr "Ações"
+
+#: activity/templates/activity/includes/action-button.html:20
+#: activity/templates/activity/includes/action-button.html:50
+#: activity/templates/activity/includes/card.html:27
+msgid "Already Joined"
+msgstr "Inscrito"
+
+#: activity/templates/activity/includes/action-button.html:25
+#: activity/templates/activity/includes/action-button.html:55
+msgid "Closed"
+msgstr "Encerado"
+
+#: activity/templates/activity/includes/action-button.html:30
+#: activity/templates/activity/includes/action-button.html:60
+#: activity/templates/activity/includes/card.html:32
+msgid "Join"
+msgstr "Participar"
+
+#: activity/templates/activity/includes/action-button.html:37
+#: activity/templates/activity/includes/card.html:40
+msgid "Update"
+msgstr "Atualizar"
 
 #: activity/templates/activity/list.html:18
 #: activity/templates/activity/list_by_category.html:18
@@ -229,39 +253,39 @@ msgstr "Indique-nos uma atividade!"
 msgid "Add activity"
 msgstr "Adicionar atividade"
 
-#: activity/views.py:72
+#: activity/views.py:81
 msgid "Id"
 msgstr "Id"
 
-#: activity/views.py:73 attendee/models.py:28 ticket/models.py:19
+#: activity/views.py:82 attendee/models.py:28 ticket/models.py:19
 msgid "Name"
 msgstr "Nome"
 
-#: activity/views.py:74 core/models.py:14
+#: activity/views.py:83 core/models.py:14
 msgid "CPF"
 msgstr "CPF"
 
-#: activity/views.py:75 attendee/models.py:30
+#: activity/views.py:84 attendee/models.py:30
 msgid "Email"
 msgstr "Email"
 
-#: activity/views.py:76 attendee/models.py:31
+#: activity/views.py:85 attendee/models.py:31
 msgid "Phone"
 msgstr "Telefone"
 
-#: activity/views.py:77 attendee/models.py:34
+#: activity/views.py:86 attendee/models.py:34
 msgid "Code"
 msgstr "Código"
 
-#: activity/views.py:78
+#: activity/views.py:87
 msgid "Attended at"
 msgstr "Credenciado em"
 
-#: activity/views.py:105
+#: activity/views.py:114
 msgid "Successfully checked all the attendees!"
 msgstr "Credenciados todos os participantes com sucesso!"
 
-#: activity/views.py:125
+#: activity/views.py:134
 msgid "Successfully sended all the certificates!"
 msgstr "Enviado todos os certificados com sucesso!"
 
@@ -408,7 +432,7 @@ msgstr "Infelizmente, não dispomos de participantes nessa atividade."
 msgid "Unfortunately, we have no attendees in this activity."
 msgstr "Infelizmente, não dispomos de participantes nessa atividade."
 
-#: attendee/templates/attendee/sort.html:10 attendee/views.py:201
+#: attendee/templates/attendee/sort.html:10 attendee/views.py:202
 msgid "Sort"
 msgstr "Ordenar"
 
@@ -519,34 +543,34 @@ msgstr ""
 msgid "You are not allowed to see this page!"
 msgstr "Você não é permitido para ver essa página!"
 
-#: attendee/views.py:90
+#: attendee/views.py:91
 #, python-brace-format
 msgid "Join to {activity}"
 msgstr "Participe da {activity}"
 
-#: attendee/views.py:101
+#: attendee/views.py:102
 msgid "You already joined up for this activity!"
 msgstr "Você j;a faz parte desta atividade!"
 
-#: attendee/views.py:126
+#: attendee/views.py:127
 msgid "This user already joined up for this activity!"
 msgstr "Esse usuário já faz parte desta atividade!"
 
-#: attendee/views.py:132
+#: attendee/views.py:133
 msgid "Successfully joined up for this activity!"
 msgstr "Inscrito com sucesso nesta atividade!"
 
-#: attendee/views.py:160
+#: attendee/views.py:161
 #, python-brace-format
 msgid "Successfully checked in the attendee \"{0}\"!"
 msgstr "Registrado com sucesso o participante \"{0}\"!"
 
-#: attendee/views.py:183
+#: attendee/views.py:184
 #, python-brace-format
 msgid "Successfully unchecked the attendee \"{0}\"!"
 msgstr "Descredenciado com sucesso o participante \"{0}\"!"
 
-#: attendee/views.py:194
+#: attendee/views.py:195
 msgid "Certificate"
 msgstr "Certificado"
 
@@ -611,7 +635,8 @@ msgstr "Email do Organizador"
 msgid "Organizer Phone"
 msgstr "Telefone do Organizador"
 
-#: core/models.py:34 core/templates/base.html:63
+#: core/models.py:34 core/templates/base.html:65
+#: core/templates/base.html.py:91
 msgid "Profile"
 msgstr "Perfil"
 
@@ -680,8 +705,8 @@ msgstr "Ou usando seu nome de usuário e senha"
 msgid "Forgot Password?"
 msgstr "Esqueceu sua Senha?"
 
-#: core/templates/account/login.html:50 core/templates/base.html:72
-#: core/views.py:46
+#: core/templates/account/login.html:50 core/templates/base.html:76
+#: core/templates/base.html.py:110 core/views.py:47
 msgid "Sign In"
 msgstr "Acessar"
 
@@ -703,8 +728,8 @@ msgid "Password successfully set."
 msgstr "Senha definida com sucesso."
 
 #: core/templates/account/password_change.html:5
-#: core/templates/account/password_change.html:30 core/views.py:55
-#: core/views.py:75 core/views.py:80
+#: core/templates/account/password_change.html:30 core/views.py:58
+#: core/views.py:82 core/views.py:89
 msgid "Change Password"
 msgstr "Alterar Senha"
 
@@ -751,7 +776,7 @@ msgstr ""
 msgid "Your password is now changed."
 msgstr "Sua senha foi alterada."
 
-#: core/templates/account/password_set.html:9 core/views.py:60
+#: core/templates/account/password_set.html:9 core/views.py:64
 msgid "Set Password"
 msgstr "Preencher Senha"
 
@@ -770,7 +795,7 @@ msgstr ""
 "Por favor acesse com uma\n"
 "    de suas contas."
 
-#: core/templates/account/signup.html:55 core/views.py:50
+#: core/templates/account/signup.html:55 core/views.py:52
 msgid "Sign Up"
 msgstr "Cadastre-se"
 
@@ -787,7 +812,7 @@ msgstr "você está conectado como %(user_display)s."
 msgid "Index"
 msgstr "Início"
 
-#: core/templates/base.html:68
+#: core/templates/base.html:72 core/templates/base.html.py:104
 msgid "Logout"
 msgstr "Sair"
 
@@ -795,11 +820,11 @@ msgstr "Sair"
 msgid "Profile update"
 msgstr "Atualizar perfil"
 
-#: core/views.py:34
+#: core/views.py:35
 msgid "Profile updated."
 msgstr "Perfil atualizado."
 
-#: core/views.py:65 core/views.py:70
+#: core/views.py:70 core/views.py:76
 msgid "Password Reset"
 msgstr "Redefinir Senha"
 
