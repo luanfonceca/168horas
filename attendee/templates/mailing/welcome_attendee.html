@@ -11,8 +11,8 @@
       <p>Hi {{ get_full_name }}, welcome to the "{{ activity_title }}"!</p>
     {% endblocktrans %}
 
-    {% if object.status == 'waiting' %}
-      {% blocktrans with payment_url=obejct.get_payment_url %}
+    {% if activity.price %}
+      {% blocktrans with payment_url=object.get_payment_url %}
         <p>
           In order to confirm you subscription to this actitivty, you need to pay your subscription, to that you can follow the page after add your information or follow this link:
           <a href="{{ payment_url }}" target="_blank">this link</a>, if you already paid ignore ignore this email, we will send another email after the payment being confirm with the Moip.
