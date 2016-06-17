@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Q
 from django.db.models.signals import post_save
 from django.core.urlresolvers import reverse
 from django.contrib.sites.models import Site
@@ -10,7 +11,7 @@ from django.core.mail import send_mail
 from PIL import Image
 import requests
 
-from django_extensions.db.fields import CreationDateTimeField
+from django_extensions.db.fields import CreationDateTimeField, SlugField
 from django_extensions.db.models import TitleSlugDescriptionModel
 
 from web168h import settings
@@ -18,7 +19,9 @@ from web168h import settings
 
 class ActivityManager(models.QuerySet):
     def is_public(self):
-        return self.filter(is_public=True)
+        return self.filter(
+            ~Q(status=Activity.DRAFT) & ~Q(status=Activity.PRIVATE)
+        )
 
     def get_next(self):
         return self.filter(
@@ -31,6 +34,13 @@ class ActivityManager(models.QuerySet):
 
 
 class Activity(TitleSlugDescriptionModel):
+    DRAFT, PRIVATE, PRE_SALE, PUBLISHED, SOLDOUT, CLOSED = range(6)
+    STATUS_CHOICES = (
+        (DRAFT, _('Draft')), (PRIVATE, _('Private')),
+        (PRE_SALE, _('Pre-sale')), (PUBLISHED, _('Published')),
+        (SOLDOUT, _('Soldout')), (CLOSED, _('Closed')),
+    )
+
     link = models.URLField(_(u'Link'), max_length=300, null=True, blank=True)
     scheduled_date = models.DateField(_(u'Date'), null=True, blank=True)
     hours = models.IntegerField(
@@ -51,6 +61,12 @@ class Activity(TitleSlugDescriptionModel):
         _(u'Capacity'), default=50, null=True, blank=True)
     price = models.DecimalField(
         _(u'Price'), max_digits=10, decimal_places=2, null=True, blank=True)
+    short_url = SlugField(
+        _('Short url'), max_length=50,
+        null=True, blank=True,
+        help_text=_('Result will be like: http://168h.com.br/my-activity/'))
+    status = models.SmallIntegerField(
+        _('Status'), choices=STATUS_CHOICES, default=PUBLISHED)
 
     # relations
     created_by = models.ForeignKey(
@@ -96,6 +112,24 @@ class Activity(TitleSlugDescriptionModel):
     @property
     def get_photo_url(self):
         return '{0}/{1}'.format(settings.MEDIA_URL, self.photo)
+
+    @property
+    def get_full_absolute_url(self):
+        return 'http://{domain}{url}'.format(
+            domain=Site.objects.get_current().domain,
+            url=reverse('activity:detail', kwargs={
+                'slug': self.slug,
+            })
+        )
+
+    @property
+    def get_full_short_url(self):
+        return 'http://{domain}{url}'.format(
+            domain=Site.objects.get_current().domain,
+            url=reverse('activity_short_url', kwargs={
+                'short_url': self.short_url,
+            })
+        )
 
     @property
     def is_closed(self):
@@ -156,6 +190,46 @@ class Activity(TitleSlugDescriptionModel):
                 return None
             else:
                 return result.get('geometry').get('location').values()
+
+    @property
+    def get_price_as_cents(self):
+        return int(self.price * 100)
+
+    def notify_pre_sale_organizer(self, attendee):
+        context = {
+            'object': self,
+            'attendee': attendee,
+        }
+        message = render_to_string(
+            'mailing/pre_sale_notification.txt', context)
+        html_message = render_to_string(
+            'mailing/pre_sale_notification.html', context)
+        subject = _(u'{0} joined on pre-sale to "{1}"!').format(
+            attendee.name, self.title)
+        recipients = [self.created_by.organizer_email]
+
+        send_mail(
+            subject=subject, message=message, html_message=html_message,
+            from_email=settings.NO_REPLY_EMAIL, recipient_list=recipients
+        )
+
+    def notify_payment_organizer(self, attendee):
+        context = {
+            'object': self,
+            'attendee': attendee,
+        }
+        message = render_to_string(
+            'mailing/payment_notification.txt', context)
+        html_message = render_to_string(
+            'mailing/payment_notification.html', context)
+        subject = _(u'{0} pay the subscription to "{1}"!').format(
+            attendee.name, self.title)
+        recipients = [self.created_by.organizer_email]
+
+        send_mail(
+            subject=subject, message=message, html_message=html_message,
+            from_email=settings.NO_REPLY_EMAIL, recipient_list=recipients
+        )
 
 
 def resize_activity_photo(sender, instance, **kwargs):

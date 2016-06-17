@@ -1,5 +1,5 @@
 from django.utils.translation import ugettext as _
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
 from django.core.exceptions import ValidationError
@@ -8,15 +8,15 @@ from django.db.models import Q
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
 
-
-from vanilla import model_views as views
+from vanilla import model_views as views, FormView
 from easy_pdf.views import PDFTemplateResponseMixin
 
 from core.mixins import PageTitleMixin, LoginRequiredMixin
 from activity.models import Activity
 from attendee.models import Attendee
-from attendee.forms import AttendeeForm
+from attendee.forms import AttendeeForm, AttendeePaymentNotificationForm
 
 
 class BaseAttendeeView(PageTitleMixin):
@@ -105,9 +105,16 @@ class AttendeeJoin(BaseAttendeeView, LoginRequiredMixin, views.CreateView):
         return super(AttendeeJoin, self).get(request, *args, **kwargs)
 
     def get_form(self, data=None, files=None, **kwargs):
+        if data is None:
+            name = self.request.user.get_full_name()
+            email = self.request.user.email
+        else:
+            name = data.get('name')
+            email = data.get('email')
+
         kwargs.update(initial={
-            'name': self.request.user.get_full_name(),
-            'email': self.request.user.email,
+            'name': name,
+            'email': email,
         })
         return super(AttendeeJoin, self).get_form(
             data=data, files=files, **kwargs
@@ -128,11 +135,22 @@ class AttendeeJoin(BaseAttendeeView, LoginRequiredMixin, views.CreateView):
             )
             return redirect(self.activity.get_attendee_join_url())
         else:
+            message = _('Successfully joined up for this activity!')
+            if self.activity.status == self.activity.PRE_SALE:
+                message = _(
+                    'Successfully joined up for the pre-sale of this activity!'
+                )
+
             messages.add_message(
                 request=self.request, level=messages.SUCCESS,
-                message=_('Successfully joined up for this activity!')
+                message=message
             )
-            return HttpResponseRedirect(self.get_success_url())
+            if self.object.activity.price:
+                return HttpResponseRedirect(
+                    self.object.get_payment_url(full_url=False)
+                )
+            else:
+                return HttpResponseRedirect(self.get_success_url())
 
     def get_success_url(self):
         self.activity = self.get_activity()
@@ -204,3 +222,54 @@ class AttendeeSort(BaseAttendeeView,
     def get_object(self):
         queryset = self.get_queryset()
         return queryset.filter(attended_at__isnull=False).order_by('?').first()
+
+
+class AttendeePayment(BaseAttendeeView,
+                      views.DetailView):
+    lookup_field = 'code'
+    template_name = 'attendee/payment.html'
+    page_title = _('Payment')
+
+
+class AttendeePaymentNotification(BaseAttendeeView, FormView):
+    form_class = AttendeePaymentNotificationForm
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, *args, **kwargs):
+        return super(AttendeePaymentNotification, self).dispatch(
+            *args, **kwargs)
+
+    def get_object(self):
+        id_transacao = self.request.POST.get('id_transacao')
+        return self.model.objects.get(code=id_transacao)
+
+    def get_form(self, data, files, **kwargs):
+        try:
+            kwargs.update(instance=self.get_object())
+        except Attendee.DoesNotExist:
+            pass
+
+        return super(AttendeePaymentNotification, self).get_form(
+            data=data, files=files, **kwargs)
+
+    def return_fail(self, content):
+        response = HttpResponse(content=content)
+        response.status_code = 400
+        return response
+
+    def return_success(self):
+        response = HttpResponse()
+        response.status_code = 200
+        return response
+
+    def form_valid(self, form):
+        try:
+            self.object = self.get_object()
+            self.object.update_payment(form.cleaned_data)
+        except(Attendee.DoesNotExist, ValidationError), e:
+            return self.return_fail(e.message)
+        else:
+            return self.return_success()
+
+    def form_invalid(self, form):
+        return self.return_fail(form.errors.as_text())

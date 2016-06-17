@@ -1,0 +1,7 @@
+{% load i18n %}
+
+{% blocktrans with organizer_name=object.created_by.organizer_name activity_title=object.title name=attendee.name %}
+  Hi {{ organizer_name }}, the attendee "{{ name }}" just charged his payment at "{{ activity_title }}"!
+
+  Thank you.
+{% endblocktrans %}

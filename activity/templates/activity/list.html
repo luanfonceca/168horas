@@ -32,7 +32,7 @@
   {% for object in object_list %}
     <h4><a class="btn-link" href="{{ object.get_absolute_url }}">{{ object }}</a></h4>
     <div class="row masonry-grid">
-      {% for activity in object.activities.get_next %}
+      {% for activity in object.activities.is_public.get_next %}
         <div class="col s12 m4 l4">
           {% include "activity/includes/card.html" with object=activity is_activity_card=True %}
         </div>

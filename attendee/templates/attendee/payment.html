@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% load tags %}
+
+{% block content %}
+  <form action="https://desenvolvedor.moip.com.br/sandbox/PagamentoMoIP.do" method="POST">
+    <input type="hidden" name="id_carteira" value="luanfonceca@gmail.com">
+    <input type="hidden" name="url_retorno" value="{{ activity.get_full_absolute_url }}">
+    <input type="hidden" name="id_transacao" value="{{ object.code }}">
+    <input type="hidden" name="descricao" value="Pagamento da atividade: {{ activity.title }} para o 168 horas.">
+    <input type="hidden" name="valor" value="{{ activity.get_price_as_cents }}">
+    <input type="hidden" name="nome" value="{{ activity.title }}">
+    <input type="hidden" name="pagador_nome" value="{{ object.name }}">
+    <input type="hidden" name="pagador_email" value="{{ object.email }}">
+    <input type="hidden" name="pagador_telefone" value="{{ object.phone }}">
+
+    <div class="row center">
+      <h3>{% trans 'You are at one step to fullfill your subscription!' %}</h3>
+      <p class="center">{% trans 'By clicking on the "Pay" button, you will be redirected to the Moip site. At there you will enter the rest of the needed informations to pay, using Credit, Debit or Bank Slip.' %}</p>
+      <p class="center">{% trans 'After that you will receive emails as the process continues, when your payment will be charged we send a notification to your email!' %}</p>
+    </div>
+    
+    <br>
+    <div class="center-align col s4">
+      <a href="{% url 'activity:detail' activity.slug %}">
+        {% trans 'back' %}
+      </a>
+      &nbsp;
+      <button type="submit" class="btn-large waves-effect waves-light blue darken-4">
+        {% trans 'Pay' %}
+        <i class="material-icons right">done</i>
+      </button>
+    </div>
+  </form>
+{% endblock %}

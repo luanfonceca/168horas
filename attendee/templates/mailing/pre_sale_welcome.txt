@@ -1,0 +1,11 @@
+{% load i18n %}
+
+{% blocktrans with get_full_name=object.name activity_title=activity.title organizer_email=created_by.organizer_email organizer_name=created_by.organizer_name %}
+  Hi {{ get_full_name }}, welcome to the "{{ activity_title }}"!
+
+  As soon as possible, our relationship team will get in touch to confirm your subscription!
+
+  If you have any doubts about this activity feel free to get in touch with the Organizer: {{ organizer_name }} <{{ organizer_email }}> by email.
+
+  Thank you.
+{% endblocktrans %}

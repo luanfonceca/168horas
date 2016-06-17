@@ -22,4 +22,7 @@ urlpatterns = patterns(
     url(regex=r'^certificate/(?P<code>[0-9A-Z]+)/$',
         view=views.AttendeeCertificate.as_view(),
         name='certificate'),
+    url(regex=r'^payment/(?P<code>[0-9A-Z]+)/$',
+        view=views.AttendeePayment.as_view(),
+        name='payment'),
 )

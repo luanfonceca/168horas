@@ -25,6 +25,57 @@ def code_generate(size=10):
 
 
 class Attendee(models.Model):
+    PENDING, CONFIRMED, CANCELED = range(3)
+    STATUS_CHOICES = (
+        (PENDING, _('Pending')),
+        (CONFIRMED, _('Confirmed')),
+        (CANCELED, _('Canceled')),
+    )
+
+    # autorizado      1  Pagamento ja foi realizado porem ainda nao foi
+    #                    creditado na Carteira MoIP recebedora
+    #                    (devido ao floating da forma de pagamento)
+    # iniciado        2  Pagamento esta sendo realizado ou janela do
+    #                    navegador foi fechada (pagamento abandonado)
+    # boleto impresso 3  Boleto foi impresso e ainda nao foi pago
+    # concluido       4  Pagamento ja foi realizado e dinheiro
+    #                    ja foi creditado na Carteira MoIP recebedora
+    # cancelado       5  Pagamento foi cancelado pelo pagador,
+    #                    instituicao de pagamento, MoIP ou recebedor
+    #                    antes de ser concluido
+    # em analise      6  Pagamento foi realizado com cartao de credito e
+    #                    autorizado, porem esta em analise pela Equipe MoIP.
+    #                    Nao existe garantia de que sera concluido
+    # estornado       7  Pagamento foi estornado pelo pagador, recebedor,
+    #                    instituicao de pagamento ou MoIP
+    (AUTORIZADO, INICIADO, BOLETO_IMPRESSO,
+     CONCLUIDO, EM_ANALISE, ESTORNADO) = range(1, 7)
+    MOIP_STATUS_CHOICES = (
+        (AUTORIZADO, _('Autorizado')),
+        (INICIADO, _('Iniciado')),
+        (BOLETO_IMPRESSO, _('Boleto impresso')),
+        (CONCLUIDO, _('Concluido')),
+        (EM_ANALISE, _('Em analise')),
+        (ESTORNADO, _('Estornado')),
+    )
+
+    DEBITO_BANCARIO = 'DebitoBancario'
+    FINANCIAMENTO_BANCARIO = 'FinanciamentoBancario'
+    BOLETO_BANCARIO = 'BoletoBancario'
+    CARTAO_DE_CREDITO = 'CartaoDeCredito'
+    CARTAO_DE_DEBITO = 'CartaoDeDebito'
+    CARTEIRA_MOIP = 'CarteiraMoIP'
+    NAO_DEFINIDA = 'NaoDefinida'
+    MOIP_PAYMENT_TYPE_CHOICES = (
+        (DEBITO_BANCARIO, _('Debito bancario')),
+        (FINANCIAMENTO_BANCARIO, _('Financiamento bancario')),
+        (BOLETO_BANCARIO, _('Boleto bancario')),
+        (CARTAO_DE_CREDITO, _('Cartao de credito')),
+        (CARTAO_DE_DEBITO, _('Cartao de debito')),
+        (CARTEIRA_MOIP, _('Cartira moip')),
+        (NAO_DEFINIDA, _('Nao definida')),
+    )
+
     name = models.CharField(_('Name'), max_length=300)
     cpf = models.CharField('CPF', max_length=14)
     email = models.EmailField(_('Email'))
@@ -35,6 +86,15 @@ class Attendee(models.Model):
     created_at = CreationDateTimeField(_(u'Created At'))
     attended_at = models.DateTimeField(
         _(u'Attended At'), null=True, blank=True)
+    status = models.SmallIntegerField(
+        _('Status'), choices=STATUS_CHOICES, default=PENDING)
+    moip_status = models.SmallIntegerField(
+        _('Status'), choices=MOIP_STATUS_CHOICES, null=True, blank=True)
+    moip_payment_type = models.CharField(
+        _('Status'), max_length=32, choices=MOIP_PAYMENT_TYPE_CHOICES,
+        null=True, blank=True)
+    moip_code = models.CharField(
+        _('Moip code'), max_length=20, null=True, blank=True)
 
     # relations
     activity = models.ForeignKey(
@@ -83,6 +143,18 @@ class Attendee(models.Model):
         else:
             return url
 
+    def get_payment_url(self, full_url=True):
+        url = reverse('attendee:payment', kwargs={
+            'activity_slug': self.activity.slug,
+            'code': self.code,
+        })
+        if full_url:
+            return 'http://{domain}{url}'.format(
+                domain=Site.objects.get_current().domain, url=url
+            )
+        else:
+            return url
+
     def send_welcome_email(self):
         context = {
             'object': self,
@@ -94,7 +166,26 @@ class Attendee(models.Model):
         html_message = render_to_string(
             'mailing/welcome_attendee.html', context)
         subject = _(u'Welcome to the "{}"!').format(self.activity.title)
-        recipients = [self.profile.user.email]
+        recipients = [self.email]
+
+        send_mail(
+            subject=subject, message=message, html_message=html_message,
+            from_email=settings.NO_REPLY_EMAIL, recipient_list=recipients
+        )
+
+    def send_pre_sale_welcome_email(self):
+        context = {
+            'object': self,
+            'activity': self.activity,
+            'created_by': self.activity.created_by,
+        }
+        message = render_to_string(
+            'mailing/pre_sale_welcome.txt', context)
+        html_message = render_to_string(
+            'mailing/pre_sale_welcome.html', context)
+        subject = _(u'Welcome to the pre-sale of "{}"!').format(
+            self.activity.title)
+        recipients = [self.email]
 
         send_mail(
             subject=subject, message=message, html_message=html_message,
@@ -113,11 +204,56 @@ class Attendee(models.Model):
         self.attended_at = None
         self.save()
 
+    def send_payment_confirmation(self):
+        context = {
+            'object': self,
+            'activity': self.activity,
+            'created_by': self.activity.created_by,
+        }
+        message = render_to_string(
+            'mailing/payment_confirmation.txt', context)
+        html_message = render_to_string(
+            'mailing/payment_confirmation.html', context)
+        subject = _(u'Payment confirmation of the "{}"!').format(
+            self.activity.title)
+        recipients = [self.email]
+
+        send_mail(
+            subject=subject, message=message, html_message=html_message,
+            from_email=settings.NO_REPLY_EMAIL, recipient_list=recipients
+        )
+
+        self.activity.notify_payment_organizer(attendee=self)
+
+    def update_payment(self, data):
+        if self.moip_status == data.get('status_pagamento'):
+            raise ValidationError(
+                _('This Attendee was already updated as: {}.').format(
+                    self.get_moip_status_display()
+                )
+            )
+
+        self.moip_status = data.get('status_pagamento')
+        if not self.moip_payment_type:
+            self.moip_payment_type = data.get('tipo_pagamento')
+        if not self.moip_code:
+            self.moip_code = data.get('cod_moip')
+
+        self.save()
+
+        if self.moip_status == self.CONCLUIDO:
+            self.send_payment_confirmation()
+
 
 def send_attendee_joined_email(sender, instance, created, **kwargs):
     if not created:
         return
-    instance.send_welcome_email()
+
+    if instance.activity.status == instance.activity.PRE_SALE:
+        instance.send_pre_sale_welcome_email()
+        instance.activity.notify_pre_sale_organizer(instance)
+    else:
+        instance.send_welcome_email()
 
 
 post_save.connect(send_attendee_joined_email, sender=Attendee)
