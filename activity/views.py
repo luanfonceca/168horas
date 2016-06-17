@@ -27,8 +27,8 @@ class ActivityList(BaseCategoryView, views.ListView):
 
     def get_context_data(self, **kwargs):
         context = super(ActivityList, self).get_context_data(**kwargs)
-        activities = Activity.objects.filter(
-            scheduled_date__gte=timezone.datetime.today().date()
+        activities = Activity.objects.is_public().filter(
+            scheduled_date__gte=timezone.datetime.today().date(),
         )
         context.update(
             next_activities=activities.get_next()[:3],

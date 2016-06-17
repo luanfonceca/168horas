@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Q
 from django.db.models.signals import post_save
 from django.core.urlresolvers import reverse
 from django.contrib.sites.models import Site
@@ -17,7 +18,9 @@ from web168h import settings
 
 class ActivityManager(models.QuerySet):
     def is_public(self):
-        return self.filter(is_public=True)
+        return self.filter(
+            ~Q(status=Activity.DRAFT) & ~Q(status=Activity.PRIVATE)
+        )
 
     def get_next(self):
         return self.filter(
@@ -27,6 +30,7 @@ class ActivityManager(models.QuerySet):
             select=dict(date_is_null='scheduled_date IS NULL'),
             order_by=['date_is_null', 'scheduled_date'],
         )
+
 
 
 class Activity(TitleSlugDescriptionModel):
