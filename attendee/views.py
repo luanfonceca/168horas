@@ -216,13 +216,3 @@ class AttendeePayment(BaseAttendeeView,
     lookup_field = 'code'
     template_name = 'attendee/payment.html'
     page_title = _('Payment')
-
-
-class AttendeePaymentNotification(BaseAttendeeView,
-                                  views.UpdateView):
-    def get_object(self):
-        queryset = self.get_queryset()
-        return queryset.get(code=self.kwargs.get('transaction_id'))
-
-    def post(self, request, *args, **kwargs):
-        return super(AttendeePaymentNotification, self).post()

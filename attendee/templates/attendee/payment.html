@@ -14,6 +14,9 @@
     <input type="text" name="descricao" value="Pagamento da atividade: {{ activity.title }} para o 168 horas.">
     <input type="text" name="valor" value="{{ activity.get_price_as_cents }}">
     <input type="text" name="nome" value="{{ activity.title }}">
+    <input type="text" name="pagador_nome" value="{{ object.name }}">
+    <input type="text" name="pagador_email" value="{{ object.email }}">
+    <input type="text" name="pagador_telefone" value="{{ object.phone }}">
     
     <br>
     <div class="center-align col s4">
