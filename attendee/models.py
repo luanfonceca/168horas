@@ -48,9 +48,10 @@ class Attendee(models.Model):
     #                    Nao existe garantia de que sera concluido
     # estornado       7  Pagamento foi estornado pelo pagador, recebedor,
     #                    instituicao de pagamento ou MoIP
-    (AUTORIZADO, INICIADO, BOLETO_IMPRESSO,
-     CONCLUIDO, EM_ANALISE, ESTORNADO) = range(1, 7)
+    (PENDENTE_DE_PAGAMENTO, AUTORIZADO, INICIADO, BOLETO_IMPRESSO,
+     CONCLUIDO, EM_ANALISE, ESTORNADO) = range(0, 7)
     MOIP_STATUS_CHOICES = (
+        (PENDENTE_DE_PAGAMENTO, _('Pendente de pagamento')),
         (AUTORIZADO, _('Autorizado')),
         (INICIADO, _('Iniciado')),
         (BOLETO_IMPRESSO, _('Boleto impresso')),
@@ -89,7 +90,8 @@ class Attendee(models.Model):
     status = models.SmallIntegerField(
         _('Status'), choices=STATUS_CHOICES, default=PENDING)
     moip_status = models.SmallIntegerField(
-        _('Status'), choices=MOIP_STATUS_CHOICES, null=True, blank=True)
+        _('Status'), choices=MOIP_STATUS_CHOICES,
+        default=PENDENTE_DE_PAGAMENTO, null=True, blank=True)
     moip_payment_type = models.CharField(
         _('Status'), max_length=32, choices=MOIP_PAYMENT_TYPE_CHOICES,
         null=True, blank=True)
