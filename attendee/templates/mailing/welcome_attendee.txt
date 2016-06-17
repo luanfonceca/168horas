@@ -1,6 +1,6 @@
 {% load i18n %}
 
-{% blocktrans with get_full_name=object.user.get_full_name activity_title=activity.title %}
+{% blocktrans with get_full_name=object.name activity_title=activity.title %}
   Hi {{ get_full_name }}, welcome to the "{{ activity_title }}"!
 {% endblocktrans %}
 
