@@ -110,6 +110,24 @@ class Activity(TitleSlugDescriptionModel):
         return '{0}/{1}'.format(settings.MEDIA_URL, self.photo)
 
     @property
+    def get_full_absolute_url(self):
+        return 'http://{domain}{url}'.format(
+            domain=Site.objects.get_current().domain,
+            url=reverse('activity:detail', kwargs={
+                'slug': self.slug,
+            })
+        )
+
+    @property
+    def get_full_short_url(self):
+        return 'http://{domain}{url}'.format(
+            domain=Site.objects.get_current().domain,
+            url=reverse('activity_short_url', kwargs={
+                'short_url': self.short_url,
+            })
+        )
+
+    @property
     def is_closed(self):
         if self.slug == 'flisol-natal-2016':
             return True
@@ -156,15 +174,6 @@ class Activity(TitleSlugDescriptionModel):
     def get_price_as_cents(self):
         return int(self.price * 100)
 
-    @property
-    def get_full_short_url(self):
-        return 'http://{domain}{url}'.format(
-            domain=Site.objects.get_current().domain,
-            url=reverse('activity_short_url', kwargs={
-                'short_url': self.short_url,
-            })
-        )
-
     def notify_pre_sale_organizer(self, attendee):
         context = {
             'object': self,
@@ -175,6 +184,24 @@ class Activity(TitleSlugDescriptionModel):
         html_message = render_to_string(
             'mailing/pre_sale_notification.html', context)
         subject = _(u'{0} joined on pre-sale to "{1}"!').format(
+            attendee.name, self.title)
+        recipients = [self.created_by.organizer_email]
+
+        send_mail(
+            subject=subject, message=message, html_message=html_message,
+            from_email=settings.NO_REPLY_EMAIL, recipient_list=recipients
+        )
+
+    def notify_payment_organizer(self, attendee):
+        context = {
+            'object': self,
+            'attendee': attendee,
+        }
+        message = render_to_string(
+            'mailing/payment_notification.txt', context)
+        html_message = render_to_string(
+            'mailing/payment_notification.html', context)
+        subject = _(u'{0} pay the subscription to "{1}"!').format(
             attendee.name, self.title)
         recipients = [self.created_by.organizer_email]
 

@@ -6,7 +6,7 @@ from django.shortcuts import redirect
 from django.core.exceptions import ValidationError
 from django.contrib import messages
 
-from vanilla import model_views as views, View
+from vanilla import model_views as views
 from djqscsv import render_to_csv_response
 
 from core.mixins import PageTitleMixin
@@ -135,21 +135,3 @@ class ActivitySendCertificates(BaseActivityView, views.DetailView):
                 )
             )
         return redirect(self.object.get_attendee_list_url())
-
-
-class ActivityPaymentNotification(BaseActivityView,
-                                  views.UpdateView):
-    def get_object(self):
-        import ipdb; ipdb.set_trace()
-        queryset = self.get_queryset()
-        return queryset.get(code=self.kwargs.get('transaction_id'))
-
-    def post(self, request, *args, **kwargs):
-        import ipdb; ipdb.set_trace()
-        return super(ActivityPaymentNotification, self).post(
-            request, *args, **kwargs)
-
-    def get(self, request, *args, **kwargs):
-        import ipdb; ipdb.set_trace()
-        return super(ActivityPaymentNotification, self).get(
-            request, *args, **kwargs)

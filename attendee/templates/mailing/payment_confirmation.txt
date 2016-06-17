@@ -1,9 +1,9 @@
 {% load i18n %}
 
 {% blocktrans with get_full_name=object.name activity_title=activity.title organizer_email=created_by.organizer_email organizer_name=created_by.organizer_name %}
-  Hi {{ get_full_name }}, welcome to the "{{ activity_title }}"!
+  Hi {{ get_full_name }}, your payment to  "{{ activity_title }}" was successfully charged!
 
-  As soon as possible, our relationship team will get in touch to confirm your subscription!
+  For now you are oficially an attendee of this actitivty, congrats for that.
 
   If you have any doubts about this activity feel free to get in touch with the Organizer: {{ organizer_name }} <{{ organizer_email }}> by email.
 

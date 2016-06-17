@@ -1,5 +1,5 @@
 from django.utils.translation import ugettext as _
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
 from django.core.exceptions import ValidationError
@@ -8,15 +8,15 @@ from django.db.models import Q
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
 
-
-from vanilla import model_views as views
+from vanilla import model_views as views, FormView
 from easy_pdf.views import PDFTemplateResponseMixin
 
 from core.mixins import PageTitleMixin, LoginRequiredMixin
 from activity.models import Activity
 from attendee.models import Attendee
-from attendee.forms import AttendeeForm
+from attendee.forms import AttendeeForm, AttendeePaymentNotificationForm
 
 
 class BaseAttendeeView(PageTitleMixin):
@@ -229,3 +229,47 @@ class AttendeePayment(BaseAttendeeView,
     lookup_field = 'code'
     template_name = 'attendee/payment.html'
     page_title = _('Payment')
+
+
+class AttendeePaymentNotification(BaseAttendeeView, FormView):
+    form_class = AttendeePaymentNotificationForm
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, *args, **kwargs):
+        return super(AttendeePaymentNotification, self).dispatch(
+            *args, **kwargs)
+
+    def get_object(self):
+        id_transacao = self.request.POST.get('id_transacao')
+        return self.model.objects.get(code=id_transacao)
+
+    def get_form(self, data, files, **kwargs):
+        try:
+            kwargs.update(instance=self.get_object())
+        except Attendee.DoesNotExist:
+            pass
+
+        return super(AttendeePaymentNotification, self).get_form(
+            data=data, files=files, **kwargs)
+
+    def return_fail(self, content):
+        response = HttpResponse(content=content)
+        response.status_code = 400
+        return response
+
+    def return_success(self):
+        response = HttpResponse()
+        response.status_code = 200
+        return response
+
+    def form_valid(self, form):
+        try:
+            self.object = self.get_object()
+            self.object.update_payment(form.cleaned_data)
+        except(Attendee.DoesNotExist, ValidationError), e:
+            return self.return_fail(e.message)
+        else:
+            return self.return_success()
+
+    def form_invalid(self, form):
+        return self.return_fail(form.errors.as_text())
