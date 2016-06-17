@@ -6,7 +6,7 @@ from django.shortcuts import redirect
 from django.core.exceptions import ValidationError
 from django.contrib import messages
 
-from vanilla import model_views as views
+from vanilla import model_views as views, View
 from djqscsv import render_to_csv_response
 
 from core.mixins import PageTitleMixin
@@ -51,6 +51,14 @@ class ActivityCreate(BaseActivityView, views.CreateView):
 class ActivityDetail(BaseActivityView, views.DetailView):
     template_name = 'activity/detail.html'
     full_page_title = True
+
+
+class ActivityDetailShortUrl(BaseActivityView, views.DetailView):
+    lookup_field = 'short_url'
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        return redirect(self.object.get_absolute_url())
 
 
 class ActivityUpdate(BaseActivityView, views.UpdateView):

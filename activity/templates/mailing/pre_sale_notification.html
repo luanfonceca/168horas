@@ -1,0 +1,22 @@
+{% load i18n %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>168 Horas</title>
+  </head>
+
+  <body>
+    {% blocktrans with organizer_name=object.created_by.organizer_name activity_title=object.title name=attendee.name email=attendee.email phone=attendee.phone %}
+      <p>Hi {{ organizer_name }}, your activity "{{ activity_title }}" just received 1 more subscription:</p>
+
+      <p>
+        Name: {{ name }}<br>
+        Email: {{ email }}<br>
+        Phone: {{ phone }}
+      </p>
+
+      <p>Thank you.</p>
+    {% endblocktrans %}
+  </body>
+</html>

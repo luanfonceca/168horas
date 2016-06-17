@@ -25,6 +25,13 @@ def code_generate(size=10):
 
 
 class Attendee(models.Model):
+    PENDING, CONFIRMED, CANCELED = range(3)
+    STATUS_CHOICES = (
+        (PENDING, _('Pending')),
+        (CONFIRMED, _('Confirmed')),
+        (CANCELED, _('Canceled')),
+    )
+
     name = models.CharField(_('Name'), max_length=300)
     cpf = models.CharField('CPF', max_length=14)
     email = models.EmailField(_('Email'))
@@ -35,6 +42,8 @@ class Attendee(models.Model):
     created_at = CreationDateTimeField(_(u'Created At'))
     attended_at = models.DateTimeField(
         _(u'Attended At'), null=True, blank=True)
+    status = models.SmallIntegerField(
+        _('Status'), choices=STATUS_CHOICES, default=PENDING)
 
     # relations
     activity = models.ForeignKey(
@@ -106,7 +115,26 @@ class Attendee(models.Model):
         html_message = render_to_string(
             'mailing/welcome_attendee.html', context)
         subject = _(u'Welcome to the "{}"!').format(self.activity.title)
-        recipients = [self.profile.user.email]
+        recipients = [self.email]
+
+        send_mail(
+            subject=subject, message=message, html_message=html_message,
+            from_email=settings.NO_REPLY_EMAIL, recipient_list=recipients
+        )
+
+    def send_pre_sale_welcome_email(self):
+        context = {
+            'object': self,
+            'activity': self.activity,
+            'created_by': self.activity.created_by,
+        }
+        message = render_to_string(
+            'mailing/pre_sale_welcome.txt', context)
+        html_message = render_to_string(
+            'mailing/pre_sale_welcome.html', context)
+        subject = _(u'Welcome to the pre-sale of "{}"!').format(
+            self.activity.title)
+        recipients = [self.email]
 
         send_mail(
             subject=subject, message=message, html_message=html_message,
@@ -155,7 +183,12 @@ class Attendee(models.Model):
 def send_attendee_joined_email(sender, instance, created, **kwargs):
     if not created:
         return
-    instance.send_welcome_email()
+
+    if instance.activity.status == instance.activity.PRE_SALE:
+        instance.send_pre_sale_welcome_email()
+        instance.activity.notify_pre_sale_organizer(instance)
+    else:
+        instance.send_welcome_email()
 
 
 post_save.connect(send_attendee_joined_email, sender=Attendee)

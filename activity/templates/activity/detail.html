@@ -84,6 +84,12 @@
     <br/>
     <h5>{% trans 'Share' %}</h5>
     <div class="addthis_sharing_toolbox"></div>
+    {% if object.short_url %}
+      <p>
+        {% trans 'Short url:' %}
+        <a href="{{ object.get_full_short_url }}" target="_blank">{{ object.get_full_short_url }}</a>
+      </p>
+    {% endif %}
   </div>
 
   <br/>
