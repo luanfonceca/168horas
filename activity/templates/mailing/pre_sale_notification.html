@@ -7,7 +7,7 @@
   </head>
 
   <body>
-    {% blocktrans with organizer_name=object.created_by.organizer_name activity_title=object.title name=attendee.name email=attendee.email phone=attendee.phone payment_url=attendee.get_full_payment_url %}
+    {% blocktrans with organizer_name=object.created_by.organizer_name activity_title=object.title name=attendee.name email=attendee.email phone=attendee.phone payment_url=attendee.get_payment_url %}
       <p>Hi {{ organizer_name }}, your activity "{{ activity_title }}" just received 1 more subscription:</p>
 
       <p>
