@@ -243,7 +243,7 @@ class Attendee(models.Model):
 
         self.save()
 
-        if self.moip_status == self.CONCLUIDO:
+        if self.moip_status in [self.CONCLUIDO, self.AUTORIZADO]:
             self.send_payment_confirmation()
 
 
