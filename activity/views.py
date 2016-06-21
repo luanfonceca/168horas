@@ -13,6 +13,23 @@ from core.mixins import PageTitleMixin
 from activity.models import Activity
 from activity.forms import ActivityForm
 from category.views import BaseCategoryView
+from attendee.models import Attendee
+
+
+def _get_display(data, field_name):
+    field = Attendee._meta.get_field(field_name)
+    value = data.get(field_name)
+    return dict(field.flatchoices).get(value, value)
+
+
+def update_display(attendee):
+    attendee.update(
+        status=_get_display(attendee, 'status'),
+        moip_status=_get_display(
+            attendee, 'moip_status'),
+        moip_payment_type=_get_display(
+            attendee, 'moip_payment_type')
+    )
 
 
 class BaseActivityView(PageTitleMixin):
@@ -74,6 +91,7 @@ class ActivityDelete(BaseActivityView, views.DeleteView):
 
 
 class ActivityAttendeeExport(BaseActivityView, views.DetailView):
+
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
         filename = "%s_attendees" % self.object.slug.replace('-', '_')
@@ -85,13 +103,22 @@ class ActivityAttendeeExport(BaseActivityView, views.DetailView):
             'phone': _('Phone'),
             'code': _('Code'),
             'attended_at': _('Attended at'),
-            'status': _('Subscription status'),
-            'moip_status': _('Payment status'),
-            'payment_type': _('Payment type'),
         }
+
+        if self.object.price:
+            field_header_map.update({
+                'status': _('Subscription status'),
+                'moip_status': _('Payment status'),
+                'moip_payment_type': _('Payment type'),
+            })
+
         attendees = self.object.attendee_set.values(
             *field_header_map.keys()
         )
+
+        if self.object.price:
+            map((lambda a: update_display(a)), attendees)
+
         return render_to_csv_response(
             attendees,
             append_datestamp=True,
