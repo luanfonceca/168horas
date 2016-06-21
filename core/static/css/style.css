@@ -281,6 +281,15 @@ a.button-collapse.top-nav.full {
   }
 }
 
+@media (max-width: 400px) {
+  #activity-header .btn-large.green {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+
+
 /*
 #activity-actions {
   float: right;
