@@ -1,11 +1,12 @@
 {% load i18n %}
 
-{% blocktrans with organizer_name=object.created_by.organizer_name activity_title=object.title name=attendee.name email=attendee.email phone=attendee.phone %}
+{% blocktrans with organizer_name=object.created_by.organizer_name activity_title=object.title name=attendee.name email=attendee.email phone=attendee.phone payment_url=payment_url=attendee.get_payment_url %}
   Hi {{ organizer_name }}, your activity "{{ activity_title }}" just received 1 more subscription:
 
   Name: {{ name }}
   Email: {{ email }}
   Phone: {{ phone }}
+  Payment Url: {{ payment_url }}
 
   Thank you.
 {% endblocktrans %}

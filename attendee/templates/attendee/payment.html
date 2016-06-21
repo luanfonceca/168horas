@@ -7,7 +7,7 @@
 {% load tags %}
 
 {% block content %}
-  <form action="https://desenvolvedor.moip.com.br/sandbox/PagamentoMoIP.do" method="POST">
+  <form action="https://www.moip.com.br/PagamentoMoIP.do" method="POST">
     <input type="hidden" name="id_carteira" value="luanfonceca@gmail.com">
     <input type="hidden" name="url_retorno" value="{{ activity.get_full_absolute_url }}">
     <input type="hidden" name="id_transacao" value="{{ object.code }}">

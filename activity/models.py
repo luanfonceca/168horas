@@ -170,7 +170,7 @@ class Activity(TitleSlugDescriptionModel):
                 'mailing/certificate_attendee.txt', context)
             html_message = render_to_string(
                 'mailing/certificate_attendee.html', context)
-            recipients = [attendee.get('email')]
+            recipients = [settings.EMAIL_HOST_USER, attendee.get('email')]
 
             send_mail(
                 subject=subject, message=message, html_message=html_message,
@@ -218,7 +218,10 @@ class Activity(TitleSlugDescriptionModel):
             'mailing/pre_sale_notification.html', context)
         subject = _(u'{0} joined on pre-sale to "{1}"!').format(
             attendee.name, self.title)
-        recipients = [self.created_by.organizer_email]
+        recipients = [
+            settings.EMAIL_HOST_USER,
+            self.created_by.organizer_email
+        ]
 
         send_mail(
             subject=subject, message=message, html_message=html_message,
@@ -236,7 +239,7 @@ class Activity(TitleSlugDescriptionModel):
             'mailing/payment_notification.html', context)
         subject = _(u'{0} pay the subscription to "{1}"!').format(
             attendee.name, self.title)
-        recipients = [self.created_by.organizer_email]
+        recipients = [settings.EMAIL_HOST_USER, self.created_by.organizer_email]
 
         send_mail(
             subject=subject, message=message, html_message=html_message,
