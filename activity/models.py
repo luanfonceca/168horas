@@ -3,6 +3,7 @@ from django.db.models import Q
 from django.db.models.signals import post_save
 from django.core.urlresolvers import reverse
 from django.contrib.sites.models import Site
+from django.contrib.humanize.templatetags.humanize import intcomma
 from django.utils.translation import ugettext as _
 from django.utils.timezone import datetime
 from django.template.loader import render_to_string
@@ -57,6 +58,8 @@ class Activity(TitleSlugDescriptionModel):
         help_text=_('Images in the resolution: 400x400.'))
     location = models.CharField(
         _(u'Location'), max_length=500, null=True, blank=True)
+    place_id = models.CharField(
+        _(u'Place id'), max_length=50, null=True, blank=True)
     capacity = models.IntegerField(
         _(u'Capacity'), default=50, null=True, blank=True)
     price = models.DecimalField(
@@ -194,6 +197,15 @@ class Activity(TitleSlugDescriptionModel):
     @property
     def get_price_as_cents(self):
         return int(self.price * 100)
+
+    @property
+    def formatted_price(self):
+        price = self.price
+
+        if self.price % 1 == 0:
+            price = self.price // 1
+
+        return 'R${}'.format(price)
 
     def notify_pre_sale_organizer(self, attendee):
         context = {

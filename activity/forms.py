@@ -14,5 +14,6 @@ class ActivityForm(forms.ModelForm):
         )
         model = Activity
         widgets = {
-            'categories': forms.CheckboxSelectMultiple()
+            'categories': forms.CheckboxSelectMultiple(),
+            'place_id': forms.HiddenInput()
         }
