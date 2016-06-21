@@ -187,14 +187,12 @@ msgid "Local:"
 msgstr "Local:"
 
 #: activity/templates/activity/detail.html:35
-#, fuzzy
-#| msgid "Categories"
 msgid "Categories:"
-msgstr "Categorias"
+msgstr "Categorias:"
 
 #: activity/templates/activity/detail.html:46
 msgid "Short url:"
-msgstr "Url curta"
+msgstr "Url curta:"
 
 #: activity/templates/activity/detail.html:63
 msgid "Description"
