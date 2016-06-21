@@ -85,6 +85,9 @@ class ActivityAttendeeExport(BaseActivityView, views.DetailView):
             'phone': _('Phone'),
             'code': _('Code'),
             'attended_at': _('Attended at'),
+            'status': _('Subscription status'),
+            'moip_status': _('Payment status'),
+            'payment_type': _('Payment type'),
         }
         attendees = self.object.attendee_set.values(
             *field_header_map.keys()
