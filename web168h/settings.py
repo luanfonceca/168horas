@@ -169,6 +169,7 @@ EXTERNAL_APPS = (
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.google',
+    'anymail',
 )
 
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + EXTERNAL_APPS
@@ -235,6 +236,12 @@ SOCIALACCOUNT_PROVIDERS = {
         'VERIFIED_EMAIL': False,
     }
 }
+
+# AnyMail configs
+ANYMAIL = {
+    'MAILGUN_API_KEY': '<your Mailgun key>',
+}
+EMAIL_BACKEND = 'anymail.backends.mailgun.MailgunBackend'
 
 
 # Email configs
