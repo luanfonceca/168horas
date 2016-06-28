@@ -300,9 +300,7 @@ class AttendeeConfirmPayment(BaseAttendeeView, views.UpdateView):
 
         try:
             self.object.update_payment({
-                'status_pagamento': Attendee.CONCLUIDO,
-                'tipo_pagamento': Attendee.CONFIRMADO_PELO_ORGANIZADOR,
-                'moip_code': None
+                'status_pagamento': Attendee.CONFIRMADO_PELO_ORGANIZADOR,
             })
         except ValidationError, e:
             messages.add_message(
