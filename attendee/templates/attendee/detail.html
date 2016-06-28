@@ -34,6 +34,15 @@
             </a>
           </li>
         </form>
+        <form action="{% url 'attendee:confirm_payment' activity_slug=activity.slug code=object.code %}" method="POST">
+          {% csrf_token %}
+          <li>
+            <a href="javascript:;" class="dropdown-form-button tooltipped blue-text text-darken-4" data-position="top" data-delay="50" data-tooltip="{% trans 'Click to Confirm the subscription of this attendee.' %}">
+              {% trans 'Confirm' %}
+              <i class="material-icons right">done</i>
+            </a>
+          </li>
+        </form>
       </ul>
     </div>
   {% endblock %}

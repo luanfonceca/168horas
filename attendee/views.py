@@ -289,3 +289,30 @@ class AttendeePaymentNotification(BaseAttendeeView, FormView):
 
     def form_invalid(self, form):
         return self.return_fail(form.errors.as_text())
+
+
+class AttendeeConfirmPayment(BaseAttendeeView, views.UpdateView):
+    lookup_field = 'code'
+
+    def post(self, request, *args, **kwargs):
+        self.activity = self.get_activity()
+        self.object = self.get_object()
+
+        try:
+            self.object.update_payment({
+                'status_pagamento': Attendee.CONCLUIDO,
+                'tipo_pagamento': Attendee.CONFIRMADO_PELO_ORGANIZADOR,
+                'moip_code': None
+            })
+        except ValidationError, e:
+            messages.add_message(
+                request=self.request, level=messages.ERROR, message=e.message
+            )
+        else:
+            messages.add_message(
+                request=self.request, level=messages.SUCCESS,
+                message=_(
+                    'Successfully confirmed the attendee "{0}"!'
+                ).format(self.object)
+            )
+        return redirect(self.activity.get_attendee_list_url())

@@ -20,7 +20,7 @@ $(document).ready(function() {
     }
   });
 
-  $(".check-attendee").click(function(){
+  $(".dropdown-form-button").click(function(){
     submitParentForm(this);
   });
 

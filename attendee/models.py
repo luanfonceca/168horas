@@ -48,8 +48,10 @@ class Attendee(models.Model):
     #                    Nao existe garantia de que sera concluido
     # estornado       7  Pagamento foi estornado pelo pagador, recebedor,
     #                    instituicao de pagamento ou MoIP
-    (PENDENTE_DE_PAGAMENTO, AUTORIZADO, INICIADO, BOLETO_IMPRESSO,
-     CONCLUIDO, EM_ANALISE, ESTORNADO) = range(0, 7)
+    (PENDENTE_DE_PAGAMENTO, AUTORIZADO,
+     INICIADO, BOLETO_IMPRESSO,
+     CONCLUIDO, EM_ANALISE, ESTORNADO,
+     CONFIRMADO_PELO_ORGANIZADOR) = range(0, 8)
     MOIP_STATUS_CHOICES = (
         (PENDENTE_DE_PAGAMENTO, _('Pendente de pagamento')),
         (AUTORIZADO, _('Autorizado')),
@@ -58,6 +60,7 @@ class Attendee(models.Model):
         (CONCLUIDO, _('Concluido')),
         (EM_ANALISE, _('Em analise')),
         (ESTORNADO, _('Estornado')),
+        (CONFIRMADO_PELO_ORGANIZADOR, _('Confirmado pelo Organizador')),
     )
 
     DEBITO_BANCARIO = 'DebitoBancario'
@@ -246,16 +249,21 @@ class Attendee(models.Model):
                 )
             )
 
-        self.moip_status = data.get('status_pagamento')
-        if not self.moip_payment_type:
-            self.moip_payment_type = data.get('tipo_pagamento')
-        if not self.moip_code:
-            self.moip_code = data.get('cod_moip')
+        self.moip_status = data.get(
+            'status_pagamento', self.moip_status)
+        self.moip_payment_type = data.get(
+            'tipo_pagamento', self.moip_payment_type)
+        self.moip_code = data.get(
+            'cod_moip', self.moip_code)
+
+        confirmation_status = [
+            self.CONCLUIDO, self.AUTORIZADO,
+            self.CONFIRMADO_PELO_ORGANIZADOR
+        ]
+        if self.moip_status in confirmation_status:
+            self.status = Attendee.CONFIRMED
 
         self.save()
-
-        if self.moip_status in [self.CONCLUIDO, self.AUTORIZADO]:
-            self.send_payment_confirmation()
 
 
 def send_attendee_joined_email(sender, instance, created, **kwargs):
@@ -269,4 +277,10 @@ def send_attendee_joined_email(sender, instance, created, **kwargs):
         instance.send_welcome_email()
 
 
+def send_payment_confirmation_email(sender, instance, created, **kwargs):
+    if instance.status == Attendee.CONFIRMED:
+        instance.send_payment_confirmation()
+
+
 post_save.connect(send_attendee_joined_email, sender=Attendee)
+post_save.connect(send_payment_confirmation_email, sender=Attendee)
