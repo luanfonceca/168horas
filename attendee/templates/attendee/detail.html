@@ -26,7 +26,7 @@
         <form action="{% if object.attended_at %}{% url 'attendee:uncheck' activity_slug=activity.slug code=object.code %}{% else %}{% url 'attendee:check' activity_slug=activity.slug code=object.code %}{% endif %}" method="POST">
           {% csrf_token %}
           <li>
-            <a href="javascript:;" class="check-attendee tooltipped blue-text text-darken-4" data-position="top" data-delay="50" data-tooltip="{% if object.attended_at %}{% trans 'Click to Uncheck this attendee.' %}{% else %}{% trans 'Click to Check in this attendee.' %}{% endif %}">
+            <a href="javascript:;" class="dropdown-form-button tooltipped blue-text text-darken-4" data-position="top" data-delay="50" data-tooltip="{% if object.attended_at %}{% trans 'Click to Uncheck this attendee.' %}{% else %}{% trans 'Click to Check in this attendee.' %}{% endif %}">
               {% if object.attended_at %}{% trans 'Uncheck.' %}{% else %}{% trans 'Check in.' %}{% endif %}
               <i class="material-icons right">
                 {% if object.attended_at %}check_box_outline_blank{% else %}check_box{% endif %}
