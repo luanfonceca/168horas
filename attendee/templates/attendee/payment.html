@@ -10,7 +10,7 @@
   <form action="https://www.moip.com.br/PagamentoMoIP.do" method="POST">
     <input type="hidden" name="id_carteira" value="luanfonceca@gmail.com">
     <input type="hidden" name="url_retorno" value="{{ activity.get_full_absolute_url }}">
-    <input type="hidden" name="id_transacao" value="{{ object.code }}">
+    <input type="hidden" name="id_transacao" value="{{ object.get_id_transacao }}">
     <input type="hidden" name="descricao" value="Pagamento da atividade: {{ activity.title }} para o 168 horas.">
     <input type="hidden" name="valor" value="{{ activity.get_price_as_cents }}">
     <input type="hidden" name="nome" value="{{ activity.title }}">

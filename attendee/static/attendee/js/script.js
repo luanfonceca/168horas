@@ -13,10 +13,17 @@ $(document).ready(function() {
     submitParentForm(this);
   });
 
-  $(".card, .card .card-action .check-attendee").click(function(){
+  $(".card").click(function(){
+    var href = $(this).attr('data-href');
+    if (href) {
+      window.location.replace(href);
+    }
+  });
+
+  $(".check-attendee").click(function(){
     submitParentForm(this);
   });
-   
+
   $(".card .card-action a").click(function(e) {
     e.stopPropagation();
   });

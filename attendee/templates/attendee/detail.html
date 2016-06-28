@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load static %}
+
+{% if request.user and request.user.is_staff or request.user.profile == activity.created_by %}
+  {% block header_actions %}
+    <div class="right actions" style="line-height: 122px;">
+      <a class='dropdown-button btn-large waves-effect waves-light white blue-text text-darken-4' href='javascript:;' data-activates='activity-actions-{{ object.code }}' style="width: 200px;">
+        {% trans 'Actions' %}
+        <i class="material-icons right" style="line-height: 55px;">arrow_drop_down</i>
+      </a>
+      <ul id='activity-actions-{{ object.code }}' class='dropdown-content'>
+        <li>
+          <a href="{{ object.get_send_email_url }}" class="tooltipped blue-text text-darken-4" data-position="top" data-delay="50" data-tooltip="{% trans 'Click to send an email to this Attendee.' %}" target="_blank">
+            {% trans 'Send email' %}
+            <i class="material-icons right">email</i>
+          </a>
+        </li>
+        <li>
+          <a class="blue-text text-darken-4" href="{% url 'attendee:certificate' activity_slug=activity.slug code=object.code %}" target="_blank">
+            {% trans 'Open certificate' %}
+            <i class="material-icons right">file_download</i>
+          </a>
+        </li>
+        <form action="{% if object.attended_at %}{% url 'attendee:uncheck' activity_slug=activity.slug code=object.code %}{% else %}{% url 'attendee:check' activity_slug=activity.slug code=object.code %}{% endif %}" method="POST">
+          {% csrf_token %}
+          <li>
+            <a href="javascript:;" class="check-attendee tooltipped blue-text text-darken-4" data-position="top" data-delay="50" data-tooltip="{% if object.attended_at %}{% trans 'Click to Uncheck this attendee.' %}{% else %}{% trans 'Click to Check in this attendee.' %}{% endif %}">
+              {% if object.attended_at %}{% trans 'Uncheck.' %}{% else %}{% trans 'Check in.' %}{% endif %}
+              <i class="material-icons right">
+                {% if object.attended_at %}check_box_outline_blank{% else %}check_box{% endif %}
+              </i>
+            </a>
+          </li>
+        </form>
+      </ul>
+    </div>
+  {% endblock %}
+{% endif %}
+
+
+{% block content %}
+  <div class="row">
+    <div class="col s12 m6">
+      <div class="col s12 l8">
+        <div class="card">
+          <div class="card-image">
+            <img src="{{ object.get_photo_url }}"/>
+            <span class="card-title truncate">{{ object }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col s12 m4">
+      <h5>{% trans 'Quick links' %}</h5>
+      <p>
+        <i class="material-icons left">file_download</i>
+        {% trans 'Certificate url' %}:
+        <blockquote>{{ object.get_full_certificate_url }}</blockquote>
+      </p>
+      {% if object.activity.price %}
+        <p>
+          <i class="material-icons left">credit_card</i>
+          {% trans 'Payment url' %}:
+          <blockquote>{{ object.get_full_payment_url }}</blockquote>
+        </p>
+      {% endif %}
+    </div>
+    <div class="col s12">
+      <div class="col s12 m6">
+        <h5>{% trans 'Attendee data' %}</h5>
+        <p>
+          <i class="material-icons left">assignment_turned_in</i>
+          {% trans 'Status' %}: {{ object.get_status_display }}
+        </p>
+        <p>
+          <i class="material-icons left">file_download</i>
+          {% trans 'Name' %}: {{ object.name }}
+        </p>
+        <p>
+          <i class="material-icons left">fingerprint</i>
+          {% trans 'Cpf' %}: {{ object.cpf }}
+        </p>
+        <p>
+          <i class="material-icons left">email</i>
+          {% trans 'Email' %}: {{ object.email }}
+        </p>
+        <p>
+          <i class="material-icons left">contact_phone</i>
+          {% trans 'Phone' %}: {{ object.phone }}
+        </p>
+        <p>
+          <i class="material-icons left">school</i>
+          {% trans 'Educational Institution' %}: {{ object.educational_institution }}
+        </p>
+        <p>
+          <i class="material-icons left">code</i>
+          {% trans 'Code' %}: {{ object.code }}
+        </p>
+        <p>
+          <i class="material-icons left">alarm_on</i>
+          {% trans 'Joined at' %}: {{ object.created_at }}
+        </p>
+      </div>
+      {% if object.activity.price %}
+        <div class="col s12 m6">
+          <h5>{% trans 'Payment information' %}</h5>
+          <p>
+            <i class="material-icons left">credit_card</i>
+            {% trans 'Payment status' %}: {{ object.get_moip_status_display|default:_('None') }}
+          </p>
+          <p>
+            <i class="material-icons left">file_download</i>
+            {% trans 'Payment type' %}: {{ object.get_moip_type_display|default:_('None') }}
+          </p>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}
+
+{% block extra_js %}
+  <script type="text/javascript" src="{% static 'attendee/js/script.js' %}"></script>
+{% endblock %}

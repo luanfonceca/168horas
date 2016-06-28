@@ -12,7 +12,7 @@ from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.core.mail import send_mail
 from django.conf import settings
 from django.utils.timezone import datetime
-
+from django.utils.dateformat import format as dateformat
 
 from django_extensions.db.fields import CreationDateTimeField
 
@@ -125,10 +125,15 @@ class Attendee(models.Model):
             return social.get_avatar_url()
         return static('attendee/img/default-profile.png')
 
+    @property
+    def get_id_transacao(self):
+        return '{0}-{1}'.format(self.code, dateformat(datetime.now(), 'U'))
+
     def get_absolute_url(self):
-        return reverse(
-            'attendee:list', kwargs={'activity_slug': self.activity.slug}
-        ) + '#{.profile.user.username}'.format(self)
+        return reverse('attendee:detail', kwargs={
+            'activity_slug': self.activity.slug,
+            'code': self.code
+        })
 
     def get_send_email_url(self):
         return 'mailto:{.email}'.format(self)
@@ -145,6 +150,9 @@ class Attendee(models.Model):
         else:
             return url
 
+    def get_full_certificate_url(self):
+        return self.get_certificate_url(full_url=True)
+
     def get_payment_url(self, full_url=True):
         url = reverse('attendee:payment', kwargs={
             'activity_slug': self.activity.slug,
@@ -156,6 +164,9 @@ class Attendee(models.Model):
             )
         else:
             return url
+
+    def get_full_payment_url(self):
+        return self.get_payment_url(full_url=True)
 
     def send_welcome_email(self):
         context = {

@@ -109,6 +109,13 @@ class Activity(TitleSlugDescriptionModel):
     def get_attendee_join_url(self):
         return reverse('attendee:join', kwargs={'activity_slug': self.slug})
 
+    def get_attendee_payment_url(self, profile):
+        attendee = self.attendee_set.get(profile=profile)
+        return reverse('attendee:payment', kwargs={
+            'activity_slug': self.slug,
+            'code': attendee.code
+        })
+
     def get_attendee_list_url(self):
         return reverse('attendee:list', kwargs={'activity_slug': self.slug})
 

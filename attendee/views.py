@@ -159,6 +159,14 @@ class AttendeeJoin(BaseAttendeeView, LoginRequiredMixin, views.CreateView):
         return super(AttendeeJoin, self).get_success_url()
 
 
+class AttendeeDetail(BaseAttendeeView, views.DetailView):
+    lookup_field = 'code'
+    template_name = 'attendee/detail.html'
+
+    def get_page_title(self):
+        return _(u'{attendee}'.format(attendee=self.get_object()))
+
+
 class AttendeeCheck(BaseAttendeeView, views.UpdateView):
     lookup_field = 'code'
 
@@ -228,7 +236,11 @@ class AttendeePayment(BaseAttendeeView,
                       views.DetailView):
     lookup_field = 'code'
     template_name = 'attendee/payment.html'
-    page_title = _('Payment')
+    full_page_title = True
+
+    def get_page_title(self):
+        activity = self.get_activity()
+        return _(u'Payment for {activity}').format(activity=activity)
 
 
 class AttendeePaymentNotification(BaseAttendeeView, FormView):
@@ -241,6 +253,10 @@ class AttendeePaymentNotification(BaseAttendeeView, FormView):
 
     def get_object(self):
         id_transacao = self.request.POST.get('id_transacao')
+
+        if '-' in id_transacao:
+            id_transacao = id_transacao.split('-')[0]
+
         return self.model.objects.get(code=id_transacao)
 
     def get_form(self, data, files, **kwargs):

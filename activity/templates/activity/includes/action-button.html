@@ -26,6 +26,11 @@
           {% trans 'Closed' %}
           <i class="material-icons right">timer_off</i>
         </a>
+      {% elif request.user.is_authenticated and object|payment_is_pending:request.user.profile %}
+        <a class='blue-text text-darken-4' href="{{ object|get_attendee_payment_url:request.user.profile }}">
+          {% trans 'Confirm payment:' %} R$ {{ object.price|intcomma }}
+          <i class="material-icons right">arrow_forward</i>
+        </a>
       {% else %}
         <a class='blue-text text-darken-4' {% if object.link %}href="{{ object.link }}" target="_blank"{% else %}href="{{ object.get_attendee_join_url }}"{% endif %}>
           {% if object.price %}
