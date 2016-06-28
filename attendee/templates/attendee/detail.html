@@ -112,7 +112,7 @@
           </p>
           <p>
             <i class="material-icons left">file_download</i>
-            {% trans 'Payment type' %}: {{ object.get_moip_type_display|default:_('None') }}
+            {% trans 'Payment type' %}: {{ object.get_moip_payment_type_display|default:_('None') }}
           </p>
         </div>
       {% endif %}
