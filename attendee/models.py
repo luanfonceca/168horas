@@ -94,7 +94,7 @@ class Attendee(models.Model):
         _('Status'), choices=STATUS_CHOICES, default=PENDING)
     moip_status = models.SmallIntegerField(
         _('Status'), choices=MOIP_STATUS_CHOICES,
-        null=True, blank=True)
+        null=True, blank=True, default=PENDENTE_DE_PAGAMENTO)
     moip_payment_type = models.CharField(
         _('Status'), max_length=32, choices=MOIP_PAYMENT_TYPE_CHOICES,
         null=True, blank=True)
