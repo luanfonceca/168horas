@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-28 19:28-0300\n"
+"POT-Creation-Date: 2016-07-01 09:39-0300\n"
 "PO-Revision-Date: 2016-06-28 19:29-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -164,9 +164,9 @@ msgstr ""
 #: category/templates/category/delete.html:13
 #: category/templates/category/form.html:17
 #: core/templates/account/password_change.html:26
-#: core/templates/account/password_reset.html:23
-#: core/templates/profile.html:93 event/templates/event/delete.html:14
-#: event/templates/event/form.html:81 ticket/templates/ticket/form.html:24
+#: core/templates/account/password_reset.html:23 core/templates/profile.html:93
+#: event/templates/event/delete.html:14 event/templates/event/form.html:81
+#: ticket/templates/ticket/form.html:24
 msgid "back"
 msgstr "voltar"
 
@@ -453,25 +453,31 @@ msgstr "Confirmado"
 msgid "Canceled"
 msgstr "Cancelado"
 
-#: attendee/models.py:56
+#: attendee/models.py:55
 msgid "Pendente de pagamento"
 msgstr ""
 
-#: attendee/models.py:57
+#: attendee/models.py:56
 msgid "Autorizado"
 msgstr ""
 
-#: attendee/models.py:58
+#: attendee/models.py:57
 msgid "Iniciado"
 msgstr ""
 
-#: attendee/models.py:59
+#: attendee/models.py:58
 msgid "Boleto impresso"
 msgstr ""
 
-#: attendee/models.py:60
+#: attendee/models.py:59
 msgid "Concluido"
 msgstr ""
+
+#: attendee/models.py:60
+#, fuzzy
+#| msgid "Canceled"
+msgid "Cancelado"
+msgstr "Cancelado"
 
 #: attendee/models.py:61
 msgid "Em analise"
@@ -1093,7 +1099,7 @@ msgstr "Certificado"
 msgid "Payment for {activity}"
 msgstr "Pagamento para o {activity}"
 
-#: attendee/views.py:313
+#: attendee/views.py:315
 #, python-brace-format
 msgid "Successfully confirmed the attendee \"{0}\"!"
 msgstr "Confirmado com sucesso o participante \"{0}\"!"
@@ -1159,8 +1165,7 @@ msgstr "Email do Organizador"
 msgid "Organizer Phone"
 msgstr "Telefone do Organizador"
 
-#: core/models.py:34 core/templates/base.html:65
-#: core/templates/base.html.py:91
+#: core/models.py:34 core/templates/base.html:65 core/templates/base.html.py:91
 msgid "Profile"
 msgstr "Perfil"
 
