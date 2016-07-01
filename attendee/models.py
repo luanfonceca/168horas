@@ -48,16 +48,16 @@ class Attendee(models.Model):
     #                    Nao existe garantia de que sera concluido
     # estornado       7  Pagamento foi estornado pelo pagador, recebedor,
     #                    instituicao de pagamento ou MoIP
-    (PENDENTE_DE_PAGAMENTO, AUTORIZADO,
-     INICIADO, BOLETO_IMPRESSO,
-     CONCLUIDO, EM_ANALISE, ESTORNADO,
-     CONFIRMADO_PELO_ORGANIZADOR) = range(0, 8)
+    (PENDENTE_DE_PAGAMENTO, AUTORIZADO, INICIADO,
+     BOLETO_IMPRESSO, CONCLUIDO, CANCELADO, EM_ANALISE,
+     ESTORNADO, CONFIRMADO_PELO_ORGANIZADOR) = range(0, 9)
     MOIP_STATUS_CHOICES = (
         (PENDENTE_DE_PAGAMENTO, _('Pendente de pagamento')),
         (AUTORIZADO, _('Autorizado')),
         (INICIADO, _('Iniciado')),
         (BOLETO_IMPRESSO, _('Boleto impresso')),
         (CONCLUIDO, _('Concluido')),
+        (CANCELADO, _('Cancelado')),
         (EM_ANALISE, _('Em analise')),
         (ESTORNADO, _('Estornado')),
         (CONFIRMADO_PELO_ORGANIZADOR, _('Confirmado pelo Organizador')),
