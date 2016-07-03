@@ -44,6 +44,7 @@ class CategoryAttendeeExport(BaseCategoryView, views.DetailView):
         self.object = self.get_object()
         filename = "%s_attendees" % self.object.slug.replace('-', '_')
         field_header_map = {
+            'title': _('Activity'),
             'attendee__id': _('Id'),
             'attendee__name': _('Name'),
             'attendee__cpf': _('CPF'),
@@ -55,7 +56,7 @@ class CategoryAttendeeExport(BaseCategoryView, views.DetailView):
 
         attendees = self.object.activities.values(
             *field_header_map.keys()
-        )
+        ).distinct()
 
         return render_to_csv_response(
             attendees,

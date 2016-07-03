@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-03 12:57-0300\n"
+"POT-Creation-Date: 2016-07-03 13:01-0300\n"
 "PO-Revision-Date: 2016-06-28 19:29-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -126,7 +126,7 @@ msgid "Attendees"
 msgstr "Participantes"
 
 #: activity/models.py:94 activity/templates/activity/list.html:8
-#: activity/templates/activity/list_by_category.html:8
+#: activity/templates/activity/list_by_category.html:8 category/views.py:47
 #: ticket/templates/ticket/list.html:14
 msgid "Activity"
 msgstr "Atividade"
@@ -395,36 +395,36 @@ msgstr ""
 msgid "Add activity"
 msgstr "Adicionar atividade"
 
-#: activity/views.py:99 category/views.py:47
+#: activity/views.py:99 category/views.py:48
 msgid "Id"
 msgstr "Id"
 
 #: activity/views.py:100 attendee/models.py:83
-#: attendee/templates/attendee/detail.html:88 category/views.py:48
+#: attendee/templates/attendee/detail.html:88 category/views.py:49
 #: ticket/models.py:19
 msgid "Name"
 msgstr "Nome"
 
-#: activity/views.py:101 category/views.py:49 core/models.py:14
+#: activity/views.py:101 category/views.py:50 core/models.py:14
 msgid "CPF"
 msgstr "CPF"
 
 #: activity/views.py:102 attendee/models.py:85
-#: attendee/templates/attendee/detail.html:96 category/views.py:50
+#: attendee/templates/attendee/detail.html:96 category/views.py:51
 msgid "Email"
 msgstr "Email"
 
 #: activity/views.py:103 attendee/models.py:86
-#: attendee/templates/attendee/detail.html:100 category/views.py:51
+#: attendee/templates/attendee/detail.html:100 category/views.py:52
 msgid "Phone"
 msgstr "Telefone"
 
 #: activity/views.py:104 attendee/models.py:89
-#: attendee/templates/attendee/detail.html:108 category/views.py:52
+#: attendee/templates/attendee/detail.html:108 category/views.py:53
 msgid "Code"
 msgstr "Código"
 
-#: activity/views.py:105 category/views.py:53
+#: activity/views.py:105 category/views.py:54
 msgid "Attended at"
 msgstr "Credenciado em"
 
