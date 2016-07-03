@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-03 12:51-0300\n"
+"POT-Creation-Date: 2016-07-03 12:57-0300\n"
 "PO-Revision-Date: 2016-06-28 19:29-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -279,9 +279,9 @@ msgid "Update"
 msgstr "Atualizar"
 
 #: activity/templates/activity/includes/card.html:42
-#, fuzzy
-#| msgid "Export attendees"
-msgid "Export attendee"
+#: attendee/templates/attendee/list.html:31
+#: category/templates/category/detail.html:27
+msgid "Export attendees"
 msgstr "Exportar participantes"
 
 #: activity/templates/activity/list.html:18
@@ -291,14 +291,14 @@ msgstr "Próximas atividades"
 
 #: activity/templates/activity/list.html:42
 #: activity/templates/activity/list_by_category.html:42
-#: category/templates/category/detail.html:41
+#: category/templates/category/detail.html:47
 #: category/templates/category/list.html:28
 msgid "Unfortunately, we have no activities in the area. Spread education."
 msgstr "Infelizmente, não temos nenhuma atividade na área. Espalhe a educação."
 
 #: activity/templates/activity/list.html:44
 #: activity/templates/activity/list_by_category.html:44
-#: category/templates/category/detail.html:43
+#: category/templates/category/detail.html:49
 #: category/templates/category/list.html:30
 msgid "Tell us an activity!"
 msgstr "Indique-nos uma atividade!"
@@ -701,10 +701,6 @@ msgstr "Enviar certificados"
 #: attendee/templates/attendee/list.html:25
 msgid "Check all"
 msgstr "Credenciar todos"
-
-#: attendee/templates/attendee/list.html:31
-msgid "Export attendees"
-msgstr "Exportar participantes"
 
 #: attendee/templates/attendee/list.html:44
 #, python-format
@@ -1440,6 +1436,11 @@ msgstr ""
 #| msgid "Add activity"
 msgid "Add ticket"
 msgstr "Adicionar atividade"
+
+#, fuzzy
+#~| msgid "Export attendees"
+#~ msgid "Export attendee"
+#~ msgstr "Exportar participantes"
 
 #~ msgid "Share"
 #~ msgstr "Compartilhar"
