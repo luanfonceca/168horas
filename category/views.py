@@ -54,9 +54,11 @@ class CategoryAttendeeExport(BaseCategoryView, views.DetailView):
             'attendee__attended_at': _('Attended at'),
         }
 
-        attendees = self.object.activities.values(
+        attendees = self.object.activities.distinct().exclude(
+            attendee__isnull=True
+        ).values(
             *field_header_map.keys()
-        ).distinct()
+        )
 
         return render_to_csv_response(
             attendees,
