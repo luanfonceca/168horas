@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-01 09:39-0300\n"
+"POT-Creation-Date: 2016-07-03 12:51-0300\n"
 "PO-Revision-Date: 2016-06-28 19:29-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -278,6 +278,12 @@ msgstr "Participar"
 msgid "Update"
 msgstr "Atualizar"
 
+#: activity/templates/activity/includes/card.html:42
+#, fuzzy
+#| msgid "Export attendees"
+msgid "Export attendee"
+msgstr "Exportar participantes"
+
 #: activity/templates/activity/list.html:18
 #: activity/templates/activity/list_by_category.html:18
 msgid "Next activities"
@@ -389,35 +395,36 @@ msgstr ""
 msgid "Add activity"
 msgstr "Adicionar atividade"
 
-#: activity/views.py:99
+#: activity/views.py:99 category/views.py:47
 msgid "Id"
 msgstr "Id"
 
 #: activity/views.py:100 attendee/models.py:83
-#: attendee/templates/attendee/detail.html:88 ticket/models.py:19
+#: attendee/templates/attendee/detail.html:88 category/views.py:48
+#: ticket/models.py:19
 msgid "Name"
 msgstr "Nome"
 
-#: activity/views.py:101 core/models.py:14
+#: activity/views.py:101 category/views.py:49 core/models.py:14
 msgid "CPF"
 msgstr "CPF"
 
 #: activity/views.py:102 attendee/models.py:85
-#: attendee/templates/attendee/detail.html:96
+#: attendee/templates/attendee/detail.html:96 category/views.py:50
 msgid "Email"
 msgstr "Email"
 
 #: activity/views.py:103 attendee/models.py:86
-#: attendee/templates/attendee/detail.html:100
+#: attendee/templates/attendee/detail.html:100 category/views.py:51
 msgid "Phone"
 msgstr "Telefone"
 
 #: activity/views.py:104 attendee/models.py:89
-#: attendee/templates/attendee/detail.html:108
+#: attendee/templates/attendee/detail.html:108 category/views.py:52
 msgid "Code"
 msgstr "Código"
 
-#: activity/views.py:105
+#: activity/views.py:105 category/views.py:53
 msgid "Attended at"
 msgstr "Credenciado em"
 
@@ -1129,7 +1136,7 @@ msgstr "remover"
 msgid "Add category"
 msgstr "Adicionar Categoria"
 
-#: category/views.py:19 event/models.py:50
+#: category/views.py:20 event/models.py:50
 msgid "Categorias"
 msgstr "Categorias"
 

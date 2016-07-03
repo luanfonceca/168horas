@@ -2,6 +2,7 @@ from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
 
 from vanilla import model_views as views
+from djqscsv import render_to_csv_response
 
 from core.mixins import PageTitleMixin
 from category.models import Category
@@ -36,3 +37,29 @@ class CategoryDelete(BaseCategoryView, views.DeleteView):
 
     def get_success_url(self):
         return reverse('category:list')
+
+
+class CategoryAttendeeExport(BaseCategoryView, views.DetailView):
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        filename = "%s_attendees" % self.object.slug.replace('-', '_')
+        field_header_map = {
+            'attendee__id': _('Id'),
+            'attendee__name': _('Name'),
+            'attendee__cpf': _('CPF'),
+            'attendee__email': _('Email'),
+            'attendee__phone': _('Phone'),
+            'attendee__code': _('Code'),
+            'attendee__attended_at': _('Attended at'),
+        }
+
+        attendees = self.object.activities.values(
+            *field_header_map.keys()
+        )
+
+        return render_to_csv_response(
+            attendees,
+            append_datestamp=True,
+            filename=filename,
+            field_header_map=field_header_map
+        )
