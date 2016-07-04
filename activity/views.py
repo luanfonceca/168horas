@@ -97,9 +97,10 @@ class ActivityAttendeeExport(BaseActivityView, views.DetailView):
         filename = "%s_attendees" % self.object.slug.replace('-', '_')
         field_header_map = {
             'id': _('Id'),
+            'first_name': _('First Name'),
             'name': _('Name'),
             'cpf': _('CPF'),
-            'email': _('Email'),
+            'email': _('Email Address'),
             'phone': _('Phone'),
             'code': _('Code'),
             'attended_at': _('Attended at'),
@@ -112,7 +113,9 @@ class ActivityAttendeeExport(BaseActivityView, views.DetailView):
                 'moip_payment_type': _('Payment type'),
             })
 
-        attendees = self.object.attendee_set.values(
+        attendees = self.object.attendee_set.extra(
+            select={'first_name': "split_part(name, ' ', 1)"}
+        ).values(
             *field_header_map.keys()
         )
 

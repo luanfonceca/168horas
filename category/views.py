@@ -7,6 +7,7 @@ from djqscsv import render_to_csv_response
 from core.mixins import PageTitleMixin
 from category.models import Category
 from category.forms import CategoryForm
+from attendee.models import Attendee
 
 
 class BaseCategoryView(PageTitleMixin):
@@ -45,21 +46,23 @@ class CategoryAttendeeExport(BaseCategoryView, views.DetailView):
         filename = "%s_attendees" % self.object.slug.replace('-', '_')
         field_header_map = {
             'title': _('Activity'),
-            'attendee__id': _('Id'),
-            'attendee__name': _('Name'),
-            'attendee__cpf': _('CPF'),
-            'attendee__email': _('Email'),
-            'attendee__phone': _('Phone'),
-            'attendee__code': _('Code'),
-            'attendee__attended_at': _('Attended at'),
+            'id': _('Id'),
+            'first_name': _('First Name'),
+            'name': _('Name'),
+            'cpf': _('CPF'),
+            'email': _('Email Address'),
+            'phone': _('Phone'),
+            'code': _('Code'),
+            'attended_at': _('Attended at'),
         }
 
-        attendees = self.object.activities.distinct().exclude(
-            attendee__isnull=True
+        attendees = Attendee.objects.filter(
+            activity__in=self.object.activities.all()
+        ).extra(
+            select={'first_name': "split_part(name, ' ', 1)"}
         ).values(
             *field_header_map.keys()
         )
-
         return render_to_csv_response(
             attendees,
             append_datestamp=True,
