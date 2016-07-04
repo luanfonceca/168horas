@@ -62,7 +62,8 @@ class CategoryAttendeeExport(BaseCategoryView, views.DetailView):
             select={'first_name': "split_part(name, ' ', 1)"}
         ).values(
             *field_header_map.keys()
-        )
+        ).distinct('profile')
+
         return render_to_csv_response(
             attendees,
             append_datestamp=True,
