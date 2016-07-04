@@ -45,7 +45,7 @@ class CategoryAttendeeExport(BaseCategoryView, views.DetailView):
         self.object = self.get_object()
         filename = "%s_attendees" % self.object.slug.replace('-', '_')
         field_header_map = {
-            'title': _('Activity'),
+            'activity__title': _('Activity'),
             'id': _('Id'),
             'first_name': _('First Name'),
             'name': _('Name'),
