@@ -8,10 +8,7 @@
   </div>
 
   <div class="card-action center">
-    {% if object.moip_status != none %}
-      Status: ({{ object.get_moip_status_display }})
-      <br>
-    {% endif %}
+    Status: ({{ object.get_status_display }})
     <a class='dropdown-button btn-large waves-effect waves-light white blue-text text-darken-4' href='javascript:;' data-activates='activity-actions-{{ object.code }}' style="width: 100%;">
       {% trans 'Actions' %}
       <i class="material-icons right" style="line-height: 55px;">arrow_drop_down</i>
