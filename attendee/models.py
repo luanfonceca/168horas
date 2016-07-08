@@ -182,7 +182,7 @@ class Attendee(models.Model):
         html_message = render_to_string(
             'mailing/welcome_attendee.html', context)
         subject = _(u'Welcome to the "{}"!').format(self.activity.title)
-        recipients = [settings.EMAIL_HOST_USER, self.email]
+        recipients = [settings.EMAIL_168HORAS, self.email]
 
         send_mail(
             subject=subject, message=message, html_message=html_message,
@@ -201,7 +201,7 @@ class Attendee(models.Model):
             'mailing/pre_sale_welcome.html', context)
         subject = _(u'Welcome to the pre-sale of "{}"!').format(
             self.activity.title)
-        recipients = [settings.EMAIL_HOST_USER, self.email]
+        recipients = [settings.EMAIL_168HORAS, self.email]
 
         send_mail(
             subject=subject, message=message, html_message=html_message,
@@ -232,7 +232,7 @@ class Attendee(models.Model):
             'mailing/payment_confirmation.html', context)
         subject = _(u'Payment confirmation of the "{}"!').format(
             self.activity.title)
-        recipients = [settings.EMAIL_HOST_USER, self.email]
+        recipients = [settings.EMAIL_168HORAS, self.email]
 
         send_mail(
             subject=subject, message=message, html_message=html_message,

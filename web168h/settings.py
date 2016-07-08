@@ -243,9 +243,9 @@ ANYMAIL = {
 }
 EMAIL_BACKEND = 'anymail.backends.mailgun.MailgunBackend'
 
-
 # Email configs
 NO_REPLY_EMAIL = 'noreply@168h.com.br'
+EMAIL_168HORAS = '168h.com.br@gmail.com'
 
 
 # Import the custom settings
