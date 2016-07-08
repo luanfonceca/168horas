@@ -126,6 +126,9 @@ class AttendeeJoin(BaseAttendeeView, LoginRequiredMixin, views.CreateView):
         self.object.profile = self.request.user.profile
         self.object.activity = self.activity
 
+        if not self.activity.price:
+            self.object.status = Attendee.CONFIRMED
+
         try:
             self.object.save()
         except IntegrityError:
