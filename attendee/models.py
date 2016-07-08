@@ -278,7 +278,7 @@ def send_attendee_joined_email(sender, instance, created, **kwargs):
 
 
 def send_payment_confirmation_email(sender, instance, created, **kwargs):
-    if instance.status == Attendee.CONFIRMED:
+    if instance.activity.price and instance.status == Attendee.CONFIRMED:
         instance.send_payment_confirmation()
 
 
