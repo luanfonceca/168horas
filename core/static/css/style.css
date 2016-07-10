@@ -208,9 +208,9 @@ a.button-collapse.top-nav.full {
 }
 
 .card .card-price {
-  background-color: #fff;
-  opacity: 0.6;
-  color: #000;
+  background-color: #FFFFFF;
+  opacity: 0.9;
+  color: #000000;
   position: absolute;
   bottom: 0px;
   right: 15px;
