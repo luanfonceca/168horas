@@ -7,6 +7,7 @@
     <a href="{{ object.get_absolute_url }}" class="hoverable">
       <div class="card-image">
         <img src="{{ object.get_photo_url }}"/>
+        <p class="card-price">{{ object.formatted_price }}</p>
       </div>
       <h5 class="card-content truncate">{{ object }}</h5>
     </a>

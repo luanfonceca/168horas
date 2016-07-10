@@ -209,6 +209,9 @@ class Activity(TitleSlugDescriptionModel):
     def formatted_price(self):
         price = self.price
 
+        if not price:
+            return _('Free')
+
         if self.price % 1 == 0:
             price = self.price // 1
 
