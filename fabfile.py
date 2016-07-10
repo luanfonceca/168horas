@@ -171,7 +171,7 @@ def ve_run(cmd):
 
 def backup_db():
     now = datetime.now()
-    manage('dumpdata > /tmp/168horas-%s-backup.dump' % (
+    ve_run('python manage.py dumpdata > /tmp/168horas-%s-backup.dump' % (
         now.strftime("%Y-%m-%d_%H:%M:%S")))
 
 
