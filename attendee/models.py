@@ -123,7 +123,7 @@ class Attendee(models.Model):
     )
     age_rage = models.SmallIntegerField(
         _('Sua idade é'), choices=AGE_RANGE_CHOICES,
-        null=True, blank=False)
+        null=True, blank=False, default=LESS_THAN_15)
     (PARTNER, ACHIEVER, EX_ACHIEVER, OUTSIDER, VOLUNTEER) = range(0, 5)
     PARTNER_PROFILE_CHOICES = (
         (PARTNER, _('Sócio do Nexa RN')),
@@ -134,7 +134,7 @@ class Attendee(models.Model):
     )
     partner_profile = models.SmallIntegerField(
         _('Você é...'), choices=PARTNER_PROFILE_CHOICES,
-        null=True, blank=False,
+        null=True, blank=False, default=PARTNER,
         help_text=(
             'Sócio, caso tenha realizado o cadastro; '
             'Achiever, caso esteja participando do programa Miniempresa; '
@@ -155,7 +155,7 @@ class Attendee(models.Model):
     already_joinned_our_program = models.SmallIntegerField(
         _('Já participou ou participa do programa Miniempresa?'),
         choices=ALREADY_JOINNED_OUR_PROGRAM_CHOICES,
-        null=True, blank=False)
+        null=True, blank=False, default=YES)
     which_company = models.CharField(
         _('Qual Miniempresa? Em qual ano?'),
         max_length=200, null=True, blank=True,
@@ -169,7 +169,7 @@ class Attendee(models.Model):
     already_know_us = models.SmallIntegerField(
         _('Já conhecia o Nexa ou a Junior Achievement?'),
         choices=ALREADY_KNOW_US_CHOICES,
-        null=True, blank=False)
+        null=True, blank=False, default=YES)
     (WHATSAPP, FACEBOOK, TWITTER, BY_MOUHT) = range(0, 4)
     WHERE_KNOW_US_CHOICES = (
         (WHATSAPP, _('WhatsApp')),
@@ -182,7 +182,7 @@ class Attendee(models.Model):
     where_know_us = models.SmallIntegerField(
         _('Como ficou sabendo do SNE 2015?'),
         choices=WHERE_KNOW_US_CHOICES,
-        null=True, blank=False)
+        null=True, blank=False, default=WHATSAPP)
     (WHATSAPP, FACEBOOK, TWITTER, BY_MOUHT) = range(0, 4)
     JOIN_PREVIOUS_EDITIONS_CHOICES = (
         (YES, _('Sim')),
@@ -191,7 +191,7 @@ class Attendee(models.Model):
     join_previous_editions = models.SmallIntegerField(
         _('Você participou de alguma das edições anteriores do SNE?'),
         choices=JOIN_PREVIOUS_EDITIONS_CHOICES,
-        null=True, blank=False)
+        null=True, blank=False, default=YES)
     which_edition = models.CharField(
         _('Quais?'),
         max_length=200, null=True, blank=True,
