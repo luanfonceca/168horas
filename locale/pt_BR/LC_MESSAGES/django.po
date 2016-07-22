@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-22 13:46-0300\n"
-"PO-Revision-Date: 2016-07-22 13:47-0300\n"
+"POT-Creation-Date: 2016-07-22 15:26-0300\n"
+"PO-Revision-Date: 2016-07-22 15:27-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -121,7 +121,7 @@ msgstr "Categorias"
 
 #: activity/models.py:85
 #: activity/templates/activity/includes/action-button.html:14
-#: attendee/models.py:204 attendee/views.py:42
+#: attendee/models.py:204 attendee/views.py:57 attendee/views.py:212
 msgid "Attendees"
 msgstr "Participantes"
 
@@ -131,7 +131,7 @@ msgstr "Participantes"
 msgid "Activity"
 msgstr "Atividade"
 
-#: activity/models.py:95 activity/views.py:43
+#: activity/models.py:95 activity/views.py:43 activity/views.py:64
 msgid "Activities"
 msgstr "Atividades"
 
@@ -190,7 +190,7 @@ msgstr "voltar"
 
 #: activity/templates/activity/delete.html:17
 #: activity/templates/activity/includes/action-button.html:53
-#: activity/templates/activity/includes/card.html:42
+#: activity/templates/activity/includes/card.html:42 activity/views.py:118
 #: category/templates/category/delete.html:16
 msgid "Delete"
 msgstr "Remover"
@@ -287,12 +287,12 @@ msgstr "Inscreva-se agora por apenas"
 
 #: activity/templates/activity/includes/action-button.html:39
 #: activity/templates/activity/includes/action-button.html:73
-#: activity/templates/activity/includes/card.html:33
+#: activity/templates/activity/includes/card.html:33 attendee/views.py:113
 msgid "Join"
 msgstr "Participar"
 
 #: activity/templates/activity/includes/action-button.html:47
-#: activity/templates/activity/includes/card.html:41
+#: activity/templates/activity/includes/card.html:41 activity/views.py:102
 msgid "Update"
 msgstr "Atualizar"
 
@@ -404,61 +404,61 @@ msgstr ""
 "   Obrigado.\n"
 
 #: activity/views.py:58
-msgid "Add activity"
-msgstr "Adicionar atividade"
+msgid "Create"
+msgstr "Cadastrar"
 
-#: activity/views.py:99 category/views.py:49
+#: activity/views.py:131 category/views.py:49
 msgid "Id"
 msgstr "Id"
 
-#: activity/views.py:100 category/views.py:50
+#: activity/views.py:132 category/views.py:50
 msgid "First Name"
 msgstr "Nome"
 
-#: activity/views.py:101 attendee/templates/attendee/detail.html:88
+#: activity/views.py:133 attendee/templates/attendee/detail.html:88
 #: category/views.py:51 ticket/models.py:19
 msgid "Name"
 msgstr "Nome"
 
-#: activity/views.py:102 category/views.py:52 core/models.py:14
+#: activity/views.py:134 category/views.py:52 core/models.py:14
 msgid "CPF"
 msgstr "CPF"
 
-#: activity/views.py:103 category/views.py:53
+#: activity/views.py:135 category/views.py:53
 msgid "Email Address"
 msgstr "Endereço de Email"
 
-#: activity/views.py:104 attendee/models.py:89
+#: activity/views.py:136 attendee/models.py:89
 #: attendee/templates/attendee/detail.html:100 category/views.py:54
 msgid "Phone"
 msgstr "Telefone"
 
-#: activity/views.py:105 attendee/models.py:92
+#: activity/views.py:137 attendee/models.py:92
 #: attendee/templates/attendee/detail.html:108 category/views.py:55
 msgid "Code"
 msgstr "Código"
 
-#: activity/views.py:106 category/views.py:56
+#: activity/views.py:138 category/views.py:56
 msgid "Attended at"
 msgstr "Credenciado em"
 
-#: activity/views.py:111
+#: activity/views.py:143
 msgid "Subscription status"
 msgstr "Status da inscrição"
 
-#: activity/views.py:112 attendee/templates/attendee/detail.html:120
+#: activity/views.py:144 attendee/templates/attendee/detail.html:120
 msgid "Payment status"
 msgstr "Status do pagamento"
 
-#: activity/views.py:113 attendee/templates/attendee/detail.html:124
+#: activity/views.py:145 attendee/templates/attendee/detail.html:124
 msgid "Payment type"
 msgstr "Forma de pagamento"
 
-#: activity/views.py:147
+#: activity/views.py:179
 msgid "Successfully checked all the attendees!"
 msgstr "Credenciados todos os participantes com sucesso!"
 
-#: activity/views.py:167
+#: activity/views.py:199
 msgid "Successfully sended all the certificates!"
 msgstr "Enviado todos os certificados com sucesso!"
 
@@ -888,7 +888,7 @@ msgstr "Você será notificado por e-mail quando seu pagamento for aprovado."
 msgid "Pay"
 msgstr "Pagar"
 
-#: attendee/templates/attendee/sort.html:10 attendee/views.py:241
+#: attendee/templates/attendee/sort.html:10 attendee/views.py:277
 msgid "Sort"
 msgstr "Ordenar"
 
@@ -1183,56 +1183,50 @@ msgstr ""
 "\n"
 "  Obrigado.\n"
 
-#: attendee/views.py:81
+#: attendee/views.py:95
 msgid "You are not allowed to see this page!"
 msgstr "Você não é permitido para ver essa página!"
 
-#: attendee/views.py:101
-#, python-brace-format
-msgid "Join to {activity}"
-msgstr "Participe da {activity}"
-
-#: attendee/views.py:112
+#: attendee/views.py:133
 msgid "You already joined up for this activity!"
 msgstr "Você j;a faz parte desta atividade!"
 
-#: attendee/views.py:147
+#: attendee/views.py:168
 msgid "This user already joined up for this activity!"
 msgstr "Esse usuário já faz parte desta atividade!"
 
-#: attendee/views.py:151
+#: attendee/views.py:172
 msgid "Successfully joined up for this activity!"
 msgstr "Inscrito com sucesso nesta atividade!"
 
-#: attendee/views.py:154
+#: attendee/views.py:175
 msgid "Successfully joined up for the pre-sale of this activity!"
 msgstr "Inscrito com sucesso na pré-venda desta atividade!"
 
-#: attendee/views.py:180
+#: attendee/views.py:201
 #, python-brace-format
 msgid "{attendee}"
 msgstr ""
 
-#: attendee/views.py:200
+#: attendee/views.py:236
 #, python-brace-format
 msgid "Successfully checked in the attendee \"{0}\"!"
 msgstr "Registrado com sucesso o participante \"{0}\"!"
 
-#: attendee/views.py:223
+#: attendee/views.py:259
 #, python-brace-format
 msgid "Successfully unchecked the attendee \"{0}\"!"
 msgstr "Descredenciado com sucesso o participante \"{0}\"!"
 
-#: attendee/views.py:234
+#: attendee/views.py:270
 msgid "Certificate"
 msgstr "Certificado"
 
-#: attendee/views.py:256
-#, python-brace-format
-msgid "Payment for {activity}"
-msgstr "Pagamento para o {activity}"
+#: attendee/views.py:299
+msgid "Payment"
+msgstr "Pagamento"
 
-#: attendee/views.py:328
+#: attendee/views.py:372
 #, python-brace-format
 msgid "Successfully confirmed the attendee \"{0}\"!"
 msgstr "Confirmado com sucesso o participante \"{0}\"!"
@@ -1563,6 +1557,15 @@ msgstr ""
 #| msgid "Add activity"
 msgid "Add ticket"
 msgstr "Adicionar atividade"
+
+#~ msgid "Add activity"
+#~ msgstr "Adicionar atividade"
+
+#~ msgid "Join to {activity}"
+#~ msgstr "Participe da {activity}"
+
+#~ msgid "Payment for {activity}"
+#~ msgstr "Pagamento para o {activity}"
 
 #, fuzzy
 #~| msgid "Export attendees"
