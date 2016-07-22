@@ -43,3 +43,16 @@ class PageTitleMixin(object):
 
     def get_full_page_title(self):
         return self.full_page_title
+
+
+class BreadcrumbMixin(object):
+    breadcrumbs = []
+
+    def get_context_data(self, **kwargs):
+        context = super(BreadcrumbMixin, self).get_context_data(**kwargs)
+        context.update(breadcrumbs=self.get_breadcrumbs())
+        return context
+
+    def get_breadcrumbs(self):
+        if self.breadcrumbs:
+            return self.breadcrumbs

@@ -9,7 +9,7 @@ from django.contrib import messages
 from vanilla import model_views as views
 from djqscsv import render_to_csv_response
 
-from core.mixins import PageTitleMixin
+from core.mixins import PageTitleMixin, BreadcrumbMixin
 from activity.models import Activity
 from activity.forms import ActivityForm
 from category.views import BaseCategoryView
@@ -32,7 +32,7 @@ def update_display(attendee):
     )
 
 
-class BaseActivityView(PageTitleMixin):
+class BaseActivityView(PageTitleMixin, BreadcrumbMixin):
     model = Activity
     form_class = ActivityForm
     lookup_field = 'slug'
@@ -55,8 +55,17 @@ class ActivityList(BaseCategoryView, views.ListView):
 
 class ActivityCreate(BaseActivityView, views.CreateView):
     template_name = 'activity/form.html'
-    page_title = _(u'Add activity')
+    page_title = _(u'Create')
     full_page_title = True
+
+    def get_breadcrumbs(self):
+        return [{
+            'url': reverse('activity:list'),
+            'title': _('Activities')
+        }, {
+            'url': reverse('activity:create'),
+            'title': self.get_page_title()
+        }]
 
     def form_valid(self, form):
         self.object = form.save()
@@ -82,9 +91,32 @@ class ActivityUpdate(BaseActivityView, views.UpdateView):
     template_name = 'activity/form.html'
     full_page_title = True
 
+    def get_breadcrumbs(self):
+        self.object = self.get_object()
+
+        return [{
+            'url': self.object.get_absolute_url(),
+            'title': self.object.title
+        }, {
+            'url': self.object.get_update_url(),
+            'title': _('Update')
+        }]
+
 
 class ActivityDelete(BaseActivityView, views.DeleteView):
     template_name = 'activity/delete.html'
+    full_page_title = True
+
+    def get_breadcrumbs(self):
+        self.object = self.get_object()
+
+        return [{
+            'url': self.object.get_absolute_url(),
+            'title': self.object.title
+        }, {
+            'url': self.object.get_delete_url(),
+            'title': _('Delete')
+        }]
 
     def get_success_url(self):
         return reverse('activity:list')

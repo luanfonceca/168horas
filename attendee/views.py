@@ -13,7 +13,7 @@ from django.views.decorators.csrf import csrf_exempt
 from vanilla import model_views as views, FormView
 from easy_pdf.views import PDFTemplateResponseMixin
 
-from core.mixins import PageTitleMixin, LoginRequiredMixin
+from core.mixins import PageTitleMixin, BreadcrumbMixin, LoginRequiredMixin
 from activity.models import Activity
 from attendee.models import Attendee
 from attendee.forms import (
@@ -21,7 +21,7 @@ from attendee.forms import (
 )
 
 
-class BaseAttendeeView(PageTitleMixin):
+class BaseAttendeeView(PageTitleMixin, BreadcrumbMixin):
     model = Attendee
     form_class = AttendeeForm
     lookup_field = 'activity_slug'
@@ -36,12 +36,25 @@ class BaseAttendeeView(PageTitleMixin):
             Activity,
             slug=self.kwargs.get('activity_slug'))
 
+    def get_page_title(self):
+        return self.activity.title
+
 
 class AttendeeList(BaseAttendeeView, views.ListView):
     template_name = 'attendee/list.html'
-    page_title = _(u'Attendees')
     paginate_by = 30
     allow_empty = True
+
+    def get_breadcrumbs(self):
+        self.activity = self.get_activity()
+
+        return [{
+            'url': self.activity.get_absolute_url(),
+            'title': self.activity.title
+        }, {
+            'url': self.activity.get_attendee_list_url(),
+            'title': _(u'Attendees')
+        }]
 
     def get_context_data(self, **kwargs):
         context = super(AttendeeList, self).get_context_data(**kwargs)
@@ -88,6 +101,17 @@ class AttendeeJoin(BaseAttendeeView, LoginRequiredMixin, views.CreateView):
     template_name = 'attendee/form.html'
     full_page_title = True
 
+    def get_breadcrumbs(self):
+        self.activity = self.get_activity()
+
+        return [{
+            'url': self.activity.get_absolute_url(),
+            'title': self.activity.title
+        }, {
+            'url': self.activity.get_attendee_join_url(),
+            'title': _('Join')
+        }]
+
     def get_form_class(self):
         self.activity = self.get_activity()
 
@@ -95,10 +119,6 @@ class AttendeeJoin(BaseAttendeeView, LoginRequiredMixin, views.CreateView):
         if self.activity.slug == v_sne_slug:
             return CustomAttendeeForm
         return AttendeeForm
-
-    def get_page_title(self):
-        activity = self.get_activity()
-        return _(u'Join to {activity}').format(activity=activity)
 
     def get(self, request, *args, **kwargs):
         already_joined = Attendee.objects.filter(
@@ -178,6 +198,21 @@ class AttendeeDetail(BaseAttendeeView, views.DetailView):
 
     def get_page_title(self):
         return _(u'{attendee}'.format(attendee=self.get_object()))
+
+    def get_breadcrumbs(self):
+        self.activity = self.get_activity()
+        self.object = self.get_object()
+
+        return [{
+            'url': self.activity.get_absolute_url(),
+            'title': self.activity.title
+        }, {
+            'url': self.activity.get_attendee_list_url(),
+            'title': _('Attendees')
+        }, {
+            'url': self.object.get_absolute_url(),
+            'title': self.object.name
+        }]
 
 
 class AttendeeCheck(BaseAttendeeView, views.UpdateView):

@@ -142,6 +142,16 @@ a.button-collapse.top-nav.full {
   }
 }
 
+.breadcrumbs {
+  box-shadow: none;
+  height: 42px;
+  line-height: 42px;
+}
+
+.breadcrumbs .breadcrumb {
+  font-size: 16px;
+}
+
 #index-banner .container {
   position: relative;
 }
