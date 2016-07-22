@@ -10,6 +10,17 @@ class AttendeeForm(forms.ModelForm):
 
     class Meta:
         model = Attendee
+        fields = (
+            'name', 'email', 'educational_institution',
+            'cpf', 'phone'
+        )
+
+
+class CustomAttendeeForm(forms.ModelForm):
+    cpf = BRCPFField()
+
+    class Meta:
+        model = Attendee
         exclude = (
             'code', 'attended_at', 'created_at', 'profile',
             'last_updated_at', 'status', 'moip_status',

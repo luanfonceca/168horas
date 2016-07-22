@@ -16,7 +16,9 @@ from easy_pdf.views import PDFTemplateResponseMixin
 from core.mixins import PageTitleMixin, LoginRequiredMixin
 from activity.models import Activity
 from attendee.models import Attendee
-from attendee.forms import AttendeeForm, AttendeePaymentNotificationForm
+from attendee.forms import (
+    AttendeeForm, CustomAttendeeForm, AttendeePaymentNotificationForm
+)
 
 
 class BaseAttendeeView(PageTitleMixin):
@@ -85,6 +87,14 @@ class AttendeeList(BaseAttendeeView, views.ListView):
 class AttendeeJoin(BaseAttendeeView, LoginRequiredMixin, views.CreateView):
     template_name = 'attendee/form.html'
     full_page_title = True
+
+    def get_form_class(self):
+        self.activity = self.get_activity()
+
+        v_sne_slug = 'v-simposio-nexa-de-empreendedorismo-construindo-op'
+        if self.activity.slug == v_sne_slug:
+            return CustomAttendeeForm
+        return AttendeeForm
 
     def get_page_title(self):
         activity = self.get_activity()
