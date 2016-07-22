@@ -37,6 +37,7 @@ class BaseAttendeeView(PageTitleMixin, BreadcrumbMixin):
             slug=self.kwargs.get('activity_slug'))
 
     def get_page_title(self):
+        self.activity = self.get_activity()
         return self.activity.title
 
 
@@ -286,9 +287,17 @@ class AttendeePayment(BaseAttendeeView,
     template_name = 'attendee/payment.html'
     full_page_title = True
 
-    def get_page_title(self):
-        activity = self.get_activity()
-        return _(u'Payment for {activity}').format(activity=activity)
+    def get_breadcrumbs(self):
+        self.activity = self.get_activity()
+        self.object = self.get_object()
+
+        return [{
+            'url': self.activity.get_absolute_url(),
+            'title': self.activity.title
+        }, {
+            'url': self.object.get_absolute_url(),
+            'title': _('Payment')
+        }]
 
 
 class AttendeePaymentNotification(BaseAttendeeView, FormView):
