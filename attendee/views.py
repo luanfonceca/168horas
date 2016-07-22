@@ -175,6 +175,7 @@ class AttendeeJoin(BaseAttendeeView, LoginRequiredMixin, views.CreateView):
 class AttendeeDetail(BaseAttendeeView, views.DetailView):
     lookup_field = 'code'
     template_name = 'attendee/detail.html'
+    full_page_title = True
 
     def get_page_title(self):
         return _(u'{attendee}'.format(attendee=self.get_object()))
