@@ -156,9 +156,9 @@ class Attendee(models.Model):
         _('Já participou ou participa do programa Miniempresa?'),
         choices=ALREADY_JOINNED_OUR_PROGRAM_CHOICES,
         null=True, blank=False)
-    which_one = models.CharField(
+    which_company = models.CharField(
         _('Qual Miniempresa? Em qual ano?'),
-        max_length=200, null=True, blank=False,
+        max_length=200, null=True, blank=True,
         help_text='(Ex.: BiggLimp S.A./E.; Lumiere S.A/E.; Life tech S.A./E)')
     (YES, NO, ALREADY_KNOWN) = range(0, 3)
     ALREADY_KNOW_US_CHOICES = (
@@ -190,9 +190,9 @@ class Attendee(models.Model):
         _('Você participou de alguma das edições anteriores do SNE?'),
         choices=JOIN_PREVIOUS_EDITIONS_CHOICES,
         null=True, blank=False)
-    which_one = models.CharField(
+    which_edition = models.CharField(
         _('Quais?'),
-        max_length=200, null=True, blank=False,
+        max_length=200, null=True, blank=True,
         help_text=(
             '(Edição I, 2012; Edição II, 2013; '
             'Edição III, 2014; Edição IV 2015)'))
