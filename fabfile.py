@@ -91,6 +91,20 @@ def uwsgi_restart():
         run('uwsgi conf/uwsgi.ini')
 
 
+def quick_deploy(migrate=True, static=True, messages=True):
+    """Update source, update pip requirements, restart server"""
+
+    update()
+    update_reqs()
+
+    with cd(env.project_path):
+        manage('clean_pyc')
+        manage('collectstatic --noinput --verbosity=0')
+        manage('compilemessages')
+
+    uwsgi_restart()
+
+
 def deploy(migrate=True, static=True, messages=True):
     """Update source, update pip requirements, syncdb, restart server"""
 

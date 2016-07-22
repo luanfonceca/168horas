@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-10 19:49-0300\n"
-"PO-Revision-Date: 2016-07-10 19:50-0300\n"
+"POT-Creation-Date: 2016-07-22 13:46-0300\n"
+"PO-Revision-Date: 2016-07-22 13:47-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -56,7 +56,7 @@ msgstr "Data"
 msgid "Total of hours to be used in the Certificate."
 msgstr "Total de horas que serão utilizadas no Certificado."
 
-#: activity/models.py:50 attendee/models.py:90 event/models.py:32
+#: activity/models.py:50 attendee/models.py:93 event/models.py:32
 #: ticket/models.py:22
 msgid "Created At"
 msgstr "Criado Em"
@@ -105,8 +105,8 @@ msgstr "Url curta"
 msgid "Result will be like: http://168h.com.br/my-activity/"
 msgstr "Resultado será algo como: http://168h.com.br/my-activity/"
 
-#: activity/models.py:72 attendee/models.py:94 attendee/models.py:96
-#: attendee/models.py:99 attendee/templates/attendee/detail.html:84
+#: activity/models.py:72 attendee/models.py:99 attendee/models.py:101
+#: attendee/models.py:104 attendee/templates/attendee/detail.html:84
 msgid "Status"
 msgstr "Estado"
 
@@ -121,7 +121,7 @@ msgstr "Categorias"
 
 #: activity/models.py:85
 #: activity/templates/activity/includes/action-button.html:14
-#: attendee/models.py:114 attendee/views.py:40
+#: attendee/models.py:204 attendee/views.py:42
 msgid "Attendees"
 msgstr "Participantes"
 
@@ -153,6 +153,20 @@ msgstr "{0} se inscreveu na pré-venda do \"{1}\"!"
 msgid "{0} pay the subscription to \"{1}\"!"
 msgstr "{0} pagou sua inscrição para \"{1}\"!"
 
+#: activity/templates/activity/dashboard.html:41
+#: activity/templates/activity/dashboard.html:42
+#: attendee/templates/attendee/detail.html:120
+#: attendee/templates/attendee/detail.html:124
+msgid "None"
+msgstr "Nenhum"
+
+#: activity/templates/activity/dashboard.html:54
+#: activity/templates/activity/includes/card.html:44
+#: attendee/templates/attendee/list.html:31
+#: category/templates/category/detail.html:27
+msgid "Export attendees"
+msgstr "Exportar participantes"
+
 #: activity/templates/activity/delete.html:7
 msgid ""
 "Are you sure you want to remove this event? It can still be very important "
@@ -163,7 +177,7 @@ msgstr ""
 
 #: activity/templates/activity/delete.html:14
 #: activity/templates/activity/form.html:109
-#: attendee/templates/attendee/form.html:22
+#: attendee/templates/attendee/form.html:39
 #: attendee/templates/attendee/payment.html:30
 #: category/templates/category/delete.html:13
 #: category/templates/category/form.html:17
@@ -241,7 +255,7 @@ msgid "Online only activity?"
 msgstr "Atividade online?"
 
 #: activity/templates/activity/form.html:113
-#: attendee/templates/attendee/form.html:26
+#: attendee/templates/attendee/form.html:43
 #: category/templates/category/form.html:21 core/templates/profile.html:97
 #: ticket/templates/ticket/form.html:28
 msgid "Save"
@@ -281,12 +295,6 @@ msgstr "Participar"
 #: activity/templates/activity/includes/card.html:41
 msgid "Update"
 msgstr "Atualizar"
-
-#: activity/templates/activity/includes/card.html:44
-#: attendee/templates/attendee/list.html:31
-#: category/templates/category/detail.html:27
-msgid "Export attendees"
-msgstr "Exportar participantes"
 
 #: activity/templates/activity/list.html:18
 #: activity/templates/activity/list_by_category.html:18
@@ -404,14 +412,11 @@ msgid "Id"
 msgstr "Id"
 
 #: activity/views.py:100 category/views.py:50
-#, fuzzy
-#| msgid "Full Name"
 msgid "First Name"
-msgstr "Nome Completo"
+msgstr "Nome"
 
-#: activity/views.py:101 attendee/models.py:83
-#: attendee/templates/attendee/detail.html:88 category/views.py:51
-#: ticket/models.py:19
+#: activity/views.py:101 attendee/templates/attendee/detail.html:88
+#: category/views.py:51 ticket/models.py:19
 msgid "Name"
 msgstr "Nome"
 
@@ -421,14 +426,14 @@ msgstr "CPF"
 
 #: activity/views.py:103 category/views.py:53
 msgid "Email Address"
-msgstr ""
+msgstr "Endereço de Email"
 
-#: activity/views.py:104 attendee/models.py:86
+#: activity/views.py:104 attendee/models.py:89
 #: attendee/templates/attendee/detail.html:100 category/views.py:54
 msgid "Phone"
 msgstr "Telefone"
 
-#: activity/views.py:105 attendee/models.py:89
+#: activity/views.py:105 attendee/models.py:92
 #: attendee/templates/attendee/detail.html:108 category/views.py:55
 msgid "Code"
 msgstr "Código"
@@ -457,125 +462,242 @@ msgstr "Credenciados todos os participantes com sucesso!"
 msgid "Successfully sended all the certificates!"
 msgstr "Enviado todos os certificados com sucesso!"
 
-#: attendee/models.py:30
+#: attendee/models.py:33
 msgid "Pending"
 msgstr "Pendente"
 
-#: attendee/models.py:31
+#: attendee/models.py:34
 msgid "Confirmed"
 msgstr "Confirmado"
 
-#: attendee/models.py:32
+#: attendee/models.py:35
 msgid "Canceled"
 msgstr "Cancelado"
 
-#: attendee/models.py:55
+#: attendee/models.py:58
 msgid "Pendente de pagamento"
 msgstr ""
 
-#: attendee/models.py:56
+#: attendee/models.py:59
 msgid "Autorizado"
 msgstr ""
 
-#: attendee/models.py:57
+#: attendee/models.py:60
 msgid "Iniciado"
 msgstr ""
 
-#: attendee/models.py:58
+#: attendee/models.py:61
 msgid "Boleto impresso"
 msgstr ""
 
-#: attendee/models.py:59
+#: attendee/models.py:62
 msgid "Concluido"
 msgstr ""
 
-#: attendee/models.py:60
+#: attendee/models.py:63
 #, fuzzy
 #| msgid "Canceled"
 msgid "Cancelado"
 msgstr "Cancelado"
 
-#: attendee/models.py:61
+#: attendee/models.py:64
 msgid "Em analise"
 msgstr ""
 
-#: attendee/models.py:62
+#: attendee/models.py:65
 msgid "Estornado"
 msgstr ""
 
-#: attendee/models.py:63
+#: attendee/models.py:66
 msgid "Confirmado pelo Organizador"
 msgstr ""
 
-#: attendee/models.py:74
+#: attendee/models.py:77
 msgid "Debito bancario"
 msgstr ""
 
-#: attendee/models.py:75
+#: attendee/models.py:78
 msgid "Financiamento bancario"
 msgstr ""
 
-#: attendee/models.py:76
+#: attendee/models.py:79
 msgid "Boleto bancario"
 msgstr ""
 
-#: attendee/models.py:77
+#: attendee/models.py:80
 msgid "Cartao de credito"
 msgstr ""
 
-#: attendee/models.py:78
+#: attendee/models.py:81
 msgid "Cartao de debito"
 msgstr ""
 
-#: attendee/models.py:79
+#: attendee/models.py:82
 msgid "Cartira moip"
 msgstr "Carteira Moip"
 
-#: attendee/models.py:80
+#: attendee/models.py:83
 msgid "Nao definida"
 msgstr ""
 
-#: attendee/models.py:85 attendee/templates/attendee/detail.html:96
+#: attendee/models.py:86 core/forms.py:7 core/forms.py:8
+msgid "Full Name"
+msgstr "Nome Completo"
+
+#: attendee/models.py:88 attendee/models.py:179
+#: attendee/templates/attendee/detail.html:96
 msgid "Email"
 msgstr "Email"
 
-#: attendee/models.py:88 attendee/templates/attendee/detail.html:104
+#: attendee/models.py:91 attendee/templates/attendee/detail.html:104
 msgid "Educational Institution"
 msgstr "Instituição de Ensino"
 
-#: attendee/models.py:92
+#: attendee/models.py:95
 msgid "Attended At"
 msgstr "Credenciado Em"
 
-#: attendee/models.py:102
+#: attendee/models.py:97
+msgid "Last Updated At"
+msgstr ""
+
+#: attendee/models.py:107
 msgid "Moip code"
 msgstr "Código moip"
 
-#: attendee/models.py:113
+#: attendee/models.py:120
+msgid "Menor que 15 anos"
+msgstr ""
+
+#: attendee/models.py:121
+msgid "Entre 15 e 23 anos"
+msgstr ""
+
+#: attendee/models.py:122
+msgid "Maior que 23 anos"
+msgstr ""
+
+#: attendee/models.py:125
+msgid "Sua idade é"
+msgstr ""
+
+#: attendee/models.py:129
+msgid "Sócio do Nexa RN"
+msgstr ""
+
+#: attendee/models.py:130
+msgid "Achiever"
+msgstr ""
+
+#: attendee/models.py:131
+msgid "Ex-achiever"
+msgstr ""
+
+#: attendee/models.py:132
+msgid "Externo"
+msgstr ""
+
+#: attendee/models.py:133
+msgid "Voluntário JARN"
+msgstr ""
+
+#: attendee/models.py:136
+msgid "Você é..."
+msgstr ""
+
+#: attendee/models.py:145
+msgid "Em caso de Ensino Superior ou Técnico, qual curso?"
+msgstr ""
+
+#: attendee/models.py:148
+msgid "Ano/Período"
+msgstr ""
+
+#: attendee/models.py:148
+msgid "Ex.: 3º ano; 6º período"
+msgstr ""
+
+#: attendee/models.py:152 attendee/models.py:165 attendee/models.py:188
+msgid "Sim"
+msgstr ""
+
+#: attendee/models.py:153 attendee/models.py:166 attendee/models.py:189
+msgid "Não"
+msgstr ""
+
+#: attendee/models.py:156
+msgid "Já participou ou participa do programa Miniempresa?"
+msgstr ""
+
+#: attendee/models.py:160
+msgid "Qual Miniempresa? Em qual ano?"
+msgstr ""
+
+#: attendee/models.py:167
+msgid "Já ouvi falar"
+msgstr ""
+
+#: attendee/models.py:170
+msgid "Já conhecia o Nexa ou a Junior Achievement?"
+msgstr ""
+
+#: attendee/models.py:175
+msgid "WhatsApp"
+msgstr ""
+
+#: attendee/models.py:176
+msgid "Facebook"
+msgstr "Facebook"
+
+#: attendee/models.py:177
+msgid "Twitter"
+msgstr ""
+
+#: attendee/models.py:178
+msgid "Instagram"
+msgstr ""
+
+#: attendee/models.py:180
+msgid "Boca a Boca"
+msgstr ""
+
+#: attendee/models.py:183
+msgid "Como ficou sabendo do SNE 2015?"
+msgstr ""
+
+#: attendee/models.py:192
+msgid "Você participou de alguma das edições anteriores do SNE?"
+msgstr ""
+
+#: attendee/models.py:196
+msgid "Quais?"
+msgstr ""
+
+#: attendee/models.py:203
 msgid "Attendee"
 msgstr "Participante"
 
-#: attendee/models.py:184
+#: attendee/models.py:274
 msgid "Welcome to the \"{}\"!"
 msgstr "Bem vindo ao \"{}\"!"
 
-#: attendee/models.py:202
+#: attendee/models.py:292
 msgid "Welcome to the pre-sale of \"{}\"!"
 msgstr "Bem vindo à pré-venda da atividade \"{}\"!"
 
-#: attendee/models.py:213
+#: attendee/models.py:303
 msgid "This Attendee was already checked in."
 msgstr "Esse Participante já foi credenciado."
 
-#: attendee/models.py:219
+#: attendee/models.py:309
 msgid "This Attendee is not checked in yet."
 msgstr "Esse Participante ainda não foi credenciado."
 
-#: attendee/models.py:233
+#: attendee/models.py:323
 msgid "Payment confirmation of the \"{}\"!"
 msgstr "Confirmação do pagamento da \"{}\"!"
 
-#: attendee/models.py:247
+#: attendee/models.py:337
 msgid "This Attendee was already updated as: {}."
 msgstr "Esse Participante já foi atualizado como: {}."
 
@@ -692,11 +814,6 @@ msgstr "Inscrito em"
 msgid "Payment information"
 msgstr "Informações do pagamento"
 
-#: attendee/templates/attendee/detail.html:120
-#: attendee/templates/attendee/detail.html:124
-msgid "None"
-msgstr "Nenhum"
-
 #: attendee/templates/attendee/includes/card.html:5
 #: attendee/templates/attendee/includes/card.html:18
 msgid "Click to see the Attendee detail page."
@@ -771,7 +888,7 @@ msgstr "Você será notificado por e-mail quando seu pagamento for aprovado."
 msgid "Pay"
 msgstr "Pagar"
 
-#: attendee/templates/attendee/sort.html:10 attendee/views.py:231
+#: attendee/templates/attendee/sort.html:10 attendee/views.py:241
 msgid "Sort"
 msgstr "Ordenar"
 
@@ -1066,56 +1183,56 @@ msgstr ""
 "\n"
 "  Obrigado.\n"
 
-#: attendee/views.py:79
+#: attendee/views.py:81
 msgid "You are not allowed to see this page!"
 msgstr "Você não é permitido para ver essa página!"
 
-#: attendee/views.py:91
+#: attendee/views.py:101
 #, python-brace-format
 msgid "Join to {activity}"
 msgstr "Participe da {activity}"
 
-#: attendee/views.py:102
+#: attendee/views.py:112
 msgid "You already joined up for this activity!"
 msgstr "Você j;a faz parte desta atividade!"
 
-#: attendee/views.py:137
+#: attendee/views.py:147
 msgid "This user already joined up for this activity!"
 msgstr "Esse usuário já faz parte desta atividade!"
 
-#: attendee/views.py:141
+#: attendee/views.py:151
 msgid "Successfully joined up for this activity!"
 msgstr "Inscrito com sucesso nesta atividade!"
 
-#: attendee/views.py:144
+#: attendee/views.py:154
 msgid "Successfully joined up for the pre-sale of this activity!"
 msgstr "Inscrito com sucesso na pré-venda desta atividade!"
 
-#: attendee/views.py:170
+#: attendee/views.py:180
 #, python-brace-format
 msgid "{attendee}"
 msgstr ""
 
-#: attendee/views.py:190
+#: attendee/views.py:200
 #, python-brace-format
 msgid "Successfully checked in the attendee \"{0}\"!"
 msgstr "Registrado com sucesso o participante \"{0}\"!"
 
-#: attendee/views.py:213
+#: attendee/views.py:223
 #, python-brace-format
 msgid "Successfully unchecked the attendee \"{0}\"!"
 msgstr "Descredenciado com sucesso o participante \"{0}\"!"
 
-#: attendee/views.py:224
+#: attendee/views.py:234
 msgid "Certificate"
 msgstr "Certificado"
 
-#: attendee/views.py:246
+#: attendee/views.py:256
 #, python-brace-format
 msgid "Payment for {activity}"
 msgstr "Pagamento para o {activity}"
 
-#: attendee/views.py:318
+#: attendee/views.py:328
 #, python-brace-format
 msgid "Successfully confirmed the attendee \"{0}\"!"
 msgstr "Confirmado com sucesso o participante \"{0}\"!"
@@ -1148,10 +1265,6 @@ msgstr "Adicionar Categoria"
 #: category/views.py:21 event/models.py:50
 msgid "Categorias"
 msgstr "Categorias"
-
-#: core/forms.py:7 core/forms.py:8
-msgid "Full Name"
-msgstr "Nome Completo"
 
 #: core/models.py:13
 msgid "State"
@@ -1458,9 +1571,6 @@ msgstr "Adicionar atividade"
 
 #~ msgid "Share"
 #~ msgstr "Compartilhar"
-
-#~ msgid "Facebook"
-#~ msgstr "Facebook"
 
 #~ msgid "save"
 #~ msgstr "\t"

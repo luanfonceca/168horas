@@ -83,7 +83,7 @@ class Attendee(models.Model):
         (NAO_DEFINIDA, _('Nao definida')),
     )
 
-    name = models.CharField(_('Name'), max_length=300)
+    name = models.CharField(_('Full Name'), max_length=300)
     cpf = models.CharField('CPF', max_length=14)
     email = models.EmailField(_('Email'))
     phone = models.CharField(_('Phone'), max_length=50, blank=True)
@@ -143,10 +143,10 @@ class Attendee(models.Model):
             'Externo, caso não se aplique aos anteriores.'))
     course = models.CharField(
         _('Em caso de Ensino Superior ou Técnico, qual curso?'),
-        max_length=200, null=True, blank=False)
+        max_length=200, null=True, blank=True)
     scholarship_term = models.CharField(
         _('Ano/Período'), help_text=_('Ex.: 3º ano; 6º período'),
-        max_length=50, null=True, blank=False)
+        max_length=50, null=True, blank=True)
     (YES, NO) = range(0, 2)
     ALREADY_JOINNED_OUR_PROGRAM_CHOICES = (
         (YES, _('Sim')),
@@ -175,6 +175,8 @@ class Attendee(models.Model):
         (WHATSAPP, _('WhatsApp')),
         (FACEBOOK, _('Facebook')),
         (TWITTER, _('Twitter')),
+        (TWITTER, _('Instagram')),
+        (TWITTER, _('Email')),
         (BY_MOUHT, _('Boca a Boca')),
     )
     where_know_us = models.SmallIntegerField(
