@@ -299,7 +299,23 @@ a.button-collapse.top-nav.full {
   }
 }
 
+.input-field label .tooltipped {
+  color: #0D47A1;
+  position: relative;
+  top: 5px;
+}
 
+.input-field label .tooltipped:hover {
+  cursor: pointer;
+}
+
+.input-field label .tooltipped i {
+  font-size: 1.4em;
+}
+
+.input-field .invalid .select-dropdown {
+  border-color: #F44336 !important;
+}
 
 /*
 #activity-actions {

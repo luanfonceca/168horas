@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
 import random
 import string
 
@@ -90,6 +93,8 @@ class Attendee(models.Model):
     created_at = CreationDateTimeField(_(u'Created At'))
     attended_at = models.DateTimeField(
         _(u'Attended At'), null=True, blank=True)
+    last_updated_at = models.DateTimeField(
+        _(u'Last Updated At'), null=True, blank=True)
     status = models.SmallIntegerField(
         _('Status'), choices=STATUS_CHOICES, default=PENDING)
     moip_status = models.SmallIntegerField(
@@ -108,6 +113,89 @@ class Attendee(models.Model):
     profile = models.ForeignKey(
         to='core.Profile',
         on_delete=models.CASCADE)
+
+    # Atividade: v-sne
+    (LESS_THAN_15, BETWEEN_15_AND_23, GREATER_THAN_23) = range(0, 3)
+    AGE_RANGE_CHOICES = (
+        (LESS_THAN_15, _('Menor que 15 anos')),
+        (BETWEEN_15_AND_23, _('Entre 15 e 23 anos')),
+        (GREATER_THAN_23, _('Maior que 23 anos')),
+    )
+    age_rage = models.SmallIntegerField(
+        _('Sua idade é'), choices=AGE_RANGE_CHOICES,
+        null=True, blank=False)
+    (PARTNER, ACHIEVER, EX_ACHIEVER, OUTSIDER, VOLUNTEER) = range(0, 5)
+    PARTNER_PROFILE_CHOICES = (
+        (PARTNER, _('Sócio do Nexa RN')),
+        (ACHIEVER, _('Achiever')),
+        (EX_ACHIEVER, _('Ex-achiever')),
+        (OUTSIDER, _('Externo')),
+        (VOLUNTEER, _('Voluntário JARN')),
+    )
+    partner_profile = models.SmallIntegerField(
+        _('Você é...'), choices=PARTNER_PROFILE_CHOICES,
+        null=True, blank=False,
+        help_text=(
+            'Sócio, caso tenha realizado o cadastro; '
+            'Achiever, caso esteja participando do programa Miniempresa; '
+            'Ex-achiever, caso tenha feito o programa Miniempresa; '
+            'Voluntário JARN; '
+            'Externo, caso não se aplique aos anteriores.'))
+    course = models.CharField(
+        _('Em caso de Ensino Superior ou Técnico, qual curso?'),
+        max_length=200, null=True, blank=False)
+    scholarship_term = models.CharField(
+        _('Ano/Período'), help_text=_('Ex.: 3º ano; 6º período'),
+        max_length=50, null=True, blank=False)
+    (YES, NO) = range(0, 2)
+    ALREADY_JOINNED_OUR_PROGRAM_CHOICES = (
+        (YES, _('Sim')),
+        (NO, _('Não')),
+    )
+    already_joinned_our_program = models.SmallIntegerField(
+        _('Já participou ou participa do programa Miniempresa?'),
+        choices=ALREADY_JOINNED_OUR_PROGRAM_CHOICES,
+        null=True, blank=False)
+    which_one = models.CharField(
+        _('Qual Miniempresa? Em qual ano?'),
+        max_length=200, null=True, blank=False,
+        help_text='(Ex.: BiggLimp S.A./E.; Lumiere S.A/E.; Life tech S.A./E)')
+    (YES, NO, ALREADY_KNOWN) = range(0, 3)
+    ALREADY_KNOW_US_CHOICES = (
+        (YES, _('Sim')),
+        (NO, _('Não')),
+        (ALREADY_KNOWN, _('Já ouvi falar')),
+    )
+    already_know_us = models.SmallIntegerField(
+        _('Já conhecia o Nexa ou a Junior Achievement?'),
+        choices=ALREADY_KNOW_US_CHOICES,
+        null=True, blank=False)
+    (WHATSAPP, FACEBOOK, TWITTER, BY_MOUHT) = range(0, 4)
+    WHERE_KNOW_US_CHOICES = (
+        (WHATSAPP, _('WhatsApp')),
+        (FACEBOOK, _('Facebook')),
+        (TWITTER, _('Twitter')),
+        (BY_MOUHT, _('Boca a Boca')),
+    )
+    where_know_us = models.SmallIntegerField(
+        _('Como ficou sabendo do SNE 2015?'),
+        choices=WHERE_KNOW_US_CHOICES,
+        null=True, blank=False)
+    (WHATSAPP, FACEBOOK, TWITTER, BY_MOUHT) = range(0, 4)
+    JOIN_PREVIOUS_EDITIONS_CHOICES = (
+        (YES, _('Sim')),
+        (NO, _('Não')),
+    )
+    join_previous_editions = models.SmallIntegerField(
+        _('Você participou de alguma das edições anteriores do SNE?'),
+        choices=JOIN_PREVIOUS_EDITIONS_CHOICES,
+        null=True, blank=False)
+    which_one = models.CharField(
+        _('Quais?'),
+        max_length=200, null=True, blank=False,
+        help_text=(
+            '(Edição I, 2012; Edição II, 2013; '
+            'Edição III, 2014; Edição IV 2015)'))
 
     class Meta:
         verbose_name = _(u'Attendee')
@@ -255,6 +343,7 @@ class Attendee(models.Model):
             'tipo_pagamento', self.moip_payment_type)
         self.moip_code = data.get(
             'cod_moip', self.moip_code)
+        self.last_updated_at = datetime.now()
 
         confirmation_status = [
             self.CONCLUIDO, self.AUTORIZADO,

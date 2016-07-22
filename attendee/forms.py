@@ -10,9 +10,10 @@ class AttendeeForm(forms.ModelForm):
 
     class Meta:
         model = Attendee
-        fields = (
-            'name', 'email', 'educational_institution',
-            'cpf', 'phone'
+        exclude = (
+            'code', 'attended_at', 'created_at', 'profile',
+            'last_updated_at', 'status', 'moip_status',
+            'moip_payment_type', 'moip_code', 'activity'
         )
 
 
