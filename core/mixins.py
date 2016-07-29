@@ -1,13 +1,47 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import HttpResponseRedirect
+from django.shortcuts import redirect
 from django.utils.decorators import method_decorator
+from django.utils.translation import ugettext as _
 
 
 class LoginRequiredMixin(object):
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(LoginRequiredMixin, self).dispatch(*args, **kwargs)
+
+
+class OrganizerRequiredMixin(object):
+    error_redirect_url = None
+
+    def get_error_redirect_url(self):
+        if self.error_redirect_url is None:
+            self.object = self.get_object()
+            return self.object.get_absolute_url()
+        return self.error_redirect_url
+
+    def has_permission(self):
+        if self.request.user.is_staff:
+            return True
+
+        if hasattr(self, 'get_activity'):
+            self.activity = self.get_activity()
+        else:
+            self.activity = self.get_object()
+
+        return self.activity.organizers.filter(
+            profile=self.request.user.profile.pk
+        ).exists()
+
+    def dispatch(self, *args, **kwargs):
+        if self.has_permission():
+            return super(OrganizerRequiredMixin, self).dispatch(
+                *args, **kwargs)
+
+        message = _('You have no permission to access this page.')
+        messages.add_message(self.request, messages.ERROR, message)
+        return redirect(self.get_error_redirect_url())
 
 
 class FormValidRedirectMixing(object):

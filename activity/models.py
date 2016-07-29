@@ -86,6 +86,10 @@ class Activity(TitleSlugDescriptionModel):
         to='core.Profile',
         through='attendee.Attendee',
         related_name='activities+')
+    organizers = models.ManyToManyField(
+        verbose_name=_(u'Categories'),
+        to='core.Profile',
+        related_name='managed_activities')
 
     # managers
     objects = ActivityManager.as_manager()

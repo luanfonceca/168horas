@@ -9,7 +9,10 @@ from django.contrib import messages
 from vanilla import model_views as views
 from djqscsv import render_to_csv_response
 
-from core.mixins import PageTitleMixin, BreadcrumbMixin
+from core.mixins import (
+    PageTitleMixin, BreadcrumbMixin,
+    LoginRequiredMixin, OrganizerRequiredMixin,
+)
 from activity.models import Activity
 from activity.forms import ActivityForm
 from category.views import BaseCategoryView
@@ -71,6 +74,8 @@ class ActivityCreate(BaseActivityView, views.CreateView):
         self.object = form.save()
         self.object.created_by = self.request.user.profile
         self.object.save()
+
+        self.object.organizers.add(self.object.created_by)
         return HttpResponseRedirect(self.get_success_url())
 
 
@@ -87,9 +92,16 @@ class ActivityDetailShortUrl(BaseActivityView, views.DetailView):
         return redirect(self.object.get_absolute_url())
 
 
-class ActivityUpdate(BaseActivityView, views.UpdateView):
+class ActivityUpdate(BaseActivityView,
+                     LoginRequiredMixin,
+                     OrganizerRequiredMixin,
+                     views.UpdateView):
     template_name = 'activity/form.html'
     full_page_title = True
+
+    def get_error_redirect_url(self):
+        self.object = self.get_object()
+        return self.object.get_absolute_url()
 
     def get_breadcrumbs(self):
         self.object = self.get_object()
@@ -103,7 +115,10 @@ class ActivityUpdate(BaseActivityView, views.UpdateView):
         }]
 
 
-class ActivityDelete(BaseActivityView, views.DeleteView):
+class ActivityDelete(BaseActivityView,
+                     LoginRequiredMixin,
+                     OrganizerRequiredMixin,
+                     views.DeleteView):
     template_name = 'activity/delete.html'
     full_page_title = True
 
@@ -122,7 +137,10 @@ class ActivityDelete(BaseActivityView, views.DeleteView):
         return reverse('activity:list')
 
 
-class ActivityAttendeeExport(BaseActivityView, views.DetailView):
+class ActivityAttendeeExport(BaseActivityView,
+                             LoginRequiredMixin,
+                             OrganizerRequiredMixin,
+                             views.DetailView):
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -162,7 +180,10 @@ class ActivityAttendeeExport(BaseActivityView, views.DetailView):
         )
 
 
-class ActivityAttendeeCheckAll(BaseActivityView, views.DetailView):
+class ActivityAttendeeCheckAll(BaseActivityView,
+                               LoginRequiredMixin,
+                               OrganizerRequiredMixin,
+                               views.DetailView):
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
 
@@ -182,7 +203,10 @@ class ActivityAttendeeCheckAll(BaseActivityView, views.DetailView):
         return redirect(self.object.get_attendee_list_url())
 
 
-class ActivitySendCertificates(BaseActivityView, views.DetailView):
+class ActivitySendCertificates(BaseActivityView,
+                               LoginRequiredMixin,
+                               OrganizerRequiredMixin,
+                               views.DetailView):
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
 

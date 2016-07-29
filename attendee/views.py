@@ -13,7 +13,10 @@ from django.views.decorators.csrf import csrf_exempt
 from vanilla import model_views as views, FormView
 from easy_pdf.views import PDFTemplateResponseMixin
 
-from core.mixins import PageTitleMixin, BreadcrumbMixin, LoginRequiredMixin
+from core.mixins import (
+    PageTitleMixin, BreadcrumbMixin,
+    LoginRequiredMixin, OrganizerRequiredMixin,
+)
 from activity.models import Activity
 from attendee.models import Attendee
 from attendee.forms import (
@@ -41,7 +44,10 @@ class BaseAttendeeView(PageTitleMixin, BreadcrumbMixin):
         return self.activity.title
 
 
-class AttendeeList(BaseAttendeeView, views.ListView):
+class AttendeeList(BaseAttendeeView,
+                   LoginRequiredMixin,
+                   OrganizerRequiredMixin,
+                   views.ListView):
     template_name = 'attendee/list.html'
     paginate_by = 30
     allow_empty = True
@@ -98,7 +104,10 @@ class AttendeeList(BaseAttendeeView, views.ListView):
         return super(AttendeeList, self).dispatch(*args, **kwargs)
 
 
-class AttendeeJoin(BaseAttendeeView, LoginRequiredMixin, views.CreateView):
+class AttendeeJoin(BaseAttendeeView,
+                   LoginRequiredMixin,
+                   OrganizerRequiredMixin,
+                   views.CreateView):
     template_name = 'attendee/form.html'
     full_page_title = True
 
@@ -193,7 +202,10 @@ class AttendeeJoin(BaseAttendeeView, LoginRequiredMixin, views.CreateView):
         return super(AttendeeJoin, self).get_success_url()
 
 
-class AttendeeDetail(BaseAttendeeView, views.DetailView):
+class AttendeeDetail(BaseAttendeeView,
+                     LoginRequiredMixin,
+                     OrganizerRequiredMixin,
+                     views.DetailView):
     lookup_field = 'code'
     template_name = 'attendee/detail.html'
 
@@ -216,7 +228,10 @@ class AttendeeDetail(BaseAttendeeView, views.DetailView):
         }]
 
 
-class AttendeeCheck(BaseAttendeeView, views.UpdateView):
+class AttendeeCheck(BaseAttendeeView,
+                    LoginRequiredMixin,
+                    OrganizerRequiredMixin,
+                    views.UpdateView):
     lookup_field = 'code'
 
     def post(self, request, *args, **kwargs):
@@ -239,7 +254,10 @@ class AttendeeCheck(BaseAttendeeView, views.UpdateView):
         return redirect(self.activity.get_attendee_list_url())
 
 
-class AttendeeUncheck(BaseAttendeeView, views.UpdateView):
+class AttendeeUncheck(BaseAttendeeView,
+                      LoginRequiredMixin,
+                      OrganizerRequiredMixin,
+                      views.UpdateView):
     lookup_field = 'code'
 
     def post(self, request, *args, **kwargs):
@@ -271,6 +289,8 @@ class AttendeeCertificate(BaseAttendeeView,
 
 
 class AttendeeSort(BaseAttendeeView,
+                   LoginRequiredMixin,
+                   OrganizerRequiredMixin,
                    views.DetailView):
     lookup_field = 'code'
     template_name = 'attendee/sort.html'
@@ -348,7 +368,10 @@ class AttendeePaymentNotification(BaseAttendeeView, FormView):
         return self.return_fail(form.errors.as_text())
 
 
-class AttendeeConfirmPayment(BaseAttendeeView, views.UpdateView):
+class AttendeeConfirmPayment(BaseAttendeeView,
+                             LoginRequiredMixin,
+                             OrganizerRequiredMixin,
+                             views.UpdateView):
     lookup_field = 'code'
 
     def post(self, request, *args, **kwargs):
