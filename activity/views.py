@@ -31,12 +31,12 @@ def update_display(attendee):
             attendee, 'moip_payment_type')
     )
 
-    v_sne_slug = 'v-simposio-nexa-de-empreendedorismo-construindo-op'
-    if attendee.activity.slug == v_sne_slug:
-        attendee.update(
-            age_rage=_get_display(attendee, 'age_rage'),
-            partner_profile=_get_display(attendee, 'partner_profile'),
-        )
+
+def update_display_v_sne(attendee):
+    attendee.update(
+        age_rage=_get_display(attendee, 'age_rage'),
+        partner_profile=_get_display(attendee, 'partner_profile'),
+    )
 
 
 class BaseActivityView(PageTitleMixin, BreadcrumbMixin):
@@ -167,6 +167,9 @@ class ActivityAttendeeExport(BaseActivityView, views.DetailView):
 
         if self.object.price:
             map((lambda a: update_display(a)), attendees)
+
+        if self.object.slug == v_sne_slug:
+            map((lambda a: update_display_v_sne(a)), attendees)
 
         return render_to_csv_response(
             attendees,
