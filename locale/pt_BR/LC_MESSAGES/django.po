@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-30 03:27-0300\n"
-"PO-Revision-Date: 2016-07-30 03:29-0300\n"
+"POT-Creation-Date: 2016-07-30 04:12-0300\n"
+"PO-Revision-Date: 2016-07-30 04:15-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -122,6 +122,7 @@ msgstr "Categorias"
 #: activity/models.py:85
 #: activity/templates/activity/includes/action-button.html:14
 #: attendee/models.py:204 attendee/views.py:57 attendee/views.py:212
+#: attendee/views.py:288
 msgid "Attendees"
 msgstr "Participantes"
 
@@ -135,20 +136,20 @@ msgstr "Atividade"
 msgid "Activities"
 msgstr "Atividades"
 
-#: activity/models.py:158
+#: activity/models.py:161
 msgid "Certificate from \"{}\"!"
 msgstr "Certificado de \"{}\"!"
 
-#: activity/models.py:213
+#: activity/models.py:216
 msgid "Free"
 msgstr "Gratuito"
 
-#: activity/models.py:229
+#: activity/models.py:232
 #, python-brace-format
 msgid "{0} joined on pre-sale to \"{1}\"!"
 msgstr "{0} se inscreveu na pré-venda do \"{1}\"!"
 
-#: activity/models.py:250
+#: activity/models.py:253
 #, python-brace-format
 msgid "{0} pay the subscription to \"{1}\"!"
 msgstr "{0} pagou sua inscrição para \"{1}\"!"
@@ -848,7 +849,12 @@ msgstr "Enviar certificados"
 msgid "Check all"
 msgstr "Credenciar todos"
 
-#: attendee/templates/attendee/list.html:44
+#: attendee/templates/attendee/list.html:37 attendee/views.py:277
+#: attendee/views.py:291
+msgid "Shuffle"
+msgstr "Sorteio"
+
+#: attendee/templates/attendee/list.html:50
 #, python-format
 msgid ""
 "\n"
@@ -867,16 +873,16 @@ msgstr[1] ""
 "            %(total)s Participantes\n"
 "          "
 
-#: attendee/templates/attendee/list.html:54
+#: attendee/templates/attendee/list.html:60
 msgid "Search for attendees..."
 msgstr "Procurar por participantes..."
 
-#: attendee/templates/attendee/list.html:104
+#: attendee/templates/attendee/list.html:110
 msgid ""
 "Unfortunately, we have no attendees based on that search in this activity."
 msgstr "Infelizmente, não dispomos de participantes nessa atividade."
 
-#: attendee/templates/attendee/list.html:106
+#: attendee/templates/attendee/list.html:112
 msgid "Unfortunately, we have no attendees in this activity."
 msgstr "Infelizmente, não dispomos de participantes nessa atividade."
 
@@ -903,10 +909,6 @@ msgstr "Você será notificado por e-mail quando seu pagamento for aprovado."
 #: attendee/templates/attendee/payment.html:34
 msgid "Pay"
 msgstr "Pagar"
-
-#: attendee/templates/attendee/sort.html:10 attendee/views.py:277
-msgid "Sort"
-msgstr "Ordenar"
 
 #: attendee/templates/mailing/certificate_attendee.html:10
 #, python-format
@@ -1238,11 +1240,15 @@ msgstr "Descredenciado com sucesso o participante \"{0}\"!"
 msgid "Certificate"
 msgstr "Certificado"
 
-#: attendee/views.py:299
+#: attendee/views.py:309
+msgid "You don't have Attendees checked yet!"
+msgstr "Você não tem nenhum Participante credenciado ainda!"
+
+#: attendee/views.py:331
 msgid "Payment"
 msgstr "Pagamento"
 
-#: attendee/views.py:372
+#: attendee/views.py:404
 #, python-brace-format
 msgid "Successfully confirmed the attendee \"{0}\"!"
 msgstr "Confirmado com sucesso o participante \"{0}\"!"
@@ -1573,6 +1579,9 @@ msgstr ""
 #| msgid "Add activity"
 msgid "Add ticket"
 msgstr "Adicionar atividade"
+
+#~ msgid "Sort"
+#~ msgstr "Ordenar"
 
 #~ msgid "Add activity"
 #~ msgstr "Adicionar atividade"

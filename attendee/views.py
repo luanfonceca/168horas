@@ -299,6 +299,19 @@ class AttendeeShuffle(BaseAttendeeView,
         queryset = self.get_queryset()
         return queryset.filter(attended_at__isnull=False).order_by('?').first()
 
+    def get(self, request, *args, **kwargs):
+        self.activity = self.get_activity()
+        self.object = self.get_object()
+
+        if not self.object:
+            messages.add_message(
+                request=self.request, level=messages.ERROR,
+                message=_('You don\'t have Attendees checked yet!')
+            )
+            return redirect(self.activity.get_attendee_list_url())
+
+        return super(AttendeeShuffle, self).get(request, *args, **kwargs)
+
 
 class AttendeePayment(BaseAttendeeView,
                       views.DetailView):
