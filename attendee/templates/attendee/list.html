@@ -32,6 +32,12 @@
           <i class="material-icons right">file_download</i>
         </a>
       </li>
+      <li>
+        <a class="blue-text text-darken-4" href="{% url 'attendee:shuffle' activity_slug=activity.slug %}">
+          {% trans 'Shuffle' %}
+          <i class="material-icons right">shuffle</i>
+        </a>
+      </li>
     </ul>
   </div>
 {% endblock %}

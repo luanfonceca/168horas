@@ -270,11 +270,30 @@ class AttendeeCertificate(BaseAttendeeView,
     page_title = _('Certificate')
 
 
-class AttendeeSort(BaseAttendeeView,
-                   views.DetailView):
+class AttendeeShuffle(BaseAttendeeView,
+                      views.DetailView):
     lookup_field = 'code'
-    template_name = 'attendee/sort.html'
-    page_title = _('Sort')
+    template_name = 'attendee/shuffle.html'
+    page_title = _('Shuffle')
+    full_page_title = True
+
+    def get_breadcrumbs(self):
+        self.activity = self.get_activity()
+
+        return [{
+            'url': self.activity.get_absolute_url(),
+            'title': self.activity.title
+        }, {
+            'url': self.activity.get_attendee_list_url(),
+            'title': _(u'Attendees')
+        }, {
+            'url': self.activity.get_attendee_shuffle_url(),
+            'title': _('Shuffle')
+        }]
+
+    def get_queryset(self):
+        activity = self.get_activity()
+        return activity.attendee_set.all()
 
     def get_object(self):
         queryset = self.get_queryset()
