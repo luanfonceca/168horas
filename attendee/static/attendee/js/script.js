@@ -36,7 +36,6 @@ $(document).ready(function() {
   }
 
   $("#search-icon").click(function(e) {
-    $("#id_search").val('');
     submitParentForm(this);
   });
 
