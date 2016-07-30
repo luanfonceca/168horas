@@ -1,6 +1,7 @@
 from django.utils.translation import ugettext as _
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import get_object_or_404
+from django.core.paginator import InvalidPage
 from django.contrib import messages
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError
@@ -69,6 +70,41 @@ class AttendeeList(BaseAttendeeView, views.ListView):
             total_count=queryset.count(),
         )
         return context
+
+    def paginate_queryset(self, queryset, page_size):
+        """
+        Paginates a queryset, and returns a page object.
+        """
+        paginator = self.get_paginator(queryset, page_size)
+        page_kwarg = self.kwargs.get(self.page_kwarg)
+        page_query_param = self.request.GET.get(self.page_kwarg)
+        page_number = page_kwarg or page_query_param or 1
+        try:
+            page_number = int(page_number)
+        except ValueError:
+            if page_number == 'last':
+                page_number = paginator.num_pages
+            else:
+                msg = "Page is not 'last', nor can it be converted to an int."
+                raise InvalidPage(_(msg))
+
+        try:
+            return paginator.page(page_number)
+        except InvalidPage as exc:
+            msg = 'Invalid page (%s): %s'
+            raise InvalidPage(_(msg % (page_number, str(exc))))
+
+    def get(self, request, *args, **kwargs):
+        try:
+            return super(AttendeeList, self).get(request, *args, **kwargs)
+        except InvalidPage:
+            messages.add_message(
+                request=self.request, level=messages.WARNING,
+                message=_('This page is empty, you are redirect to the first!')
+            )
+            request.GET = request.GET.copy()
+            request.GET['page'] = '1'
+            return super(AttendeeList, self).get(request.GET, *args, **kwargs)
 
     def get_queryset(self):
         queryset = super(AttendeeList, self).get_queryset()
