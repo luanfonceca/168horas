@@ -310,6 +310,9 @@ class Attendee(models.Model):
         self.attended_at = None
         self.save()
 
+    def get_attended_at_display(self):
+        return _('Checked in') if self.has_attended else _('Not checked yet')
+
     def send_payment_confirmation(self):
         context = {
             'object': self,
