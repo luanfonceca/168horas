@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-30 04:12-0300\n"
-"PO-Revision-Date: 2016-07-30 04:15-0300\n"
+"POT-Creation-Date: 2016-07-30 05:47-0300\n"
+"PO-Revision-Date: 2016-07-30 05:48-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -121,8 +121,8 @@ msgstr "Categorias"
 
 #: activity/models.py:85
 #: activity/templates/activity/includes/action-button.html:14
-#: attendee/models.py:204 attendee/views.py:57 attendee/views.py:212
-#: attendee/views.py:288
+#: attendee/models.py:204 attendee/views.py:58 attendee/views.py:248
+#: attendee/views.py:324
 msgid "Attendees"
 msgstr "Participantes"
 
@@ -288,7 +288,7 @@ msgstr "Inscreva-se agora por apenas"
 
 #: activity/templates/activity/includes/action-button.html:39
 #: activity/templates/activity/includes/action-button.html:73
-#: activity/templates/activity/includes/card.html:33 attendee/views.py:113
+#: activity/templates/activity/includes/card.html:33 attendee/views.py:149
 msgid "Join"
 msgstr "Participar"
 
@@ -849,8 +849,8 @@ msgstr "Enviar certificados"
 msgid "Check all"
 msgstr "Credenciar todos"
 
-#: attendee/templates/attendee/list.html:37 attendee/views.py:277
-#: attendee/views.py:291
+#: attendee/templates/attendee/list.html:37 attendee/views.py:313
+#: attendee/views.py:327
 msgid "Shuffle"
 msgstr "Sorteio"
 
@@ -1201,54 +1201,58 @@ msgstr ""
 "\n"
 "  Obrigado.\n"
 
-#: attendee/views.py:95
+#: attendee/views.py:103
+msgid "This page is empty, you are redirect to the first!"
+msgstr "Esta página está vazia, você foi redirecionado para a primeira!"
+
+#: attendee/views.py:131
 msgid "You are not allowed to see this page!"
 msgstr "Você não é permitido para ver essa página!"
 
-#: attendee/views.py:133
+#: attendee/views.py:169
 msgid "You already joined up for this activity!"
 msgstr "Você j;a faz parte desta atividade!"
 
-#: attendee/views.py:168
+#: attendee/views.py:204
 msgid "This user already joined up for this activity!"
 msgstr "Esse usuário já faz parte desta atividade!"
 
-#: attendee/views.py:172
+#: attendee/views.py:208
 msgid "Successfully joined up for this activity!"
 msgstr "Inscrito com sucesso nesta atividade!"
 
-#: attendee/views.py:175
+#: attendee/views.py:211
 msgid "Successfully joined up for the pre-sale of this activity!"
 msgstr "Inscrito com sucesso na pré-venda desta atividade!"
 
-#: attendee/views.py:201
+#: attendee/views.py:237
 #, python-brace-format
 msgid "{attendee}"
 msgstr ""
 
-#: attendee/views.py:236
+#: attendee/views.py:272
 #, python-brace-format
 msgid "Successfully checked in the attendee \"{0}\"!"
 msgstr "Registrado com sucesso o participante \"{0}\"!"
 
-#: attendee/views.py:259
+#: attendee/views.py:295
 #, python-brace-format
 msgid "Successfully unchecked the attendee \"{0}\"!"
 msgstr "Descredenciado com sucesso o participante \"{0}\"!"
 
-#: attendee/views.py:270
+#: attendee/views.py:306
 msgid "Certificate"
 msgstr "Certificado"
 
-#: attendee/views.py:309
+#: attendee/views.py:345
 msgid "You don't have Attendees checked yet!"
 msgstr "Você não tem nenhum Participante credenciado ainda!"
 
-#: attendee/views.py:331
+#: attendee/views.py:367
 msgid "Payment"
 msgstr "Pagamento"
 
-#: attendee/views.py:404
+#: attendee/views.py:440
 #, python-brace-format
 msgid "Successfully confirmed the attendee \"{0}\"!"
 msgstr "Confirmado com sucesso o participante \"{0}\"!"
