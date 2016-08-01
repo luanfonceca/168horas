@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-30 05:47-0300\n"
-"PO-Revision-Date: 2016-07-30 05:48-0300\n"
+"POT-Creation-Date: 2016-08-01 15:03-0300\n"
+"PO-Revision-Date: 2016-08-01 15:05-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -110,46 +110,50 @@ msgstr "Resultado será algo como: http://168h.com.br/my-activity/"
 msgid "Status"
 msgstr "Estado"
 
-#: activity/models.py:76 event/models.py:45
+#: activity/models.py:74
+msgid "Embedded Schedule"
+msgstr "Incorporar Programação"
+
+#: activity/models.py:78 event/models.py:45
 msgid "Created by"
 msgstr "Criado por"
 
-#: activity/models.py:81 category/models.py:11 core/models.py:31
+#: activity/models.py:83 category/models.py:11 core/models.py:31
 #: core/templates/base.html:69 core/templates/base.html.py:97
 msgid "Categories"
 msgstr "Categorias"
 
-#: activity/models.py:85
+#: activity/models.py:87
 #: activity/templates/activity/includes/action-button.html:14
 #: attendee/models.py:204 attendee/views.py:58 attendee/views.py:248
 #: attendee/views.py:324
 msgid "Attendees"
 msgstr "Participantes"
 
-#: activity/models.py:94 activity/templates/activity/list.html:8
+#: activity/models.py:96 activity/templates/activity/list.html:8
 #: activity/templates/activity/list_by_category.html:8 category/views.py:48
 #: ticket/templates/ticket/list.html:14
 msgid "Activity"
 msgstr "Atividade"
 
-#: activity/models.py:95 activity/views.py:50 activity/views.py:71
+#: activity/models.py:97 activity/views.py:50 activity/views.py:71
 msgid "Activities"
 msgstr "Atividades"
 
-#: activity/models.py:161
+#: activity/models.py:163
 msgid "Certificate from \"{}\"!"
 msgstr "Certificado de \"{}\"!"
 
-#: activity/models.py:216
+#: activity/models.py:218
 msgid "Free"
 msgstr "Gratuito"
 
-#: activity/models.py:232
+#: activity/models.py:234
 #, python-brace-format
 msgid "{0} joined on pre-sale to \"{1}\"!"
 msgstr "{0} se inscreveu na pré-venda do \"{1}\"!"
 
-#: activity/models.py:253
+#: activity/models.py:255
 #, python-brace-format
 msgid "{0} pay the subscription to \"{1}\"!"
 msgstr "{0} pagou sua inscrição para \"{1}\"!"
@@ -217,12 +221,16 @@ msgstr "Url curta:"
 msgid "Description"
 msgstr "Descrição"
 
-#: activity/templates/activity/detail.html:70
-#: activity/templates/activity/detail.html:88
+#: activity/templates/activity/detail.html:69
+msgid "Schedule"
+msgstr "Programação"
+
+#: activity/templates/activity/detail.html:78
+#: activity/templates/activity/detail.html:96
 msgid "Organizer"
 msgstr "Organizador"
 
-#: activity/templates/activity/detail.html:90
+#: activity/templates/activity/detail.html:98
 #, python-format
 msgid ""
 "\n"
@@ -239,7 +247,7 @@ msgstr ""
 "      </p>\n"
 "    "
 
-#: activity/templates/activity/detail.html:100
+#: activity/templates/activity/detail.html:108
 msgid ""
 "* ADDITIONAL ACTIVITIES: Check with your coordinator if this activity is "
 "valid for your course and university."
@@ -794,12 +802,12 @@ msgid "Check in."
 msgstr "Credenciar."
 
 #: attendee/templates/attendee/detail.html:40
-#: attendee/templates/attendee/includes/card.html:53
+#: attendee/templates/attendee/includes/card.html:54
 msgid "Click to Confirm the subscription of this attendee."
 msgstr "Clique para confirmar este participante."
 
 #: attendee/templates/attendee/detail.html:41
-#: attendee/templates/attendee/includes/card.html:54
+#: attendee/templates/attendee/includes/card.html:55
 msgid "Confirm"
 msgstr "Confirmar"
 

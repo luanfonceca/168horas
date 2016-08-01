@@ -70,6 +70,8 @@ class Activity(TitleSlugDescriptionModel):
         help_text=_('Result will be like: http://168h.com.br/my-activity/'))
     status = models.SmallIntegerField(
         _('Status'), choices=STATUS_CHOICES, default=PUBLISHED)
+    embedded_schedule = models.TextField(
+        _(u'Embedded Schedule'), max_length=2000, null=True, blank=True)
 
     # relations
     created_by = models.ForeignKey(

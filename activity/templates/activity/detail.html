@@ -64,6 +64,14 @@
     {{ object.description|safe|linebreaks }}
   </div>
 
+  {% if object.embedded_schedule %}
+    <div id="activity-schedule">
+      <h5>{% trans 'Schedule' %}</h5>
+
+      {{ object.embedded_schedule|safe }}
+    </div>
+  {% endif %}
+
   {% if object.is_organizer and object.created_by.organizer_name %}
     <br/>
     <div id="activity-location">
