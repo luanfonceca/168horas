@@ -324,15 +324,8 @@ class AttendeeCertificate(BaseAttendeeView,
     page_title = _('Certificate')
 
 
-<<<<<<< HEAD
-class AttendeeSort(BaseAttendeeView,
-                   LoginRequiredMixin,
-                   OrganizerRequiredMixin,
-                   views.DetailView):
-=======
 class AttendeeShuffle(BaseAttendeeView,
                       views.DetailView):
->>>>>>> master
     lookup_field = 'code'
     template_name = 'attendee/shuffle.html'
     page_title = _('Shuffle')
