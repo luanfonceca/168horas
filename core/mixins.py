@@ -17,8 +17,12 @@ class OrganizerRequiredMixin(object):
 
     def get_error_redirect_url(self):
         if self.error_redirect_url is None:
-            self.object = self.get_object()
-            return self.object.get_absolute_url()
+            if hasattr(self, 'get_activity'):
+                self.activity = self.get_activity()
+            else:
+                self.activity = self.get_object()
+
+            return self.activity.get_absolute_url()
         return self.error_redirect_url
 
     def has_permission(self):
