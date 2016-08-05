@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-08-05 09:36-0300\n"
-"PO-Revision-Date: 2016-08-05 09:38-0300\n"
+"PO-Revision-Date: 2016-08-05 09:44-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -1295,7 +1295,7 @@ msgstr "Categorias"
 
 #: core/forms.py:30 core/forms.py:31
 msgid "Message"
-msgstr ""
+msgstr "Mensagem"
 
 #: core/mixins.py:41
 #, fuzzy
