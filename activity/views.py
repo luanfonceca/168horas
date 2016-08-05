@@ -35,6 +35,13 @@ def update_display(attendee):
     )
 
 
+def update_display_v_sne(attendee):
+    attendee.update(
+        age_rage=_get_display(attendee, 'age_rage'),
+        partner_profile=_get_display(attendee, 'partner_profile'),
+    )
+
+
 class BaseActivityView(PageTitleMixin, BreadcrumbMixin):
     model = Activity
     form_class = ActivityForm
@@ -163,14 +170,24 @@ class ActivityAttendeeExport(BaseActivityView,
                 'moip_payment_type': _('Payment type'),
             })
 
+        v_sne_slug = 'v-simposio-nexa-de-empreendedorismo-construindo-op'
+        if self.object.slug == v_sne_slug:
+            field_header_map.update({
+                'age_rage': _('Idade'),
+                'partner_profile': _('Eu sou'),
+            })
+
         attendees = self.object.attendee_set.extra(
             select={'first_name': "split_part(name, ' ', 1)"}
         ).values(
             *field_header_map.keys()
-        )
+        ).order_by('name')
 
         if self.object.price:
             map((lambda a: update_display(a)), attendees)
+
+        if self.object.slug == v_sne_slug:
+            map((lambda a: update_display_v_sne(a)), attendees)
 
         return render_to_csv_response(
             attendees,

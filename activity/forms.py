@@ -10,7 +10,8 @@ class ActivityForm(forms.ModelForm):
         exclude = (
             'created_at', 'is_published',
             'is_public', 'created_by',
-            'attendees', 'organizers',
+            'attendees', 'embedded_schedule',
+            'organizers',
         )
         model = Activity
         widgets = {

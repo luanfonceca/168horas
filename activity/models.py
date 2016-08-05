@@ -70,6 +70,8 @@ class Activity(TitleSlugDescriptionModel):
         help_text=_('Result will be like: http://168h.com.br/my-activity/'))
     status = models.SmallIntegerField(
         _('Status'), choices=STATUS_CHOICES, default=PUBLISHED)
+    embedded_schedule = models.TextField(
+        _(u'Embedded Schedule'), max_length=2000, null=True, blank=True)
 
     # relations
     created_by = models.ForeignKey(
@@ -112,6 +114,9 @@ class Activity(TitleSlugDescriptionModel):
 
     def get_attendee_join_url(self):
         return reverse('attendee:join', kwargs={'activity_slug': self.slug})
+
+    def get_attendee_shuffle_url(self):
+        return reverse('attendee:shuffle', kwargs={'activity_slug': self.slug})
 
     def get_attendee_payment_url(self, profile):
         attendee = self.attendee_set.get(profile=profile)
