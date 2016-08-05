@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-08-05 09:36-0300\n"
-"PO-Revision-Date: 2016-08-05 09:44-0300\n"
+"PO-Revision-Date: 2016-08-05 16:25-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -1298,10 +1298,8 @@ msgid "Message"
 msgstr "Mensagem"
 
 #: core/mixins.py:41
-#, fuzzy
-#| msgid "You are not allowed to see this page!"
 msgid "You have no permission to access this page."
-msgstr "Você não é permitido para ver essa página!"
+msgstr "Você não tem permissão de acessar esta página."
 
 #: core/models.py:13
 msgid "State"
