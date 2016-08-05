@@ -22,3 +22,6 @@ class Category(TitleSlugDescriptionModel):
 
     def get_delete_url(self):
         return reverse('category:delete', kwargs={'slug': self.slug})
+
+    def get_export_attendees_url(self):
+        return reverse('category:export_attendees', kwargs={'slug': self.slug})

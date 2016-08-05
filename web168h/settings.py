@@ -149,6 +149,7 @@ DJANGO_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
+    'django.contrib.humanize',
 )
 
 LOCAL_APPS = (
@@ -168,6 +169,7 @@ EXTERNAL_APPS = (
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.google',
+    'anymail',
 )
 
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + EXTERNAL_APPS
@@ -235,9 +237,15 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
+# AnyMail configs
+ANYMAIL = {
+    'MAILGUN_API_KEY': '<your Mailgun key>',
+}
+EMAIL_BACKEND = 'anymail.backends.mailgun.MailgunBackend'
 
 # Email configs
 NO_REPLY_EMAIL = 'noreply@168h.com.br'
+EMAIL_168HORAS = '168h.com.br@gmail.com'
 
 
 # Import the custom settings

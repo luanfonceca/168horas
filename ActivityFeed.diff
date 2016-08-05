@@ -1,0 +1,98 @@
+diff --git a/activity/templates/activity/list.html b/activity/templates/activity/list.html
+index f256b91..91ec735 100644
+--- a/activity/templates/activity/list.html
++++ b/activity/templates/activity/list.html
+@@ -47,5 +47,14 @@
+         </div>
+       {% endfor %}
+     </div>
++  {% empty %}
++    <div class="col s12 m12 l12">
++      <p class="caption">
++        {% trans 'Unfortunately, we have no activities in your areas. Choose more categories.' %}
++        <a href="{% url 'account_profile' %}" class="btn-link">
++          {% trans 'Update your profile!' %}
++        </a>
++      </p>
++    </div>
+   {% endfor %}
+ {% endblock content %}
+diff --git a/activity/urls.py b/activity/urls.py
+index 00660de..5c750cc 100644
+--- a/activity/urls.py
++++ b/activity/urls.py
+@@ -7,6 +7,9 @@ urlpatterns = patterns(
+     url(regex=r'^$',
+         view=views.ActivityList.as_view(),
+         name='list'),
++    url(regex=r'^feed/$',
++        view=views.ActivityFeedList.as_view(),
++        name='feed'),
+     url(regex=r'^create/$',
+         view=views.ActivityCreate.as_view(),
+         name='create'),
+diff --git a/activity/views.py b/activity/views.py
+index cb637b9..1795b19 100644
+--- a/activity/views.py
++++ b/activity/views.py
+@@ -9,7 +9,7 @@ from django.contrib import messages
+ from vanilla import model_views as views
+ from djqscsv import render_to_csv_response
+ 
+-from core.mixins import PageTitleMixin
++from core.mixins import PageTitleMixin, LoginRequiredMixin
+ from activity.models import Activity
+ from activity.forms import ActivityForm
+ from category.views import BaseCategoryView
+@@ -36,6 +36,17 @@ class ActivityList(BaseCategoryView, views.ListView):
+         return context
+ 
+ 
++class ActivityFeedList(BaseCategoryView,
++                       LoginRequiredMixin,
++                       views.ListView):
++    template_name = 'activity/list.html'
++    page_title = _(u'Activities feed')
++
++    def get_queryset(self):
++        queryset = self.request.user.profile.categories.all()
++        return queryset
++
++
+ class ActivityCreate(BaseActivityView, views.CreateView):
+     template_name = 'activity/form.html'
+     page_title = _(u'Add activity')
+diff --git a/core/templates/base.html b/core/templates/base.html
+index 8aebf26..4313d6c 100644
+--- a/core/templates/base.html
++++ b/core/templates/base.html
+@@ -36,7 +36,7 @@
+     <nav role="navigation" id="navigation-menu">
+       <div class="nav-wrapper container">
+         <a href="{% if request.user.is_authenticated %}{% url 'activity:list' %}{% else %}{% url 'index' %}{% endif %}" class="brand-logo">
+-          <img src="{% static 'img/logo.svg' %}" style="position: relative;top: -1px;">
++          <img src="{% static 'img/logo.svg' %}" style="position: relative;top: 3px;">
+         </a>
+         <!--<ul id="nav-mobile" class="left hide-on-med-and-down">
+           <li>
+@@ -65,6 +65,11 @@
+                     {% trans 'Profile' %}
+                   </a>
+                 </li>
++                <li>
++                  <a href="{% url 'activity:feed' %}">
++                    {% trans 'Activities Feed' %}
++                  </a>
++                </li>
+                 {% if request.user.is_staff %}
+                   <li><a href="{% url 'category:list' %}">{% trans 'Categories' %}</a></li>
+                 {% endif %}
+@@ -175,7 +180,7 @@
+       </div>
+       <div class="footer-copyright blue darken-4 white-text">
+         <div class="container center-align">
+-          ©{% now 'Y' %} - 168 Horas LDTA. - Todos os direitos reservados.
++          ©{% now 'Y' %} - 168 Horas LTDA. - Todos os direitos reservados.
+         </div>
+       </div>
+     </footer>

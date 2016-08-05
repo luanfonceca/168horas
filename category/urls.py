@@ -19,4 +19,7 @@ urlpatterns = patterns(
     url(regex=r'^(?P<slug>[\w-]+)/delete/$',
         view=views.CategoryDelete.as_view(),
         name='delete'),
+    url(regex=r'^(?P<slug>[\w-]+)/export_attendees/$',
+        view=views.CategoryAttendeeExport.as_view(),
+        name='export_attendees'),
 )

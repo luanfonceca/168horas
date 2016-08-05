@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% load tags %}
+
+{% block content %}
+  {{ form.errors }}
+
+  <form method="POST">
+    {% csrf_token %}
+
+    <div class="row">
+      {% for field in form %}
+        {% include "includes/field.html" with field=field col_sizes='s12 m6' %}
+      {% endfor %}
+    </div>
+
+    <br>
+    <div class="center-align col s4">
+      <a href="{% url 'activity:update' activity.slug %}">
+        {% trans 'back' %}
+      </a>
+      &nbsp;
+      <button type="submit" class="btn-large waves-effect waves-light blue darken-4">
+        {% trans 'Save' %}
+        <i class="material-icons right">done</i>
+      </button>
+    </div>
+  </form>
+{% endblock %}

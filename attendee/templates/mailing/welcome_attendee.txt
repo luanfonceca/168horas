@@ -1,9 +1,17 @@
 {% load i18n %}
 
-{% blocktrans with get_full_name=object.user.get_full_name activity_title=activity.title organizer_email=created_by.organizer_email organizer_name=created_by.organizer_name %}
+{% blocktrans with get_full_name=object.name activity_title=activity.title %}
   Hi {{ get_full_name }}, welcome to the "{{ activity_title }}"!
+{% endblocktrans %}
 
-  If you have any doubts about this activity feel free to get in touch with the Organizer: {{ organizer_anme }} <{{ organizer_email }}> by email.
+{% if activity.price %}
+  {% blocktrans with payment_url=object.get_payment_url %}
+    In order to confirm you subscription to this actitivty, you need to pay your subscription, to that you can follow the page after add your information or follow this link: {{ payment_url }}, if you already paid ignore ignore this email, we will send another email after the payment being confirm with the Moip.
+  {% endblocktrans %}
+{% endif %}
+
+{% blocktrans with organizer_name=created_by.organizer_name organizer_email=created_by.organizer_email %}
+  If you have any doubts about this activity feel free to get in touch with the Organizer: {{ organizer_name }} <{{ organizer_email }}> by email.
 
   Thank you.
 {% endblocktrans %}

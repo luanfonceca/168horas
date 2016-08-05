@@ -126,13 +126,30 @@
             <div class="nav-wrapper">
               <div class="row {% if full_page_title %}center{% endif %}">
                 {% if full_page_title %}
-                  <span class="page-title">{{ page_title|truncatewords:10 }}</span>
+                  <span class="page-title truncate hide-on-small-only">{{ page_title }}</span>
+                  <span class="page-title hide-on-med-and-up">{{ page_title }}</span>
                 {% else %}
                   <a class="page-title" href="javascript:;">
                     {{ page_title|truncatewords:3 }}
                   </a>
                 {% endif %}
                 {% block header_actions %}{% endblock %}
+              </div>
+            </div>
+          </div>
+        </nav>
+      {% endif %}
+
+      {% if breadcrumbs %}
+        <nav class="breadcrumbs hide-on-small-only">
+          <div class="container">
+            <div class="nav-wrapper">
+              <div class="col s12">
+                {% for breadcrumb in breadcrumbs %}
+                  <a href="{{ breadcrumb.url }}" class="breadcrumb">
+                    {{ breadcrumb.title }}
+                  </a>
+                {% endfor %}
               </div>
             </div>
           </div>
@@ -166,10 +183,10 @@
               <div class="addthis_vertical_follow_toolbox white" style="padding: 5px 15px 10px 15px; height: 143px;"></div>
             </div>
           </div>
-          <div class="col l4 s12" style="height: 100px;">
+          <div class="col l4 s12">
             <h5 class="white-text">Incubadora</h5>
-            <a href="https://unp.br/empreende/" class="btn btn-wide btn-large white" target="_blank">
-              <img style="padding-top: 12px;" src="{% static 'img/empreende.png' %}">
+            <a href="https://unp.br/empreende/" class="btn btn-wide btn-large white" target="_blank" style="height: auto;padding:20px;">
+              <img style="padding-top: 12px; width: 100%" src="{% static 'img/empreende.png' %}">
             </a>
           </div>
         </div>

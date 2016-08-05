@@ -92,7 +92,7 @@ nav.top-nav {
 
 nav.top-nav .page-title {
   line-height: 122px;
-  font-size: 2.28rem;
+  font-size: 1.84rem;
   font-weight: 400px;
 }
 
@@ -140,6 +140,16 @@ a.button-collapse.top-nav.full {
   .container {
     width: 85%;
   }
+}
+
+.breadcrumbs {
+  box-shadow: none;
+  height: 42px;
+  line-height: 42px;
+}
+
+.breadcrumbs .breadcrumb {
+  font-size: 16px;
 }
 
 #index-banner .container {
@@ -207,6 +217,17 @@ a.button-collapse.top-nav.full {
   width: 100%;
 }
 
+.card .card-price {
+  background-color: #FFFFFF;
+  opacity: 0.9;
+  color: #000000;
+  position: absolute;
+  bottom: 0px;
+  right: 15px;
+  z-index: 1;
+  padding: 5px 10px;
+}
+
 .blue darken-4-border {
   border-color: #29b6f6 !important;
 }
@@ -264,12 +285,53 @@ a.button-collapse.top-nav.full {
 #activity-description p {
   margin: 0 !important;
 }
+
+#activity-header .center-align .dropdown-button {
+  width: 100%;
+}
+
+@media (max-width: 600px) {
+  #activity-header .dropdown-button,
+  #activity-header .btn-large {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  #activity-header .activity-image {
+    text-align: center;
+  }
+}
+
+@media (max-width: 400px) {
+  #activity-header .btn-large.green {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+.input-field label .tooltipped {
+  color: #0D47A1;
+  position: relative;
+  top: 5px;
+}
+
+.input-field label .tooltipped:hover {
+  cursor: pointer;
+}
+
+.input-field label .tooltipped i {
+  font-size: 1.4em;
+}
+
+.input-field .invalid .select-dropdown {
+  border-color: #F44336 !important;
+}
+
 /*
 #activity-actions {
   float: right;
 }
 
-@media (max-width: 481px) {
   #activity-actions {
     padding-top: 30px;
     float: none;

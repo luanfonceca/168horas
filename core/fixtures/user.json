@@ -1,0 +1,20 @@
+[
+{
+    "fields": {
+        "username": "admin",
+        "first_name": "Administrador",
+        "last_name": "do Sistema",
+        "is_active": true,
+        "is_superuser": true,
+        "is_staff": true,
+        "last_login": null,
+        "groups": [],
+        "user_permissions": [],
+        "password": "pbkdf2_sha256$20000$iF9SFaTsNCWp$DOXbjbnnikvLELG2QXQfbb+FZIVatu/+GqUtMbmi8Ms=",
+        "email": "admin@168h.com.br",
+        "date_joined": "2016-06-19T22:02:42.766Z"
+    },
+    "model": "auth.user",
+    "pk": 1
+}
+]

@@ -44,6 +44,9 @@ class Profile(models.Model):
     def ident(self):
         return self.cpf or self.cnpj
 
+    def is_organizer(self, activty):
+        return activty.organizers.filter(pk=self.pk).exists()
+
 
 def create_user_profile(sender, instance, created, **kwargs):
     if created:

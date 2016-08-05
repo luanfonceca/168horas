@@ -1,18 +1,29 @@
 {% load i18n %}
 {% load static %}
 
-<div class="card hoverable">
-  <div class="card-image tooltipped" data-position="top" data-delay="50" data-tooltip="{% if object.attended_at %}{% trans 'Click to Uncheck this attendee.' %}{% else %}{% trans 'Click to Check in this attendee.' %}{% endif %}">
+<div class="card hoverable" data-href="{{ object.get_absolute_url }}">
+  <div class="card-image tooltipped" data-position="top" data-delay="50" data-tooltip="{% trans 'Click to see the Attendee detail page.' %}">
     <img src="{{ object.get_photo_url }}"/>
     <span class="card-title truncate">{{ object }}</span>
   </div>
 
   <div class="card-action center">
+    {% if activity.price %}
+      Status: ({{ object.get_status_display }})
+    {% else %}
+      Status: ({{ object.get_attended_at_display }})
+    {% endif %}
     <a class='dropdown-button btn-large waves-effect waves-light white blue-text text-darken-4' href='javascript:;' data-activates='activity-actions-{{ object.code }}' style="width: 100%;">
       {% trans 'Actions' %}
       <i class="material-icons right" style="line-height: 55px;">arrow_drop_down</i>
     </a>
     <ul id='activity-actions-{{ object.code }}' class='dropdown-content'>
+      <li>
+        <a href="{{ object.get_absolute_url }}" class="tooltipped blue-text text-darken-4" data-position="top" data-delay="50" data-tooltip="{% trans 'Click to see the Attendee detail page.' %}">
+          {% trans 'Detail' %}
+          <i class="material-icons right">account_circle</i>
+        </a>
+      </li>
       <li>
         <a href="{{ object.get_send_email_url }}" class="tooltipped blue-text text-darken-4" data-position="top" data-delay="50" data-tooltip="{% trans 'Click to send an email to this Attendee.' %}" target="_blank">
           {% trans 'Send email' %}
@@ -25,14 +36,28 @@
           <i class="material-icons right">file_download</i>
         </a>
       </li>
-      <li>
-        <a href="javascript:;" class="check-attendee tooltipped blue-text text-darken-4" data-position="top" data-delay="50" data-tooltip="{% if object.attended_at %}{% trans 'Click to Uncheck this attendee.' %}{% else %}{% trans 'Click to Check in this attendee.' %}{% endif %}">
-          {% if object.attended_at %}{% trans 'Uncheck.' %}{% else %}{% trans 'Check in.' %}{% endif %}
-          <i class="material-icons right">
-            {% if object.attended_at %}check_box_outline_blank{% else %}check_box{% endif %}
-          </i>
-        </a>
-      </li>
+      <form action="{% if object.attended_at %}{% url 'attendee:uncheck' activity_slug=activity.slug code=object.code %}{% else %}{% url 'attendee:check' activity_slug=activity.slug code=object.code %}{% endif %}" method="POST">
+        {% csrf_token %}
+        <li>
+          <a href="javascript:;" class="dropdown-form-button tooltipped blue-text text-darken-4" data-position="top" data-delay="50" data-tooltip="{% if object.attended_at %}{% trans 'Click to Uncheck this attendee.' %}{% else %}{% trans 'Click to Check in this attendee.' %}{% endif %}">
+            {% if object.attended_at %}{% trans 'Uncheck.' %}{% else %}{% trans 'Check in.' %}{% endif %}
+            <i class="material-icons right">
+              {% if object.attended_at %}check_box_outline_blank{% else %}check_box{% endif %}
+            </i>
+          </a>
+        </li>
+      </form>
+      {% if activty.price and object.status != object.CONFIRMED %}
+        <form action="{% url 'attendee:confirm_payment' activity_slug=activity.slug code=object.code %}" method="POST">
+          {% csrf_token %}
+          <li>
+            <a href="javascript:;" class="dropdown-form-button tooltipped blue-text text-darken-4" data-position="top" data-delay="50" data-tooltip="{% trans 'Click to Confirm the subscription of this attendee.' %}">
+              {% trans 'Confirm' %}
+              <i class="material-icons right">done</i>
+            </a>
+          </li>
+        </form>
+      {% endif %}
     </ul>
   </div>
 </div>

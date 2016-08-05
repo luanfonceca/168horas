@@ -5,16 +5,12 @@
 
 {% block content %}
   <div class="row">
-    <div class="col s12 m12 l12">
-      <div>
-        <h4>{% trans 'Sort' %}</h4>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
     <div class="col s6 m6 l6 offset-s3 offset-m3 offset-l3 ">
       {% include "attendee/includes/card.html" %}
     </div>
   </div>
 {% endblock content %}
+
+{% block extra_js %}
+  <script type="text/javascript" src="{% static 'attendee/js/script.js' %}"></script>
+{% endblock extra_js %}

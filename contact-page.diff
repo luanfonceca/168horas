@@ -1,0 +1,70 @@
+diff --git a/core/forms.py b/core/forms.py
+index 02def9d..db62c68 100644
+--- a/core/forms.py
++++ b/core/forms.py
+@@ -17,3 +17,15 @@ class CustomSignupForm(forms.Form):
+             user.first_name = self.cleaned_data.get('full_name')
+         finally:
+             user.save()
++
++
++class ContactForm(forms.Form):
++    name = forms.CharField(
++        required=True,
++        widget=forms.TextInput(attrs={'placeholder': _('Name')}))
++    phone = forms.CharField(
++        required=True,
++        widget=forms.TextInput(attrs={'placeholder': _('Phone')}))
++    message = forms.CharField(
++        required=True,
++        widget=forms.Textarea(attrs={'placeholder': _('Message')}))
+diff --git a/core/urls.py b/core/urls.py
+index 3887229..674c662 100644
+--- a/core/urls.py
++++ b/core/urls.py
+@@ -7,4 +7,7 @@ urlpatterns = patterns(
+     url(regex=r'^$',
+         view=views.IndexView.as_view(),
+         name='index'),
++    url(regex=r'^contact/$',
++        view=views.ContactView.as_view(),
++        name='contact'),
+ )
+diff --git a/core/views.py b/core/views.py
+index 791fc9a..921de2f 100644
+--- a/core/views.py
++++ b/core/views.py
+@@ -2,11 +2,12 @@ from django.utils.translation import ugettext as _
+ from django.core.urlresolvers import reverse_lazy
+ from django.shortcuts import redirect
+ 
+-from vanilla import TemplateView, UpdateView
++from vanilla import TemplateView, UpdateView, FormView
+ from allauth.account import views as account_views
+ 
+ from core import mixins
+ from core.models import Profile
++from core.forms import ContactForm
+ 
+ 
+ class IndexView(TemplateView):
+@@ -23,6 +24,19 @@ class IndexView(TemplateView):
+         return super(IndexView, self).get(*args, **kwargs)
+ 
+ 
++class ContactView(mixins.PageTitleMixin, FormView):
++    template_name = 'contact.html'
++    page_title = _('Contact page')
++    full_page_title = True
++    form_class = ContactForm
++    success_url = reverse_lazy('activity:list')
++    success_message = _('Message sended.')
++
++    def form_valid(self, *args, **kwargs):
++
++        return super(ContactView, self).form_valid(*args, **kwargs)
++
++
+ class ProfileView(mixins.PageTitleMixin,
+                   mixins.LoginRequiredMixin,
+                   mixins.FormValidRedirectMixing,

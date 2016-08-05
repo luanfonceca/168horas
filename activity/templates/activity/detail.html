@@ -1,123 +1,62 @@
 {% extends "base.html" %}
 
 {% load i18n %}
+{% load humanize %}
 
 {% load tags %}
 
 {% block content %}
-  <div class="row">
-    {% if object.photo %}
-      <div class="activity-image col s12 m6 l6">
-        <img class="responsive-img" src="{{ object.get_photo_url }}">
-      </div>
-      <div class="col s12 m6 l6">
-        <div id="activity-actions">
-          {% if request.user.is_staff or request.user.profile == object.created_by %}
-            <a class='dropdown-button btn-large waves-effect waves-light blue darken-4 white-text' href='javascript:;' data-activates='activity-actions'>
-              {% trans 'Actions' %}
-              <i class="material-icons right" style="line-height: 55px;">arrow_drop_down</i>
-            </a>
-            <ul id='activity-actions' class='dropdown-content'>
-              <li>
-                <a class="blue-text text-darken-4" href="{{ object.get_attendee_list_url }}">
-                  {% trans 'Attendees' %}
-                  <i class="material-icons right">group</i>
-                </a>
-              </li>
-              <li>
-                {% if request.user.is_authenticated and object|already_joined:request.user.profile %}
-                  <a class='disabled blue-text text-darken-4' href="javascript:;">
-                    {% trans 'Already Joined' %}
-                    <i class="material-icons right">check</i>
-                  </a>
-                {% else %}
-                  <a class='blue-text text-darken-4' {% if object.link %}href="{{ object.link }}" target="_blank"{% else %}href="{{ object.get_attendee_join_url }}"{% endif %}>
-                    {% trans 'Join' %}
-                    <i class="material-icons right">arrow_forward</i>
-                  </a>
-                {% endif %}
-              </li>
-              <li>
-                <a class="blue-text text-darken-4" href="{{ object.get_update_url }}">
-                  {% trans 'Update' %}
-                  <i class="material-icons right">edit</i>
-                </a>
-              </li>
-              <li>
-                <a class="blue-text text-darken-4" href="{{ object.get_delete_url }}">
-                  {% trans 'Delete' %}
-                  <i class="material-icons right">delete</i>
-                </a>
-              </li>
-            </ul>
-          {% elif request.user.is_authenticated and object|already_joined:request.user.profile %}
-            <a class='disabled btn-large waves-effect waves-light white blue-text text-darken-4' href="javascript:;">
-              {% trans 'Already Joined' %}
-              <i class="material-icons right" style="line-height: 55px;">check</i>
-            </a>
-          {% else %}
-            <a class="btn btn-wide btn-large waves-effect waves-light blue darken-4" {% if object.link %}href="{{ object.link }}" target="_blank"{% else %}href="{{ object.get_attendee_join_url }}"{% endif %} style="width: 100%">
-              {% trans 'Join' %}
-              <i class="material-icons right"><i class="material-icons">arrow_forward</i></i>
-            </a>
-          {% endif %}
+  <input type="hidden" name="place_id" id="id_place_id" value="{{ object.place_id|default:'' }}" />
+  <div id="activity-header">
+    <div class="row">
+      {% if object.photo %}
+        <div class="activity-image col s12 m6 l6">
+          <img style="width:100%" class="responsive-img" src="{{ object.get_photo_url }}" />
         </div>
-      </div>
-    {% else %}
-      <div class="center-align">
-        <div class="col s4 offset-s4">
-          {% if request.user.is_staff or request.user.profile == object.created_by %}
-            <a class='dropdown-button btn-large waves-effect waves-light blue darken-4 white-text' href='javascript:;' data-activates='activity-actions'>
-              {% trans 'Actions' %}
-              <i class="material-icons right" style="line-height: 55px;">arrow_drop_down</i>
-            </a>
-            <ul id='activity-actions' class='dropdown-content'>
-              <li>
-                <a class="blue-text text-darken-4" href="{{ object.get_attendee_list_url }}">
-                  {% trans 'Attendees' %}
-                  <i class="material-icons right">group</i>
-                </a>
-              </li>
-              <li>
-                {% if request.user.is_authenticated and object|already_joined:request.user.profile %}
-                  <a class='disabled blue-text text-darken-4' href="javascript:;">
-                    {% trans 'Already Joined' %}
-                    <i class="material-icons right">check</i>
-                  </a>
-                {% else %}
-                  <a class='blue-text text-darken-4' {% if object.link %}href="{{ object.link }}" target="_blank"{% else %}href="{{ object.get_attendee_join_url }}"{% endif %}>
-                    {% trans 'Join' %}
-                    <i class="material-icons right">arrow_forward</i>
-                  </a>
-                {% endif %}
-              </li>
-              <li>
-                <a class="blue-text text-darken-4" href="{{ object.get_update_url }}">
-                  {% trans 'Update' %}
-                  <i class="material-icons right">edit</i>
-                </a>
-              </li>
-              <li>
-                <a class="blue-text text-darken-4" href="{{ object.get_delete_url }}">
-                  {% trans 'Delete' %}
-                  <i class="material-icons right">delete</i>
-                </a>
-              </li>
-            </ul>
-          {% elif request.user.is_authenticated and object|already_joined:request.user.profile %}
-            <a class='disabled btn-large waves-effect waves-light white blue-text text-darken-4' href="javascript:;">
-              {% trans 'Already Joined' %}
-              <i class="material-icons right" style="line-height: 55px;">check</i>
-            </a>
-          {% else %}
-            <a class="btn btn-wide btn-large waves-effect waves-light blue darken-4" {% if object.link %}href="{{ object.link }}" target="_blank"{% else %}href="{{ object.get_attendee_join_url }}"{% endif %} style="width: 100%">
-              {% trans 'Join' %}
-              <i class="material-icons right"><i class="material-icons">arrow_forward</i></i>
-            </a>
+        <div class="col s12 m6 l6">
+          <div class="join">
+            {% include "activity/includes/action-button.html" %}
+          </div>
+
+          <div class="activity-scheduled-date">
+            <p>{% trans 'Date:' %} {{ object.scheduled_date }}</p>
+          </div>
+
+          {% if not object.is_online %}
+            {% if object.location and object.place_id %}
+              <div style="margin: 20px 0;width: 100%; height: 300px" id="id_map"></div>
+            {% else %}
+              <p>{% trans 'Local:' %} {{ object.location }}</p>
+            {% endif %}
           {% endif %}
+
+          <div class="categories">
+            <p>
+              {% trans 'Categories:' %}
+              {% for category in object.categories.all %}
+                <a href="{% url 'category:detail' category.slug %}">{{ category }}</a>{% if not forloop.last %},{% endif %}
+              {% endfor %}
+            </p>  
+          </div>
+
+          <div id="activity-share">
+            <div class="addthis_sharing_toolbox"></div>
+            {% if object.short_url %}
+              <p>
+                {% trans 'Short url:' %}
+                <a href="{{ object.get_full_short_url }}" target="_blank">{{ object.get_full_short_url }}</a>
+              </p>
+            {% endif %}
+          </div>
         </div>
-      </div>
-    {% endif %}
+      {% else %}
+        <div class="center-align">
+          <div class="col col s12 m6 offset-m3 l6 offset-l3">
+            {% include "activity/includes/action-button.html" %}
+          </div>
+        </div>
+      {% endif %}
+    </div>
   </div>
 
   <div id="activity-description">
@@ -125,48 +64,111 @@
     {{ object.description|safe|linebreaks }}
   </div>
 
-  {% if not object.is_online %}
-    <br/>
-    <h5>{% trans 'Local' %}</h5>
-    <p>
-      {{ object.location }}
-    </p>
-    <br/>
+  {% if object.embedded_schedule %}
+    <div id="activity-schedule">
+      <h5>{% trans 'Schedule' %}</h5>
+
+      {{ object.embedded_schedule|safe }}
+    </div>
   {% endif %}
 
   {% if object.is_organizer and object.created_by.organizer_name %}
     <br/>
-    <h5>{% trans 'Organizer' %}</h5>
-    <p>
-      {{ object.created_by.organizer_name }}
-      {% if object.created_by.organizer_email %}
-        -
-        <a href="mailto:{{ object.created_by.organizer_email }}" target="_blank">
-          {{ object.created_by.organizer_email }}
-        </a>
-      {% endif %}
-      {% if object.created_by.organizer_phone %}
-        -
-        {{ object.created_by.organizer_phone }}
-      {% endif %}
-    </p>
+    <div id="activity-location">
+      <h5>{% trans 'Organizer' %}</h5>
+      <p style="margin-bottom: 0">
+        {{ object.created_by.organizer_name }}
+        {% if object.created_by.organizer_email %}
+          -
+          <a href="mailto:{{ object.created_by.organizer_email }}" target="_blank">
+            {{ object.created_by.organizer_email }}
+          </a>
+        {% endif %}
+        {% if object.created_by.organizer_phone %}
+          -
+          {{ object.created_by.organizer_phone }}
+        {% endif %}
+      </p>
+    </div>
   {% elif object.is_organizer and request.user.profile == object.created_by %}
     <br/>
-    <h5>{% trans 'Organizer' %}</h5>
-    {% url 'account_profile' as profile_url %}
-    {% blocktrans with profile_url=profile_url %}
-      <p>
-        Click <a href="{{ profile_url }}#organizer-information">here</a> to fill the Organizer information.
-      </p>
-    {% endblocktrans %}
+    <div id="activity-location">
+      <h5>{% trans 'Organizer' %}</h5>
+      {% url 'account_profile' as profile_url %}
+      {% blocktrans with profile_url=profile_url %}
+        <p style="margin-bottom: 0">
+          Click <a href="{{ profile_url }}#organizer-information">here</a> to fill the Organizer information.
+        </p>
+      {% endblocktrans %}
+    </div>
   {% endif %}
-
-  <br/>
-  <h5>{% trans 'Share' %}</h5>
-  <div class="addthis_sharing_toolbox"></div>
 
   <br/>
   <p class="red-text">
     {% trans '* ADDITIONAL ACTIVITIES: Check with your coordinator if this activity is valid for your course and university.' %}
   </p>
 {% endblock %}
+
+
+{% block extra_js %}
+
+  <script type="text/javascript">
+    function initMap() {
+      var mapElement = $('#id_map')[0];
+      var place_id = $('#id_place_id').val();
+      var geocoder = new google.maps.Geocoder();
+      var infowindow = new google.maps.InfoWindow();
+
+      if (!mapElement) {
+        return;
+      }
+
+      var mapOptions = {
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        scrollwheel: false,
+      };
+
+      var map = new google.maps.Map(mapElement, mapOptions);
+      var marker = new google.maps.Marker({
+        map: map
+      });
+
+      if (geocoder && place_id) {
+        geocoder.geocode({'placeId': place_id}, function(results, status) {
+          if (status == google.maps.GeocoderStatus.OK) {
+            if (status != google.maps.GeocoderStatus.ZERO_RESULTS) {
+              var place = results[0];
+
+              var placeService = new google.maps.places.PlacesService(map);
+              placeService.getDetails({placeId: place.place_id}, function(place, status) {
+                if (status === google.maps.places.PlacesServiceStatus.OK) {
+                  map.setCenter(place.geometry.location);
+
+                  if (place.geometry.viewport) {
+                    map.fitBounds(place.geometry.viewport);
+                  } else {
+                    map.setCenter(place.geometry.location);
+                    map.setZoom(16);
+                  }
+
+                  marker.setPosition(place.geometry.location);
+                  marker.setVisible(true);
+
+                  infowindow.setContent(
+                    '<div><strong>' + place.name +'</strong><br>' +
+                    place.formatted_address
+                  );
+                  infowindow.open(map, marker);
+                }
+              });
+            }
+          } else {
+            console.log("Geocode was not successful for the following reason: " + status);
+          }
+        });
+      }
+    }
+  </script>
+
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&language=pt_BR&callback=initMap"></script>
+{% endblock extra_js %}

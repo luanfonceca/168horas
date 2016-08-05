@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-02 11:04-0300\n"
-"PO-Revision-Date: 2016-04-02 11:13-0300\n"
+"POT-Creation-Date: 2016-08-01 15:03-0300\n"
+"PO-Revision-Date: 2016-08-01 15:05-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -18,82 +18,159 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 1.7.6\n"
 
-#: activity/models.py:33 event/models.py:30
+#: activity/models.py:40
+msgid "Draft"
+msgstr "Rascunho"
+
+#: activity/models.py:40
+msgid "Private"
+msgstr "Privado"
+
+#: activity/models.py:41
+msgid "Pre-sale"
+msgstr "Pré-venda"
+
+#: activity/models.py:41
+msgid "Published"
+msgstr "Está publicado"
+
+#: activity/models.py:42
+msgid "Soldout"
+msgstr "Esgotado"
+
+#: activity/models.py:42
+#: activity/templates/activity/includes/action-button.html:26
+#: activity/templates/activity/includes/action-button.html:65
+msgid "Closed"
+msgstr "Encerrado"
+
+#: activity/models.py:45 event/models.py:30
 msgid "Link"
 msgstr "Link"
 
-#: activity/models.py:34 event/models.py:31
+#: activity/models.py:46 event/models.py:31
 msgid "Date"
 msgstr "Data"
 
-#: activity/models.py:37
+#: activity/models.py:49
 msgid "Total of hours to be used in the Certificate."
 msgstr "Total de horas que serão utilizadas no Certificado."
 
-#: activity/models.py:38 attendee/models.py:35 event/models.py:32
+#: activity/models.py:50 attendee/models.py:93 event/models.py:32
 #: ticket/models.py:22
 msgid "Created At"
 msgstr "Criado Em"
 
-#: activity/models.py:39 event/models.py:33
+#: activity/models.py:51 event/models.py:33
 msgid "Is Published"
 msgstr "Está publicado"
 
-#: activity/models.py:40 event/models.py:34
+#: activity/models.py:52 event/models.py:34
 msgid "Is Public"
 msgstr "Está Público"
 
-#: activity/models.py:41 event/models.py:35
+#: activity/models.py:53 event/models.py:35
 msgid "Is Organizer"
 msgstr "Organizador"
 
-#: activity/models.py:44
+#: activity/models.py:56
 msgid "Event photo"
 msgstr "Foto do evento"
 
-#: activity/models.py:46
+#: activity/models.py:58
 msgid "Images in the resolution: 400x400."
 msgstr "Imagens na resolução de 400x400."
 
-#: activity/models.py:48 event/models.py:41
+#: activity/models.py:60 event/models.py:41
 msgid "Location"
 msgstr "Local"
 
-#: activity/models.py:50
+#: activity/models.py:62
+msgid "Place id"
+msgstr "Id de localização"
+
+#: activity/models.py:64
 msgid "Capacity"
 msgstr "Capacidade"
 
-#: activity/models.py:52 ticket/models.py:21
+#: activity/models.py:66 ticket/models.py:21
 msgid "Price"
 msgstr "Preço"
 
-#: activity/models.py:56 event/models.py:45
+#: activity/models.py:68
+msgid "Short url"
+msgstr "Url curta"
+
+#: activity/models.py:70
+msgid "Result will be like: http://168h.com.br/my-activity/"
+msgstr "Resultado será algo como: http://168h.com.br/my-activity/"
+
+#: activity/models.py:72 attendee/models.py:99 attendee/models.py:101
+#: attendee/models.py:104 attendee/templates/attendee/detail.html:84
+msgid "Status"
+msgstr "Estado"
+
+#: activity/models.py:74
+msgid "Embedded Schedule"
+msgstr "Incorporar Programação"
+
+#: activity/models.py:78 event/models.py:45
 msgid "Created by"
 msgstr "Criado por"
 
-#: activity/models.py:61 category/models.py:11 core/models.py:31
-#: core/templates/base.html:65
+#: activity/models.py:83 category/models.py:11 core/models.py:31
+#: core/templates/base.html:69 core/templates/base.html.py:97
 msgid "Categories"
 msgstr "Categorias"
 
-#: activity/models.py:65 activity/templates/activity/detail.html:23
-#: attendee/models.py:49 attendee/views.py:40
+#: activity/models.py:87
+#: activity/templates/activity/includes/action-button.html:14
+#: attendee/models.py:204 attendee/views.py:58 attendee/views.py:248
+#: attendee/views.py:324
 msgid "Attendees"
 msgstr "Participantes"
 
-#: activity/models.py:74 activity/templates/activity/list.html:8
-#: activity/templates/activity/list_by_category.html:8
+#: activity/models.py:96 activity/templates/activity/list.html:8
+#: activity/templates/activity/list_by_category.html:8 category/views.py:48
 #: ticket/templates/ticket/list.html:14
 msgid "Activity"
 msgstr "Atividade"
 
-#: activity/models.py:75 activity/views.py:26
+#: activity/models.py:97 activity/views.py:50 activity/views.py:71
 msgid "Activities"
 msgstr "Atividades"
 
-#: activity/models.py:107
+#: activity/models.py:163
 msgid "Certificate from \"{}\"!"
 msgstr "Certificado de \"{}\"!"
+
+#: activity/models.py:218
+msgid "Free"
+msgstr "Gratuito"
+
+#: activity/models.py:234
+#, python-brace-format
+msgid "{0} joined on pre-sale to \"{1}\"!"
+msgstr "{0} se inscreveu na pré-venda do \"{1}\"!"
+
+#: activity/models.py:255
+#, python-brace-format
+msgid "{0} pay the subscription to \"{1}\"!"
+msgstr "{0} pagou sua inscrição para \"{1}\"!"
+
+#: activity/templates/activity/dashboard.html:41
+#: activity/templates/activity/dashboard.html:42
+#: attendee/templates/attendee/detail.html:120
+#: attendee/templates/attendee/detail.html:124
+msgid "None"
+msgstr "Nenhum"
+
+#: activity/templates/activity/dashboard.html:54
+#: activity/templates/activity/includes/card.html:44
+#: attendee/templates/attendee/list.html:31
+#: category/templates/category/detail.html:27
+msgid "Export attendees"
+msgstr "Exportar participantes"
 
 #: activity/templates/activity/delete.html:7
 msgid ""
@@ -104,8 +181,9 @@ msgstr ""
 "importante para outros alunos."
 
 #: activity/templates/activity/delete.html:14
-#: activity/templates/activity/form.html:85
-#: attendee/templates/attendee/form.html:22
+#: activity/templates/activity/form.html:109
+#: attendee/templates/attendee/form.html:39
+#: attendee/templates/attendee/payment.html:30
 #: category/templates/category/delete.html:13
 #: category/templates/category/form.html:17
 #: core/templates/account/password_change.html:26
@@ -116,61 +194,51 @@ msgid "back"
 msgstr "voltar"
 
 #: activity/templates/activity/delete.html:17
-#: activity/templates/activity/detail.html:48
-#: activity/templates/activity/includes/card.html:41
+#: activity/templates/activity/includes/action-button.html:53
+#: activity/templates/activity/includes/card.html:42 activity/views.py:125
 #: category/templates/category/delete.html:16
 msgid "Delete"
 msgstr "Remover"
 
-#: activity/templates/activity/detail.html:17
-#: attendee/templates/attendee/includes/card.html:12
-#: attendee/templates/attendee/list.html:13
-#: category/templates/category/detail.html:9
-#: ticket/templates/ticket/list.html:8
-msgid "Actions"
-msgstr "Ações"
+#: activity/templates/activity/detail.html:22
+#: attendee/templates/attendee/certificate.html:62
+msgid "Date:"
+msgstr "Data:"
 
-#: activity/templates/activity/detail.html:30
-#: activity/templates/activity/detail.html:55
-#: activity/templates/activity/detail.html:73
-#: activity/templates/activity/includes/card.html:27
-msgid "Already Joined"
-msgstr "Inscrito"
+#: activity/templates/activity/detail.html:29
+msgid "Local:"
+msgstr "Local:"
 
 #: activity/templates/activity/detail.html:35
-#: activity/templates/activity/detail.html:60
-#: activity/templates/activity/detail.html:78
-#: activity/templates/activity/includes/card.html:32
-msgid "Join"
-msgstr "Participar"
+msgid "Categories:"
+msgstr "Categorias:"
 
-#: activity/templates/activity/detail.html:42
-#: activity/templates/activity/includes/card.html:40
-msgid "Update"
-msgstr "Atualizar"
+#: activity/templates/activity/detail.html:46
+msgid "Short url:"
+msgstr "Url curta:"
 
-#: activity/templates/activity/detail.html:88
+#: activity/templates/activity/detail.html:63
 msgid "Description"
 msgstr "Descrição"
 
-#: activity/templates/activity/detail.html:94
-msgid "Local"
-msgstr "Local"
+#: activity/templates/activity/detail.html:69
+msgid "Schedule"
+msgstr "Programação"
 
-#: activity/templates/activity/detail.html:103
-#: activity/templates/activity/detail.html:119
+#: activity/templates/activity/detail.html:78
+#: activity/templates/activity/detail.html:96
 msgid "Organizer"
 msgstr "Organizador"
 
-#: activity/templates/activity/detail.html:121
+#: activity/templates/activity/detail.html:98
 #, python-format
 msgid ""
 "\n"
-"      <p>\n"
-"        Click <a href=\"%(profile_url)s#organizer-information\">here</a> to "
-"fill the Organizer information.\n"
-"      </p>\n"
-"    "
+"        <p style=\"margin-bottom: 0\">\n"
+"          Click <a href=\"%(profile_url)s#organizer-information\">here</a> "
+"to fill the Organizer information.\n"
+"        </p>\n"
+"      "
 msgstr ""
 "\n"
 "      <p>\n"
@@ -179,32 +247,63 @@ msgstr ""
 "      </p>\n"
 "    "
 
-#: activity/templates/activity/detail.html:129
-msgid "Share"
-msgstr "Compartilhar"
-
-#: activity/templates/activity/detail.html:134
+#: activity/templates/activity/detail.html:108
 msgid ""
 "* ADDITIONAL ACTIVITIES: Check with your coordinator if this activity is "
 "valid for your course and university."
 msgstr ""
-"* ATIVIDADES COMPLEMENTARES: Válide com o coordenador do seu curso se essa atividade é "
-"válida para seu curso e universidade."
+"* ATIVIDADES COMPLEMENTARES: Valide com o coordenador do seu curso se essa "
+"atividade é válida para seu curso e universidade."
 
-#: activity/templates/activity/form.html:32
+#: activity/templates/activity/form.html:42
 msgid "Are you the Organizer of this activity?"
 msgstr "Você é o Organizador desta atividade?"
 
-#: activity/templates/activity/form.html:68
+#: activity/templates/activity/form.html:86
 msgid "Online only activity?"
 msgstr "Atividade online?"
 
-#: activity/templates/activity/form.html:89
-#: attendee/templates/attendee/form.html:26
+#: activity/templates/activity/form.html:113
+#: attendee/templates/attendee/form.html:43
 #: category/templates/category/form.html:21 core/templates/profile.html:97
 #: ticket/templates/ticket/form.html:28
 msgid "Save"
 msgstr "Salvar"
+
+#: activity/templates/activity/includes/action-button.html:8
+#: attendee/templates/attendee/detail.html:10
+#: attendee/templates/attendee/includes/card.html:17
+#: attendee/templates/attendee/list.html:13
+#: category/templates/category/detail.html:9
+#: ticket/templates/ticket/list.html:8
+msgid "Actions"
+msgstr "Ações"
+
+#: activity/templates/activity/includes/action-button.html:21
+#: activity/templates/activity/includes/action-button.html:60
+#: activity/templates/activity/includes/card.html:28
+msgid "Already Joined"
+msgstr "Inscrito"
+
+#: activity/templates/activity/includes/action-button.html:31
+msgid "Confirm payment:"
+msgstr "Confirmar pagamento:"
+
+#: activity/templates/activity/includes/action-button.html:37
+#: activity/templates/activity/includes/action-button.html:71
+msgid "Join now for only"
+msgstr "Inscreva-se agora por apenas"
+
+#: activity/templates/activity/includes/action-button.html:39
+#: activity/templates/activity/includes/action-button.html:73
+#: activity/templates/activity/includes/card.html:33 attendee/views.py:149
+msgid "Join"
+msgstr "Participar"
+
+#: activity/templates/activity/includes/action-button.html:47
+#: activity/templates/activity/includes/card.html:41 activity/views.py:109
+msgid "Update"
+msgstr "Atualizar"
 
 #: activity/templates/activity/list.html:18
 #: activity/templates/activity/list_by_category.html:18
@@ -213,81 +312,419 @@ msgstr "Próximas atividades"
 
 #: activity/templates/activity/list.html:42
 #: activity/templates/activity/list_by_category.html:42
-#: category/templates/category/detail.html:41
+#: category/templates/category/detail.html:47
 #: category/templates/category/list.html:28
 msgid "Unfortunately, we have no activities in the area. Spread education."
 msgstr "Infelizmente, não temos nenhuma atividade na área. Espalhe a educação."
 
 #: activity/templates/activity/list.html:44
 #: activity/templates/activity/list_by_category.html:44
-#: category/templates/category/detail.html:43
+#: category/templates/category/detail.html:49
 #: category/templates/category/list.html:30
 msgid "Tell us an activity!"
 msgstr "Indique-nos uma atividade!"
 
-#: activity/views.py:41
-msgid "Add activity"
-msgstr "Adicionar atividade"
+#: activity/templates/mailing/payment_notification.html:10
+#, python-format
+msgid ""
+"\n"
+"      <p>Hi %(organizer_name)s, the attendee \"%(name)s\" just charged his "
+"payment at \"%(activity_title)s\"!</p>\n"
+"\n"
+"      <p>Thank you.</p>\n"
+"    "
+msgstr ""
+"\n"
+"      <p>Olá %(organizer_name)s, o participante \"%(name)s\" acabou de "
+"confirmar seu pagamento na atividade \"%(activity_title)s\"!</p>\n"
+"\n"
+"      <p>Obrigado.</p>\n"
+"    "
 
-#: activity/views.py:72
+#: activity/templates/mailing/payment_notification.txt:3
+#, python-format
+msgid ""
+"\n"
+"  Hi %(organizer_name)s, the attendee \"%(name)s\" just charged his payment "
+"at \"%(activity_title)s\"!\n"
+"\n"
+"  Thank you.\n"
+msgstr ""
+"\n"
+"  Olá %(organizer_name)s, o participante \"%(name)s\" acabou de confirmar "
+"seu pagamento na atividade \"%(activity_title)s\"!\n"
+"\n"
+"  Obrigado.\n"
+
+#: activity/templates/mailing/pre_sale_notification.html:10
+#, python-format
+msgid ""
+"\n"
+"      <p>Hi %(organizer_name)s, your activity \"%(activity_title)s\" just "
+"received 1 more subscription:</p>\n"
+"\n"
+"      <p>\n"
+"        Name: %(name)s<br>\n"
+"        Email: %(email)s<br>\n"
+"        Phone: %(phone)s<br>\n"
+"        Payment Url: %(payment_url)s<br>\n"
+"      </p>\n"
+"\n"
+"      <p>Thank you.</p>\n"
+"    "
+msgstr ""
+"\n"
+"      <p>Olá %(organizer_name)s, sua atividade \"%(activity_title)s\" "
+"recebeu mais 1 inscrição:</p>\n"
+"\n"
+"      <p>\n"
+"        Nome: %(name)s<br>\n"
+"        Email: %(email)s<br>\n"
+"        Telefone: %(phone)s\n"
+"        Endereço de Pagamento: %(payment_url)s<br>\n"
+"      </p>\n"
+"\n"
+"      <p>Obrigado.</p>\n"
+"    "
+
+#: activity/templates/mailing/pre_sale_notification.txt:3
+#, python-format
+msgid ""
+"\n"
+"  Hi %(organizer_name)s, your activity \"%(activity_title)s\" just received "
+"1 more subscription:\n"
+"\n"
+"  Name: %(name)s\n"
+"  Email: %(email)s\n"
+"  Phone: %(phone)s\n"
+"  Payment Url: %(payment_url)s\n"
+"\n"
+"  Thank you.\n"
+msgstr ""
+"\n"
+"   Olá %(organizer_name)s, sua atividade \"%(activity_title)s\" recebeu mais "
+"1 inscrição:\n"
+"\n"
+"   Nome: %(name)s\n"
+"   Email: %(email)s\n"
+"   Telefone: %(phone)s\n"
+"   Endereço de Pagamento: %(payment_url)s\n"
+"\n"
+"   Obrigado.\n"
+
+#: activity/views.py:65
+msgid "Create"
+msgstr "Cadastrar"
+
+#: activity/views.py:138 category/views.py:49
 msgid "Id"
 msgstr "Id"
 
-#: activity/views.py:73 attendee/models.py:28 ticket/models.py:19
+#: activity/views.py:139 category/views.py:50
+msgid "First Name"
+msgstr "Nome"
+
+#: activity/views.py:140 attendee/templates/attendee/detail.html:88
+#: category/views.py:51 ticket/models.py:19
 msgid "Name"
 msgstr "Nome"
 
-#: activity/views.py:74 core/models.py:14
+#: activity/views.py:141 category/views.py:52 core/models.py:14
 msgid "CPF"
 msgstr "CPF"
 
-#: activity/views.py:75 attendee/models.py:30
-msgid "Email"
-msgstr "Email"
+#: activity/views.py:142 category/views.py:53
+msgid "Email Address"
+msgstr "Endereço de Email"
 
-#: activity/views.py:76 attendee/models.py:31
+#: activity/views.py:143 attendee/models.py:89
+#: attendee/templates/attendee/detail.html:100 category/views.py:54
 msgid "Phone"
 msgstr "Telefone"
 
-#: activity/views.py:77 attendee/models.py:34
+#: activity/views.py:144 attendee/models.py:92
+#: attendee/templates/attendee/detail.html:108 category/views.py:55
 msgid "Code"
 msgstr "Código"
 
-#: activity/views.py:78
+#: activity/views.py:145 category/views.py:56
 msgid "Attended at"
 msgstr "Credenciado em"
 
-#: activity/views.py:105
+#: activity/views.py:150
+msgid "Subscription status"
+msgstr "Status da inscrição"
+
+#: activity/views.py:151 attendee/templates/attendee/detail.html:120
+msgid "Payment status"
+msgstr "Status do pagamento"
+
+#: activity/views.py:152 attendee/templates/attendee/detail.html:124
+msgid "Payment type"
+msgstr "Forma de pagamento"
+
+#: activity/views.py:158
+msgid "Idade"
+msgstr ""
+
+#: activity/views.py:159
+msgid "Eu sou"
+msgstr ""
+
+#: activity/views.py:196
 msgid "Successfully checked all the attendees!"
 msgstr "Credenciados todos os participantes com sucesso!"
 
-#: activity/views.py:125
+#: activity/views.py:216
 msgid "Successfully sended all the certificates!"
 msgstr "Enviado todos os certificados com sucesso!"
 
 #: attendee/models.py:33
+msgid "Pending"
+msgstr "Pendente"
+
+#: attendee/models.py:34
+msgid "Confirmed"
+msgstr "Confirmado"
+
+#: attendee/models.py:35
+msgid "Canceled"
+msgstr "Cancelado"
+
+#: attendee/models.py:58
+msgid "Pendente de pagamento"
+msgstr ""
+
+#: attendee/models.py:59
+msgid "Autorizado"
+msgstr ""
+
+#: attendee/models.py:60
+msgid "Iniciado"
+msgstr ""
+
+#: attendee/models.py:61
+msgid "Boleto impresso"
+msgstr ""
+
+#: attendee/models.py:62
+msgid "Concluido"
+msgstr ""
+
+#: attendee/models.py:63
+#, fuzzy
+#| msgid "Canceled"
+msgid "Cancelado"
+msgstr "Cancelado"
+
+#: attendee/models.py:64
+msgid "Em analise"
+msgstr ""
+
+#: attendee/models.py:65
+msgid "Estornado"
+msgstr ""
+
+#: attendee/models.py:66
+msgid "Confirmado pelo Organizador"
+msgstr ""
+
+#: attendee/models.py:77
+msgid "Debito bancario"
+msgstr ""
+
+#: attendee/models.py:78
+msgid "Financiamento bancario"
+msgstr ""
+
+#: attendee/models.py:79
+msgid "Boleto bancario"
+msgstr ""
+
+#: attendee/models.py:80
+msgid "Cartao de credito"
+msgstr ""
+
+#: attendee/models.py:81
+msgid "Cartao de debito"
+msgstr ""
+
+#: attendee/models.py:82
+msgid "Cartira moip"
+msgstr "Carteira Moip"
+
+#: attendee/models.py:83
+msgid "Nao definida"
+msgstr ""
+
+#: attendee/models.py:86 core/forms.py:7 core/forms.py:8
+msgid "Full Name"
+msgstr "Nome Completo"
+
+#: attendee/models.py:88 attendee/models.py:179
+#: attendee/templates/attendee/detail.html:96
+msgid "Email"
+msgstr "Email"
+
+#: attendee/models.py:91 attendee/templates/attendee/detail.html:104
 msgid "Educational Institution"
 msgstr "Instituição de Ensino"
 
-#: attendee/models.py:37
+#: attendee/models.py:95
 msgid "Attended At"
 msgstr "Credenciado Em"
 
-#: attendee/models.py:48
+#: attendee/models.py:97
+msgid "Last Updated At"
+msgstr ""
+
+#: attendee/models.py:107
+msgid "Moip code"
+msgstr "Código moip"
+
+#: attendee/models.py:120
+msgid "Menor que 15 anos"
+msgstr ""
+
+#: attendee/models.py:121
+msgid "Entre 15 e 23 anos"
+msgstr ""
+
+#: attendee/models.py:122
+msgid "Maior que 23 anos"
+msgstr ""
+
+#: attendee/models.py:125
+msgid "Sua idade é"
+msgstr ""
+
+#: attendee/models.py:129
+msgid "Sócio do Nexa RN"
+msgstr ""
+
+#: attendee/models.py:130
+msgid "Achiever"
+msgstr ""
+
+#: attendee/models.py:131
+msgid "Ex-achiever"
+msgstr ""
+
+#: attendee/models.py:132
+msgid "Externo"
+msgstr ""
+
+#: attendee/models.py:133
+msgid "Voluntário JARN"
+msgstr ""
+
+#: attendee/models.py:136
+msgid "Você é..."
+msgstr ""
+
+#: attendee/models.py:145
+msgid "Em caso de Ensino Superior ou Técnico, qual curso?"
+msgstr ""
+
+#: attendee/models.py:148
+msgid "Ano/Período"
+msgstr ""
+
+#: attendee/models.py:148
+msgid "Ex.: 3º ano; 6º período"
+msgstr ""
+
+#: attendee/models.py:152 attendee/models.py:165 attendee/models.py:188
+msgid "Sim"
+msgstr ""
+
+#: attendee/models.py:153 attendee/models.py:166 attendee/models.py:189
+msgid "Não"
+msgstr ""
+
+#: attendee/models.py:156
+msgid "Já participou ou participa do programa Miniempresa?"
+msgstr ""
+
+#: attendee/models.py:160
+msgid "Qual Miniempresa? Em qual ano?"
+msgstr ""
+
+#: attendee/models.py:167
+msgid "Já ouvi falar"
+msgstr ""
+
+#: attendee/models.py:170
+msgid "Já conhecia o Nexa ou a Junior Achievement?"
+msgstr ""
+
+#: attendee/models.py:175
+msgid "WhatsApp"
+msgstr ""
+
+#: attendee/models.py:176
+msgid "Facebook"
+msgstr "Facebook"
+
+#: attendee/models.py:177
+msgid "Twitter"
+msgstr ""
+
+#: attendee/models.py:178
+msgid "Instagram"
+msgstr ""
+
+#: attendee/models.py:180
+msgid "Boca a Boca"
+msgstr ""
+
+#: attendee/models.py:183
+msgid "Como ficou sabendo do SNE 2015?"
+msgstr ""
+
+#: attendee/models.py:192
+msgid "Você participou de alguma das edições anteriores do SNE?"
+msgstr ""
+
+#: attendee/models.py:196
+msgid "Quais?"
+msgstr ""
+
+#: attendee/models.py:203
 msgid "Attendee"
 msgstr "Participante"
 
-#: attendee/models.py:96
+#: attendee/models.py:274
 msgid "Welcome to the \"{}\"!"
 msgstr "Bem vindo ao \"{}\"!"
 
-#: attendee/models.py:106
+#: attendee/models.py:292
+msgid "Welcome to the pre-sale of \"{}\"!"
+msgstr "Bem vindo à pré-venda da atividade \"{}\"!"
+
+#: attendee/models.py:303
 msgid "This Attendee was already checked in."
 msgstr "Esse Participante já foi credenciado."
 
-#: attendee/models.py:112
+#: attendee/models.py:309
 msgid "This Attendee is not checked in yet."
 msgstr "Esse Participante ainda não foi credenciado."
+
+#: attendee/models.py:314
+msgid "Checked in"
+msgstr "Credenciado"
+
+#: attendee/models.py:314
+msgid "Not checked yet"
+msgstr "Não credenciado"
+
+#: attendee/models.py:326
+msgid "Payment confirmation of the \"{}\"!"
+msgstr "Confirmação do pagamento da \"{}\"!"
+
+#: attendee/models.py:340
+msgid "This Attendee was already updated as: {}."
+msgstr "Esse Participante já foi atualizado como: {}."
 
 #: attendee/templates/attendee/certificate.html:9
 #, python-format
@@ -307,10 +744,6 @@ msgstr "Nós certificamos que:"
 #: attendee/templates/attendee/certificate.html:55
 msgid "Has attended to:"
 msgstr "Compareceu ao:"
-
-#: attendee/templates/attendee/certificate.html:62
-msgid "Date:"
-msgstr "Data:"
 
 #: attendee/templates/attendee/certificate.html:64
 msgid "Hours:"
@@ -332,36 +765,88 @@ msgid ""
 "To confirm the authenticity of this certificate, open the following URL:"
 msgstr "Para confirmar a autenticidade deste certificado, abra a seguinte URL:"
 
-#: attendee/templates/attendee/includes/card.html:5
-#: attendee/templates/attendee/includes/card.html:29
-msgid "Click to Uncheck this attendee."
-msgstr "Clique para descredenciar esse participante."
-
-#: attendee/templates/attendee/includes/card.html:5
-#: attendee/templates/attendee/includes/card.html:29
-msgid "Click to Check in this attendee."
-msgstr "Clique para credenciar este participante."
-
-#: attendee/templates/attendee/includes/card.html:17
+#: attendee/templates/attendee/detail.html:15
+#: attendee/templates/attendee/includes/card.html:28
 msgid "Click to send an email to this Attendee."
 msgstr "Clique para enviar um email para esse Participante."
 
-#: attendee/templates/attendee/includes/card.html:18
+#: attendee/templates/attendee/detail.html:16
+#: attendee/templates/attendee/includes/card.html:29
 #: ticket/templates/ticket/includes/card.html:11
 msgid "Send email"
 msgstr "Enviar email"
 
-#: attendee/templates/attendee/includes/card.html:24
+#: attendee/templates/attendee/detail.html:22
+#: attendee/templates/attendee/includes/card.html:35
 msgid "Open certificate"
 msgstr "Abrir certificado"
 
-#: attendee/templates/attendee/includes/card.html:30
+#: attendee/templates/attendee/detail.html:29
+#: attendee/templates/attendee/includes/card.html:42
+msgid "Click to Uncheck this attendee."
+msgstr "Clique para descredenciar esse participante."
+
+#: attendee/templates/attendee/detail.html:29
+#: attendee/templates/attendee/includes/card.html:42
+msgid "Click to Check in this attendee."
+msgstr "Clique para credenciar este participante."
+
+#: attendee/templates/attendee/detail.html:30
+#: attendee/templates/attendee/includes/card.html:43
 msgid "Uncheck."
 msgstr "Descredenciar"
 
-#: attendee/templates/attendee/includes/card.html:30
+#: attendee/templates/attendee/detail.html:30
+#: attendee/templates/attendee/includes/card.html:43
 msgid "Check in."
 msgstr "Credenciar."
+
+#: attendee/templates/attendee/detail.html:40
+#: attendee/templates/attendee/includes/card.html:54
+msgid "Click to Confirm the subscription of this attendee."
+msgstr "Clique para confirmar este participante."
+
+#: attendee/templates/attendee/detail.html:41
+#: attendee/templates/attendee/includes/card.html:55
+msgid "Confirm"
+msgstr "Confirmar"
+
+#: attendee/templates/attendee/detail.html:65
+msgid "Quick links"
+msgstr "Links"
+
+#: attendee/templates/attendee/detail.html:68
+msgid "Certificate url"
+msgstr "Url do certificado"
+
+#: attendee/templates/attendee/detail.html:74
+msgid "Payment url"
+msgstr "Url de pagamento"
+
+#: attendee/templates/attendee/detail.html:81
+msgid "Attendee data"
+msgstr "Informações do participante"
+
+#: attendee/templates/attendee/detail.html:92
+msgid "Cpf"
+msgstr ""
+
+#: attendee/templates/attendee/detail.html:112
+msgid "Joined at"
+msgstr "Inscrito em"
+
+#: attendee/templates/attendee/detail.html:117
+msgid "Payment information"
+msgstr "Informações do pagamento"
+
+#: attendee/templates/attendee/includes/card.html:5
+#: attendee/templates/attendee/includes/card.html:22
+msgid "Click to see the Attendee detail page."
+msgstr "Clique para acessar a página de informações do Participante."
+
+#: attendee/templates/attendee/includes/card.html:23
+msgid "Detail"
+msgstr "Detalhes"
 
 #: attendee/templates/attendee/list.html:19
 #: ticket/templates/ticket/list.html:20
@@ -372,11 +857,12 @@ msgstr "Enviar certificados"
 msgid "Check all"
 msgstr "Credenciar todos"
 
-#: attendee/templates/attendee/list.html:31
-msgid "Export attendees"
-msgstr "Exportar participantes"
+#: attendee/templates/attendee/list.html:37 attendee/views.py:313
+#: attendee/views.py:327
+msgid "Shuffle"
+msgstr "Sorteio"
 
-#: attendee/templates/attendee/list.html:44
+#: attendee/templates/attendee/list.html:50
 #, python-format
 msgid ""
 "\n"
@@ -395,22 +881,42 @@ msgstr[1] ""
 "            %(total)s Participantes\n"
 "          "
 
-#: attendee/templates/attendee/list.html:54
+#: attendee/templates/attendee/list.html:60
 msgid "Search for attendees..."
 msgstr "Procurar por participantes..."
 
-#: attendee/templates/attendee/list.html:109
+#: attendee/templates/attendee/list.html:110
 msgid ""
 "Unfortunately, we have no attendees based on that search in this activity."
 msgstr "Infelizmente, não dispomos de participantes nessa atividade."
 
-#: attendee/templates/attendee/list.html:111
+#: attendee/templates/attendee/list.html:112
 msgid "Unfortunately, we have no attendees in this activity."
 msgstr "Infelizmente, não dispomos de participantes nessa atividade."
 
-#: attendee/templates/attendee/sort.html:10 attendee/views.py:201
-msgid "Sort"
-msgstr "Ordenar"
+#: attendee/templates/attendee/payment.html:22
+msgid "You are at one step to fullfill your subscription!"
+msgstr "Você está a um passo de completar sua inscrição!"
+
+#: attendee/templates/attendee/payment.html:23
+msgid ""
+"By clicking on the \"Pay\" button, you will be redirected to the Moip site. "
+"At there you will enter the rest of the needed informations to pay, using "
+"Credit, Debit or Bank Slip."
+msgstr ""
+"Ao clicar no botão \"Pagar\", você será redirecionado para o site do Moip. "
+"Lá você fornecerá as demais informações necessárias para efetuar o pagamento "
+"com sucesso, usando cartão de Crédito, Débito ou Boleto Bancário."
+
+#: attendee/templates/attendee/payment.html:24
+msgid ""
+"After that you will receive emails as the process continues, when your "
+"payment will be charged we send a notification to your email!"
+msgstr "Você será notificado por e-mail quando seu pagamento for aprovado."
+
+#: attendee/templates/attendee/payment.html:34
+msgid "Pay"
+msgstr "Pagar"
 
 #: attendee/templates/mailing/certificate_attendee.html:10
 #, python-format
@@ -466,11 +972,83 @@ msgstr ""
 "\n"
 "  Obrigado.\n"
 
-#: attendee/templates/mailing/welcome_attendee.html:10
+#: attendee/templates/mailing/payment_confirmation.html:10
+#, python-format
+msgid ""
+"\n"
+"      <p>\n"
+"        Hi %(get_full_name)s, your payment to  \"%(activity_title)s\" was "
+"successfully charged!\n"
+"      </p>\n"
+"\n"
+"      <p>\n"
+"        For now you are oficially an attendee of this actitivty, congrats "
+"for that.\n"
+"      </p>\n"
+"\n"
+"      <p>\n"
+"        If you have any doubts about this activity feel free to get in touch "
+"with the Organizer: %(organizer_name)s <%(organizer_email)s> by email.\n"
+"      </p>\n"
+"\n"
+"      <p>Thank you.</p>\n"
+"    "
+msgstr ""
+"\n"
+"      <p>Olá %(get_full_name)s, bem vindo ao \"%(activity_title)s\"!</p>\n"
+"\n"
+"      <p>\n"
+"        A partir de agora você é oficialmente um participante desta "
+"atividade, parabéns.\n"
+"      </p>\n"
+"\n"
+"      <p>\n"
+"        Se você tiver qualquer dúvida sobre essa atividade sinta-se livre de "
+"entrar em contato com o Organizador:\n"
+"        <a href=\"mailto:%(organizer_email)s\" target=\"_blank\">"
+"%(organizer_name)s</a> por email.\n"
+"      </p>\n"
+"\n"
+"      <p>Obrigado.</p>\n"
+"    "
+
+#: attendee/templates/mailing/payment_confirmation.txt:3
+#, python-format
+msgid ""
+"\n"
+"  Hi %(get_full_name)s, your payment to  \"%(activity_title)s\" was "
+"successfully charged!\n"
+"\n"
+"  For now you are oficially an attendee of this actitivty, congrats for "
+"that.\n"
+"\n"
+"  If you have any doubts about this activity feel free to get in touch with "
+"the Organizer: %(organizer_name)s <%(organizer_email)s> by email.\n"
+"\n"
+"  Thank you.\n"
+msgstr ""
+"\n"
+"  Olá %(get_full_name)s, seu pagamento para  \"%(activity_title)s\" foi "
+"debitado com sucesso!\n"
+"\n"
+"  De agora em diante você é oficialmente um participante desta atividade.\n"
+"\n"
+"  Se você tiver qualquer dúvidas sobre esta atividade não hesite em entrar "
+"em contato com o organizador: %(organizer_name)s <%(organizer_email)s> por "
+"email.\n"
+"\n"
+"  Obrigado.\n"
+
+#: attendee/templates/mailing/pre_sale_welcome.html:10
 #, python-format
 msgid ""
 "\n"
 "      <p>Hi %(get_full_name)s, welcome to the \"%(activity_title)s\"!</p>\n"
+"\n"
+"      <p>\n"
+"        As soon as possible, our relationship team will get in touch to "
+"confirm your subscription!\n"
+"      </p>\n"
 "\n"
 "      <p>\n"
 "        If you have any doubts about this activity feel free to get in touch "
@@ -484,6 +1062,98 @@ msgid ""
 msgstr ""
 "\n"
 "      <p>Olá %(get_full_name)s, bem vindo ao \"%(activity_title)s\"!</p>\n"
+"\n"
+"      <p>\n"
+"        Assim que possível, nosso time de relacionamento irá entrar em "
+"contato para confirmar sua inscrição!\n"
+"      </p>\n"
+"\n"
+"      <p>\n"
+"        Se você tiver qualquer dúvida sobre essa atividade sinta-se livre de "
+"entrar em contato com o Organizador:\n"
+"        <a href=\"mailto:%(organizer_email)s\" target=\"_blank\">"
+"%(organizer_name)s</a> por email.\n"
+"      </p>\n"
+"\n"
+"      <p>Obrigado.</p>\n"
+"    "
+
+#: attendee/templates/mailing/pre_sale_welcome.txt:3
+#, python-format
+msgid ""
+"\n"
+"  Hi %(get_full_name)s, welcome to the \"%(activity_title)s\"!\n"
+"\n"
+"  As soon as possible, our relationship team will get in touch to confirm "
+"your subscription!\n"
+"\n"
+"  If you have any doubts about this activity feel free to get in touch with "
+"the Organizer: %(organizer_name)s <%(organizer_email)s> by email.\n"
+"\n"
+"  Thank you.\n"
+msgstr ""
+"\n"
+"  Olá %(get_full_name)s, bem vindo ao \"%(activity_title)s\"!\n"
+"\n"
+"  Assim que possível, nosso time de relacionamento irá entrar em contato "
+"para confirmar sua inscrição!\n"
+"\n"
+"  Se você tiver qualquer dúvida sobre essa atividade sinta-se livre de "
+"entrar em contato com o Organizador: %(organizer_name)s <"
+"%(organizer_email)s> por email.\n"
+"\n"
+"  Obrigado.\n"
+
+#: attendee/templates/mailing/welcome_attendee.html:10
+#, python-format
+msgid ""
+"\n"
+"      <p>Hi %(get_full_name)s, welcome to the \"%(activity_title)s\"!</p>\n"
+"    "
+msgstr ""
+"\n"
+"      <p>Olá %(get_full_name)s, bem vindo ao \"%(activity_title)s\"!</p>\n"
+"    "
+
+#: attendee/templates/mailing/welcome_attendee.html:15
+#, python-format
+msgid ""
+"\n"
+"        <p>\n"
+"          In order to confirm you subscription to this actitivty, you need "
+"to pay your subscription, to that you can follow the page after add your "
+"information or follow this link:\n"
+"          <a href=\"%(payment_url)s\" target=\"_blank\">this link</a>, if "
+"you already paid ignore ignore this email, we will send another email after "
+"the payment being confirm with the Moip.\n"
+"        </p>\n"
+"      "
+msgstr ""
+"\n"
+"        <p>\n"
+"          Para confirmar sua inscrição nessa atividade, você precisa efetuar "
+"o pagamento, para fazer isso siga a página que o 168 Horas te redirecionou "
+"ou siga <a href=\"%(payment_url)s\" target=\"_blank\">esse endereço</a>, se "
+"você já efetuou o pagamento, ignore este email, nós iremos enviar outro "
+"email após a confirmação do pagamento por parte da nossa operadora de "
+"pagamentos..\n"
+"        </p>\n"
+"      "
+
+#: attendee/templates/mailing/welcome_attendee.html:23
+#, python-format
+msgid ""
+"\n"
+"      <p>\n"
+"        If you have any doubts about this activity feel free to get in touch "
+"with the Organizer:\n"
+"        <a href=\"mailto:%(organizer_email)s\" target=\"_blank\">"
+"%(organizer_name)s</a> by email.\n"
+"      </p>\n"
+"\n"
+"      <p>Thank you.</p>\n"
+"    "
+msgstr ""
 "\n"
 "      <p>\n"
 "        Se você tiver qualquer dúvida sobre essa atividade sinta-se livre de "
@@ -500,55 +1170,100 @@ msgstr ""
 msgid ""
 "\n"
 "  Hi %(get_full_name)s, welcome to the \"%(activity_title)s\"!\n"
+msgstr ""
+"\n"
+"  Olá %(get_full_name)s, bem vindo ao \"%(activity_title)s\"!\n"
+
+#: attendee/templates/mailing/welcome_attendee.txt:8
+#, python-format
+msgid ""
+"\n"
+"    In order to confirm you subscription to this actitivty, you need to pay "
+"your subscription, to that you can follow the page after add your "
+"information or follow this link: %(payment_url)s, if you already paid ignore "
+"ignore this email, we will send another email after the payment being "
+"confirm with the Moip.\n"
+"  "
+msgstr ""
+"\n"
+"    Para confirmar sua inscrição nesta atividade, você precisa pagá-la, para "
+"fazer isso você pode seguir a página que o 168horas te redirecionou com a "
+"confirmação dos seus dados e o valor do curso, ou seguir este endereço: "
+"%(payment_url)s, se você já efetuou o pagamento, ignore este email, nós te "
+"enviaremos outro após a confirmação por parte da operadora de pagamento.\n"
+"  "
+
+#: attendee/templates/mailing/welcome_attendee.txt:13
+#, python-format
+msgid ""
 "\n"
 "  If you have any doubts about this activity feel free to get in touch with "
-"the Organizer: %(organizer_anme)s <%(organizer_email)s> by email.\n"
+"the Organizer: %(organizer_name)s <%(organizer_email)s> by email.\n"
 "\n"
 "  Thank you.\n"
 msgstr ""
 "\n"
-"  Olá %(get_full_name)s, bem vindo ao \"%(activity_title)s\"!\n"
-"\n"
 "  Se você tiver qualquer dúvida sobre essa atividade sinta-se livre de "
-"entrar em contato com o Organizador: %(organizer_anme)s <"
+"entrar em contato com o Organizador: %(organizer_name)s <"
 "%(organizer_email)s> por email.\n"
 "\n"
 "  Obrigado.\n"
 
-#: attendee/views.py:79
+#: attendee/views.py:103
+msgid "This page is empty, you are redirect to the first!"
+msgstr "Esta página está vazia, você foi redirecionado para a primeira!"
+
+#: attendee/views.py:131
 msgid "You are not allowed to see this page!"
 msgstr "Você não é permitido para ver essa página!"
 
-#: attendee/views.py:90
-#, python-brace-format
-msgid "Join to {activity}"
-msgstr "Participe da {activity}"
-
-#: attendee/views.py:101
+#: attendee/views.py:169
 msgid "You already joined up for this activity!"
 msgstr "Você j;a faz parte desta atividade!"
 
-#: attendee/views.py:126
+#: attendee/views.py:204
 msgid "This user already joined up for this activity!"
 msgstr "Esse usuário já faz parte desta atividade!"
 
-#: attendee/views.py:132
+#: attendee/views.py:208
 msgid "Successfully joined up for this activity!"
 msgstr "Inscrito com sucesso nesta atividade!"
 
-#: attendee/views.py:160
+#: attendee/views.py:211
+msgid "Successfully joined up for the pre-sale of this activity!"
+msgstr "Inscrito com sucesso na pré-venda desta atividade!"
+
+#: attendee/views.py:237
+#, python-brace-format
+msgid "{attendee}"
+msgstr ""
+
+#: attendee/views.py:272
 #, python-brace-format
 msgid "Successfully checked in the attendee \"{0}\"!"
 msgstr "Registrado com sucesso o participante \"{0}\"!"
 
-#: attendee/views.py:183
+#: attendee/views.py:295
 #, python-brace-format
 msgid "Successfully unchecked the attendee \"{0}\"!"
 msgstr "Descredenciado com sucesso o participante \"{0}\"!"
 
-#: attendee/views.py:194
+#: attendee/views.py:306
 msgid "Certificate"
 msgstr "Certificado"
+
+#: attendee/views.py:345
+msgid "You don't have Attendees checked yet!"
+msgstr "Você não tem nenhum Participante credenciado ainda!"
+
+#: attendee/views.py:367
+msgid "Payment"
+msgstr "Pagamento"
+
+#: attendee/views.py:440
+#, python-brace-format
+msgid "Successfully confirmed the attendee \"{0}\"!"
+msgstr "Confirmado com sucesso o participante \"{0}\"!"
 
 #: category/models.py:10
 msgid "Category"
@@ -575,13 +1290,9 @@ msgstr "remover"
 msgid "Add category"
 msgstr "Adicionar Categoria"
 
-#: category/views.py:19 event/models.py:50
+#: category/views.py:21 event/models.py:50
 msgid "Categorias"
 msgstr "Categorias"
-
-#: core/forms.py:7 core/forms.py:8
-msgid "Full Name"
-msgstr "Nome Completo"
 
 #: core/models.py:13
 msgid "State"
@@ -611,7 +1322,8 @@ msgstr "Email do Organizador"
 msgid "Organizer Phone"
 msgstr "Telefone do Organizador"
 
-#: core/models.py:34 core/templates/base.html:63
+#: core/models.py:34 core/templates/base.html:65
+#: core/templates/base.html.py:91
 msgid "Profile"
 msgstr "Perfil"
 
@@ -680,8 +1392,8 @@ msgstr "Ou usando seu nome de usuário e senha"
 msgid "Forgot Password?"
 msgstr "Esqueceu sua Senha?"
 
-#: core/templates/account/login.html:50 core/templates/base.html:72
-#: core/views.py:46
+#: core/templates/account/login.html:50 core/templates/base.html:76
+#: core/templates/base.html.py:110 core/views.py:47
 msgid "Sign In"
 msgstr "Acessar"
 
@@ -703,8 +1415,8 @@ msgid "Password successfully set."
 msgstr "Senha definida com sucesso."
 
 #: core/templates/account/password_change.html:5
-#: core/templates/account/password_change.html:30 core/views.py:55
-#: core/views.py:75 core/views.py:80
+#: core/templates/account/password_change.html:30 core/views.py:58
+#: core/views.py:82 core/views.py:89
 msgid "Change Password"
 msgstr "Alterar Senha"
 
@@ -751,7 +1463,7 @@ msgstr ""
 msgid "Your password is now changed."
 msgstr "Sua senha foi alterada."
 
-#: core/templates/account/password_set.html:9 core/views.py:60
+#: core/templates/account/password_set.html:9 core/views.py:64
 msgid "Set Password"
 msgstr "Preencher Senha"
 
@@ -770,7 +1482,7 @@ msgstr ""
 "Por favor acesse com uma\n"
 "    de suas contas."
 
-#: core/templates/account/signup.html:55 core/views.py:50
+#: core/templates/account/signup.html:55 core/views.py:52
 msgid "Sign Up"
 msgstr "Cadastre-se"
 
@@ -787,7 +1499,7 @@ msgstr "você está conectado como %(user_display)s."
 msgid "Index"
 msgstr "Início"
 
-#: core/templates/base.html:68
+#: core/templates/base.html:72 core/templates/base.html.py:104
 msgid "Logout"
 msgstr "Sair"
 
@@ -795,11 +1507,11 @@ msgstr "Sair"
 msgid "Profile update"
 msgstr "Atualizar perfil"
 
-#: core/views.py:34
+#: core/views.py:35
 msgid "Profile updated."
 msgstr "Perfil atualizado."
 
-#: core/views.py:65 core/views.py:70
+#: core/views.py:70 core/views.py:76
 msgid "Password Reset"
 msgstr "Redefinir Senha"
 
@@ -864,8 +1576,10 @@ msgid "Tickets"
 msgstr ""
 
 #: ticket/templates/ticket/list.html:26
+#, fuzzy
+#| msgid "Export attendees"
 msgid "Export tickets"
-msgstr ""
+msgstr "Exportar participantes"
 
 #: ticket/templates/ticket/list.html:46
 msgid "Unfortunately, we have no tickets in this activity."
@@ -873,11 +1587,30 @@ msgstr ""
 "Infelizmente, não dispomos de atividades nessa área. Dissemine a educação."
 
 #: ticket/views.py:42
+#, fuzzy
+#| msgid "Add activity"
 msgid "Add ticket"
-msgstr ""
+msgstr "Adicionar atividade"
 
-#~ msgid "Facebook"
-#~ msgstr "Facebook"
+#~ msgid "Sort"
+#~ msgstr "Ordenar"
+
+#~ msgid "Add activity"
+#~ msgstr "Adicionar atividade"
+
+#~ msgid "Join to {activity}"
+#~ msgstr "Participe da {activity}"
+
+#~ msgid "Payment for {activity}"
+#~ msgstr "Pagamento para o {activity}"
+
+#, fuzzy
+#~| msgid "Export attendees"
+#~ msgid "Export attendee"
+#~ msgstr "Exportar participantes"
+
+#~ msgid "Share"
+#~ msgstr "Compartilhar"
 
 #~ msgid "save"
 #~ msgstr "\t"

@@ -4,11 +4,18 @@
 <div class="input-field col {{ col_sizes|default:'s12 l12' }}">
   {% render_field field class+=field|get_error_class class+=class %}
 
-  <label for="{{ field.id }}">{{ field.label }}</label><br>
+  <label for="{{ field.id }}">
+    {{ field.label }}
+
+    {% if field.help_text %}
+      <a class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="{{ field.help_text }}">
+        <i class="material-icons">help</i>
+      </a>
+    {% endif %}
+  </label>
+  <br>
   {% for error in field.errors %}
     <p class="help-text caption red-text">{{ error }}</p>
   {% endfor %}
-  {% if field.help_text %}
-    <p class="help-text caption">{{ field.help_text }}</p>
-  {% endif %}
+  
 </div>
