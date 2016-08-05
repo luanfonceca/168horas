@@ -1,5 +1,6 @@
 from django import forms
 from django.utils.translation import ugettext as _
+from django.contrib.auth import get_user_model
 
 
 class CustomSignupForm(forms.Form):
@@ -29,3 +30,14 @@ class ContactForm(forms.Form):
     message = forms.CharField(
         required=True, label=_('Message'),
         widget=forms.Textarea(attrs={'placeholder': _('Message')}))
+
+
+class UserInformationForm(forms.ModelForm):
+    class Meta:
+        fields = ('first_name', 'last_name', 'email')
+        model = get_user_model()
+        widgets = {
+            'email': forms.HiddenInput(),
+            'first_name': forms.HiddenInput(),
+            'last_name': forms.HiddenInput(),
+        }

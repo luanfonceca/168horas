@@ -15,7 +15,7 @@ from easy_pdf.views import PDFTemplateResponseMixin
 
 from core.mixins import (
     PageTitleMixin, BreadcrumbMixin,
-    OrganizerRequiredMixin,
+    LoginRequiredMixin, OrganizerRequiredMixin,
 )
 from activity.models import Activity
 from attendee.models import Attendee
@@ -127,7 +127,7 @@ class AttendeeList(BaseAttendeeView,
 
 
 class AttendeeJoin(BaseAttendeeView,
-                   OrganizerRequiredMixin,
+                   LoginRequiredMixin,
                    views.CreateView):
     template_name = 'attendee/form.html'
     full_page_title = True
