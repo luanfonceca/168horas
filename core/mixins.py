@@ -30,10 +30,9 @@ class OrganizerRequiredMixin(object):
         else:
             self.activity = self.get_object()
 
-        return self.activity.organizers.filter(
-            profile=self.request.user.profile.pk
-        ).exists()
+        return self.request.user.profile.is_organizer(self.activity)
 
+    @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         if self.has_permission():
             return super(OrganizerRequiredMixin, self).dispatch(

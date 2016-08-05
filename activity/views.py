@@ -11,7 +11,7 @@ from djqscsv import render_to_csv_response
 
 from core.mixins import (
     PageTitleMixin, BreadcrumbMixin,
-    LoginRequiredMixin, OrganizerRequiredMixin,
+    OrganizerRequiredMixin,
 )
 from activity.models import Activity
 from activity.forms import ActivityForm
@@ -100,7 +100,6 @@ class ActivityDetailShortUrl(BaseActivityView, views.DetailView):
 
 
 class ActivityUpdate(BaseActivityView,
-                     LoginRequiredMixin,
                      OrganizerRequiredMixin,
                      views.UpdateView):
     template_name = 'activity/form.html'
@@ -123,7 +122,6 @@ class ActivityUpdate(BaseActivityView,
 
 
 class ActivityDelete(BaseActivityView,
-                     LoginRequiredMixin,
                      OrganizerRequiredMixin,
                      views.DeleteView):
     template_name = 'activity/delete.html'
@@ -145,7 +143,6 @@ class ActivityDelete(BaseActivityView,
 
 
 class ActivityAttendeeExport(BaseActivityView,
-                             LoginRequiredMixin,
                              OrganizerRequiredMixin,
                              views.DetailView):
 
@@ -198,7 +195,6 @@ class ActivityAttendeeExport(BaseActivityView,
 
 
 class ActivityAttendeeCheckAll(BaseActivityView,
-                               LoginRequiredMixin,
                                OrganizerRequiredMixin,
                                views.DetailView):
     def get(self, request, *args, **kwargs):
@@ -221,7 +217,6 @@ class ActivityAttendeeCheckAll(BaseActivityView,
 
 
 class ActivitySendCertificates(BaseActivityView,
-                               LoginRequiredMixin,
                                OrganizerRequiredMixin,
                                views.DetailView):
     def get(self, request, *args, **kwargs):

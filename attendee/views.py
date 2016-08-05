@@ -7,7 +7,6 @@ from django.core.exceptions import ValidationError
 from django.db import IntegrityError
 from django.db.models import Q
 from django.shortcuts import redirect
-from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 
@@ -16,7 +15,7 @@ from easy_pdf.views import PDFTemplateResponseMixin
 
 from core.mixins import (
     PageTitleMixin, BreadcrumbMixin,
-    LoginRequiredMixin, OrganizerRequiredMixin,
+    OrganizerRequiredMixin,
 )
 from activity.models import Activity
 from attendee.models import Attendee
@@ -46,7 +45,6 @@ class BaseAttendeeView(PageTitleMixin, BreadcrumbMixin):
 
 
 class AttendeeList(BaseAttendeeView,
-                   LoginRequiredMixin,
                    OrganizerRequiredMixin,
                    views.ListView):
     template_name = 'attendee/list.html'
@@ -127,21 +125,8 @@ class AttendeeList(BaseAttendeeView,
             )
         return queryset
 
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        self.activity = self.get_activity()
-        if self.request.user.profile != self.activity.created_by and \
-           not self.request.user.is_superuser:
-            messages.add_message(
-                request=self.request, level=messages.ERROR,
-                message=_('You are not allowed to see this page!')
-            )
-            return redirect(self.activity)
-        return super(AttendeeList, self).dispatch(*args, **kwargs)
-
 
 class AttendeeJoin(BaseAttendeeView,
-                   LoginRequiredMixin,
                    OrganizerRequiredMixin,
                    views.CreateView):
     template_name = 'attendee/form.html'
@@ -239,7 +224,6 @@ class AttendeeJoin(BaseAttendeeView,
 
 
 class AttendeeDetail(BaseAttendeeView,
-                     LoginRequiredMixin,
                      OrganizerRequiredMixin,
                      views.DetailView):
     lookup_field = 'code'
@@ -265,7 +249,6 @@ class AttendeeDetail(BaseAttendeeView,
 
 
 class AttendeeCheck(BaseAttendeeView,
-                    LoginRequiredMixin,
                     OrganizerRequiredMixin,
                     views.UpdateView):
     lookup_field = 'code'
@@ -291,7 +274,6 @@ class AttendeeCheck(BaseAttendeeView,
 
 
 class AttendeeUncheck(BaseAttendeeView,
-                      LoginRequiredMixin,
                       OrganizerRequiredMixin,
                       views.UpdateView):
     lookup_field = 'code'
@@ -435,7 +417,6 @@ class AttendeePaymentNotification(BaseAttendeeView, FormView):
 
 
 class AttendeeConfirmPayment(BaseAttendeeView,
-                             LoginRequiredMixin,
                              OrganizerRequiredMixin,
                              views.UpdateView):
     lookup_field = 'code'

@@ -14,7 +14,7 @@ def add_authors_to_organizers(apps, schema_editor):
 def reverse_add_authors_to_organizers(apps, schema_editor):
     Activity = apps.get_model('activity', 'Activity')
 
-    for activity in Activity.objects.exclude():
+    for activity in Activity.objects.all():
         activity.organizers.clear()
 
 

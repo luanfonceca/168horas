@@ -49,3 +49,8 @@ def payment_is_pending(activity, profile):
 @register.filter
 def get_attendee_payment_url(activity, profile):
     return activity.get_attendee_payment_url(profile)
+
+
+@register.filter
+def is_organizer(profile, activity):
+    return profile.is_organizer(activity)
