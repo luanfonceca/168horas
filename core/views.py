@@ -40,9 +40,10 @@ class ContactView(mixins.PageTitleMixin,
         data = form.cleaned_data
 
         send_mail(
-            subject='Contato pelo Site',
-            message=data.get('message'), html_message=data.get('message'),
-            from_email='{name} <{email}>'.format(**data),
+            subject='Contato: {name} <{email}>'.format(**data),
+            message=data.get('message'),
+            html_message=data.get('message'),
+            from_email=settings.NO_REPLY_EMAIL,
             recipient_list=[settings.EMAIL_168HORAS]
         )
         return self.success_redirect(self.get_success_message())
