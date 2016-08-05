@@ -23,9 +23,9 @@ class ContactForm(forms.Form):
     name = forms.CharField(
         required=True, label=_('Name'),
         widget=forms.TextInput(attrs={'placeholder': _('Name')}))
-    subject = forms.CharField(
-        required=True, label=_('Subject'),
-        widget=forms.TextInput(attrs={'placeholder': _('Subject')}))
+    email = forms.CharField(
+        required=True, label=_('Email'),
+        widget=forms.EmailInput(attrs={'placeholder': _('Email')}))
     message = forms.CharField(
         required=True, label=_('Message'),
-        widget=forms.TextInput(attrs={'placeholder': _('Message')}))
+        widget=forms.Textarea(attrs={'placeholder': _('Message')}))

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 15:03-0300\n"
-"PO-Revision-Date: 2016-08-01 15:05-0300\n"
+"POT-Creation-Date: 2016-08-05 09:36-0300\n"
+"PO-Revision-Date: 2016-08-05 09:38-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -118,42 +118,43 @@ msgstr "Incorporar Programação"
 msgid "Created by"
 msgstr "Criado por"
 
-#: activity/models.py:83 category/models.py:11 core/models.py:31
-#: core/templates/base.html:69 core/templates/base.html.py:97
+#: activity/models.py:83 activity/models.py:92 category/models.py:11
+#: core/models.py:31 core/templates/base.html:69
+#: core/templates/base.html.py:105
 msgid "Categories"
 msgstr "Categorias"
 
 #: activity/models.py:87
 #: activity/templates/activity/includes/action-button.html:14
-#: attendee/models.py:204 attendee/views.py:58 attendee/views.py:248
+#: attendee/models.py:204 attendee/views.py:62 attendee/views.py:244
 #: attendee/views.py:324
 msgid "Attendees"
 msgstr "Participantes"
 
-#: activity/models.py:96 activity/templates/activity/list.html:8
+#: activity/models.py:100 activity/templates/activity/list.html:8
 #: activity/templates/activity/list_by_category.html:8 category/views.py:48
 #: ticket/templates/ticket/list.html:14
 msgid "Activity"
 msgstr "Atividade"
 
-#: activity/models.py:97 activity/views.py:50 activity/views.py:71
+#: activity/models.py:101 activity/views.py:53 activity/views.py:74
 msgid "Activities"
 msgstr "Atividades"
 
-#: activity/models.py:163
+#: activity/models.py:167
 msgid "Certificate from \"{}\"!"
 msgstr "Certificado de \"{}\"!"
 
-#: activity/models.py:218
+#: activity/models.py:222
 msgid "Free"
 msgstr "Gratuito"
 
-#: activity/models.py:234
+#: activity/models.py:238
 #, python-brace-format
 msgid "{0} joined on pre-sale to \"{1}\"!"
 msgstr "{0} se inscreveu na pré-venda do \"{1}\"!"
 
-#: activity/models.py:255
+#: activity/models.py:259
 #, python-brace-format
 msgid "{0} pay the subscription to \"{1}\"!"
 msgstr "{0} pagou sua inscrição para \"{1}\"!"
@@ -188,14 +189,15 @@ msgstr ""
 #: category/templates/category/form.html:17
 #: core/templates/account/password_change.html:26
 #: core/templates/account/password_reset.html:23
-#: core/templates/profile.html:93 event/templates/event/delete.html:14
-#: event/templates/event/form.html:81 ticket/templates/ticket/form.html:24
+#: core/templates/contact.html:29 core/templates/profile.html:93
+#: event/templates/event/delete.html:14 event/templates/event/form.html:81
+#: ticket/templates/ticket/form.html:24
 msgid "back"
 msgstr "voltar"
 
 #: activity/templates/activity/delete.html:17
 #: activity/templates/activity/includes/action-button.html:53
-#: activity/templates/activity/includes/card.html:42 activity/views.py:125
+#: activity/templates/activity/includes/card.html:42 activity/views.py:138
 #: category/templates/category/delete.html:16
 msgid "Delete"
 msgstr "Remover"
@@ -265,8 +267,8 @@ msgstr "Atividade online?"
 
 #: activity/templates/activity/form.html:113
 #: attendee/templates/attendee/form.html:43
-#: category/templates/category/form.html:21 core/templates/profile.html:97
-#: ticket/templates/ticket/form.html:28
+#: category/templates/category/form.html:21 core/templates/contact.html:33
+#: core/templates/profile.html:97 ticket/templates/ticket/form.html:28
 msgid "Save"
 msgstr "Salvar"
 
@@ -296,12 +298,12 @@ msgstr "Inscreva-se agora por apenas"
 
 #: activity/templates/activity/includes/action-button.html:39
 #: activity/templates/activity/includes/action-button.html:73
-#: activity/templates/activity/includes/card.html:33 attendee/views.py:149
+#: activity/templates/activity/includes/card.html:33 attendee/views.py:143
 msgid "Join"
 msgstr "Participar"
 
 #: activity/templates/activity/includes/action-button.html:47
-#: activity/templates/activity/includes/card.html:41 activity/views.py:109
+#: activity/templates/activity/includes/card.html:41 activity/views.py:120
 msgid "Update"
 msgstr "Atualizar"
 
@@ -412,70 +414,70 @@ msgstr ""
 "\n"
 "   Obrigado.\n"
 
-#: activity/views.py:65
+#: activity/views.py:68
 msgid "Create"
 msgstr "Cadastrar"
 
-#: activity/views.py:138 category/views.py:49
+#: activity/views.py:153 category/views.py:49
 msgid "Id"
 msgstr "Id"
 
-#: activity/views.py:139 category/views.py:50
+#: activity/views.py:154 category/views.py:50
 msgid "First Name"
 msgstr "Nome"
 
-#: activity/views.py:140 attendee/templates/attendee/detail.html:88
-#: category/views.py:51 ticket/models.py:19
+#: activity/views.py:155 attendee/templates/attendee/detail.html:88
+#: category/views.py:51 core/forms.py:24 core/forms.py:25 ticket/models.py:19
 msgid "Name"
 msgstr "Nome"
 
-#: activity/views.py:141 category/views.py:52 core/models.py:14
+#: activity/views.py:156 category/views.py:52 core/models.py:14
 msgid "CPF"
 msgstr "CPF"
 
-#: activity/views.py:142 category/views.py:53
+#: activity/views.py:157 category/views.py:53
 msgid "Email Address"
 msgstr "Endereço de Email"
 
-#: activity/views.py:143 attendee/models.py:89
+#: activity/views.py:158 attendee/models.py:89
 #: attendee/templates/attendee/detail.html:100 category/views.py:54
 msgid "Phone"
 msgstr "Telefone"
 
-#: activity/views.py:144 attendee/models.py:92
+#: activity/views.py:159 attendee/models.py:92
 #: attendee/templates/attendee/detail.html:108 category/views.py:55
 msgid "Code"
 msgstr "Código"
 
-#: activity/views.py:145 category/views.py:56
+#: activity/views.py:160 category/views.py:56
 msgid "Attended at"
 msgstr "Credenciado em"
 
-#: activity/views.py:150
+#: activity/views.py:165
 msgid "Subscription status"
 msgstr "Status da inscrição"
 
-#: activity/views.py:151 attendee/templates/attendee/detail.html:120
+#: activity/views.py:166 attendee/templates/attendee/detail.html:120
 msgid "Payment status"
 msgstr "Status do pagamento"
 
-#: activity/views.py:152 attendee/templates/attendee/detail.html:124
+#: activity/views.py:167 attendee/templates/attendee/detail.html:124
 msgid "Payment type"
 msgstr "Forma de pagamento"
 
-#: activity/views.py:158
+#: activity/views.py:173
 msgid "Idade"
 msgstr ""
 
-#: activity/views.py:159
+#: activity/views.py:174
 msgid "Eu sou"
 msgstr ""
 
-#: activity/views.py:196
+#: activity/views.py:213
 msgid "Successfully checked all the attendees!"
 msgstr "Credenciados todos os participantes com sucesso!"
 
-#: activity/views.py:216
+#: activity/views.py:235
 msgid "Successfully sended all the certificates!"
 msgstr "Enviado todos os certificados com sucesso!"
 
@@ -562,7 +564,8 @@ msgid "Full Name"
 msgstr "Nome Completo"
 
 #: attendee/models.py:88 attendee/models.py:179
-#: attendee/templates/attendee/detail.html:96
+#: attendee/templates/attendee/detail.html:96 core/forms.py:27
+#: core/forms.py:28
 msgid "Email"
 msgstr "Email"
 
@@ -1209,36 +1212,32 @@ msgstr ""
 "\n"
 "  Obrigado.\n"
 
-#: attendee/views.py:103
+#: attendee/views.py:107
 msgid "This page is empty, you are redirect to the first!"
 msgstr "Esta página está vazia, você foi redirecionado para a primeira!"
 
-#: attendee/views.py:131
-msgid "You are not allowed to see this page!"
-msgstr "Você não é permitido para ver essa página!"
-
-#: attendee/views.py:169
+#: attendee/views.py:163
 msgid "You already joined up for this activity!"
 msgstr "Você j;a faz parte desta atividade!"
 
-#: attendee/views.py:204
+#: attendee/views.py:198
 msgid "This user already joined up for this activity!"
 msgstr "Esse usuário já faz parte desta atividade!"
 
-#: attendee/views.py:208
+#: attendee/views.py:202
 msgid "Successfully joined up for this activity!"
 msgstr "Inscrito com sucesso nesta atividade!"
 
-#: attendee/views.py:211
+#: attendee/views.py:205
 msgid "Successfully joined up for the pre-sale of this activity!"
 msgstr "Inscrito com sucesso na pré-venda desta atividade!"
 
-#: attendee/views.py:237
+#: attendee/views.py:233
 #, python-brace-format
 msgid "{attendee}"
 msgstr ""
 
-#: attendee/views.py:272
+#: attendee/views.py:270
 #, python-brace-format
 msgid "Successfully checked in the attendee \"{0}\"!"
 msgstr "Registrado com sucesso o participante \"{0}\"!"
@@ -1260,7 +1259,7 @@ msgstr "Você não tem nenhum Participante credenciado ainda!"
 msgid "Payment"
 msgstr "Pagamento"
 
-#: attendee/views.py:440
+#: attendee/views.py:442
 #, python-brace-format
 msgid "Successfully confirmed the attendee \"{0}\"!"
 msgstr "Confirmado com sucesso o participante \"{0}\"!"
@@ -1294,6 +1293,16 @@ msgstr "Adicionar Categoria"
 msgid "Categorias"
 msgstr "Categorias"
 
+#: core/forms.py:30 core/forms.py:31
+msgid "Message"
+msgstr ""
+
+#: core/mixins.py:41
+#, fuzzy
+#| msgid "You are not allowed to see this page!"
+msgid "You have no permission to access this page."
+msgstr "Você não é permitido para ver essa página!"
+
 #: core/models.py:13
 msgid "State"
 msgstr "Estado"
@@ -1323,7 +1332,7 @@ msgid "Organizer Phone"
 msgstr "Telefone do Organizador"
 
 #: core/models.py:34 core/templates/base.html:65
-#: core/templates/base.html.py:91
+#: core/templates/base.html.py:99
 msgid "Profile"
 msgstr "Perfil"
 
@@ -1392,8 +1401,8 @@ msgstr "Ou usando seu nome de usuário e senha"
 msgid "Forgot Password?"
 msgstr "Esqueceu sua Senha?"
 
-#: core/templates/account/login.html:50 core/templates/base.html:76
-#: core/templates/base.html.py:110 core/views.py:47
+#: core/templates/account/login.html:50 core/templates/base.html:84
+#: core/templates/base.html.py:123 core/views.py:72
 msgid "Sign In"
 msgstr "Acessar"
 
@@ -1415,8 +1424,8 @@ msgid "Password successfully set."
 msgstr "Senha definida com sucesso."
 
 #: core/templates/account/password_change.html:5
-#: core/templates/account/password_change.html:30 core/views.py:58
-#: core/views.py:82 core/views.py:89
+#: core/templates/account/password_change.html:30 core/views.py:83
+#: core/views.py:107 core/views.py:114
 msgid "Change Password"
 msgstr "Alterar Senha"
 
@@ -1463,7 +1472,7 @@ msgstr ""
 msgid "Your password is now changed."
 msgstr "Sua senha foi alterada."
 
-#: core/templates/account/password_set.html:9 core/views.py:64
+#: core/templates/account/password_set.html:9 core/views.py:89
 msgid "Set Password"
 msgstr "Preencher Senha"
 
@@ -1482,7 +1491,7 @@ msgstr ""
 "Por favor acesse com uma\n"
 "    de suas contas."
 
-#: core/templates/account/signup.html:55 core/views.py:52
+#: core/templates/account/signup.html:55 core/views.py:77
 msgid "Sign Up"
 msgstr "Cadastre-se"
 
@@ -1499,19 +1508,28 @@ msgstr "você está conectado como %(user_display)s."
 msgid "Index"
 msgstr "Início"
 
-#: core/templates/base.html:72 core/templates/base.html.py:104
+#: core/templates/base.html:72 core/templates/base.html.py:112
 msgid "Logout"
 msgstr "Sair"
 
-#: core/views.py:32
+#: core/templates/base.html:78 core/templates/base.html.py:118
+#: core/views.py:33
+msgid "Get in touch"
+msgstr "Entre em contato"
+
+#: core/views.py:36
+msgid "Thanks, we will contact you soon!"
+msgstr "Obrigado, nós iremos te contactar em breve!"
+
+#: core/views.py:57
 msgid "Profile update"
 msgstr "Atualizar perfil"
 
-#: core/views.py:35
+#: core/views.py:60
 msgid "Profile updated."
 msgstr "Perfil atualizado."
 
-#: core/views.py:70 core/views.py:76
+#: core/views.py:95 core/views.py:101
 msgid "Password Reset"
 msgstr "Redefinir Senha"
 

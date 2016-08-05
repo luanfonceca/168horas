@@ -1,6 +1,7 @@
 from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import redirect
+from django.core.mail import send_mail
 
 from vanilla import TemplateView, UpdateView, FormView
 from allauth.account import views as account_views
@@ -8,6 +9,7 @@ from allauth.account import views as account_views
 from core import mixins
 from core.models import Profile
 from core.forms import ContactForm
+from web168h import settings
 
 
 class IndexView(TemplateView):
@@ -34,10 +36,16 @@ class ContactView(mixins.PageTitleMixin,
     success_message = _('Thanks, we will contact you soon!')
     form_class = ContactForm
 
-    def get(self, *args, **kwargs):
-        if self.request.user.is_authenticated():
-            return redirect('activity:list')
-        return super(ContactView, self).get(*args, **kwargs)
+    def form_valid(self, form):
+        data = form.cleaned_data
+
+        send_mail(
+            subject='Contato pelo Site',
+            message=data.get('message'), html_message=data.get('message'),
+            from_email='{name} <{email}>'.format(**data),
+            recipient_list=[settings.EMAIL_168HORAS]
+        )
+        return self.success_redirect(self.get_success_message())
 
 
 class ProfileView(mixins.PageTitleMixin,

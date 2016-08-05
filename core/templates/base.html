@@ -53,9 +53,8 @@
           </li>
         </ul>-->
         <ul class="right hide-on-med-and-down">
-          {% block extra_links %}{% endblock %}
-          <li>
-            {% if request.user.is_authenticated %}
+          {% if request.user.is_authenticated %}
+            <li>
               <a class="dropdown-button" href="javascript:;" data-activates="staff-dropdown">
                 {{ request.user.get_full_name }}
                 <i class="material-icons right">arrow_drop_down_circle</i>
@@ -72,13 +71,21 @@
                 <li class="divider"></li>
                 <li><a href="{% url 'account_logout' %}">{% trans 'Logout' %}</a></li>
               </ul>
-            {% else %}
+            </li>
+          {% else %}
+            <li>
+              <a href="{% url 'contact' %}">
+                {% trans 'Get in touch' %}
+                <i class="material-icons right">mail</i>
+              </a>
+            </li>
+            <li>
               <a href="{% url 'account_login' %}">
                 {% trans 'Sign In' %}
                 <i class="material-icons right">account_circle</i>
               </a>
-            {% endif %}
-          </li>
+            </li>
+          {% endif %}
         </ul>
         <ul class="right hide-on-large-only">
           <li>
@@ -107,9 +114,13 @@
                 </li>
               {% else %}
                 <li>
+                  <a href="{% url 'contact' %}">
+                    {% trans 'Get in touch' %}
+                  </a>
+                </li>
+                <li>
                   <a class="blue-text text-darken-4" href="{% url 'account_login' %}">
                     {% trans 'Sign In' %}
-                    <i class="material-icons right">account_circle</i>
                   </a>
                 </li>
               {% endif %}

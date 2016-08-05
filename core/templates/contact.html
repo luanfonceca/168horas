@@ -6,14 +6,12 @@
 {% load tags %}
 
 {% block content %}
-  {{ form.errors }}
-
   <form method="POST">
     {% csrf_token %}
 
     <div class="row">
       {% include "includes/field.html" with field=form.name col_sizes='s12 m6' %}
-      {% include "includes/field.html" with field=form.subject col_sizes='s12 m6' %}
+      {% include "includes/field.html" with field=form.email col_sizes='s12 m6' %}
     </div>
 
     <div class="row">
@@ -27,7 +25,7 @@
     </div>
     
     <div class="center-align col s4">
-      <a href="{% url 'activity:list' %}">
+      <a href="{% url 'index' %}">
         {% trans 'back' %}
       </a>
       &nbsp;
