@@ -31,10 +31,12 @@ class IndexView(TemplateView):
 class FeaturesView(mixins.PageTitleMixin,
                    TemplateView):
     template_name = 'features.html'
+    page_title = _('Features')
 
     def get_context_data(self, **kwargs):
         context = super(FeaturesView, self).get_context_data(**kwargs)
         context.update(
+            hide_page_title=True,
             activities_count=Activity.objects.count(),
             attendees_count=Attendee.objects.count(),
         )
