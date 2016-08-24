@@ -10,6 +10,8 @@ from core import mixins
 from core.models import Profile
 from core.forms import ContactForm
 from web168h import settings
+from activity.models import Activity
+from attendee.models import Attendee
 
 
 class IndexView(TemplateView):
@@ -24,6 +26,19 @@ class IndexView(TemplateView):
         if self.request.user.is_authenticated():
             return redirect('activity:list')
         return super(IndexView, self).get(*args, **kwargs)
+
+
+class FeaturesView(mixins.PageTitleMixin,
+                   TemplateView):
+    template_name = 'features.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(FeaturesView, self).get_context_data(**kwargs)
+        context.update(
+            activities_count=Activity.objects.count(),
+            attendees_count=Attendee.objects.count(),
+        )
+        return context
 
 
 class ContactView(mixins.PageTitleMixin,

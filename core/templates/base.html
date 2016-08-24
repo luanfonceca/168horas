@@ -74,6 +74,12 @@
             </li>
           {% else %}
             <li>
+              <a href="{% url 'features' %}">
+                {% trans 'Features' %}
+                <i class="material-icons right">work</i>
+              </a>
+            </li>
+            <li>
               <a href="{% url 'contact' %}">
                 {% trans 'Get in touch' %}
                 <i class="material-icons right">mail</i>

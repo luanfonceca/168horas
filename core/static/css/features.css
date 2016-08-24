@@ -1,0 +1,48 @@
+.section {
+  margin: 40px auto;
+}
+
+@media only screen and (max-width: 600px) {
+  .section {
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+
+  .switch-horizontal {
+    text-align: center;
+  }
+
+  .switch-order {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .switch-order .switch-2 {
+    order: 2;
+  }
+}
+
+@media (max-width: 600px) {
+}
+
+#hero {
+  padding-bottom: 50px
+}
+
+#hero .container {
+  margin-bottom: 40px;
+  padding-top: 20px;
+}
+
+#hero .container h4 {
+  margin-bottom: 30px;
+}
+
+#call-to-action {
+  padding-top: 30px;
+  padding-bottom: 40px;
+}
+
+#call-to-action {
+  margin-bottom: 20px;
+}
