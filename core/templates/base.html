@@ -73,12 +73,12 @@
               </ul>
             </li>
           {% else %}
-            <li>
+            <!--<li>
               <a href="{% url 'features' %}">
                 {% trans 'Features' %}
                 <i class="material-icons right">work</i>
               </a>
-            </li>
+            </li>-->
             <li>
               <a href="{% url 'contact' %}">
                 {% trans 'Get in touch' %}
@@ -119,6 +119,12 @@
                   </a>
                 </li>
               {% else %}
+                <!--<li>
+                  <a href="{% url 'features' %}">
+                    {% trans 'Features' %}
+                    <i class="material-icons right">work</i>
+                  </a>
+                </li>-->
                 <li>
                   <a href="{% url 'contact' %}">
                     {% trans 'Get in touch' %}
