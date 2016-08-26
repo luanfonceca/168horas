@@ -16,7 +16,14 @@
       </a>
     </li>
     <li>
-      {% if request.user.is_authenticated and object|already_joined:request.user.profile %}
+      {% if request.user.is_authenticated and object|already_attended:request.user.profile %}
+        {% with object|get_attendee:request.user.profile as attendee %}
+          <a class="blue-text text-darken-4" href="{% url 'attendee:certificate' activity_slug=object.slug code=attendee.code %}" target="_blank">
+            {% trans 'Open certificate' %}
+            <i class="material-icons right">file_download</i>
+          </a>
+        {% endwith %}
+      {% elif request.user.is_authenticated and object|already_joined:request.user.profile %}
         <a class='disabled blue-text text-darken-4' href="javascript:;">
           {% trans 'Already Joined' %}
           <i class="material-icons right">check</i>
@@ -55,6 +62,13 @@
       </a>
     </li>
   </ul>
+{% elif request.user.is_authenticated and object|already_attended:request.user.profile %}
+  {% with object|get_attendee:request.user.profile as attendee %}
+    <a class='btn btn-wide btn-large waves-effect waves-light blue darken-4 white-text' href="{% url 'attendee:certificate' activity_slug=object.slug code=attendee.code %}" target="_blank">
+      {% trans 'Open certificate' %}
+      <i class="material-icons right">file_download</i>
+    </a>
+  {% endwith %}
 {% elif request.user.is_authenticated and object|already_joined:request.user.profile %}
   <a class='disabled btn-large waves-effect waves-light white blue-text text-darken-4' href="javascript:;">
     {% trans 'Already Joined' %}
