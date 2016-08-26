@@ -6,24 +6,65 @@
 
 {% load tags %}
 
-{% block content %}
-  <form action="https://www.moip.com.br/PagamentoMoIP.do" method="POST">
-    <input type="hidden" name="id_carteira" value="luanfonceca@gmail.com">
-    <input type="hidden" name="url_retorno" value="{{ activity.get_full_absolute_url }}">
-    <input type="hidden" name="id_transacao" value="{{ object.get_id_transacao }}">
-    <input type="hidden" name="descricao" value="Pagamento da atividade: {{ activity.title }} para o 168 horas.">
-    <input type="hidden" name="valor" value="{{ activity.get_price_as_cents }}">
-    <input type="hidden" name="nome" value="{{ activity.title }}">
-    <input type="hidden" name="pagador_nome" value="{{ object.name }}">
-    <input type="hidden" name="pagador_email" value="{{ object.email }}">
-    <input type="hidden" name="pagador_telefone" value="{{ object.phone }}">
+{% block extra_css %}
+  <style type="text/css">
+    #id_expiry_date select {
+      top: 2px;
+      position: relative;
+      display: inline-block;
+      margin-bottom: 10px;
+      width: calc(50% - 10px);
+    }
 
-    <div class="row center">
-      <h3>{% trans 'You are at one step to fullfill your subscription!' %}</h3>
-      <p class="center">{% trans 'By clicking on the "Pay" button, you will be redirected to the Moip site. At there you will enter the rest of the needed informations to pay, using Credit, Debit or Bank Slip.' %}</p>
-      <p class="center">{% trans 'After that you will receive emails as the process continues, when your payment will be charged we send a notification to your email!' %}</p>
+    #id_expiry_date span {
+      margin: 0px 2px;
+    }
+  </style>
+{% endblock extra_css %}
+
+{% block content %}
+  <form method="POST" id="payment_form" autocomplete="on">
+    {% csrf_token %}
+    <textarea id="id_public_key" style="display:none;">
+-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsXkulsKdAQLMH/zjzTLf
+0lrbgulfb6ZShEtRpmDnyX93EQqPdez7LyptvQBeTC+0pN57rNcWen9ApdsIMsNr
+YHjNQf/kI4Ka7Xnlx0U/v7bW1D8teDoD5glBTXLjU8hRi7qlOpupiPx4ldSnK9Jj
+tYApWuZMiCpWh/YRAlNW/N+ffm7ulq6H2atmgd+OFB2SghpbRJkqJiLaNJW8UkaR
+oXLHkF5WJD/RPrCxsZztYJQThxLX5gBgZ12YG5+7G26Ad/mWkPqF0GLSkd1gcnbP
+vF9Nw3ckKaIvh4Q4Vp3XI1hLvX41lg9CBxPPHkiJwM1M1coF9xsMP7kpJ2eujMBd
+mwIDAQAB
+-----END PUBLIC KEY-----
+    </textarea>
+
+
+    <div class="row">
+      {% include 'includes/field.html' with field=form.credit_card|append_attr:'autocomplete:"cc-number"' col_sizes='s8 m6' class='cc-number' %}      
+      {% include 'includes/field.html' with field=form.cvv|append_attr:'autocomplete:"off"' col_sizes='s4 m3' class='cc-cvc' %}
+      
+      <div class="clearfix"></div>
+
+      {% include 'includes/field.html' with field=form.name|append_attr:'autocomplete="cc-full-name"' col_sizes='s6 m6' %}  
+      <div id="id_expiry_date" class="input-field col s6 m3">
+        {% with form.month as field %}
+          {% render_field field|append_attr:'autocomplete:"cc-exp-month"' class+=field|get_error_class class+=class class+='browser-default' %}
+        {% endwith %}
+
+        <span>/</span>
+
+        {% with form.year as field %}
+          {% render_field field|append_attr:'autocomplete:"cc-exp-year"' class+=field|get_error_class class+=class class+='browser-default' %}
+        {% endwith %}
+        <label class="active" for="id_month">Expiry Dates</label>
+      </div>
+
+      <div class="clearfix"></div>
+
+      {% include 'includes/field.html' with field=form.birth_date col_sizes='s12 m3' %}
+      {% include 'includes/field.html' with field=form.cpf col_sizes='s12 m3' %}
+      {% include 'includes/field.html' with field=form.phone col_sizes='s12 m3' %}
     </div>
-    
+
     <br>
     <div class="center-align col s4">
       <a href="{% url 'activity:detail' activity.slug %}">
@@ -37,3 +78,10 @@
     </div>
   </form>
 {% endblock %}
+
+{% block extra_js %}
+  <script type="text/javascript" src="{% static 'attendee/js/moip-2.7.0.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'attendee/js/jquery.validate.js' %}"></script>
+  <script type="text/javascript" src="{% static 'attendee/js/jquery.maskedinput.js' %}"></script>
+  <script type="text/javascript" src="{% static 'attendee/js/payment.js' %}"></script>
+{% endblock extra_js %}

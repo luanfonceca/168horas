@@ -20,7 +20,8 @@ from core.mixins import (
 from activity.models import Activity
 from attendee.models import Attendee
 from attendee.forms import (
-    AttendeeForm, CustomAttendeeForm, AttendeePaymentNotificationForm
+    AttendeeForm, CustomAttendeeForm, AttendeePaymentNotificationForm,
+    AttendeePaymentForm
 )
 
 
@@ -350,10 +351,11 @@ class AttendeeShuffle(BaseAttendeeView,
 
 
 class AttendeePayment(BaseAttendeeView,
-                      views.DetailView):
+                      views.UpdateView):
     lookup_field = 'code'
     template_name = 'attendee/payment.html'
     full_page_title = True
+    form_class = AttendeePaymentForm
 
     def get_breadcrumbs(self):
         self.activity = self.get_activity()

@@ -1,4 +1,7 @@
+import calendar
+
 from django import forms
+from django.utils.timezone import datetime
 
 from localflavor.br.forms import BRCPFField
 
@@ -61,3 +64,36 @@ class AttendeePaymentNotificationForm(forms.Form):
     def clean_status_pagamento(self):
         status = self.cleaned_data.get('status_pagamento')
         return int(status)
+
+
+class AttendeePaymentForm(forms.ModelForm):
+    now = datetime.now()
+    EXPIRATION_DATE_YEAR_CHOICES = [
+        (year, str(year)[2:])
+        for year in xrange(now.year, now.year + 11)
+    ]
+
+    EXPIRATION_DATE_MONTH_CHOICES = [
+        (month, '%02d' % month)
+        for month in xrange(1, 13)
+    ]
+
+    credit_card = forms.CharField(required=True)
+    month = forms.ChoiceField(
+        label='MM',
+        choices=EXPIRATION_DATE_MONTH_CHOICES)
+    year = forms.ChoiceField(
+        label='YYYY',
+        choices=EXPIRATION_DATE_YEAR_CHOICES)
+    cvv = forms.CharField(label='CVV')
+    name = forms.CharField(label='Nome impresso no cartao')
+    birth_date = forms.DateField()
+    cpf = BRCPFField()
+    phone = forms.CharField()
+
+    class Meta:
+        model = Attendee
+        fields = (
+            'credit_card', 'year', 'month', 'cvv',
+            'name', 'birth_date', 'cpf', 'phone',
+        )
