@@ -3,6 +3,8 @@ from __future__ import unicode_literals
 
 import random
 import string
+import requests
+import json
 
 from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse
@@ -105,6 +107,12 @@ class Attendee(models.Model):
         null=True, blank=True)
     moip_code = models.CharField(
         _('Moip code'), max_length=20, null=True, blank=True)
+    moip_customer_id = models.CharField(
+        _('Moip customer'), max_length=20, null=True, blank=True)
+    moip_order_id = models.CharField(
+        _('Moip order'), max_length=20, null=True, blank=True)
+    moip_payment_id = models.CharField(
+        _('Moip payment'), max_length=20, null=True, blank=True)
 
     # relations
     activity = models.ForeignKey(
@@ -376,5 +384,70 @@ def send_payment_confirmation_email(sender, instance, created, **kwargs):
         instance.send_payment_confirmation()
 
 
-post_save.connect(send_attendee_joined_email, sender=Attendee)
-post_save.connect(send_payment_confirmation_email, sender=Attendee)
+def create_moip_customer(sender, instance, created, **kwargs):
+    if not created:
+        return
+
+    url = 'https://sandbox.moip.com.br/v2/customers/'
+    data = {
+        'ownId': instance.code,
+        'fullname': instance.name,
+        'email': instance.email
+    }
+    headers = {
+        'Content-Type': 'application/json',
+        'Authorization': (
+            'Basic MEVSVkROMzg2V0UzUlpSSTRZWUc2UUNETE1KNTdMQlI6U1J'
+            'aR0hSWFlPVDBQVkRMUkIzWUU4WFFXTE5MQTBKUlhUS09JRFZEUQ=='
+        )
+    }
+    response = requests.post(url, data=json.dumps(data), headers=headers)
+    if response.ok:
+        response_data = response.json()
+        instance.moip_customer_id = response_data.get('id')
+        instance.save()
+
+
+def create_moip_order(sender, instance, created, **kwargs):
+    if not created:
+        return
+
+    headers = {
+        'Content-Type': 'application/json',
+        'Authorization': (
+            'Basic MEVSVkROMzg2V0UzUlpSSTRZWUc2UUNETE1KNTdMQlI6U1J'
+            'aR0hSWFlPVDBQVkRMUkIzWUU4WFFXTE5MQTBKUlhUS09JRFZEUQ=='
+        )
+    }
+
+    url = 'https://sandbox.moip.com.br/v2/customers/{}'.format(
+        instance.moip_customer_id
+    )
+    customer_data = requests.get(url, headers=headers).json()
+
+    url = 'https://sandbox.moip.com.br/v2/orders/'
+    data = {
+        'ownId': instance.code,
+        'items': [{
+            'product': instance.activity.title,
+            'price': instance.activity.get_price_as_cents,
+            'quantity': 1,
+            'detail': (
+                'Pagamento da atividade: {0} para o 168 horas.'.format(
+                    instance.activity.title
+                )
+            )
+        }],
+        'customer': customer_data
+    }
+    response = requests.post(url, data=json.dumps(data), headers=headers)
+    if response.ok:
+        response_data = response.json()
+        instance.moip_order_id = response_data.get('id')
+        instance.save()
+
+
+# post_save.connect(send_attendee_joined_email, sender=Attendee)
+# post_save.connect(send_payment_confirmation_email, sender=Attendee)
+post_save.connect(create_moip_customer, sender=Attendee)
+post_save.connect(create_moip_order, sender=Attendee)

@@ -8,6 +8,7 @@
 
 {% block content %}
   <form method="POST">
+    <h5 class=>1. Suas informações</h5>
     {% csrf_token %}
 
     <div class="row">
@@ -15,7 +16,6 @@
       {% include "includes/field.html" with field=form.email col_sizes='s12 m6' %}
       {% include "includes/field.html" with field=form.educational_institution col_sizes='s12 m6' %}
       {% include "includes/field.html" with field=form.cpf col_sizes='s12 m6' %}
-      {% include "includes/field.html" with field=form.phone col_sizes='s12 m6' %}
     </div>
 
     {% if activity.slug == 'v-simposio-nexa-de-empreendedorismo-construindo-op' %}

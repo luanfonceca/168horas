@@ -3,9 +3,7 @@ $.validator.addMethod(
   function(cardNumber) {
     return Moip.Validator.isValid(cardNumber);
   },
-  $.validator.format(
-    'Invalid credit card.'
-  )
+  $.validator.format('Invalid credit card.')
 );
 
 $.validator.addMethod(
@@ -15,9 +13,7 @@ $.validator.addMethod(
     var year = $('#id_year').val();
     return Moip.Validator.isExpiryDateValid(month, year);
   },
-  $.validator.format(
-    'Invalid expiry dates.'
-  )
+  $.validator.format('Invalid expiry dates.')
 );
 
 $.validator.addMethod(
@@ -26,9 +22,7 @@ $.validator.addMethod(
     var cardNumber = $('#id_credit_card').val();
     return Moip.Validator.isSecurityCodeValid(cardNumber, cvv);
   },
-  $.validator.format(
-    'Invalid security code.'
-  )
+  $.validator.format('Invalid security code.')
 );
 
 $.validator.setDefaults({
@@ -44,30 +38,24 @@ $.validator.setDefaults({
 });
 
 $(document).ready(function() {
-  $("#payment_form").submit(function(e) {
-    e.preventDefault();
+  var form = $("#payment_form");
 
-    $(this).validate();
-
-    var cc = new Moip.CreditCard({
-      number: $(this).find("#id_credit_card").val(),
-      cvc: $(this).find("#id_cvv").val(),
-      expMonth: $(this).find("#id_month").val(),
-      expYear: $(this).find("#id_year").val(),
-      pubKey: $(this).find("#id_public_key").val()
+  $(form).submit(function(e) {
+    var credit_card = new Moip.CreditCard({
+      number: $("#id_credit_card").val(),
+      cvc: $("#id_cvv").val(),
+      expMonth: $("#id_month").val(),
+      expYear: $("#id_year").val(),
+      pubKey: $("#id_public_key").val()
     });
+    if(credit_card.isValid()){
+      $("#id_card_hash").val(credit_card.hash());
 
-    debugger;
-    if(cc.isValid()){
-      $("#hash").val(cc.hash());
-    } else {
-      $("#hash").val('');
-      alert('Invalid credit card. Verify parameters: number, cvc, expiration Month, expiration Year');
-      return false; // Don't submit the form
+      $(this).submit();
     }
   });
 
-  $("#payment_form").validate({
+  $(form).validate({
     rules: {
       credit_card: {
         required: true,
@@ -89,7 +77,7 @@ $(document).ready(function() {
           }
         }
       },
-      name: {
+      holder_name: {
         required: true,
       },
       birth_date: {
@@ -101,7 +89,6 @@ $(document).ready(function() {
     }
   });
 
-  var form = $("#payment_form");
   $(form).find('[name=credit_card]').mask(
     '9999 9999 9999 9999', {
       'placeholder': ' '
@@ -121,7 +108,7 @@ $(document).ready(function() {
   );
 
   $(form).find('[name=phone]').mask(
-    '(99) 9?9999-9999', {
+    '+55 (99) 9?9999-9999', {
       'placeholder': ' '
     }
   );

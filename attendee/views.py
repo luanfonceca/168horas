@@ -1,3 +1,8 @@
+import requests
+import json
+import re
+
+
 from django.utils.translation import ugettext as _
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import get_object_or_404
@@ -224,6 +229,98 @@ class AttendeeJoin(BaseAttendeeView,
         return super(AttendeeJoin, self).get_success_url()
 
 
+class AttendeePayment(BaseAttendeeView,
+                      LoginRequiredMixin,
+                      views.UpdateView):
+    lookup_field = 'code'
+    template_name = 'attendee/payment.html'
+    full_page_title = True
+    form_class = AttendeePaymentForm
+
+    def get_breadcrumbs(self):
+        self.activity = self.get_activity()
+        self.object = self.get_object()
+
+        return [{
+            'url': self.activity.get_absolute_url(),
+            'title': self.activity.title
+        }, {
+            'url': self.activity.get_attendee_join_url(),
+            'title': _('Join')
+        }, {
+            'url': self.object.get_payment_url(),
+            'title': _('Payment')
+        }]
+
+    def get_context_data(self, **kwargs):
+        context = super(AttendeePayment, self).get_context_data(**kwargs)
+
+        headers = {
+            'Content-Type': 'application/json',
+            'Authorization': (
+                'Basic MEVSVkROMzg2V0UzUlpSSTRZWUc2UUNETE1KNTdMQlI6U1J'
+                'aR0hSWFlPVDBQVkRMUkIzWUU4WFFXTE5MQTBKUlhUS09JRFZEUQ=='
+            )
+        }
+
+        url = 'https://sandbox.moip.com.br/v2/orders/{}'.format(
+            self.object.moip_order_id
+        )
+        data = requests.get(url, headers=headers).json()
+        boleto = data.get('_links').get('checkout').get('payBoleto')
+        context.update(
+            boleto_url=boleto.get('redirectHref')
+        )
+        return context
+
+    def form_valid(self, form):
+        def only_digits(n):
+            return re.sub('[^0-9]', '', n)
+        form_data = form.cleaned_data
+        self.object = self.get_object()
+        url = 'https://sandbox.moip.com.br/v2/orders/{}/payments/'.format(
+            self.object.moip_order_id
+        )
+        phone = only_digits(form_data.get('phone'))
+        data = {
+            'ownId': self.object.code,
+            'installmentCount': 1,
+            'fundingInstrument': {
+                'method': 'CREDIT_CARD',
+                'creditCard': {
+                    'hash': form_data.get('hash'),
+                    'holder': {
+                        'fullname': form_data.get('holder_name'),
+                        'birthdate': form_data.get('birth_date'),
+                        'taxDocument': {
+                            'type': 'CPF',
+                            'number': only_digits(form_data.get('holder_cpf'))
+                        },
+                        'phone': {
+                            'countryCode': phone[:2],
+                            'areaCode': phone[2:4],
+                            'number': phone[4:],
+                        }
+                    }
+                }
+            }
+        }
+
+        headers = {
+            'Content-Type': 'application/json',
+            'Authorization': (
+                'Basic MEVSVkROMzg2V0UzUlpSSTRZWUc2UUNETE1KNTdMQlI6U1J'
+                'aR0hSWFlPVDBQVkRMUkIzWUU4WFFXTE5MQTBKUlhUS09JRFZEUQ=='
+            )
+        }
+        response = requests.post(url, data=json.dumps(data), headers=headers)
+        if response.ok:
+            response_data = response.json()
+            self.object.moip_payment_id = response_data.get('id')
+            self.object.save()
+        return super(AttendeePayment, self).form_valid(form=form)
+
+
 class AttendeeDetail(BaseAttendeeView,
                      OrganizerRequiredMixin,
                      views.DetailView):
@@ -348,26 +445,6 @@ class AttendeeShuffle(BaseAttendeeView,
             return redirect(self.activity.get_attendee_list_url())
 
         return super(AttendeeShuffle, self).get(request, *args, **kwargs)
-
-
-class AttendeePayment(BaseAttendeeView,
-                      views.UpdateView):
-    lookup_field = 'code'
-    template_name = 'attendee/payment.html'
-    full_page_title = True
-    form_class = AttendeePaymentForm
-
-    def get_breadcrumbs(self):
-        self.activity = self.get_activity()
-        self.object = self.get_object()
-
-        return [{
-            'url': self.activity.get_absolute_url(),
-            'title': self.activity.title
-        }, {
-            'url': self.object.get_absolute_url(),
-            'title': _('Payment')
-        }]
 
 
 class AttendeePaymentNotification(BaseAttendeeView, FormView):

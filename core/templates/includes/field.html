@@ -1,7 +1,7 @@
 {% load widget_tweaks %}
 {% load tags %}
 
-<div class="input-field col {{ col_sizes|default:'s12 l12' }}">
+<div class="input-field col {{ col_sizes|default:'s12 l12' }}" {% if input_field_id %}id="{{ input_field_id }}"{% endif %}>
   {% render_field field class+=field|get_error_class class+=class %}
 
   <label for="{{ field.id }}">

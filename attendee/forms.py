@@ -1,5 +1,3 @@
-import calendar
-
 from django import forms
 from django.utils.timezone import datetime
 
@@ -86,14 +84,26 @@ class AttendeePaymentForm(forms.ModelForm):
         label='YYYY',
         choices=EXPIRATION_DATE_YEAR_CHOICES)
     cvv = forms.CharField(label='CVV')
-    name = forms.CharField(label='Nome impresso no cartao')
+    holder_name = forms.CharField(label='Nome impresso no cartao')
+    holder_cpf = BRCPFField(label='CPF do proprietario do cartao')
     birth_date = forms.DateField()
-    cpf = BRCPFField()
-    phone = forms.CharField()
+    card_hash = forms.CharField(widget=forms.HiddenInput())
+    public_key = forms.CharField(widget=forms.HiddenInput(), initial=(
+        '-----BEGIN PUBLIC KEY-----'
+        'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsXkulsKdAQLMH/zjzTLf'
+        '0lrbgulfb6ZShEtRpmDnyX93EQqPdez7LyptvQBeTC+0pN57rNcWen9ApdsIMsNr'
+        'YHjNQf/kI4Ka7Xnlx0U/v7bW1D8teDoD5glBTXLjU8hRi7qlOpupiPx4ldSnK9Jj'
+        'tYApWuZMiCpWh/YRAlNW/N+ffm7ulq6H2atmgd+OFB2SghpbRJkqJiLaNJW8UkaR'
+        'oXLHkF5WJD/RPrCxsZztYJQThxLX5gBgZ12YG5+7G26Ad/mWkPqF0GLSkd1gcnbP'
+        'vF9Nw3ckKaIvh4Q4Vp3XI1hLvX41lg9CBxPPHkiJwM1M1coF9xsMP7kpJ2eujMBd'
+        'mwIDAQAB'
+        '-----END PUBLIC KEY-----'
+    ))
 
     class Meta:
         model = Attendee
         fields = (
             'credit_card', 'year', 'month', 'cvv',
-            'name', 'birth_date', 'cpf', 'phone',
+            'holder_name', 'birth_date', 'holder_cpf',
+            'phone', 'public_key', 'card_hash'
         )
