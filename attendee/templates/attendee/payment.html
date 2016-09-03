@@ -6,8 +6,12 @@
 
 {% load tags %}
 
+{% block extra_css %}
+  <link type="text/css" rel="stylesheet" href="{% static 'attendee/css/mprogress.min.css' %}" />
+{% endblock extra_css %}
+
 {% block content %}
-  <form action="https://www.moip.com.br/PagamentoMoIP.do" method="POST">
+  <form id="payment_form" action="https://www.moip.com.br/PagamentoMoIP.do" method="POST">
     <input type="hidden" name="id_carteira" value="luanfonceca@gmail.com">
     <input type="hidden" name="url_retorno" value="{{ activity.get_full_absolute_url }}">
     <input type="hidden" name="id_transacao" value="{{ object.get_id_transacao }}">
@@ -19,21 +23,36 @@
     <input type="hidden" name="pagador_telefone" value="{{ object.phone }}">
 
     <div class="row center">
-      <h3>{% trans 'You are at one step to fullfill your subscription!' %}</h3>
-      <p class="center">{% trans 'By clicking on the "Pay" button, you will be redirected to the Moip site. At there you will enter the rest of the needed informations to pay, using Credit, Debit or Bank Slip.' %}</p>
-      <p class="center">{% trans 'After that you will receive emails as the process continues, when your payment will be charged we send a notification to your email!' %}</p>
+      <h4>{% trans 'Redirecting to Moip...' %}</h4>
+      <span class="col s12 m4 offset-m4" id="mprogress">&nbsp;</span>
     </div>
-    
-    <br>
+
     <div class="center-align col s4">
-      <a href="{% url 'activity:detail' activity.slug %}">
-        {% trans 'back' %}
-      </a>
-      &nbsp;
-      <button type="submit" class="btn-large waves-effect waves-light blue darken-4">
-        {% trans 'Pay' %}
-        <i class="material-icons right">done</i>
-      </button>
+      <span>
+        {% trans 'Or click' %}
+        &nbsp;
+        <button type="submit" class="btn-large waves-effect waves-light blue darken-4">
+          {% trans 'Here' %}
+          <i class="material-icons right">done</i>
+        </button>
+      </span>
     </div>
   </form>
 {% endblock %}
+
+{% block extra_js %}
+  <script type="text/javascript" src="{% static 'attendee/js/mprogress.min.js' %}"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      var mp = new Mprogress({
+        template: 3,
+        start: true,
+        parent: '#mprogress',
+      });
+
+      setTimeout(function() {
+        $("#payment_form").submit();
+      }, 3000);
+    });
+  </script>
+{% endblock extra_js %}
