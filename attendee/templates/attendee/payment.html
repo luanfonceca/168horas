@@ -41,11 +41,14 @@
 {% endblock extra_css %}
 
 {% block content %}
-  <div class="row center">
-    <h4>Escolha uma forma de pagamento entre: Cartão de Crédito ou Boleto, para finalizar sua inscrição!</h4>
-  </div>
-
   <form method="POST" id="payment_form" autocomplete="on">
+    <div class="center green white-text price-content">
+      <h5 class="price-total">
+        {% trans "Join now for only" %}
+        {{ activity.formatted_price }}
+      </h5>
+    </div>
+
     <h5 class=>2. Forma de Pagamento</h5>
     <ul class="collapsible" data-collapsible="accordion">
       <li>
@@ -60,13 +63,13 @@
               {{ form.public_key }}
 
               <div class="row">
-                {% include 'includes/field.html' with field=form.credit_card|append_attr:'autocomplete:"cc-number"' col_sizes='s8 m6' class='cc-number' input_field_id='input_credit_card' %}
-                {% include 'includes/field.html' with field=form.cvv|append_attr:'autocomplete:"off"' col_sizes='s4 m3' class='cc-cvc' input_field_id='input_cvv' %}
+                {% include 'includes/field.html' with field=form.credit_card|append_attr:'autocomplete:"cc-number"' col_sizes='s12 m6' class='cc-number' input_field_id='input_credit_card' %}
+                {% include 'includes/field.html' with field=form.cvv|append_attr:'autocomplete:"off"' col_sizes='s6 m3' class='cc-cvc' input_field_id='input_cvv' %}
                 
                 <div class="clearfix"></div>
 
-                {% include 'includes/field.html' with field=form.holder_name|append_attr:'autocomplete="cc-full-holder_name"' col_sizes='s6 m6' input_field_id='input_holder_name' %}
-                <div id="id_expiry_date" class="input-field col s6 m3">
+                {% include 'includes/field.html' with field=form.holder_name|append_attr:'autocomplete="cc-full-holder_name"' col_sizes='s12 m6' input_field_id='input_holder_name' %}
+                <div id="id_expiry_date" class="input-field col s12 m3">
                   {% with form.month as field %}
                     {% render_field field|append_attr:'autocomplete:"cc-exp-month"' class+=field|get_error_class class+=class class+='browser-default' %}
                   {% endwith %}
@@ -81,9 +84,9 @@
 
                 <div class="clearfix"></div>
 
-                {% include 'includes/field.html' with field=form.birth_date col_sizes='s12 m3' %}
                 {% include 'includes/field.html' with field=form.holder_cpf col_sizes='s12 m3' %}
-                {% include 'includes/field.html' with field=form.phone col_sizes='s12 m3' %}
+                {% include 'includes/field.html' with field=form.birth_date col_sizes='s12 m3' %}
+                {% include 'includes/field.html' with field=form.installments col_sizes='s6 m3' %}
               </div>
             </div>
             <div class="center-align col s12">

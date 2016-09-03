@@ -337,3 +337,17 @@ a.button-collapse.top-nav.full {
     float: none;
   }      
 }*/
+
+.price-content {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.price-content .price-total {
+  /*margin-bottom: 0px;*/
+}
+
+.collapsible-body p {
+  padding: 0;
+}

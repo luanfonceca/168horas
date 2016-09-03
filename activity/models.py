@@ -150,6 +150,17 @@ class Activity(TitleSlugDescriptionModel):
             })
         )
 
+    def get_installment_choices(self):
+        def get_installment_price(installment, price):
+            return '{} x R$ {:.2f}'.format(
+                installment, price / installment
+            ).replace('.', ',')
+
+        return [
+            (installment, get_installment_price(installment, self.price))
+            for installment in range(1, 11)
+        ]
+
     @property
     def is_closed(self):
         if self.slug == 'flisol-natal-2016':

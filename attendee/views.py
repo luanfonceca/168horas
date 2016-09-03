@@ -237,6 +237,14 @@ class AttendeePayment(BaseAttendeeView,
     full_page_title = True
     form_class = AttendeePaymentForm
 
+    def get_object(self):
+        self.activity = self.get_activity()
+        queryset = self.get_queryset()
+        return queryset.get(
+            activity=self.activity,
+            code=self.kwargs.get('code')
+        )
+
     def get_breadcrumbs(self):
         self.activity = self.get_activity()
         self.object = self.get_object()
@@ -267,9 +275,14 @@ class AttendeePayment(BaseAttendeeView,
             self.object.moip_order_id
         )
         data = requests.get(url, headers=headers).json()
-        boleto = data.get('_links').get('checkout').get('payBoleto')
+        try:
+            boleto = '{redirectHref}/print/'.format(
+                **data.get('payments')[0].get('_links').get('payBoleto')
+            )
+        except:
+            import ipdb; ipdb.set_trace()
         context.update(
-            boleto_url=boleto.get('redirectHref')
+            boleto_url=boleto
         )
         return context
 

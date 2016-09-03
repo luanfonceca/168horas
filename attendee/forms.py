@@ -99,11 +99,17 @@ class AttendeePaymentForm(forms.ModelForm):
         'mwIDAQAB'
         '-----END PUBLIC KEY-----'
     ))
+    installments = forms.ChoiceField(label='Parcelas')
 
     class Meta:
         model = Attendee
         fields = (
             'credit_card', 'year', 'month', 'cvv',
-            'holder_name', 'birth_date', 'holder_cpf',
-            'phone', 'public_key', 'card_hash'
+            'holder_name', 'holder_cpf',
+            'birth_date', 'public_key', 'card_hash'
         )
+
+    def __init__(self, *args, **kwargs):
+        super(AttendeePaymentForm, self).__init__(*args, **kwargs)
+        choices = self.instance.activity.get_installment_choices()
+        self.fields['installments'].choices = choices

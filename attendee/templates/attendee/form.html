@@ -8,8 +8,8 @@
 
 {% block content %}
   <form method="POST">
-    <h5 class=>1. Suas informações</h5>
     {% csrf_token %}
+    <h5 class=>1. Suas informações</h5>
 
     <div class="row">
       {% include "includes/field.html" with field=form.name col_sizes='s12 m6' %}
