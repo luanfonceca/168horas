@@ -152,18 +152,15 @@ class AttendeeJoin(BaseAttendeeView,
         return AttendeeForm
 
     def get(self, request, *args, **kwargs):
-        already_joined = Attendee.objects.filter(
-            profile=self.request.user.profile,
-            activity=self.get_activity(),
-        ).exists()
-
-        if already_joined:
-            messages.add_message(
-                request=self.request, level=messages.SUCCESS,
-                message=_('You already joined up for this activity!')
+        try:
+            attendee = Attendee.objects.get(
+                profile=self.request.user.profile,
+                activity=self.get_activity()
             )
-
-        return super(AttendeeJoin, self).get(request, *args, **kwargs)
+        except Attendee.DoesNotExist:
+            return super(AttendeeJoin, self).get(request, *args, **kwargs)
+        else:
+            return redirect(attendee.get_payment_url(full_url=False))
 
     def get_form(self, data=None, files=None, **kwargs):
         if data is None:
