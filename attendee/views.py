@@ -142,15 +142,13 @@ class AttendeeJoin(BaseAttendeeView,
     template_name = 'attendee/form.html'
     full_page_title = True
 
-    def track_join(self):
-        self.object = self.get_object()
-        self.activity = self.get_activity()
+    def track_join(self, attendee, activity):
         self.user = self.request.user
 
         analytics.track(self.user.id, 'Join Activity', {
-            'title': self.activity.title,
-            'price': self.activity.price,
-            'created_at': self.object.created_at
+            'title': activity.title,
+            'price': activity.price,
+            'created_at': attendee.created_at
         })
 
     def track_join_attempt(self):
@@ -227,7 +225,7 @@ class AttendeeJoin(BaseAttendeeView,
             )
             return redirect(self.activity.get_attendee_join_url())
         else:
-            self.track_join()
+            self.track_join(self.object, self.activity)
             message = _('Successfully joined up for this activity!')
             if self.activity.status == self.activity.PRE_SALE:
                 message = _(
