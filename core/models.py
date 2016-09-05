@@ -62,7 +62,7 @@ def create_segment_refrence(sender, instance, created, **kwargs):
         analytics.identify(user.id, {
             'name': user.get_full_name(),
             'email': user.email,
-            'created_at': user.created_at
+            'created_at': user.date_joined
         })
 
 try:
