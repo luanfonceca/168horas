@@ -1,3 +1,5 @@
+from logging import getLogger
+
 from django.utils.translation import ugettext as _
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import get_object_or_404
@@ -410,7 +412,15 @@ class AttendeePaymentNotification(BaseAttendeeView, FormView):
             return self.return_success()
 
     def form_invalid(self, form):
-        return self.return_fail(form.errors.as_text())
+        self.object = self.get_object()
+        logger = getLogger(__name__)
+        error = form.errors.as_text()
+        logger.exception(
+            'Failed to process payment #{}: {}'.format(
+                self.object.code, error
+            )
+        )
+        return self.return_fail(error)
 
 
 class AttendeeConfirmPayment(BaseAttendeeView,
