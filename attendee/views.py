@@ -383,7 +383,7 @@ class AttendeePaymentNotification(BaseAttendeeView, FormView):
 
         return self.model.objects.get(code=id_transacao)
 
-    def get_form(self, data, files, **kwargs):
+    def get_form(self, data=None, files=None, **kwargs):
         try:
             kwargs.update(instance=self.get_object())
         except Attendee.DoesNotExist:
