@@ -386,7 +386,7 @@ class AttendeePaymentNotification(BaseAttendeeView, FormView):
     def get_form(self, data=None, files=None, **kwargs):
         try:
             kwargs.update(instance=self.get_object())
-        except Attendee.DoesNotExist:
+        except (Attendee.DoesNotExist, TypeError):
             pass
 
         return super(AttendeePaymentNotification, self).get_form(
