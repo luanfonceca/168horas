@@ -7,6 +7,9 @@ from django.utils.translation import ugettext as _
 
 from localflavor.br import br_states
 
+import analytics
+analytics.write_key = settings.SEGMENT_KEY
+
 
 class Profile(models.Model):
     state = models.CharField(
@@ -52,6 +55,16 @@ def create_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
 
+
+def create_segment_refrence(sender, instance, created, **kwargs):
+    user = instance.user
+    if created:
+        analytics.identify(user.id, {
+            'name': user.get_full_name(),
+            'email': user.email,
+            'created_at': user.created_at
+        })
+
 try:
     from django.contrib.auth import get_user_model
     User = get_user_model()
@@ -59,3 +72,4 @@ except AppRegistryNotReady:
     from django.contrib.auth.models import User
 
 post_save.connect(create_user_profile, sender=User)
+post_save.connect(create_segment_refrence, sender=User)

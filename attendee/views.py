@@ -13,7 +13,9 @@ from django.db import IntegrityError
 from django.db.models import Q
 from django.shortcuts import redirect
 from django.utils.decorators import method_decorator
+from django.utils.timezone import datetime
 from django.views.decorators.csrf import csrf_exempt
+from django.conf import settings
 
 from vanilla import model_views as views, FormView
 from easy_pdf.views import PDFTemplateResponseMixin
@@ -27,6 +29,9 @@ from attendee.models import Attendee
 from attendee.forms import (
     AttendeeForm, CustomAttendeeForm, AttendeePaymentNotificationForm
 )
+
+import analytics
+analytics.write_key = settings.SEGMENT_KEY
 
 
 class BaseAttendeeView(PageTitleMixin, BreadcrumbMixin):
@@ -137,6 +142,27 @@ class AttendeeJoin(BaseAttendeeView,
     template_name = 'attendee/form.html'
     full_page_title = True
 
+    def track_join(self):
+        self.object = self.get_object()
+        self.activity = self.get_activity()
+        self.user = self.request.user
+
+        analytics.track(self.user.id, 'Join Activity', {
+            'title': self.activity.title,
+            'price': self.activity.price,
+            'created_at': self.object.created_at
+        })
+
+    def track_join_attempt(self):
+        self.activity = self.get_activity()
+        self.user = self.request.user
+
+        analytics.track(self.user.id, 'Join Activity Attempt', {
+            'title': self.activity.title,
+            'price': self.activity.price,
+            'created_at': datetime.now()
+        })
+
     def get_breadcrumbs(self):
         self.activity = self.get_activity()
 
@@ -201,6 +227,7 @@ class AttendeeJoin(BaseAttendeeView,
             )
             return redirect(self.activity.get_attendee_join_url())
         else:
+            self.track_join()
             message = _('Successfully joined up for this activity!')
             if self.activity.status == self.activity.PRE_SALE:
                 message = _(
