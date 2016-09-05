@@ -376,7 +376,7 @@ class AttendeePaymentNotification(BaseAttendeeView, FormView):
             *args, **kwargs)
 
     def get_object(self):
-        id_transacao = self.request.POST.get('id_transacao')
+        id_transacao = self.request.POST.get('id_transacao', '')
 
         if '-' in id_transacao:
             id_transacao = id_transacao.split('-')[0]
@@ -393,6 +393,13 @@ class AttendeePaymentNotification(BaseAttendeeView, FormView):
             data=data, files=files, **kwargs)
 
     def return_fail(self, content):
+        self.object = self.get_object()
+        logger = getLogger('django')
+        logger.exception(
+            'Failed to process payment {}: {}'.format(
+                self.object.code, content
+            )
+        )
         response = HttpResponse(content=content)
         response.status_code = 400
         return response
@@ -412,15 +419,7 @@ class AttendeePaymentNotification(BaseAttendeeView, FormView):
             return self.return_success()
 
     def form_invalid(self, form):
-        self.object = self.get_object()
-        logger = getLogger('django')
-        error = form.errors.as_text()
-        logger.exception(
-            'Failed to process payment {}: {}'.format(
-                self.object.code, error
-            )
-        )
-        return self.return_fail(error)
+        return self.return_fail(form.errors.as_text())
 
 
 class AttendeeConfirmPayment(BaseAttendeeView,
