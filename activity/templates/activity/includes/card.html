@@ -4,7 +4,7 @@
 
 <div class="card">
   {% if object.photo %}
-    <a href="{{ object.get_absolute_url }}" class="hoverable">
+    <a href="{{ object.get_absolute_url }}" class="hoverable" track-event="btn-card-join-activity">
       <div class="card-image">
         <img src="{{ object.get_photo_url }}"/>
         <p class="card-price">{{ object.formatted_price }}</p>
@@ -14,7 +14,7 @@
   {% else %}
     <div class="card-content">
       <div class="card-title white-text">
-        <a href="{{ object.get_absolute_url }}">
+        <a href="{{ object.get_absolute_url }}" track-event="btn-title-join-activity">
           <h5>{{ object }}</h5>
         </a>
       </div>
@@ -29,7 +29,7 @@
             <i class="material-icons right" style="line-height: 55px;">check</i>
           </a>
         {% else %}
-          <a class='btn btn-wide btn-large waves-effect waves-light' {% if object.link %}href="{{ object.link }}" target="_blank"{% else %}href="{{ object.get_attendee_join_url }}"{% endif %} style="width: 100%">
+          <a class='btn btn-wide btn-large waves-effect waves-light' {% if object.link %}href="{{ object.link }}" target="_blank"{% else %}href="{{ object.get_attendee_join_url }}"{% endif %} style="width: 100%" track-event="btn-join-activity">
             {% trans 'Join' %}
             <i class="material-icons right" style="line-height: 55px;">arrow_forward</i>
           </a>

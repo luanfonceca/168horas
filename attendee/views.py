@@ -30,9 +30,6 @@ from attendee.forms import (
     AttendeeForm, CustomAttendeeForm, AttendeePaymentNotificationForm
 )
 
-import analytics
-analytics.write_key = settings.SEGMENT_KEY
-
 
 class BaseAttendeeView(PageTitleMixin, BreadcrumbMixin):
     model = Attendee
@@ -142,25 +139,6 @@ class AttendeeJoin(BaseAttendeeView,
     template_name = 'attendee/form.html'
     full_page_title = True
 
-    def track_join(self, attendee, activity):
-        self.user = self.request.user
-
-        analytics.track(self.user.id, 'Join Activity', {
-            'title': activity.title,
-            'price': activity.price,
-            'created_at': attendee.created_at
-        })
-
-    def track_join_attempt(self):
-        self.activity = self.get_activity()
-        self.user = self.request.user
-
-        analytics.track(self.user.id, 'Join Activity Attempt', {
-            'title': self.activity.title,
-            'price': self.activity.price,
-            'created_at': datetime.now()
-        })
-
     def get_breadcrumbs(self):
         self.activity = self.get_activity()
 
@@ -225,7 +203,6 @@ class AttendeeJoin(BaseAttendeeView,
             )
             return redirect(self.activity.get_attendee_join_url())
         else:
-            self.track_join(self.object, self.activity)
             message = _('Successfully joined up for this activity!')
             if self.activity.status == self.activity.PRE_SALE:
                 message = _(

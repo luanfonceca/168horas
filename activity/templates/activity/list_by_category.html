@@ -4,7 +4,7 @@
 
 {% block header_actions %}
   <div class="right actions" style="line-height: 122px;">
-    <a class='btn-large waves-effect waves-light white blue-text text-darken-4' href="{% url 'activity:create' %}">
+    <a class='btn-large waves-effect waves-light white blue-text text-darken-4' href="{% url 'activity:create' %}" track-event="btn-add-activity">
       {% trans 'Activity' %}
       <i class="material-icons right" style="line-height: 55px;">add</i>
     </a>
