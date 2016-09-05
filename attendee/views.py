@@ -412,10 +412,13 @@ class AttendeePaymentNotification(BaseAttendeeView, FormView):
             return self.return_success()
 
     def form_invalid(self, form):
-        logger = getLogger(__name__)
+        self.object = self.get_object()
+        logger = getLogger('django')
         error = form.errors.as_text()
         logger.exception(
-            'Failed to process payment: {}'.format(error)
+            'Failed to process payment {}: {}'.format(
+                self.object.code, error
+            )
         )
         return self.return_fail(error)
 
