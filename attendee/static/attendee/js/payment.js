@@ -48,10 +48,9 @@ $(document).ready(function() {
       expYear: $("#id_year").val(),
       pubKey: $("#id_public_key").val()
     });
+
     if(credit_card.isValid()){
       $("#id_card_hash").val(credit_card.hash());
-
-      $(this).submit();
     }
   });
 

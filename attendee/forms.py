@@ -106,7 +106,7 @@ class AttendeePaymentForm(forms.ModelForm):
         fields = (
             'credit_card', 'year', 'month', 'cvv',
             'holder_name', 'holder_cpf',
-            'birth_date', 'public_key', 'card_hash'
+            'birth_date', 'public_key', 'card_hash',
         )
 
     def __init__(self, *args, **kwargs):

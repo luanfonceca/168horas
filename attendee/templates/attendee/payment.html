@@ -41,22 +41,24 @@
 {% endblock extra_css %}
 
 {% block content %}
-  <form method="POST" id="payment_form" autocomplete="on">
-    <div class="center green white-text price-content">
-      <h5 class="price-total">
-        {% trans "Join now for only" %}
-        {{ activity.formatted_price }}
-      </h5>
-    </div>
+  <div class="center green white-text price-content">
+    <h5 class="price-total">
+      {% trans "Join now for only" %}
+      {{ activity.formatted_price }}
+    </h5>
+  </div>
 
-    <h5 class=>2. Forma de Pagamento</h5>
-    <ul class="collapsible" data-collapsible="accordion">
-      <li>
-        <div class="collapsible-header active">
-          <i class="material-icons">credit_card</i>
-          Cartão de Crédito
-        </div>
-        <div class="collapsible-body">
+  <h5 class=>2. Forma de Pagamento</h5>
+  <ul class="collapsible" data-collapsible="accordion">
+    <li>
+      <div class="collapsible-header active">
+        <i class="material-icons">credit_card</i>
+        Cartão de Crédito
+      </div>
+      <div class="collapsible-body">
+        <form method="POST" id="payment_form" autocomplete="on">
+          {% csrf_token %}
+
           <div class="row">
             <div class="col s12">
               {{ form.card_hash }}
@@ -96,24 +98,24 @@
               </button>
             </div>
           </div>
+        </form>
+      </div>
+    </li>
+    <li>
+      <div class="collapsible-header">
+        <i class="material-icons">receipt</i>
+        Boleto Bancário
+      </div>
+      <div class="collapsible-body">
+        <div class="center-align">
+          <a href="{{ object.get_payment_boleto_url }}" target="_blank" class="btn-large waves-effect waves-light">
+            {% trans 'Baixar' %}
+            <i class="material-icons right">file_download</i>
+          </a>
         </div>
-      </li>
-      <li>
-        <div class="collapsible-header">
-          <i class="material-icons">receipt</i>
-          Boleto Bancário
-        </div>
-        <div class="collapsible-body">
-          <div class="center-align">
-            <a href="{{ boleto_url }}" target="_blank" class="btn-large waves-effect waves-light">
-              {% trans 'Baixar' %}
-              <i class="material-icons right">file_download</i>
-            </a>
-          </div>
-        </div>
-      </li>
-    </ul>
-  </form>
+      </div>
+    </li>
+  </ul>
 {% endblock %}
 
 {% block extra_js %}

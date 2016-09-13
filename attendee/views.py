@@ -2,7 +2,6 @@ import requests
 import json
 import re
 
-
 from django.utils.translation import ugettext as _
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import get_object_or_404
@@ -13,9 +12,10 @@ from django.db import IntegrityError
 from django.db.models import Q
 from django.shortcuts import redirect
 from django.utils.decorators import method_decorator
+from django.utils.timezone import datetime
 from django.views.decorators.csrf import csrf_exempt
 
-from vanilla import model_views as views, FormView
+from vanilla import model_views as views, FormView, RedirectView
 from easy_pdf.views import PDFTemplateResponseMixin
 
 from core.mixins import (
@@ -26,7 +26,7 @@ from activity.models import Activity
 from attendee.models import Attendee
 from attendee.forms import (
     AttendeeForm, CustomAttendeeForm, AttendeePaymentNotificationForm,
-    AttendeePaymentForm
+    AttendeePaymentForm,
 )
 
 
@@ -260,33 +260,7 @@ class AttendeePayment(BaseAttendeeView,
             'title': _('Payment')
         }]
 
-    def get_context_data(self, **kwargs):
-        context = super(AttendeePayment, self).get_context_data(**kwargs)
-
-        headers = {
-            'Content-Type': 'application/json',
-            'Authorization': (
-                'Basic MEVSVkROMzg2V0UzUlpSSTRZWUc2UUNETE1KNTdMQlI6U1J'
-                'aR0hSWFlPVDBQVkRMUkIzWUU4WFFXTE5MQTBKUlhUS09JRFZEUQ=='
-            )
-        }
-
-        url = 'https://sandbox.moip.com.br/v2/orders/{}'.format(
-            self.object.moip_order_id
-        )
-        data = requests.get(url, headers=headers).json()
-        try:
-            boleto = '{redirectHref}/print/'.format(
-                **data.get('payments')[0].get('_links').get('payBoleto')
-            )
-        except:
-            import ipdb; ipdb.set_trace()
-        context.update(
-            boleto_url=boleto
-        )
-        return context
-
-    def form_valid(self, form):
+    def create_credit_card_payment(self, form):
         def only_digits(n):
             return re.sub('[^0-9]', '', n)
         form_data = form.cleaned_data
@@ -331,6 +305,9 @@ class AttendeePayment(BaseAttendeeView,
             response_data = response.json()
             self.object.moip_payment_id = response_data.get('id')
             self.object.save()
+
+    def form_valid(self, form):
+        self.create_credit_card_payment(form)
         return super(AttendeePayment, self).form_valid(form=form)
 
 
@@ -415,6 +392,59 @@ class AttendeeCertificate(BaseAttendeeView,
     lookup_field = 'code'
     template_name = 'attendee/certificate.html'
     page_title = _('Certificate')
+
+
+class AttendeePaymentBoleto(RedirectView):
+    def get_redirect_url(self, *args, **kwargs):
+        url = self.create_boleto_payment()
+        return url
+
+    def get_object(self):
+        return Attendee.objects.get(
+            activity__slug=self.kwargs.get('activity_slug'),
+            code=self.kwargs.get('code')
+        )
+
+    def create_boleto_payment(self):
+        self.object = self.get_object()
+        expiration_date = datetime.now().date()
+        url = 'https://sandbox.moip.com.br/v2/orders/{}/payments/'.format(
+            self.object.moip_order_id
+        )
+        headers = {
+            'Content-Type': 'application/json',
+            'Authorization': (
+                'Basic MEVSVkROMzg2V0UzUlpSSTRZWUc2UUNETE1KNTdMQlI6U1J'
+                'aR0hSWFlPVDBQVkRMUkIzWUU4WFFXTE5MQTBKUlhUS09JRFZEUQ=='
+            )
+        }
+
+        response = requests.get(url, headers=headers)
+        data = response.json()
+        try:
+            boleto_url = '{redirectHref}/print/'.format(
+                **data.get('payments')[0].get('_links').get('payBoleto')
+            )
+        except:
+            data = {
+                'ownId': self.object.code,
+                'fundingInstrument': {
+                    'method': 'BOLETO',
+                    'boleto': {
+                        'expirationDate': str(expiration_date)
+                    }
+                }
+            }
+            response = requests.post(
+                url, data=json.dumps(data), headers=headers)
+            data = response.json()
+
+            boleto_url = '{redirectHref}/print/'.format(
+                **data.get('payments')[0].get('_links').get('payBoleto')
+            )
+        self.object.moip_payment_id = data.get('id')
+        self.object.save()
+        return boleto_url
 
 
 class AttendeeShuffle(BaseAttendeeView,

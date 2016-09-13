@@ -269,6 +269,12 @@ class Attendee(models.Model):
     def get_full_payment_url(self):
         return self.get_payment_url(full_url=True)
 
+    def get_payment_boleto_url(self):
+        return reverse('attendee:payment_boleto', kwargs={
+            'activity_slug': self.activity.slug,
+            'code': self.code,
+        })
+
     def send_welcome_email(self):
         context = {
             'object': self,
