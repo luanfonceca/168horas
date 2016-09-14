@@ -228,6 +228,12 @@ class Attendee(models.Model):
             'code': self.code
         })
 
+    def get_update_url(self):
+        return reverse('attendee:update', kwargs={
+            'activity_slug': self.activity.slug,
+            'code': self.code
+        })
+
     def get_send_email_url(self):
         return 'mailto:{.email}'.format(self)
 
@@ -376,5 +382,25 @@ def send_payment_confirmation_email(sender, instance, created, **kwargs):
         instance.send_payment_confirmation()
 
 
+def update_user_profile(sender, instance, created, **kwargs):
+    if not created:
+        return
+
+    if instance.cpf != instance.profile.cpf:
+        instance.profile.cpf = instance.cpf
+
+    first_name = instance.name.split(' ')[0]
+    last_name = ' '.join(instance.name.split(' ')[1:])
+
+    if first_name != instance.profile.user.first_name:
+        instance.profile.user.first_name = first_name
+    if last_name != instance.profile.user.last_name:
+        instance.profile.user.last_name = last_name
+
+    instance.profile.save()
+    instance.profile.user.save()
+
+
 post_save.connect(send_attendee_joined_email, sender=Attendee)
 post_save.connect(send_payment_confirmation_email, sender=Attendee)
+post_save.connect(update_user_profile, sender=Attendee)

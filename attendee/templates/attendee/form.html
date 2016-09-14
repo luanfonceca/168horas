@@ -33,6 +33,21 @@
       </div>      
     {% endif %}
 
+    <p class="light center red-text">
+      <i class="material-icons" style="top: 3px;position:relative;">warning</i>
+      <span style="font-size: 1.2em;">
+        {% trans 'Before saving, review your information like your full name and cpf, they will be used in your Certificate!' %}
+      </span>
+    </p>
+    {% if form.instance.pk and form.instance.attended_at %}
+      <p class="light center red-text">
+        <i class="material-icons" style="top: 3px;position:relative;">warning</i>
+        <span style="font-size: 1.2em;">
+          {% trans 'If you already deliver your Certificate we recomend you to re-send it with the fixed information.' %}
+        </span>
+      </p>
+    {% endif %}
+
     <br>
     <div class="center-align col s4">
       <a href="{% url 'activity:detail' activity.slug %}">

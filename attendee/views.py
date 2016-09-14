@@ -23,6 +23,7 @@ from easy_pdf.views import PDFTemplateResponseMixin
 from core.mixins import (
     PageTitleMixin, BreadcrumbMixin,
     LoginRequiredMixin, OrganizerRequiredMixin,
+    LoggedAttendeeRequiredMixin, FormValidRedirectMixing
 )
 from activity.models import Activity
 from attendee.models import Attendee
@@ -48,7 +49,8 @@ class BaseAttendeeView(PageTitleMixin, BreadcrumbMixin):
 
     def get_page_title(self):
         self.activity = self.get_activity()
-        return self.activity.title
+
+        return self.page_title or self.activity.title
 
 
 class AttendeeList(BaseAttendeeView,
@@ -223,12 +225,12 @@ class AttendeeJoin(BaseAttendeeView,
     def get_success_url(self):
         self.activity = self.get_activity()
         if self.activity.created_by != self.request.user.profile:
-            return self.activity.get_absolute_url()
+            return self.object.get_absolute_url()
         return super(AttendeeJoin, self).get_success_url()
 
 
 class AttendeeDetail(BaseAttendeeView,
-                     OrganizerRequiredMixin,
+                     LoggedAttendeeRequiredMixin,
                      views.DetailView):
     lookup_field = 'code'
     template_name = 'attendee/detail.html'
@@ -239,8 +241,10 @@ class AttendeeDetail(BaseAttendeeView,
     def get_breadcrumbs(self):
         self.activity = self.get_activity()
         self.object = self.get_object()
+        user = self.request.user
+        is_organizer = user.profile == self.activity.created_by
 
-        return [{
+        breadcrumbs = [{
             'url': self.activity.get_absolute_url(),
             'title': self.activity.title
         }, {
@@ -250,6 +254,38 @@ class AttendeeDetail(BaseAttendeeView,
             'url': self.object.get_absolute_url(),
             'title': self.object.name
         }]
+
+        if not any([user.is_staff, is_organizer]):
+            breadcrumbs.pop(1)
+
+        return breadcrumbs
+
+
+class AttendeeUpdate(BaseAttendeeView,
+                     FormValidRedirectMixing,
+                     LoggedAttendeeRequiredMixin,
+                     views.UpdateView):
+    template_name = 'attendee/form.html'
+    full_page_title = True
+    page_title = _('Update')
+    lookup_field = 'code'
+    success_message = _('Attendee updated.')
+
+    def get_breadcrumbs(self):
+        self.activity = self.get_activity()
+        self.object = self.get_object()
+
+        return [{
+            'url': self.activity.get_absolute_url(),
+            'title': self.activity.title
+        }, {
+            'url': self.object.get_update_url(),
+            'title': _('Update')
+        }]
+
+    def get_success_url(self):
+        self.object = self.get_object()
+        return self.object.get_absolute_url()
 
 
 class AttendeeCheck(BaseAttendeeView,

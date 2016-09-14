@@ -47,6 +47,34 @@ class OrganizerRequiredMixin(object):
         return redirect(self.get_error_redirect_url())
 
 
+class LoggedAttendeeRequiredMixin(object):
+    error_redirect_url = None
+
+    def get_error_redirect_url(self):
+        if self.error_redirect_url is None:
+            self.activity = self.get_activity()
+
+            return self.activity.get_absolute_url()
+        return self.error_redirect_url
+
+    def has_permission(self):
+        self.object = self.get_object()
+        self.activity = self.get_activity()
+        profile = self.request.user.profile
+        is_organizer = profile == self.activity.created_by
+        return is_organizer or profile == self.object.profile
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        if self.has_permission():
+            return super(LoggedAttendeeRequiredMixin, self).dispatch(
+                *args, **kwargs)
+
+        message = _('You have no permission to access this page.')
+        messages.add_message(self.request, messages.ERROR, message)
+        return redirect(self.get_error_redirect_url())
+
+
 class FormValidRedirectMixing(object):
     def success_redirect(self, message, level=messages.SUCCESS):
         messages.add_message(self.request, level, message)
