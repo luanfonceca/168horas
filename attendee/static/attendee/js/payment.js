@@ -41,6 +41,7 @@ $(document).ready(function() {
   var form = $("#payment_form");
 
   $(form).submit(function(e) {
+    debugger;
     var credit_card = new Moip.CreditCard({
       number: $("#id_credit_card").val(),
       cvc: $("#id_cvv").val(),
@@ -51,7 +52,9 @@ $(document).ready(function() {
 
     if(credit_card.isValid()){
       $("#id_card_hash").val(credit_card.hash());
+      return true;
     }
+
   });
 
   $(form).validate({

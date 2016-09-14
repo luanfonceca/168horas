@@ -158,7 +158,7 @@ class Activity(TitleSlugDescriptionModel):
 
         return [
             (installment, get_installment_price(installment, self.price))
-            for installment in range(1, 11)
+            for installment in range(1, 13)
         ]
 
     @property

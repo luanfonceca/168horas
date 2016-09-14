@@ -76,17 +76,21 @@ class AttendeePaymentForm(forms.ModelForm):
         for month in xrange(1, 13)
     ]
 
-    credit_card = forms.CharField(required=True)
+    credit_card = forms.CharField(required=True, initial='5105105105105100')
     month = forms.ChoiceField(
         label='MM',
-        choices=EXPIRATION_DATE_MONTH_CHOICES)
+        choices=EXPIRATION_DATE_MONTH_CHOICES, initial='12')
     year = forms.ChoiceField(
         label='YYYY',
-        choices=EXPIRATION_DATE_YEAR_CHOICES)
-    cvv = forms.CharField(label='CVV')
-    holder_name = forms.CharField(label='Nome impresso no cartao')
-    holder_cpf = BRCPFField(label='CPF do proprietario do cartao')
-    birth_date = forms.DateField()
+        choices=EXPIRATION_DATE_YEAR_CHOICES, initial='18')
+    cvv = forms.CharField(label='CVV', initial='123')
+    holder_name = forms.CharField(
+        label='Nome impresso no cartao',
+        initial='LUAN FONSECA DE FARIAS')
+    holder_cpf = BRCPFField(
+        label='CPF do proprietario do cartao',
+        initial='08287928443')
+    birth_date = forms.DateField(initial='24/05/1992')
     card_hash = forms.CharField(widget=forms.HiddenInput())
     public_key = forms.CharField(widget=forms.HiddenInput(), initial=(
         '-----BEGIN PUBLIC KEY-----'
@@ -99,7 +103,7 @@ class AttendeePaymentForm(forms.ModelForm):
         'mwIDAQAB'
         '-----END PUBLIC KEY-----'
     ))
-    installments = forms.ChoiceField(label='Parcelas')
+    installments = forms.ChoiceField(label='Parcelas', initial='12')
 
     class Meta:
         model = Attendee

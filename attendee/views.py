@@ -263,12 +263,13 @@ class AttendeePayment(BaseAttendeeView,
     def create_credit_card_payment(self, form):
         def only_digits(n):
             return re.sub('[^0-9]', '', n)
+
         form_data = form.cleaned_data
         self.object = self.get_object()
         url = 'https://sandbox.moip.com.br/v2/orders/{}/payments/'.format(
             self.object.moip_order_id
         )
-        phone = only_digits(form_data.get('phone'))
+        phone = only_digits(form_data.get('phone', self.object.phone))
         data = {
             'ownId': self.object.code,
             'installmentCount': 1,
@@ -278,7 +279,7 @@ class AttendeePayment(BaseAttendeeView,
                     'hash': form_data.get('hash'),
                     'holder': {
                         'fullname': form_data.get('holder_name'),
-                        'birthdate': form_data.get('birth_date'),
+                        'birthdate': str(form_data.get('birth_date')),
                         'taxDocument': {
                             'type': 'CPF',
                             'number': only_digits(form_data.get('holder_cpf'))
@@ -300,6 +301,7 @@ class AttendeePayment(BaseAttendeeView,
                 'aR0hSWFlPVDBQVkRMUkIzWUU4WFFXTE5MQTBKUlhUS09JRFZEUQ=='
             )
         }
+        import ipdb; ipdb.set_trace()
         response = requests.post(url, data=json.dumps(data), headers=headers)
         if response.ok:
             response_data = response.json()
