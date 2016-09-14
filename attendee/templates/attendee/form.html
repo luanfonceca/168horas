@@ -7,7 +7,7 @@
 {% load tags %}
 
 {% block content %}
-  <form method="POST">
+  <form method="POST" name="join_form" id="id_join_form">
     {% csrf_token %}
 
     <div class="row">
