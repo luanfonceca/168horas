@@ -40,22 +40,20 @@ $.validator.setDefaults({
 $(document).ready(function() {
   var form = $("#payment_form");
 
-  $(form).submit(function(e) {
-    debugger;
-    var credit_card = new Moip.CreditCard({
-      number: $("#id_credit_card").val(),
-      cvc: $("#id_cvv").val(),
-      expMonth: $("#id_month").val(),
-      expYear: $("#id_year").val(),
-      pubKey: $("#id_public_key").val()
-    });
+  // $(form).submit(function(e) {
+  //   var credit_card = new Moip.CreditCard({
+  //     number: $("#id_credit_card").val(),
+  //     cvc: $("#id_cvv").val(),
+  //     expMonth: $("#id_month").val(),
+  //     expYear: $("#id_year").val(),
+  //     pubKey: $("#id_public_key").val()
+  //   });
 
-    if(credit_card.isValid()){
-      $("#id_card_hash").val(credit_card.hash());
-      return true;
-    }
-
-  });
+  //   if(credit_card.isValid()){
+  //     $("#id_card_hash").val(credit_card.hash());
+  //     return true;
+  //   }
+  // });
 
   $(form).validate({
     rules: {

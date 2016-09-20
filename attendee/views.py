@@ -275,11 +275,15 @@ class AttendeePayment(BaseAttendeeView,
         phone = only_digits(form_data.get('phone', self.object.phone))
         data = {
             'ownId': self.object.code,
-            'installmentCount': 1,
+            'installmentCount': int(form_data.get('installments')),
             'fundingInstrument': {
                 'method': 'CREDIT_CARD',
                 'creditCard': {
-                    'hash': form_data.get('hash'),
+                    # 'hash': form_data.get('card_hash'),
+                    'expirationMonth': form_data.get('month'),
+                    'expirationYear': form_data.get('year'),
+                    'number': only_digits(form_data.get('credit_card')),
+                    'cvc': form_data.get('cvv'),
                     'holder': {
                         'fullname': form_data.get('holder_name'),
                         'birthdate': str(form_data.get('birth_date')),
@@ -304,7 +308,6 @@ class AttendeePayment(BaseAttendeeView,
                 'aR0hSWFlPVDBQVkRMUkIzWUU4WFFXTE5MQTBKUlhUS09JRFZEUQ=='
             )
         }
-        import ipdb; ipdb.set_trace()
         response = requests.post(url, data=json.dumps(data), headers=headers)
         if response.ok:
             response_data = response.json()

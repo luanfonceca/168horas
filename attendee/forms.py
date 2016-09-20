@@ -91,16 +91,16 @@ class AttendeePaymentForm(forms.ModelForm):
         label='CPF do proprietario do cartao',
         initial='08287928443')
     birth_date = forms.DateField(initial='24/05/1992')
-    card_hash = forms.CharField(widget=forms.HiddenInput())
+    # card_hash = forms.CharField(widget=forms.HiddenInput())
     public_key = forms.CharField(widget=forms.HiddenInput(), initial=(
-        '-----BEGIN PUBLIC KEY-----'
-        'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsXkulsKdAQLMH/zjzTLf'
-        '0lrbgulfb6ZShEtRpmDnyX93EQqPdez7LyptvQBeTC+0pN57rNcWen9ApdsIMsNr'
-        'YHjNQf/kI4Ka7Xnlx0U/v7bW1D8teDoD5glBTXLjU8hRi7qlOpupiPx4ldSnK9Jj'
-        'tYApWuZMiCpWh/YRAlNW/N+ffm7ulq6H2atmgd+OFB2SghpbRJkqJiLaNJW8UkaR'
-        'oXLHkF5WJD/RPrCxsZztYJQThxLX5gBgZ12YG5+7G26Ad/mWkPqF0GLSkd1gcnbP'
-        'vF9Nw3ckKaIvh4Q4Vp3XI1hLvX41lg9CBxPPHkiJwM1M1coF9xsMP7kpJ2eujMBd'
-        'mwIDAQAB'
+        '-----BEGIN PUBLIC KEY-----\n'
+        'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsXkulsKdAQLMH/zjzTLf\n'
+        '0lrbgulfb6ZShEtRpmDnyX93EQqPdez7LyptvQBeTC+0pN57rNcWen9ApdsIMsNr\n'
+        'YHjNQf/kI4Ka7Xnlx0U/v7bW1D8teDoD5glBTXLjU8hRi7qlOpupiPx4ldSnK9Jj\n'
+        'tYApWuZMiCpWh/YRAlNW/N+ffm7ulq6H2atmgd+OFB2SghpbRJkqJiLaNJW8UkaR\n'
+        'oXLHkF5WJD/RPrCxsZztYJQThxLX5gBgZ12YG5+7G26Ad/mWkPqF0GLSkd1gcnbP\n'
+        'vF9Nw3ckKaIvh4Q4Vp3XI1hLvX41lg9CBxPPHkiJwM1M1coF9xsMP7kpJ2eujMBd\n'
+        'mwIDAQAB\n'
         '-----END PUBLIC KEY-----'
     ))
     installments = forms.ChoiceField(label='Parcelas', initial='12')
@@ -110,7 +110,7 @@ class AttendeePaymentForm(forms.ModelForm):
         fields = (
             'credit_card', 'year', 'month', 'cvv',
             'holder_name', 'holder_cpf',
-            'birth_date', 'public_key', 'card_hash',
+            'birth_date', 'public_key',
         )
 
     def __init__(self, *args, **kwargs):
