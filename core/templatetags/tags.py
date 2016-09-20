@@ -35,6 +35,21 @@ def already_joined(activity, profile):
 
 
 @register.filter
+def already_attended(activity, profile):
+    try:
+        attendee = activity.attendee_set.get(profile=profile)
+    except:
+        pass
+    else:
+        return attendee.attended_at is not None
+
+
+@register.filter
+def get_attendee(activity, profile):
+    return activity.attendee_set.get(profile=profile)
+
+
+@register.filter
 def payment_is_pending(activity, profile):
     if not activity.price:
         return False

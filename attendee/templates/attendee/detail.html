@@ -2,15 +2,24 @@
 
 {% load i18n %}
 {% load static %}
+{% load humanize %}
 
-{% if request.user and request.user.is_staff or request.user.profile == activity.created_by %}
-  {% block header_actions %}
-    <div class="right actions" style="line-height: 122px;">
-      <a class='dropdown-button btn-large waves-effect waves-light white blue-text text-darken-4' href='javascript:;' data-activates='activity-actions-{{ object.code }}' style="width: 200px;">
-        {% trans 'Actions' %}
-        <i class="material-icons right" style="line-height: 55px;">arrow_drop_down</i>
-      </a>
-      <ul id='activity-actions-{{ object.code }}' class='dropdown-content'>
+{% load tags %}
+
+{% block header_actions %}
+  <div class="right actions" style="line-height: 122px;">
+    <a class='dropdown-button btn-large waves-effect waves-light white blue-text text-darken-4' href='javascript:;' data-activates='activity-actions-{{ object.code }}' style="width: 200px;">
+      {% trans 'Actions' %}
+      <i class="material-icons right" style="line-height: 55px;">arrow_drop_down</i>
+    </a>
+    <ul id='activity-actions-{{ object.code }}' class='dropdown-content'>
+      <li>
+        <a href="{{ object.get_update_url }}" class="tooltipped blue-text text-darken-4" data-position="top" data-delay="50" data-tooltip="{% trans 'Update this Attendee.' %}">
+          {% trans 'Update' %}
+          <i class="material-icons right">edit</i>
+        </a>
+      </li>
+      {% if request.user and request.user.is_staff or request.user.profile == activity.created_by %}
         <li>
           <a href="{{ object.get_send_email_url }}" class="tooltipped blue-text text-darken-4" data-position="top" data-delay="50" data-tooltip="{% trans 'Click to send an email to this Attendee.' %}" target="_blank">
             {% trans 'Send email' %}
@@ -43,10 +52,27 @@
             </a>
           </li>
         </form>
-      </ul>
-    </div>
-  {% endblock %}
-{% endif %}
+      {% else %}
+        {% if object.attended_at %}
+          <li>
+            <a class="blue-text text-darken-4" href="{% url 'attendee:certificate' activity_slug=activity.slug code=object.code %}" target="_blank">
+              {% trans 'Open certificate' %}
+              <i class="material-icons right">file_download</i>
+            </a>
+          </li>
+        {% endif %}
+        {% if object.activity|payment_is_pending:request.user.profile %}
+          <li>
+            <a class='blue-text text-darken-4' href="{{ object.activity|get_attendee_payment_url:request.user.profile }}">
+              {% trans 'Confirm payment:' %} R$ {{ object.activity.price|intcomma }}
+              <i class="material-icons right">arrow_forward</i>
+            </a>
+          </li>
+        {% endif %}
+      {% endif %}
+    </ul>
+  </div>
+{% endblock %}
 
 
 {% block content %}
@@ -62,18 +88,28 @@
       </div>
     </div>
     <div class="col s12 m4">
-      <h5>{% trans 'Quick links' %}</h5>
-      <p>
-        <i class="material-icons left">file_download</i>
-        {% trans 'Certificate url' %}:
-        <blockquote>{{ object.get_full_certificate_url }}</blockquote>
-      </p>
-      {% if object.activity.price %}
+      {% if request.user and request.user.is_staff or request.user.profile == activity.created_by or object.attended_at %}
+        <h5>{% trans 'Quick links' %}</h5>
         <p>
-          <i class="material-icons left">credit_card</i>
-          {% trans 'Payment url' %}:
-          <blockquote>{{ object.get_full_payment_url }}</blockquote>
+          <i class="material-icons left">file_download</i>
+          {% trans 'Certificate url' %}:
+          <blockquote>{{ object.get_full_certificate_url }}</blockquote>
         </p>
+        {% if object.activity|payment_is_pending:request.user.profile %}
+          <p>
+            <i class="material-icons left">credit_card</i>
+            {% trans 'Payment url' %}:
+            <blockquote>{{ object.get_full_payment_url }}</blockquote>
+          </p>
+        {% endif %}
+      {% else %}
+        {% if object.activity|payment_is_pending:request.user.profile %}
+          <p>
+            <i class="material-icons left">credit_card</i>
+            {% trans 'Payment url' %}:
+            <blockquote>{{ object.get_full_payment_url }}</blockquote>
+          </p>
+        {% endif %}
       {% endif %}
     </div>
     <div class="col s12">
@@ -103,10 +139,12 @@
           <i class="material-icons left">school</i>
           {% trans 'Educational Institution' %}: {{ object.educational_institution }}
         </p>
-        <p>
-          <i class="material-icons left">code</i>
-          {% trans 'Code' %}: {{ object.code }}
-        </p>
+        {% if request.user and request.user.is_staff or request.user.profile == activity.created_by %}
+          <p>
+            <i class="material-icons left">code</i>
+            {% trans 'Code' %}: {{ object.code }}
+          </p>
+        {% endif %}
         <p>
           <i class="material-icons left">alarm_on</i>
           {% trans 'Joined at' %}: {{ object.created_at }}
@@ -119,10 +157,12 @@
             <i class="material-icons left">credit_card</i>
             {% trans 'Payment status' %}: {{ object.get_moip_status_display|default:_('None') }}
           </p>
-          <p>
-            <i class="material-icons left">file_download</i>
-            {% trans 'Payment type' %}: {{ object.get_moip_payment_type_display|default:_('None') }}
-          </p>
+          {% if object.moip_status != object.CONFIRMADO_PELO_ORGANIZADOR %}
+            <p>
+              <i class="material-icons left">file_download</i>
+              {% trans 'Payment type' %}: {{ object.get_moip_payment_type_display|default:_('None') }}
+            </p>
+          {% endif %}
         </div>
       {% endif %}
     </div>

@@ -52,6 +52,7 @@ def create_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
 
+
 try:
     from django.contrib.auth import get_user_model
     User = get_user_model()
