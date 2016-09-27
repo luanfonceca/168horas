@@ -61,3 +61,12 @@ class AttendeePaymentNotificationForm(forms.Form):
     def clean_status_pagamento(self):
         status = self.cleaned_data.get('status_pagamento')
         return int(status)
+
+
+class AttendeeInviteForm(forms.Form):
+    email = forms.EmailField()
+
+    class Meta:
+        fields = (
+            'email',
+        )

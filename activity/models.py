@@ -92,6 +92,10 @@ class Activity(TitleSlugDescriptionModel):
         verbose_name=_(u'Categories'),
         to='core.Profile',
         related_name='managed_activities')
+    invites = models.ManyToManyField(
+        verbose_name=_(u'Invites'),
+        to='invitations.Invitation',
+        related_name='activities')
 
     # managers
     objects = ActivityManager.as_manager()
@@ -117,6 +121,9 @@ class Activity(TitleSlugDescriptionModel):
 
     def get_attendee_shuffle_url(self):
         return reverse('attendee:shuffle', kwargs={'activity_slug': self.slug})
+
+    def get_attendee_invite_url(self):
+        return reverse('attendee:invite', kwargs={'activity_slug': self.slug})
 
     def get_attendee_payment_url(self, profile):
         attendee = self.attendee_set.get(profile=profile)

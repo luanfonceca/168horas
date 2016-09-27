@@ -19,6 +19,7 @@ from django.conf import settings
 
 from vanilla import model_views as views, FormView
 from easy_pdf.views import PDFTemplateResponseMixin
+from invitations.models import Invitation
 
 from core.mixins import (
     PageTitleMixin, BreadcrumbMixin,
@@ -28,7 +29,8 @@ from core.mixins import (
 from activity.models import Activity
 from attendee.models import Attendee
 from attendee.forms import (
-    AttendeeForm, CustomAttendeeForm, AttendeePaymentNotificationForm
+    AttendeeForm, CustomAttendeeForm, AttendeePaymentNotificationForm,
+    AttendeeInviteForm
 )
 
 
@@ -490,3 +492,48 @@ class AttendeeConfirmPayment(BaseAttendeeView,
                 ).format(self.object)
             )
         return redirect(self.activity.get_attendee_list_url())
+
+
+class AttendeeInvite(BaseAttendeeView,
+                     OrganizerRequiredMixin,
+                     FormValidRedirectMixing,
+                     FormView):
+    template_name = 'attendee/invite.html'
+    full_page_title = True
+    page_title = _('Invite')
+    success_message = _('Attendee invited.')
+    form_class = AttendeeInviteForm
+
+    def get_breadcrumbs(self):
+        self.activity = self.get_activity()
+
+        return [{
+            'url': self.activity.get_absolute_url(),
+            'title': self.activity.title
+        }, {
+            'url': self.activity.get_attendee_list_url(),
+            'title': _(u'Attendees')
+        }, {
+            'url': self.activity.get_attendee_invite_url(),
+            'title': _('Invite')
+        }]
+
+    def get_success_url(self):
+        self.activity = self.get_activity()
+        return self.activity.get_attendee_list_url()
+
+    def form_valid(self, form):
+        self.activity = self.get_activity()
+        data = form.cleaned_data
+
+        try:
+            invite = Invitation.create(
+                data.get('email'),
+                inviter=self.request.user
+            )
+        except IntegrityError:
+            invite = Invitation.objects.get(email=data.get('email'))
+
+        invite.send_invitation(self.request)
+        self.activity.invites.add(invite)
+        return self.success_redirect(self.get_success_message())

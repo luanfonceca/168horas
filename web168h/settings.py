@@ -159,6 +159,7 @@ LOCAL_APPS = (
     'event',
     'category',
     'attendee',
+
 )
 
 EXTERNAL_APPS = (
@@ -171,6 +172,7 @@ EXTERNAL_APPS = (
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.google',
     'anymail',
+    'invitations',
 )
 
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + EXTERNAL_APPS
@@ -244,6 +246,7 @@ SOCIALACCOUNT_PROVIDERS = {
         'VERIFIED_EMAIL': False,
     }
 }
+ACCOUNT_ADAPTER = 'invitations.models.InvitationsAdapter'
 
 # AnyMail configs
 ANYMAIL = {
