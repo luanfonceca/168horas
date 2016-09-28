@@ -194,7 +194,7 @@ class ActivityAttendeeExport(BaseActivityView,
                 'course': _(
                     'Em caso de Ensino Superior ou Técnico, qual curso?'),
                 'scholarship_term': _('Ano/Período'),
-                'already_joinn_': _(
+                'already_joinned_our_program': _(
                     'Já participou ou participa do programa Miniempresa?'),
                 'which_company': _(
                     'Qual Miniempresa? Em qual ano?'),
