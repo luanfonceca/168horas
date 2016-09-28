@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load widget_tweaks %}
+
+{% load tags %}
+
+{% block content %}
+  <form method="POST">
+    {% csrf_token %}
+
+    {% if form.name %}
+      <div class="row">
+        {% include "includes/field.html" with field=form.name col_sizes='s12 m6' %}
+        {% include "includes/field.html" with field=form.email col_sizes='s12 m6' %}
+        {% include "includes/field.html" with field=form.educational_institution col_sizes='s12 m6' %}
+        {% include "includes/field.html" with field=form.cpf col_sizes='s12 m6' %}
+        {% include "includes/field.html" with field=form.phone col_sizes='s12 m6' %}
+      </div>
+    {% else %}
+      {% include "includes/field.html" with field=form.email col_sizes='s12' %}
+    {% endif %}
+
+    <div class="center-align col s4">
+      <a href="{% url 'attendee:list' activity.slug %}">
+        {% trans 'back' %}
+      </a>
+      &nbsp;
+      <button type="submit" class="waves-effect waves-light btn btn-large btn-wide blue darken-4">
+        {% trans 'Save' %}
+        <i class="material-icons right">done</i>
+      </button>
+    </div>
+  </form>
+{% endblock %}
