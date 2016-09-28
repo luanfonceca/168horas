@@ -42,7 +42,6 @@ def update_display_v_sne(attendee):
     attendee.update(
         age_rage=_get_display(attendee, 'age_rage'),
         partner_profile=_get_display(attendee, 'partner_profile'),
-        partner_profile=_get_display(attendee, 'partner_profile'),
         already_joinned_our_program=_get_display(
             attendee, 'already_joinned_our_program'),
         already_know_us=_get_display(attendee, 'already_know_us'),
