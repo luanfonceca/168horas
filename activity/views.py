@@ -39,6 +39,13 @@ def update_display_v_sne(attendee):
     attendee.update(
         age_rage=_get_display(attendee, 'age_rage'),
         partner_profile=_get_display(attendee, 'partner_profile'),
+        partner_profile=_get_display(attendee, 'partner_profile'),
+        already_joinned_our_program=_get_display(
+            attendee, 'already_joinned_our_program'),
+        already_know_us=_get_display(attendee, 'already_know_us'),
+        where_know_us=_get_display(attendee, 'where_know_us'),
+        join_previous_editions=_get_display(
+            attendee, 'join_previous_editions'),
     )
 
 
@@ -180,6 +187,23 @@ class ActivityAttendeeExport(BaseActivityView,
             field_header_map.update({
                 'age_rage': _('Idade'),
                 'partner_profile': _('Eu sou'),
+                'age_rage': _('Sua idade é'),
+                'partner_profile': _('Você é...'),
+                'course': _(
+                    'Em caso de Ensino Superior ou Técnico, qual curso?'),
+                'scholarship_term': _('Ano/Período'),
+                'already_joinn_': _(
+                    'Já participou ou participa do programa Miniempresa?'),
+                'which_company': _(
+                    'Qual Miniempresa? Em qual ano?'),
+                'already_know_us': _(
+                    'Já conhecia o Nexa ou a Junior Achievement?'),
+                'where_know_us': _(
+                    'Como ficou sabendo do SNE 2015?'),
+                'join_previous_editions': _(
+                    'Você participou de alguma das '
+                    'edições anteriores do SNE?'),
+                'which_edition': _('Quais?'),
             })
 
         attendees = self.object.attendee_set.extra(
