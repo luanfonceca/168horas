@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% load tags %}
+
+{% block content %}
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="row">
+      {% include "includes/field.html" with field=form.title col_sizes='s12' %}
+
+      <div class="input-field col s12">
+        <label for="{{ form.brief.id }}" data-error="{{ form.brief.errors.0 }}">
+          {{ form.brief.label }}
+
+          {% if form.brief.help_text %}
+            <a class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="{{ form.brief.help_text }}">
+              <i class="material-icons">help</i>
+            </a>
+          {% endif %}
+        </label>
+        {% render_field form.brief class+="materialize-textarea" %}
+      </div>
+
+      {% include "includes/field.html" with field=form.area col_sizes='s12' %}
+
+      <div class="file-field input-field col s12">
+        <div class="btn">
+          <span>{{ form.document.label }}</span>
+          {{ form.document }}
+        </div>
+        <div class="file-path-wrapper">
+          <input class="file-path validate" type="text">
+        </div>
+        <br>
+        {% for error in form.document.errors %}
+          <p class="help-text caption red-text">{{ error }}</p>
+        {% endfor %}
+      </div>
+    
+      <div class="col s12 m6 grey lighten-4">
+        <p>Author 1</p>
+        {% include "includes/field.html" with field=form.author1_name %}
+        {% include "includes/field.html" with field=form.author1_email %}
+      </div>
+
+      <div class="col s12 m6 grey lighten-3">
+        <p>Author 2</p>
+        {% include "includes/field.html" with field=form.author2_name %}
+        {% include "includes/field.html" with field=form.author2_email %}
+      </div>
+
+      <div class="col s12 m6 grey lighten-4">
+        <p>Author 3</p>
+        {% include "includes/field.html" with field=form.author3_name %}
+        {% include "includes/field.html" with field=form.author3_email %}
+      </div>
+
+      <div class="col s12 m6 grey lighten-3">
+        <p>Author 4</p>
+        {% include "includes/field.html" with field=form.author4_name %}
+        {% include "includes/field.html" with field=form.author4_email %}
+      </div>
+
+      <div class="col s12 m6 grey lighten-4">
+        <p>Author 5</p>
+        {% include "includes/field.html" with field=form.author5_name %}
+        {% include "includes/field.html" with field=form.author5_email %}
+      </div>
+    </div>
+
+    <br>
+    <div class="center-align col s4">
+      <a href="{% url 'activity:detail' activity.slug %}">
+        {% trans 'back' %}
+      </a>
+      &nbsp;
+      <button type="submit" class="btn-large waves-effect waves-light blue darken-4">
+        {% trans 'Save' %}
+        <i class="material-icons right">done</i>
+      </button>
+    </div>
+  </form>
+{% endblock %}

@@ -159,6 +159,7 @@ LOCAL_APPS = (
     'event',
     'category',
     'attendee',
+    'proposal',
 )
 
 EXTERNAL_APPS = (

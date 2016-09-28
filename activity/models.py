@@ -128,6 +128,12 @@ class Activity(TitleSlugDescriptionModel):
     def get_attendee_list_url(self):
         return reverse('attendee:list', kwargs={'activity_slug': self.slug})
 
+    def get_proposal_list_url(self):
+        return reverse('proposal:list', kwargs={'activity_slug': self.slug})
+
+    def get_proposal_create_url(self):
+        return reverse('proposal:create', kwargs={'activity_slug': self.slug})
+
     @property
     def get_photo_url(self):
         return '{0}/{1}'.format(settings.MEDIA_URL, self.photo)

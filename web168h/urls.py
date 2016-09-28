@@ -18,6 +18,8 @@ urlpatterns = patterns(
     url(r'^activities/', include('activity.urls', namespace='activity')),
     url(r'^activities/(?P<activity_slug>[\w-]+)/attendees/',
         include('attendee.urls', namespace='attendee')),
+    url(r'^activities/(?P<activity_slug>[\w-]+)/proposals/',
+        include('proposal.urls', namespace='proposal')),
     url(r'^categories/', include('category.urls', namespace='category')),
     url(r'^a/(?P<short_url>[\w-]+)/',
         view=ActivityDetailShortUrl.as_view(),

@@ -4,6 +4,7 @@ db.sqlite3
 staticfiles/
 media/photos/*
 media/signatures/*
+media/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

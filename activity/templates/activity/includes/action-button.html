@@ -16,6 +16,12 @@
       </a>
     </li>
     <li>
+      <a class="blue-text text-darken-4" href="{{ object.get_proposal_list_url }}">
+        {% trans 'Proposals' %}
+        <i class="material-icons right">group</i>
+      </a>
+    </li>
+    <li>
       {% if request.user.is_authenticated and object|already_attended:request.user.profile %}
         {% with object|get_attendee:request.user.profile as attendee %}
           <a class="blue-text text-darken-4" href="{% url 'attendee:certificate' activity_slug=object.slug code=attendee.code %}" target="_blank">
