@@ -1,6 +1,8 @@
 from django import forms
+from django.utils.translation import ugettext as _
 
 from localflavor.br.forms import BRCPFField
+from invitations.models import Invitation
 
 from attendee.models import Attendee
 
@@ -70,3 +72,22 @@ class AttendeeInviteForm(forms.Form):
         fields = (
             'email',
         )
+
+    def __init__(self, *args, **kwargs):
+        self.activity = kwargs.pop('activity', None)
+        super(AttendeeInviteForm, self).__init__(*args, **kwargs)
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        already_attendee = self.activity.attendees.filter(
+            user__email=email).exists()
+        already_invited = Invitation.objects.filter(email=email).exists()
+
+        if already_attendee:
+            raise forms.ValidationError(
+                _('Attendee already invited.')
+            )
+        elif already_invited:
+            raise forms.ValidationError(
+                _('Attendee already invited.')
+            )

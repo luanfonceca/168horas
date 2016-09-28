@@ -84,6 +84,10 @@ class FormValidRedirectMixing(object):
         if self.success_message is not None:
             return self.success_message
 
+    def get_error_message(self):
+        if self.error_message is not None:
+            return self.error_message
+
     def form_valid(self, form):
         self.object = form.save()
         return self.success_redirect(self.get_success_message())

@@ -9,8 +9,10 @@ from django.core.urlresolvers import reverse
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.template.loader import render_to_string
 from django.contrib.sites.models import Site
+from django.contrib.auth.models import AnonymousUser, User
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.core.mail import send_mail
 from django.conf import settings
@@ -18,6 +20,8 @@ from django.utils.timezone import datetime
 from django.utils.dateformat import format as dateformat
 
 from django_extensions.db.fields import CreationDateTimeField
+from invitations.models import Invitation
+from invitations.signals import invite_accepted
 
 
 def code_generate(size=10):
@@ -401,6 +405,18 @@ def update_user_profile(sender, instance, created, **kwargs):
     instance.profile.user.save()
 
 
+def attendee_invite_accepted(sender, *args, **kwargs):
+    import ipdb; ipdb.set_trace()
+
+
 post_save.connect(send_attendee_joined_email, sender=Attendee)
 post_save.connect(send_payment_confirmation_email, sender=Attendee)
 post_save.connect(update_user_profile, sender=Attendee)
+invite_accepted.connect(attendee_invite_accepted, sender=AnonymousUser)
+invite_accepted.connect(attendee_invite_accepted, sender=User)
+invite_accepted.connect(attendee_invite_accepted, sender=Invitation)
+
+
+@receiver(invite_accepted, sender=AnonymousUser)
+def invite_accepted(sender, request, email, **kwargs):
+    import ipdb; ipdb.set_trace()

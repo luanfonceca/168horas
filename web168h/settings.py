@@ -247,6 +247,7 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 ACCOUNT_ADAPTER = 'invitations.models.InvitationsAdapter'
+INVITATIONS_GONE_ON_ACCEPT_ERROR = False
 
 # AnyMail configs
 ANYMAIL = {

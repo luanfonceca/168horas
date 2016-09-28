@@ -502,6 +502,7 @@ class AttendeeInvite(BaseAttendeeView,
     full_page_title = True
     page_title = _('Invite')
     success_message = _('Attendee invited.')
+    error_message = _('Attendee already invited.')
     form_class = AttendeeInviteForm
 
     def get_breadcrumbs(self):
@@ -522,18 +523,28 @@ class AttendeeInvite(BaseAttendeeView,
         self.activity = self.get_activity()
         return self.activity.get_attendee_list_url()
 
+    def get_form(self, data=None, files=None, **kwargs):
+        self.activity = self.get_activity()
+
+        kwargs.update(activity=self.activity)
+        return super(AttendeeInvite, self).get_form(
+            data=data, files=files, **kwargs
+        )
+
     def form_valid(self, form):
         self.activity = self.get_activity()
-        data = form.cleaned_data
+        email = form.cleaned_data.get('email')
+
+        is_attendee = self.activity.attendees.filter(user__email=email).exists()
+        if is_attendee:
+            import ipdb; ipdb.set_trace()
 
         try:
-            invite = Invitation.create(
-                data.get('email'),
-                inviter=self.request.user
-            )
+            invite = Invitation.create(email, inviter=self.request.user)
         except IntegrityError:
-            invite = Invitation.objects.get(email=data.get('email'))
+            invite = Invitation.objects.get(email=email)
 
         invite.send_invitation(self.request)
         self.activity.invites.add(invite)
+
         return self.success_redirect(self.get_success_message())
