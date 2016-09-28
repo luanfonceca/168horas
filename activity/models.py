@@ -35,8 +35,10 @@ class ActivityManager(models.QuerySet):
 
 
 class Activity(TitleSlugDescriptionModel):
-    DRAFT, PRIVATE, PRE_SALE, PUBLISHED, SOLDOUT, CLOSED = range(6)
+    (DRAFT, PRIVATE, PRE_SALE, PUBLISHED,
+     SOLDOUT, CLOSED, OPEN_PROPOSALS) = range(7)
     STATUS_CHOICES = (
+        (OPEN_PROPOSALS, _('Open Proposals')),
         (DRAFT, _('Draft')), (PRIVATE, _('Private')),
         (PRE_SALE, _('Pre-sale')), (PUBLISHED, _('Published')),
         (SOLDOUT, _('Soldout')), (CLOSED, _('Closed')),
@@ -169,6 +171,10 @@ class Activity(TitleSlugDescriptionModel):
         if self.slug == 'flisol-natal-2016':
             return True
         return False
+
+    @property
+    def is_open_for_proposals(self):
+        return self.status == self.OPEN_PROPOSALS
 
     def get_attended_ones(self):
         return self.attendee_set.filter(attended_at__isnull=False)

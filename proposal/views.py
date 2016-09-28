@@ -14,9 +14,9 @@ from core.mixins import (
     FormValidRedirectMixing, LoginRequiredMixin
 )
 from activity.models import Activity
-from proposal.models import Proposal
+from proposal.models import Proposal, Author
 from proposal.forms import (
-    ProposalForm
+    ProposalForm, CustomSIPAXProposalForm
 )
 
 
@@ -42,7 +42,6 @@ class BaseProposalView(PageTitleMixin, BreadcrumbMixin):
 
 
 class ProposalList(BaseProposalView,
-                   OrganizerRequiredMixin,
                    views.ListView):
     template_name = 'proposal/list.html'
     paginate_by = 30
@@ -110,7 +109,12 @@ class ProposalList(BaseProposalView,
 
     def get_queryset(self):
         queryset = super(ProposalList, self).get_queryset()
-        queryset = queryset.filter(activity=self.get_activity())
+        self.activity = self.get_activity()
+        user = self.request.user
+        queryset = queryset.filter(activity=self.activity)
+
+        if not user.is_staff and user.profile != self.activity.created_by:
+            queryset = queryset.filter(created_by=user.profile)
 
         search = self.request.GET.get('search')
         if search:
@@ -138,12 +142,53 @@ class ProposalCreate(BaseProposalView,
             'title': _('Create')
         }]
 
+    def get_form_class(self):
+        self.activity = self.get_activity()
+
+        if self.activity.slug == 'sipex-minicursos':
+            return CustomSIPAXProposalForm
+        return ProposalForm
+
     def form_valid(self, form):
+        data = form.cleaned_data
         self.activity = self.get_activity()
         self.object = form.save(commit=False)
         self.object.created_by = self.request.user.profile
         self.object.activity = self.activity
         self.object.save()
+
+        if data.get('author1_name') and data.get('author1_email'):
+            Author.objects.create(
+                name=data.get('author1_name'),
+                email=data.get('author1_email'),
+                proposal=self.object
+            )
+        if data.get('author2_name') and data.get('author2_email'):
+            Author.objects.create(
+                name=data.get('author2_name'),
+                email=data.get('author2_email'),
+                proposal=self.object
+            )
+        if data.get('author3_name') and data.get('author3_email'):
+            Author.objects.create(
+                name=data.get('author3_name'),
+                email=data.get('author3_email'),
+                proposal=self.object
+            )
+        if data.get('author4_name') and data.get('author4_email'):
+            Author.objects.create(
+                name=data.get('author4_name'),
+                email=data.get('author4_email'),
+                proposal=self.object
+            )
+        if data.get('author5_name') and data.get('author5_email'):
+            Author.objects.create(
+                name=data.get('author5_name'),
+                email=data.get('author5_email'),
+                proposal=self.object
+            )
+
+
         message = _(
             'Successfully joined up for the pre-sale of this activity!'
         )

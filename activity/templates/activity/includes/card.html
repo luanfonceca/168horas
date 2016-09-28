@@ -28,6 +28,16 @@
             {% trans 'Already Joined' %}
             <i class="material-icons right" style="line-height: 55px;">check</i>
           </a>
+        {% elif object.is_open_for_proposals %}
+          <a class='btn btn-wide btn-large waves-effect waves-light' href="{{ object.get_proposal_create_url }}" style="width: 100%">
+            {% trans 'Send a Proposal' %}
+            <i class="material-icons right" style="line-height: 55px;">note_add</i>
+          </a>
+        {% elif object.slug == 'mocitec' %}
+          <a class='btn btn-wide btn-large waves-effect waves-light' target="_blank" href="{{ object.link }}" style="width: 100%">
+            {% trans 'Informations' %}
+            <i class="material-icons right" style="line-height: 55px;">info</i>
+          </a>
         {% else %}
           <a class='btn btn-wide btn-large waves-effect waves-light' {% if object.link %}href="{{ object.link }}" target="_blank"{% else %}href="{{ object.get_attendee_join_url }}"{% endif %} style="width: 100%" track-event="btn-join-activity">
             {% trans 'Join' %}

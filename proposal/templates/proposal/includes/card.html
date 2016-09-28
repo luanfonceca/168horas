@@ -12,6 +12,14 @@
         {{ object.created_by.user.get_full_name }}
       </a>
     </p>
+    {% if object.authors.exists %}
+      <p>
+        {% if activity.slug == 'sipex-minicursos' %}Ministrantes: {% else %}Autor: {% endif %}
+        {% for ministrante in object.authors.all %}
+          <a href="mailto:{{ ministrante.email }}" target="_blank">{{ ministrante.name }}</a>{% if not forloop.last %},{% endif %}
+        {% endfor %}
+      </p>
+    {% endif %}
     <p>
       Document: 
       {% if object.document %}
@@ -25,10 +33,5 @@
     <span style="padding: 5px;top: 7px;position: relative;" class="blue darken-4 white-text">
       {{ object.get_area_display }}
     </span>
-  </div>
-  <div class="card-action">
-    <a class="blue-text text-darken-4" href="#">Update</a>
-    <a class="blue-text text-darken-4" href="#">Delete</a>
-    <a class="blue-text text-darken-4" href="#">Aprove</a>
   </div>
 </div>

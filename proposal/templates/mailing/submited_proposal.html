@@ -1,0 +1,16 @@
+{% load i18n %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>168 Horas</title>
+  </head>
+
+  <body>
+    {% blocktrans with proposal_title=proposal.title activity_title=activity.title %}
+      <p>Hi, we from the 168 horas are here to confirm the creation of the proposal "{{ proposal_title }}" to the event "{{ activity_title }}"!</p>
+
+      <p>Thank you.</p>
+    {% endblocktrans %}
+  </body>
+</html>

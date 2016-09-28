@@ -18,6 +18,32 @@ class ProposalForm(forms.ModelForm):
 
     class Meta:
         model = Proposal
-        exclude = (
-            'slug', 'created_by', 'activity'
+        fields = (
+            'title', 'brief', 'area', 'document',
+            'author1_name', 'author1_email',
+            'author2_name', 'author2_email',
+            'author3_name', 'author3_email',
+            'author4_name', 'author4_email',
+            'author5_name', 'author5_email',
+        )
+
+
+class CustomSIPAXProposalForm(forms.ModelForm):
+    author1_name = forms.CharField(label=_('Name'), required=False)
+    author1_email = forms.EmailField(label=_('Email'), required=False)
+    author2_name = forms.CharField(label=_('Name'), required=False)
+    author2_email = forms.EmailField(label=_('Email'), required=False)
+    author3_name = forms.CharField(label=_('Name'), required=False)
+    author3_email = forms.EmailField(label=_('Email'), required=False)
+
+    class Meta:
+        model = Proposal
+        fields = (
+            'title', 'brief', 'area', 'carga_horaria',
+            'quantidade_de_vagas', 'institution',
+            'ementa', 'objetivos', 'publico',
+            'materiais', 'justificativa',
+            'author1_name', 'author1_email',
+            'author2_name', 'author2_email',
+            'author3_name', 'author3_email',
         )
