@@ -8,8 +8,6 @@
 
 {% block content %}
   <form method="POST" enctype="multipart/form-data">
-    Erros: {{ form.errors }}
-
     {% csrf_token %}
 
     {% if activity.slug == 'sipex-minicursos' %}
