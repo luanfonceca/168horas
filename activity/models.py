@@ -92,6 +92,10 @@ class Activity(TitleSlugDescriptionModel):
         verbose_name=_(u'Categories'),
         to='core.Profile',
         related_name='managed_activities')
+    activities = models.ManyToManyField(
+        verbose_name=_(u'Compilations'),
+        to='self', symmetrical=False,
+        related_name='compilations+', blank=True)
 
     # managers
     objects = ActivityManager.as_manager()
@@ -133,6 +137,10 @@ class Activity(TitleSlugDescriptionModel):
 
     def get_proposal_create_url(self):
         return reverse('proposal:create', kwargs={'activity_slug': self.slug})
+
+    @property
+    def is_compilation(self):
+        return self.activities.exists()
 
     @property
     def get_photo_url(self):

@@ -90,6 +90,14 @@ class ActivityDetail(BaseActivityView, views.DetailView):
     template_name = 'activity/detail.html'
     full_page_title = True
 
+    def get_template_names(self):
+        self.object = self.get_object()
+
+        if self.object.is_compilation:
+            return 'compilation/detail.html'
+        else:
+            return self.template_name
+
 
 class ActivityDetailShortUrl(BaseActivityView, views.DetailView):
     lookup_field = 'short_url'

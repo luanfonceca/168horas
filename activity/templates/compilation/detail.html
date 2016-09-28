@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+  <div class="row masonry-grid">
+    {% for activity in object.activities.is_public.get_next %}
+      <div class="col s12 m4 l4">
+        {% include "activity/includes/card.html" with object=activity is_activity_card=True %}
+      </div>
+    {% empty %}
+      <div class="col s12 m12 l12">
+        <p class="caption">
+          {% trans 'Unfortunately, we have no activities in the area. Spread education.' %}
+          <a href="{% url 'activity:create' %}" class="btn-link">
+            {% trans 'Tell us an activity!' %}
+          </a>
+        </p>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock content %}
