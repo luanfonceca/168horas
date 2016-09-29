@@ -30,7 +30,7 @@ class ActivityManager(models.QuerySet):
             models.Q(scheduled_date__gte=datetime.today())
         ).extra(
             select=dict(date_is_null='scheduled_date IS NULL'),
-            order_by=['date_is_null', 'scheduled_date'],
+            order_by=['date_is_null', 'scheduled_date', 'title'],
         )
 
 
