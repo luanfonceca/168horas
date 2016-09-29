@@ -28,6 +28,17 @@ class CustomAttendeeForm(forms.ModelForm):
         )
 
 
+class SemarkAttendeeForm(forms.ModelForm):
+    cpf = BRCPFField()
+
+    class Meta:
+        model = Attendee
+        fields = (
+            'name', 'email', 'educational_institution',
+            'cpf', 'phone', 'course'
+        )
+
+
 class AttendeePaymentNotificationForm(forms.Form):
     id_transacao = forms.CharField()
     valor = forms.IntegerField()

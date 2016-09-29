@@ -28,7 +28,8 @@ from core.mixins import (
 from activity.models import Activity
 from attendee.models import Attendee
 from attendee.forms import (
-    AttendeeForm, CustomAttendeeForm, AttendeePaymentNotificationForm
+    AttendeeForm, CustomAttendeeForm, AttendeePaymentNotificationForm,
+    SemarkAttendeeForm
 )
 
 
@@ -158,6 +159,8 @@ class AttendeeJoin(BaseAttendeeView,
         v_sne_slug = 'v-simposio-nexa-de-empreendedorismo-construindo-op'
         if self.activity.slug == v_sne_slug:
             return CustomAttendeeForm
+        elif self.activity.slug == 'semark':
+            return SemarkAttendeeForm
         return AttendeeForm
 
     def get(self, request, *args, **kwargs):

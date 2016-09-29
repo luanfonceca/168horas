@@ -143,7 +143,7 @@ class Attendee(models.Model):
             'Externo, caso não se aplique aos anteriores.'))
     course = models.CharField(
         _('Em caso de Ensino Superior ou Técnico, qual curso?'),
-        max_length=200, null=True, blank=True)
+        max_length=200, null=True, blank=False)
     scholarship_term = models.CharField(
         _('Ano/Período'), help_text=_('Ex.: 3º ano; 6º período'),
         max_length=50, null=True, blank=True)

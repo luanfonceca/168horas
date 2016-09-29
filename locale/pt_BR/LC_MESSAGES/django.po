@@ -1771,11 +1771,11 @@ msgid_plural ""
 "          "
 msgstr[0] ""
 "\n"
-"            %(total)s Palestra\n"
+"            %(total)s Proposta\n"
 "          "
 msgstr[1] ""
 "\n"
-"            %(total)s Participantes\n"
+"            %(total)s Propostas\n"
 "          "
 
 #: proposal/templates/proposal/list.html:25

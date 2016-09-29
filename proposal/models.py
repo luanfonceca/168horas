@@ -71,7 +71,7 @@ class Proposal(models.Model):
     )
 
     carga_horaria = models.IntegerField(
-        _('Carga horaria'), choices=CARGA_HORARIA_CHOICES, default=DUAS_HORAS,
+        _('Carga horária'), choices=CARGA_HORARIA_CHOICES, default=DUAS_HORAS,
         null=True, blank=True)
     quantidade_de_vagas = models.IntegerField(
         _('Quantidade de Vagas'), null=True, blank=False)
@@ -82,7 +82,7 @@ class Proposal(models.Model):
     objetivos = models.TextField(
         _('Objetivos'), max_length=1000, blank=False)
     publico = models.CharField(
-        _('Tipo de Publico'), max_length=300, null=True, blank=False)
+        _('Tipo de Público'), max_length=300, null=True, blank=False)
     materiais = models.TextField(
         _('Materiais necessários'), max_length=1000, blank=False)
     justificativa = models.TextField(

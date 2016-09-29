@@ -16,6 +16,10 @@
       {% include "includes/field.html" with field=form.educational_institution col_sizes='s12 m6' %}
       {% include "includes/field.html" with field=form.cpf col_sizes='s12 m6' %}
       {% include "includes/field.html" with field=form.phone col_sizes='s12 m6' %}
+
+      {% if activity.slug == 'semark' %}
+        {% include "includes/field.html" with field=form.course col_sizes='s12 m6' %}
+      {% endif %}
     </div>
 
     {% if activity.slug == 'v-simposio-nexa-de-empreendedorismo-construindo-op' %}
