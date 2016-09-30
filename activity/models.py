@@ -118,6 +118,9 @@ class Activity(TitleSlugDescriptionModel):
     def get_delete_url(self):
         return reverse('activity:delete', kwargs={'slug': self.slug})
 
+    def get_dashboard_url(self):
+        return reverse('activity:dashboard', kwargs={'slug': self.slug})
+
     def get_attendee_join_url(self):
         return reverse('attendee:join', kwargs={'activity_slug': self.slug})
 

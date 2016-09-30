@@ -108,6 +108,24 @@ class ActivityDetail(BaseActivityView, views.DetailView):
             return self.template_name
 
 
+class ActivityDashboard(BaseActivityView, views.DetailView):
+    template_name = 'activity/dashboard.html'
+    full_page_title = True
+
+    def get_breadcrumbs(self):
+        self.object = self.get_object()
+        return [{
+            'url': reverse('activity:list'),
+            'title': _('Activities')
+        }, {
+            'url': self.object.get_absolute_url(),
+            'title': self.object
+        }, {
+            'url': self.object.get_dashboard_url(),
+            'title': _('Dashboard')
+        }]
+
+
 class ActivityDetailShortUrl(BaseActivityView, views.DetailView):
     lookup_field = 'short_url'
 
