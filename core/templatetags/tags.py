@@ -1,3 +1,7 @@
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
+from django.utils.translation import ugettext as _
 from django import template
 register = template.Library()
 
@@ -69,3 +73,17 @@ def get_attendee_payment_url(activity, profile):
 @register.filter
 def is_organizer(profile, activity):
     return profile.is_organizer(activity)
+
+
+@register.filter
+def get_organizer_email(attendee):
+    activity = attendee.activity
+    email = activity.created_by.organizer_email
+    if not email:
+        email = activity.created_by.user.email
+    return email
+
+
+@register.filter
+def get_certificate_subject(attendee):
+    return _('I need the certificate from {}'.format(attendee.activity))

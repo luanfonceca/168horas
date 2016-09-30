@@ -69,6 +69,12 @@
                   <li><a href="{% url 'category:list' %}">{% trans 'Categories' %}</a></li>
                 {% endif %}
                 <li class="divider"></li>
+                <li>
+                  <a href="{% url 'my_certificates' %}">
+                    {% trans 'My Certificates' %}
+                  </a>
+                </li>
+                <li class="divider"></li>
                 <li><a href="{% url 'account_logout' %}">{% trans 'Logout' %}</a></li>
               </ul>
             </li>

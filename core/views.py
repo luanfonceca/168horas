@@ -7,6 +7,7 @@ from django.shortcuts import redirect
 from django.core.mail import send_mail
 
 from vanilla import TemplateView, UpdateView, FormView
+from vanilla.model_views import ListView
 from allauth.account import views as account_views
 
 from core import mixins
@@ -87,6 +88,21 @@ class ProfileView(mixins.PageTitleMixin,
 
     def get_object(self):
         return self.request.user.profile
+
+
+class MyCertificates(mixins.PageTitleMixin,
+                     mixins.LoginRequiredMixin,
+                     ListView):
+    page_title = _('My Certificates')
+    full_page_title = True
+    template_name = 'my_certificates.html'
+    model = Attendee
+
+    def get_queryset(self):
+        queryset = super(MyCertificates, self).get_queryset()
+        queryset = queryset.filter(profile=self.request.user.profile)
+        queryset.order_by('activity__title')
+        return queryset
 
 
 class CustomLoginView(mixins.PageTitleMixin, account_views.LoginView):
