@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load static %}
+
+{% block extra_css %}
+  <style type="text/css">
+    @media only screen and (max-width: 992px) {
+      #buttons .btn-large {
+        margin-top: 5px;
+      }
+    }
+
+  </style>
+{% endblock %}
+
+{% block content %}
+  <div class="row" id="buttons">
+    <div class="col s12 center-align">
+      <a class="btn-large" href="{{ object.get_attendee_list_url }}">
+        {% trans 'Attendees' %}
+        <i class="material-icons right">group</i>
+      </a>
+      <a class="btn-large" href="{{ object.get_proposal_list_url }}">
+        {% trans 'Proposals' %}
+        <i class="material-icons right">note_add</i>
+      </a>
+      <a class="btn-large" href="{{ object.get_update_url }}">
+        {% trans 'Update' %}
+        <i class="material-icons right">edit</i>
+      </a>
+      <a class="btn-large" href="{{ object.get_delete_url }}">
+        {% trans 'Delete' %}
+        <i class="material-icons right">delete</i>
+      </a>
+    </div>
+  </div>
+
+  <div class="row">
+    <table class="col s12 m4 highlight bordered table-responsive">
+      <thead>
+        <tr>
+          <th data-field="id">Status</th>
+          <th data-field="name">Quantidade</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td>Aguardando Pagamento</td>
+          <td>15</td>
+        </tr>
+        <tr>
+          <td>Processando</td>
+          <td>76</td>
+        </tr>
+        <tr>
+          <td>Confirmados</td>
+          <td>120</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="col s12 m8 grey lighten-3">
+      
+    </div>
+  </div>
+
+      <!--<ul id='activity-actions' class='dropdown-content'>
+        <li>
+        </li>
+        <li>
+          <a class="blue-text text-darken-4" href="{% url 'activity:attendee_check_all' slug=object.slug %}">
+            {% trans 'Check all' %}
+            <i class="material-icons right">done_all</i>
+          </a>
+        </li>
+        <li>
+          <a class="blue-text text-darken-4" href="{% url 'activity:attendee_export' slug=object.slug %}">
+            {% trans 'Export attendees' %}
+            <i class="material-icons right">file_download</i>
+          </a>
+        </li>
+        <li>
+          <a class="blue-text text-darken-4" href="{% url 'attendee:shuffle' activity_slug=object.slug %}">
+            {% trans 'Shuffle' %}
+            <i class="material-icons right">shuffle</i>
+          </a>
+        </li>
+      </ul>-->
+    </div>
+  </div>
+{% endblock %}
