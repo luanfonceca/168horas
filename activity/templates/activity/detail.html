@@ -18,9 +18,21 @@
             {% include "activity/includes/action-button.html" %}
           </div>
 
-          <div class="activity-scheduled-date">
-            <p>{% trans 'Date:' %} {{ object.scheduled_date }}</p>
-          </div>
+          {% if object.start_scheduled_date %}
+            <div class="activity-scheduled-date">
+              <p>
+                {% trans 'Date:' %}
+                {% if object.start_scheduled_date != object.end_scheduled_date %}
+                  {% trans 'From' %}
+                  {{ object.start_scheduled_date }}
+                  {% trans 'to' %}
+                  {{ object.end_scheduled_date }}
+                {% else %}
+                  {{ object.start_scheduled_date }}
+                {% endif %}
+              </p>
+            </div>
+          {% endif %}
 
           {% if not object.is_online %}
             {% if object.location and object.place_id %}

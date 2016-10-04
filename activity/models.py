@@ -26,11 +26,11 @@ class ActivityManager(models.QuerySet):
 
     def get_next(self):
         return self.filter(
-            models.Q(scheduled_date__isnull=True) |
-            models.Q(scheduled_date__gte=datetime.today())
+            models.Q(start_scheduled_date__isnull=True) |
+            models.Q(start_scheduled_date__gte=datetime.today())
         ).extra(
-            select=dict(date_is_null='scheduled_date IS NULL'),
-            order_by=['date_is_null', 'scheduled_date', 'title'],
+            select=dict(date_is_null='start_scheduled_date IS NULL'),
+            order_by=['date_is_null', 'start_scheduled_date', 'title'],
         )
 
 
@@ -45,7 +45,10 @@ class Activity(TitleSlugDescriptionModel):
     )
 
     link = models.URLField(_(u'Link'), max_length=300, null=True, blank=True)
-    scheduled_date = models.DateField(_(u'Date'), null=True, blank=True)
+    start_scheduled_date = models.DateField(
+        _(u'Start Date'), null=True, blank=True)
+    end_scheduled_date = models.DateField(
+        _(u'End Date'), null=True, blank=True)
     hours = models.IntegerField(
         null=True, blank=True,
         help_text=_('Total of hours to be used in the Certificate.'))

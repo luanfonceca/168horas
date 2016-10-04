@@ -9,9 +9,19 @@
       {{ object.description|safe|linebreaks }}
     </div>
 
-    {% if object.scheduled_date %}
+    {% if object.start_scheduled_date %}
       <div class="activity-scheduled-date">
-        <p>{% trans 'Date:' %} {{ object.scheduled_date }}</p>
+        <p>
+          {% trans 'Date:' %}
+          {% if object.start_scheduled_date != object.end_scheduled_date %}
+            {% trans 'From' %}
+            {{ object.start_scheduled_date }}
+            {% trans 'to' %}
+            {{ object.end_scheduled_date }}
+          {% else %}
+            {{ object.start_scheduled_date }}
+          {% endif %}
+        </p>
       </div>
     {% endif %}
 
