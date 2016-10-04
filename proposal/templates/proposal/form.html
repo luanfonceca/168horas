@@ -51,19 +51,21 @@
 
         {% include "includes/field.html" with field=form.area col_sizes='s12' %}
 
-        <div class="file-field input-field col s12">
-          <div class="btn">
-            <span>{{ form.document.label }}</span>
-            {{ form.document }}
+        {% if form.document %}
+          <div class="file-field input-field col s12">
+            <div class="btn">
+              <span>{{ form.document.label }}</span>
+              {{ form.document }}
+            </div>
+            <div class="file-path-wrapper">
+              <input class="file-path validate" type="text">
+            </div>
+            <br>
+            {% for error in form.document.errors %}
+              <p class="help-text caption red-text">{{ error }}</p>
+            {% endfor %}
           </div>
-          <div class="file-path-wrapper">
-            <input class="file-path validate" type="text">
-          </div>
-          <br>
-          {% for error in form.document.errors %}
-            <p class="help-text caption red-text">{{ error }}</p>
-          {% endfor %}
-        </div>
+        {% endif %}
       
         <div class="col s12 m6 grey lighten-4">
           <p>Autor 1</p>
