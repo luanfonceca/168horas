@@ -73,11 +73,8 @@
     </div>
 
     <div class="row">
-      {% include "includes/field.html" with field=form.start_scheduled_date class='datepicker' %}
-    </div>
-
-    <div class="row">
-      {% include "includes/field.html" with field=form.end_scheduled_date class='datepicker' %}
+      {% include "includes/field.html" with field=form.start_scheduled_date class='datepicker'  col_sizes='s12 m6' %}
+      {% include "includes/field.html" with field=form.end_scheduled_date class='datepicker'  col_sizes='s12 m6' %}
     </div>
 
     <div class="row">
