@@ -7,29 +7,30 @@
     </p>
 
     <p>
-      From: 
-      <a href="mailto:{{ object.created_by.user.email }}" target="_blank">
-        {{ object.created_by.user.get_full_name }}
-      </a>
+      Enviado por: 
+      {{ object.created_by.user.get_full_name }} - {{ object.created_by.user.email }}
     </p>
     {% if object.authors.exists %}
       <p>
         {% if activity.slug == 'sipex-minicursos' %}Ministrantes: {% else %}Autor: {% endif %}
         {% for ministrante in object.authors.all %}
-          <a href="mailto:{{ ministrante.email }}" target="_blank">{{ ministrante.name }}</a>{% if not forloop.last %},{% endif %}
+          {{ ministrante.name }} - {{ ministrante.email }}{% if not forloop.last %},{% endif %}
         {% endfor %}
       </p>
     {% endif %}
-    <p>
-      Document: 
-      {% if object.document %}
-        <a href="{{ object.document.url }}" target="_blank">
-          {{ object.document.name }}
-        </a>
-      {% else %}
-      Sem arquivo
-      {% endif %}
-    </p>
+
+    {% if object.document %}
+      <p>
+        Document: 
+        {% if object.document %}
+          <a href="{{ object.document.url }}" target="_blank">
+            {{ object.document.name }}
+          </a>
+        {% else %}
+        Sem arquivo
+        {% endif %}
+      </p>
+    {% endif %}
     <span style="padding: 5px;top: 7px;position: relative;" class="blue darken-4 white-text">
       {{ object.get_area_display }}
     </span>

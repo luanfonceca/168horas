@@ -19,7 +19,7 @@ class ProposalForm(forms.ModelForm):
     class Meta:
         model = Proposal
         fields = (
-            'title', 'brief', 'area', 'document',
+            'title', 'brief', 'area',
             'author1_name', 'author1_email',
             'author2_name', 'author2_email',
             'author3_name', 'author3_email',
