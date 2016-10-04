@@ -85,6 +85,27 @@ class Attendee(models.Model):
         (NAO_DEFINIDA, _('Nao definida')),
     )
 
+    CREATED = 'CREATED'
+    WAITING = 'WAITING'
+    IN_ANALYSIS = 'IN_ANALYSIS'
+    PRE_AUTHORIZED = 'PRE_AUTHORIZED'
+    AUTHORIZED = 'AUTHORIZED'
+    CANCELLED = 'CANCELLED'
+    REFUNDED = 'REFUNDED'
+    REVERSED = 'REVERSED'
+    SETTLED = 'SETTLED'
+    PAYMENT_STATUS_CHOICES = (
+        (CREATED, _('Created')),
+        (WAITING, _('Waiting')),
+        (IN_ANALYSIS, _('In Analysis')),
+        (PRE_AUTHORIZED, _('Pre Authorized')),
+        (AUTHORIZED, _('Authorized')),
+        (CANCELLED, _('Cancelled')),
+        (REFUNDED, _('Refunded')),
+        (REVERSED, _('Reversed')),
+        (SETTLED, _('Settled')),
+    )
+
     name = models.CharField(_('Full Name'), max_length=300)
     cpf = models.CharField('CPF', max_length=14)
     email = models.EmailField(_('Email'))
@@ -113,6 +134,9 @@ class Attendee(models.Model):
         _('Moip order'), max_length=20, null=True, blank=True)
     moip_payment_id = models.CharField(
         _('Moip payment'), max_length=20, null=True, blank=True)
+    moip_payment_status = models.CharField(
+        _('Moip status'), max_length=20, null=True, blank=True,
+        choices=PAYMENT_STATUS_CHOICES)
 
     # relations
     activity = models.ForeignKey(

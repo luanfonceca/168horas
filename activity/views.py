@@ -28,8 +28,8 @@ def _get_display(data, field_name):
 def update_display(attendee):
     attendee.update(
         status=_get_display(attendee, 'status'),
-        moip_status=_get_display(
-            attendee, 'moip_status'),
+        moip_payment_status=_get_display(
+            attendee, 'moip_payment_status'),
         moip_payment_type=_get_display(
             attendee, 'moip_payment_type')
     )

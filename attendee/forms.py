@@ -25,7 +25,8 @@ class CustomAttendeeForm(forms.ModelForm):
         exclude = (
             'code', 'attended_at', 'created_at', 'profile',
             'last_updated_at', 'status', 'moip_status',
-            'moip_payment_type', 'moip_code', 'activity'
+            'moip_payment_type', 'moip_payment_status',
+            'moip_code', 'activity'
         )
 
 

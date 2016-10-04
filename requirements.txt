@@ -21,6 +21,7 @@ django-address==0.1.3
 django-allauth==0.23.0
 django-anymail==0.3.1
 django-common==0.1.51
+django-celery==3.1.15
 django-extensions==1.5.7
 #django-image-tools-2==1.0
 django-localflavor==1.2

@@ -5,6 +5,7 @@ import requests
 import json
 import re
 from logging import getLogger
+from datetime import timedelta
 
 from django.utils.translation import ugettext as _
 from django.http import HttpResponseRedirect, HttpResponse
@@ -33,6 +34,7 @@ from attendee.forms import (
     AttendeeForm, CustomAttendeeForm, AttendeePaymentNotificationForm,
     AttendeePaymentForm,
 )
+from attendee.tasks import check_payment
 
 
 class BaseAttendeeView(PageTitleMixin, BreadcrumbMixin):
@@ -264,6 +266,7 @@ class AttendeePayment(BaseAttendeeView,
         }]
 
     def create_credit_card_payment(self, form):
+
         def only_digits(n):
             return re.sub('[^0-9]', '', n)
 
@@ -312,11 +315,76 @@ class AttendeePayment(BaseAttendeeView,
         if response.ok:
             response_data = response.json()
             self.object.moip_payment_id = response_data.get('id')
+            self.object.moip_payment_status = response_data.get('status')
             self.object.save()
+            check_payment.delay(self.object.moip_payment_id)
 
     def form_valid(self, form):
         self.create_credit_card_payment(form)
-        return super(AttendeePayment, self).form_valid(form=form)
+        return HttpResponseRedirect(self.get_success_url())
+
+
+class AttendeePaymentBoleto(RedirectView):
+    def get_redirect_url(self, *args, **kwargs):
+        url = self.create_boleto_payment()
+        return url
+
+    def get_object(self):
+        return Attendee.objects.get(
+            activity__slug=self.kwargs.get('activity_slug'),
+            code=self.kwargs.get('code')
+        )
+
+    def get_expiration_date(self):
+        today = datetime.now().date()
+        return today + timedelta(days=5)
+
+    def create_boleto_payment(self):
+        self.object = self.get_object()
+        expiration_date = self.get_expiration_date()
+        url = 'https://sandbox.moip.com.br/v2/orders/{}/payments/'.format(
+            self.object.moip_order_id
+        )
+        headers = {
+            'Content-Type': 'application/json',
+            'Authorization': (
+                'Basic MEVSVkROMzg2V0UzUlpSSTRZWUc2UUNETE1KNTdMQlI6U1J'
+                'aR0hSWFlPVDBQVkRMUkIzWUU4WFFXTE5MQTBKUlhUS09JRFZEUQ=='
+            )
+        }
+
+        url = 'https://sandbox.moip.com.br/v2/orders/{}/payments/'.format(
+            self.object.moip_order_id
+        )
+
+        try:
+            response = requests.get(url, headers=headers)
+            response_data = response.json()
+            return '{redirectHref}/print/'.format(
+                **response_data.get(
+                    'payments')[0].get('_links').get('payBoleto')
+            )
+        except:
+            data = {
+                'ownId': self.object.code,
+                'fundingInstrument': {
+                    'method': 'BOLETO',
+                    'boleto': {
+                        'expirationDate': str(expiration_date)
+                    }
+                }
+            }
+            response = requests.post(
+                url, data=json.dumps(data), headers=headers)
+            response_data = response.json()
+            self.object.moip_payment_id = response_data.get('id')
+            self.object.moip_payment_status = response_data.get('status')
+            self.object.save()
+
+            check_payment.delay(self.object.moip_payment_id)
+            return '{redirectHref}/print/'.format(
+                **response_data.get('_links').get('payBoleto')
+            )
 
 
 class AttendeeDetail(BaseAttendeeView,
@@ -434,59 +502,6 @@ class AttendeeCertificate(BaseAttendeeView,
     lookup_field = 'code'
     template_name = 'attendee/certificate.html'
     page_title = _('Certificate')
-
-
-class AttendeePaymentBoleto(RedirectView):
-    def get_redirect_url(self, *args, **kwargs):
-        url = self.create_boleto_payment()
-        return url
-
-    def get_object(self):
-        return Attendee.objects.get(
-            activity__slug=self.kwargs.get('activity_slug'),
-            code=self.kwargs.get('code')
-        )
-
-    def create_boleto_payment(self):
-        self.object = self.get_object()
-        expiration_date = datetime.now().date()
-        url = 'https://sandbox.moip.com.br/v2/orders/{}/payments/'.format(
-            self.object.moip_order_id
-        )
-        headers = {
-            'Content-Type': 'application/json',
-            'Authorization': (
-                'Basic MEVSVkROMzg2V0UzUlpSSTRZWUc2UUNETE1KNTdMQlI6U1J'
-                'aR0hSWFlPVDBQVkRMUkIzWUU4WFFXTE5MQTBKUlhUS09JRFZEUQ=='
-            )
-        }
-
-        response = requests.get(url, headers=headers)
-        data = response.json()
-        try:
-            boleto_url = '{redirectHref}/print/'.format(
-                **data.get('payments')[0].get('_links').get('payBoleto')
-            )
-        except:
-            data = {
-                'ownId': self.object.code,
-                'fundingInstrument': {
-                    'method': 'BOLETO',
-                    'boleto': {
-                        'expirationDate': str(expiration_date)
-                    }
-                }
-            }
-            response = requests.post(
-                url, data=json.dumps(data), headers=headers)
-            data = response.json()
-
-            boleto_url = '{redirectHref}/print/'.format(
-                **data.get('payments')[0].get('_links').get('payBoleto')
-            )
-        self.object.moip_payment_id = data.get('id')
-        self.object.save()
-        return boleto_url
 
 
 class AttendeeShuffle(BaseAttendeeView,

@@ -171,6 +171,8 @@ EXTERNAL_APPS = (
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.google',
     'anymail',
+    'djcelery',
+    'kombu.transport.django',
 )
 
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + EXTERNAL_APPS

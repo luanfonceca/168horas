@@ -16,5 +16,22 @@
     },
     "model": "auth.user",
     "pk": 1
+}, {
+    "fields": {
+        "username": "user",
+        "first_name": "Usuario",
+        "last_name": "do Sistema",
+        "is_active": true,
+        "is_superuser": false,
+        "is_staff": false,
+        "last_login": null,
+        "groups": [],
+        "user_permissions": [],
+        "password": "pbkdf2_sha256$20000$iF9SFaTsNCWp$DOXbjbnnikvLELG2QXQfbb+FZIVatu/+GqUtMbmi8Ms=",
+        "email": "user@168h.com.br",
+        "date_joined": "2016-06-19T22:02:42.766Z"
+    },
+    "model": "auth.user",
+    "pk": 2
 }
 ]

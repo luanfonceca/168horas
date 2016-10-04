@@ -155,7 +155,7 @@
           <h5>{% trans 'Payment information' %}</h5>
           <p>
             <i class="material-icons left">credit_card</i>
-            {% trans 'Payment status' %}: {{ object.get_moip_status_display|default:_('None') }}
+            {% trans 'Payment status' %}: {{ object.get_moip_payment_status_display|default:_('None') }}
           </p>
           {% if object.moip_status != object.CONFIRMADO_PELO_ORGANIZADOR %}
             <p>
