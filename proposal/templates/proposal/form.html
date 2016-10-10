@@ -44,6 +44,58 @@
           {% include "includes/field.html" with field=form.author3_email %}
         </div>
       </div>
+    {% elif activity.slug == 'painel-tematico-ciencia-alimentando-o-brasil' %}
+      <div class="row" id="proposals">
+        {% include "includes/field.html" with field=form.title col_sizes='s12' %}
+
+        {% include "includes/textarea.html" with field=form.brief col_sizes='s12' %}
+
+        {% if form.document %}
+          <div class="file-field input-field col s12">
+            <div class="btn">
+              <span>{{ form.document.label }}</span>
+              {{ form.document }}
+            </div>
+            <div class="file-path-wrapper">
+              <input class="file-path validate" type="text">
+            </div>
+            <br>
+            {% for error in form.document.errors %}
+              <p class="help-text caption red-text">{{ error }}</p>
+            {% endfor %}
+          </div>
+        {% endif %}
+      
+        <div class="col s12 m6 grey lighten-4">
+          <p>Autor 1</p>
+          {% include "includes/field.html" with field=form.author1_name %}
+          {% include "includes/field.html" with field=form.author1_email %}
+        </div>
+
+        <div class="col s12 m6 grey lighten-3">
+          <p>Autor 2</p>
+          {% include "includes/field.html" with field=form.author2_name %}
+          {% include "includes/field.html" with field=form.author2_email %}
+        </div>
+
+        <div class="col s12 m6 grey lighten-4">
+          <p>Autor 3</p>
+          {% include "includes/field.html" with field=form.author3_name %}
+          {% include "includes/field.html" with field=form.author3_email %}
+        </div>
+
+        <div class="col s12 m6 grey lighten-3">
+          <p>Autor 4</p>
+          {% include "includes/field.html" with field=form.author4_name %}
+          {% include "includes/field.html" with field=form.author4_email %}
+        </div>
+
+        <div class="col s12 m6 grey lighten-4">
+          <p>Autor 5</p>
+          {% include "includes/field.html" with field=form.author5_name %}
+          {% include "includes/field.html" with field=form.author5_email %}
+        </div>
+      </div>
     {% else %}
       <div class="row" id="proposals">
         {% include "includes/field.html" with field=form.title col_sizes='s12' %}

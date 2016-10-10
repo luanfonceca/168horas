@@ -16,7 +16,7 @@ from core.mixins import (
 from activity.models import Activity
 from proposal.models import Proposal, Author
 from proposal.forms import (
-    ProposalForm, CustomSIPAXProposalForm
+    ProposalForm, CustomSIPAXProposalForm, CustomPainelTematicoProposalForm
 )
 
 
@@ -145,8 +145,13 @@ class ProposalCreate(BaseProposalView,
     def get_form_class(self):
         self.activity = self.get_activity()
 
+        painel_tematico_slug = (
+            'painel-tematico-ciencia-alimentando-o-brasil'
+        )
         if self.activity.slug == 'sipex-minicursos':
             return CustomSIPAXProposalForm
+        elif self.activity.slug == painel_tematico_slug:
+            return CustomPainelTematicoProposalForm
         return ProposalForm
 
     def form_valid(self, form):
