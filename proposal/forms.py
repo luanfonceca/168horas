@@ -42,7 +42,7 @@ class CustomSIPAXProposalForm(forms.ModelForm):
             'title', 'brief', 'area', 'carga_horaria',
             'quantidade_de_vagas', 'institution',
             'ementa', 'objetivos', 'publico',
-            'materiais', 'justificativa',
+            'materiais', 'justificativa', 'pre_requisitos',
             'author1_name', 'author1_email',
             'author2_name', 'author2_email',
             'author3_name', 'author3_email',

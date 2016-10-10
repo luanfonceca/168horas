@@ -87,6 +87,9 @@ class Proposal(models.Model):
         _('Materiais necessários'), max_length=1000, blank=False)
     justificativa = models.TextField(
         _('Justificativa'), max_length=1000, blank=False)
+    pre_requisitos = models.TextField(
+        _('Pré-requisitos'), max_length=2000,
+        null=True, blank=False)
 
     class Meta:
         verbose_name = _('Proposal')

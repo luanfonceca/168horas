@@ -6,6 +6,12 @@
       {{ object.brief }}
     </p>
 
+    {% if object.pre_requisitos %}
+      <p>
+        Pré-requisitos: {{ object.pre_requisitos }}        
+      </p>
+    {% endif %}
+
     <p>
       Enviado por: 
       {{ object.created_by.user.get_full_name }} - {{ object.created_by.user.email }}
@@ -21,7 +27,7 @@
 
     {% if object.document %}
       <p>
-        Document: 
+        Documento: 
         {% if object.document %}
           <a href="{{ object.document.url }}" target="_blank">
             {{ object.document.name }}
