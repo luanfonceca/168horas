@@ -94,7 +94,7 @@ class Activity(TitleSlugDescriptionModel):
         through='attendee.Attendee',
         related_name='activities+')
     organizers = models.ManyToManyField(
-        verbose_name=_(u'Categories'),
+        verbose_name=_(u'Organizers'),
         to='core.Profile',
         related_name='managed_activities')
     activities = models.ManyToManyField(
