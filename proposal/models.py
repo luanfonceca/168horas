@@ -38,7 +38,7 @@ class Proposal(models.Model):
         populate_from='title', overwrite=True,
         max_length=340, unique=True, db_index=True)
     brief = models.TextField(
-        _('Brief'), max_length=1000, blank=True,
+        _('Brief'), max_length=5000, blank=True,
         help_text=_('Max of 300 words.'))
     created_at = CreationDateTimeField(_(u'Created At'))
     area = models.CharField(
