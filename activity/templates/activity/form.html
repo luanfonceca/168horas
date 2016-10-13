@@ -73,7 +73,8 @@
     </div>
 
     <div class="row">
-      {% include "includes/field.html" with field=form.scheduled_date class='datepicker' %}
+      {% include "includes/field.html" with field=form.start_scheduled_date class='datepicker'  col_sizes='s12 m6' %}
+      {% include "includes/field.html" with field=form.end_scheduled_date class='datepicker'  col_sizes='s12 m6' %}
     </div>
 
     <div class="row">
@@ -163,7 +164,7 @@
       });
     }
   </script>
-  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&language=pt_BR&callback=initMap"></script>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&language=pt_BR&callback=initMap&key=AIzaSyBV3lW1KqWSTZAeDQiMgmGUt2o7QcV8BHkhttps://maps.googleapis.com/maps/api/js?libraries=places&language=pt_BR&callback=initMap&key=AIzaSyBV3lW1KqWSTZAeDQiMgmGUt2o7QcV8BHk"></script>
 
   <script type="text/javascript" src="{% static 'js/tinymce/tinymce.min.js' %}"></script>
   <script type="text/javascript" src="{% static 'js/tinymce/langs/pt_BR.js' %}"></script>

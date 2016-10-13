@@ -38,7 +38,7 @@ class Proposal(models.Model):
         populate_from='title', overwrite=True,
         max_length=340, unique=True, db_index=True)
     brief = models.TextField(
-        _('Brief'), max_length=1000, blank=True,
+        _('Brief'), max_length=5000, blank=True,
         help_text=_('Max of 300 words.'))
     created_at = CreationDateTimeField(_(u'Created At'))
     area = models.CharField(
@@ -87,6 +87,9 @@ class Proposal(models.Model):
         _('Materiais necessários'), max_length=1000, blank=False)
     justificativa = models.TextField(
         _('Justificativa'), max_length=1000, blank=False)
+    pre_requisitos = models.TextField(
+        _('Pré-requisitos'), max_length=2000,
+        null=True, blank=False)
 
     class Meta:
         verbose_name = _('Proposal')

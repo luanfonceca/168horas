@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-30 14:17-0300\n"
-"PO-Revision-Date: 2016-09-30 16:54-0300\n"
+"POT-Creation-Date: 2016-10-04 14:54-0300\n"
+"PO-Revision-Date: 2016-10-04 14:55-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -52,117 +52,122 @@ msgstr "Encerrado"
 msgid "Link"
 msgstr "Link"
 
-#: activity/models.py:48 event/models.py:31
-msgid "Date"
-msgstr "Data"
+#: activity/models.py:49
+msgid "Start Date"
+msgstr "Data de Início"
 
 #: activity/models.py:51
+msgid "End Date"
+msgstr "Data final"
+
+#: activity/models.py:54
 msgid "Total of hours to be used in the Certificate."
 msgstr "Total de horas que serão utilizadas no Certificado."
 
-#: activity/models.py:52 attendee/models.py:93 event/models.py:32
+#: activity/models.py:55 attendee/models.py:93 event/models.py:32
 #: proposal/models.py:43 ticket/models.py:22
 msgid "Created At"
 msgstr "Criado Em"
 
-#: activity/models.py:53 event/models.py:33
+#: activity/models.py:56 event/models.py:33
 msgid "Is Published"
 msgstr "Está publicado"
 
-#: activity/models.py:54 event/models.py:34
+#: activity/models.py:57 event/models.py:34
 msgid "Is Public"
 msgstr "Está Público"
 
-#: activity/models.py:55 event/models.py:35
+#: activity/models.py:58 event/models.py:35
 msgid "Is Organizer"
 msgstr "Organizador"
 
-#: activity/models.py:58
+#: activity/models.py:61
 msgid "Event photo"
 msgstr "Foto do evento"
 
-#: activity/models.py:60
+#: activity/models.py:63
 msgid "Images in the resolution: 400x400."
 msgstr "Imagens na resolução de 400x400."
 
-#: activity/models.py:62 event/models.py:41
+#: activity/models.py:65 event/models.py:41
 msgid "Location"
 msgstr "Local"
 
-#: activity/models.py:64
+#: activity/models.py:67
 msgid "Place id"
 msgstr "Id de localização"
 
-#: activity/models.py:66
+#: activity/models.py:69
 msgid "Capacity"
 msgstr "Capacidade"
 
-#: activity/models.py:68 ticket/models.py:21
+#: activity/models.py:71 ticket/models.py:21
 msgid "Price"
 msgstr "Preço"
 
-#: activity/models.py:70
+#: activity/models.py:73
 msgid "Short url"
 msgstr "Url curta"
 
-#: activity/models.py:72
+#: activity/models.py:75
 msgid "Result will be like: http://168h.com.br/my-activity/"
 msgstr "Resultado será algo como: http://168h.com.br/my-activity/"
 
-#: activity/models.py:74 attendee/models.py:99 attendee/models.py:101
+#: activity/models.py:77 attendee/models.py:99 attendee/models.py:101
 #: attendee/models.py:104 attendee/templates/attendee/detail.html:120
 msgid "Status"
 msgstr "Estado"
 
-#: activity/models.py:76
+#: activity/models.py:79
 msgid "Embedded Schedule"
 msgstr "Incorporar Programação"
 
-#: activity/models.py:80 event/models.py:45
+#: activity/models.py:83 event/models.py:45
 msgid "Created by"
 msgstr "Criado por"
 
-#: activity/models.py:85 activity/models.py:94 category/models.py:11
+#: activity/models.py:88 activity/models.py:97 category/models.py:11
 #: core/models.py:31 core/templates/base.html:69
 #: core/templates/base.html.py:117
 msgid "Categories"
 msgstr "Categorias"
 
-#: activity/models.py:89
+#: activity/models.py:92
 #: activity/templates/activity/includes/action-button.html:14
 #: attendee/models.py:204 attendee/views.py:72 attendee/views.py:255
 #: attendee/views.py:367
 msgid "Attendees"
 msgstr "Participantes"
 
-#: activity/models.py:98
+#: activity/models.py:101
 msgid "Compilations"
 msgstr "Compilações"
 
-#: activity/models.py:106 activity/templates/activity/list.html:8
+#: activity/models.py:109 activity/templates/activity/list.html:8
 #: activity/templates/activity/list_by_category.html:8 category/views.py:48
 #: ticket/templates/ticket/list.html:14
 msgid "Activity"
 msgstr "Atividade"
 
-#: activity/models.py:107 activity/views.py:62 activity/views.py:83
+#: activity/models.py:110 activity/templates/compilation/detail.html:46
+#: activity/views.py:62 activity/views.py:83
 msgid "Activities"
 msgstr "Atividades"
 
-#: activity/models.py:187
+#: activity/models.py:190
 msgid "Certificate from \"{}\"!"
 msgstr "Certificado de \"{}\"!"
 
-#: activity/models.py:242
+#: activity/models.py:245
 msgid "Free"
 msgstr "Gratuito"
 
-#: activity/models.py:258
+#: activity/models.py:261
 #, python-brace-format
 msgid "{0} joined on pre-sale to \"{1}\"!"
 msgstr "{0} se inscreveu na pré-venda do \"{1}\"!"
 
-#: activity/models.py:279
+#: activity/models.py:282
 #, python-brace-format
 msgid "{0} pay the subscription to \"{1}\"!"
 msgstr "{0} pagou sua inscrição para \"{1}\"!"
@@ -196,37 +201,50 @@ msgstr "voltar"
 msgid "Delete"
 msgstr "Remover"
 
-#: activity/templates/activity/detail.html:22
+#: activity/templates/activity/detail.html:24
+#: activity/templates/compilation/detail.html:14
 #: attendee/templates/attendee/certificate.html:62
 msgid "Date:"
 msgstr "Data:"
 
-#: activity/templates/activity/detail.html:29
+#: activity/templates/activity/detail.html:26
+msgid "From"
+msgstr "De"
+
+#: activity/templates/activity/detail.html:28
+msgid "to"
+msgstr "até"
+
+#: activity/templates/activity/detail.html:41
+#: activity/templates/compilation/detail.html:22
 msgid "Local:"
 msgstr "Local:"
 
-#: activity/templates/activity/detail.html:35
+#: activity/templates/activity/detail.html:47
+#: activity/templates/compilation/detail.html:28
 msgid "Categories:"
 msgstr "Categorias:"
 
-#: activity/templates/activity/detail.html:46
+#: activity/templates/activity/detail.html:58
+#: activity/templates/compilation/detail.html:39
 msgid "Short url:"
 msgstr "Url curta:"
 
-#: activity/templates/activity/detail.html:63
+#: activity/templates/activity/detail.html:75
+#: activity/templates/compilation/detail.html:8
 msgid "Description"
 msgstr "Descrição"
 
-#: activity/templates/activity/detail.html:69
+#: activity/templates/activity/detail.html:81
 msgid "Schedule"
 msgstr "Programação"
 
-#: activity/templates/activity/detail.html:78
-#: activity/templates/activity/detail.html:96
+#: activity/templates/activity/detail.html:90
+#: activity/templates/activity/detail.html:108
 msgid "Organizer"
 msgstr "Organizador"
 
-#: activity/templates/activity/detail.html:98
+#: activity/templates/activity/detail.html:110
 #, python-format
 msgid ""
 "\n"
@@ -243,7 +261,7 @@ msgstr ""
 "      </p>\n"
 "    "
 
-#: activity/templates/activity/detail.html:108
+#: activity/templates/activity/detail.html:120
 msgid ""
 "* ADDITIONAL ACTIVITIES: Check with your coordinator if this activity is "
 "valid for your course and university."
@@ -343,7 +361,7 @@ msgstr "Próximas atividades"
 
 #: activity/templates/activity/list.html:42
 #: activity/templates/activity/list_by_category.html:42
-#: activity/templates/compilation/detail.html:14
+#: activity/templates/compilation/detail.html:55
 #: category/templates/category/detail.html:47
 #: category/templates/category/list.html:28
 #: core/templates/my_certificates.html:47
@@ -352,7 +370,7 @@ msgstr "Infelizmente, não temos nenhuma atividade na área. Espalhe a educaçã
 
 #: activity/templates/activity/list.html:44
 #: activity/templates/activity/list_by_category.html:44
-#: activity/templates/compilation/detail.html:16
+#: activity/templates/compilation/detail.html:57
 #: category/templates/category/detail.html:49
 #: category/templates/category/list.html:30
 #: core/templates/my_certificates.html:49
@@ -1445,8 +1463,8 @@ msgstr "Ou usando seu nome de usuário e senha"
 msgid "Forgot Password?"
 msgstr "Esqueceu sua Senha?"
 
-#: core/templates/account/login.html:50 core/templates/base.html:96
-#: core/templates/base.html.py:141 core/views.py:109
+#: core/templates/account/login.html:50 core/templates/base.html:90
+#: core/templates/base.html.py:135 core/views.py:93
 msgid "Sign In"
 msgstr "Acessar"
 
@@ -1468,8 +1486,8 @@ msgid "Password successfully set."
 msgstr "Senha definida com sucesso."
 
 #: core/templates/account/password_change.html:5
-#: core/templates/account/password_change.html:30 core/views.py:120
-#: core/views.py:144 core/views.py:151
+#: core/templates/account/password_change.html:30 core/views.py:104
+#: core/views.py:128 core/views.py:135
 msgid "Change Password"
 msgstr "Alterar Senha"
 
@@ -1516,7 +1534,7 @@ msgstr ""
 msgid "Your password is now changed."
 msgstr "Sua senha foi alterada."
 
-#: core/templates/account/password_set.html:9 core/views.py:126
+#: core/templates/account/password_set.html:9 core/views.py:110
 msgid "Set Password"
 msgstr "Preencher Senha"
 
@@ -1535,7 +1553,7 @@ msgstr ""
 "Por favor acesse com uma\n"
 "    de suas contas."
 
-#: core/templates/account/signup.html:55 core/views.py:114
+#: core/templates/account/signup.html:55 core/views.py:98
 msgid "Sign Up"
 msgstr "Cadastre-se"
 
@@ -1560,43 +1578,35 @@ msgstr "Meus Certificados"
 msgid "Logout"
 msgstr "Sair"
 
-#: core/templates/base.html:84 core/templates/base.html.py:130
-#: core/views.py:38
+#: core/templates/base.html:78 core/templates/base.html.py:124
+#: core/views.py:37
 msgid "Features"
 msgstr ""
 
-#: core/templates/base.html:90 core/templates/base.html.py:136
-#: core/views.py:54
+#: core/templates/base.html:84 core/templates/base.html.py:130
+#: core/views.py:53
 msgid "Get in touch"
 msgstr "Entre em contato"
 
-#: core/templates/my_certificates.html:35
-msgid "You are not marked as attended."
-msgstr ""
-
-#: core/templates/my_certificates.html:36
-msgid "Ask for Certificate"
-msgstr "Pedir Certificado"
-
-#: core/templatetags/tags.py:89
-msgid "I need the certificate from {}"
-msgstr "Eu preciso do Certificado do \"{}\"!"
-
-#: core/views.py:57
+#: core/views.py:56
 msgid "Thanks, we will contact you soon!"
 msgstr "Obrigado, nós iremos te contactar em breve!"
 
-#: core/views.py:79
+#: core/views.py:78
 msgid "Profile update"
 msgstr "Atualizar perfil"
 
-#: core/views.py:82
+#: core/views.py:81
 msgid "Profile updated."
 msgstr "Perfil atualizado."
 
-#: core/views.py:132 core/views.py:138
+#: core/views.py:116 core/views.py:122
 msgid "Password Reset"
 msgstr "Redefinir Senha"
+
+#: event/models.py:31
+msgid "Date"
+msgstr "Data"
 
 #: event/models.py:58
 msgid "Event"

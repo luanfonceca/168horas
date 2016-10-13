@@ -59,7 +59,19 @@
 
     <div class="content">
       <p>
-        {% trans 'Date:' %} {{ activity.scheduled_date }}
+        {% if object.start_scheduled_date %}
+          <p>
+            {% trans 'Date:' %}
+            {% if object.start_scheduled_date != object.end_scheduled_date %}
+              {% trans 'From' %}
+              {{ object.start_scheduled_date }}
+              {% trans 'to' %}
+              {{ object.end_scheduled_date }}
+            {% else %}
+              {{ object.start_scheduled_date }}
+            {% endif %}
+          </p>
+        {% endif %}
         <br/>
         {% trans 'Hours:' %} {% blocktrans count hours=activity.hours %}{{ hours }} hour{% plural %}{{ hours }} hours{% endblocktrans %}
         <br/>

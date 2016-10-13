@@ -3,6 +3,57 @@
 {% load i18n %}
 
 {% block content %}
+  <div class="row">
+    <div id="activity-description">
+      <h5>{% trans 'Description' %}</h5>
+      {{ object.description|safe|linebreaks }}
+    </div>
+
+    {% if object.start_scheduled_date %}
+      <div class="activity-scheduled-date">
+        <p>
+          {% trans 'Date:' %}
+          {% if object.start_scheduled_date != object.end_scheduled_date %}
+            {% trans 'From' %}
+            {{ object.start_scheduled_date }}
+            {% trans 'to' %}
+            {{ object.end_scheduled_date }}
+          {% else %}
+            {{ object.start_scheduled_date }}
+          {% endif %}
+        </p>
+      </div>
+    {% endif %}
+
+    {% if not object.is_online %}
+      {% if object.location and object.place_id %}
+        <div style="margin: 20px 0;width: 100%; height: 300px" id="id_map"></div>
+      {% elif object.location %}
+        <p>{% trans 'Local:' %} {{ object.location }}</p>
+      {% endif %}
+    {% endif %}
+
+    <div class="categories">
+      <p>
+        {% trans 'Categories:' %}
+        {% for category in object.categories.all %}
+          <a href="{% url 'category:detail' category.slug %}">{{ category }}</a>{% if not forloop.last %},{% endif %}
+        {% endfor %}
+      </p>  
+    </div>
+
+    <div id="activity-share">
+      <div class="addthis_sharing_toolbox"></div>
+      {% if object.short_url %}
+        <p>
+          {% trans 'Short url:' %}
+          <a href="{{ object.get_full_short_url }}" target="_blank">{{ object.get_full_short_url }}</a>
+        </p>
+      {% endif %}
+    </div>
+  </div>
+
+  <h4>{% trans 'Activities' %}</h4>
   <div class="row masonry-grid">
     {% for activity in object.activities.is_public.get_next %}
       <div class="col s12 m4 l4">
@@ -20,3 +71,65 @@
     {% endfor %}
   </div>
 {% endblock content %}
+
+{% block extra_js %}
+  <script type="text/javascript">
+    function initMap() {
+      var mapElement = $('#id_map')[0];
+      var place_id = $('#id_place_id').val();
+      var geocoder = new google.maps.Geocoder();
+      var infowindow = new google.maps.InfoWindow();
+
+      if (!mapElement) {
+        return;
+      }
+
+      var mapOptions = {
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        scrollwheel: false,
+      };
+
+      var map = new google.maps.Map(mapElement, mapOptions);
+      var marker = new google.maps.Marker({
+        map: map
+      });
+
+      if (geocoder && place_id) {
+        geocoder.geocode({'placeId': place_id}, function(results, status) {
+          if (status == google.maps.GeocoderStatus.OK) {
+            if (status != google.maps.GeocoderStatus.ZERO_RESULTS) {
+              var place = results[0];
+
+              var placeService = new google.maps.places.PlacesService(map);
+              placeService.getDetails({placeId: place.place_id}, function(place, status) {
+                if (status === google.maps.places.PlacesServiceStatus.OK) {
+                  map.setCenter(place.geometry.location);
+
+                  if (place.geometry.viewport) {
+                    map.fitBounds(place.geometry.viewport);
+                  } else {
+                    map.setCenter(place.geometry.location);
+                    map.setZoom(16);
+                  }
+
+                  marker.setPosition(place.geometry.location);
+                  marker.setVisible(true);
+
+                  infowindow.setContent(
+                    '<div><strong>' + place.name +'</strong><br>' +
+                    place.formatted_address
+                  );
+                  infowindow.open(map, marker);
+                }
+              });
+            }
+          } else {
+            console.log("Geocode was not successful for the following reason: " + status);
+          }
+        });
+      }
+    }
+  </script>
+
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&language=pt_BR&callback=initMap&key=AIzaSyBV3lW1KqWSTZAeDQiMgmGUt2o7QcV8BHk"></script>
+{% endblock extra_js %}
