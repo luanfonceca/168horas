@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-04 14:54-0300\n"
-"PO-Revision-Date: 2016-10-04 14:55-0300\n"
+"POT-Creation-Date: 2016-10-13 13:45-0300\n"
+"PO-Revision-Date: 2016-10-13 13:47-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -149,7 +149,7 @@ msgstr "Compilações"
 msgid "Activity"
 msgstr "Atividade"
 
-#: activity/models.py:110 activity/templates/compilation/detail.html:46
+#: activity/models.py:110 activity/templates/compilation/detail.html:56
 #: activity/views.py:62 activity/views.py:83
 msgid "Activities"
 msgstr "Atividades"
@@ -181,7 +181,7 @@ msgstr ""
 "importante para outros alunos."
 
 #: activity/templates/activity/delete.html:14
-#: activity/templates/activity/form.html:109
+#: activity/templates/activity/form.html:110
 #: attendee/templates/attendee/form.html:58
 #: category/templates/category/delete.html:13
 #: category/templates/category/form.html:17
@@ -189,7 +189,7 @@ msgstr ""
 #: core/templates/account/password_reset.html:23
 #: core/templates/contact.html:29 core/templates/profile.html:93
 #: event/templates/event/delete.html:14 event/templates/event/form.html:81
-#: proposal/templates/proposal/form.html:103
+#: proposal/templates/proposal/form.html:158
 #: ticket/templates/ticket/form.html:24
 msgid "back"
 msgstr "voltar"
@@ -202,31 +202,35 @@ msgid "Delete"
 msgstr "Remover"
 
 #: activity/templates/activity/detail.html:24
-#: activity/templates/compilation/detail.html:14
-#: attendee/templates/attendee/certificate.html:62
+#: activity/templates/compilation/detail.html:15
+#: attendee/templates/attendee/certificate.html:64
 msgid "Date:"
 msgstr "Data:"
 
 #: activity/templates/activity/detail.html:26
+#: activity/templates/compilation/detail.html:17
+#: attendee/templates/attendee/certificate.html:66
 msgid "From"
 msgstr "De"
 
 #: activity/templates/activity/detail.html:28
+#: activity/templates/compilation/detail.html:19
+#: attendee/templates/attendee/certificate.html:68
 msgid "to"
 msgstr "até"
 
 #: activity/templates/activity/detail.html:41
-#: activity/templates/compilation/detail.html:22
+#: activity/templates/compilation/detail.html:32
 msgid "Local:"
 msgstr "Local:"
 
 #: activity/templates/activity/detail.html:47
-#: activity/templates/compilation/detail.html:28
+#: activity/templates/compilation/detail.html:38
 msgid "Categories:"
 msgstr "Categorias:"
 
 #: activity/templates/activity/detail.html:58
-#: activity/templates/compilation/detail.html:39
+#: activity/templates/compilation/detail.html:49
 msgid "Short url:"
 msgstr "Url curta:"
 
@@ -273,14 +277,14 @@ msgstr ""
 msgid "Are you the Organizer of this activity?"
 msgstr "Você é o Organizador desta atividade?"
 
-#: activity/templates/activity/form.html:86
+#: activity/templates/activity/form.html:87
 msgid "Online only activity?"
 msgstr "Atividade online?"
 
-#: activity/templates/activity/form.html:113
+#: activity/templates/activity/form.html:114
 #: attendee/templates/attendee/form.html:62
 #: category/templates/category/form.html:21 core/templates/contact.html:33
-#: core/templates/profile.html:97 proposal/templates/proposal/form.html:107
+#: core/templates/profile.html:97 proposal/templates/proposal/form.html:162
 #: ticket/templates/ticket/form.html:28
 msgid "Save"
 msgstr "Salvar"
@@ -295,8 +299,8 @@ msgid "Actions"
 msgstr "Ações"
 
 #: activity/templates/activity/includes/action-button.html:20
-#: proposal/models.py:93 proposal/views.py:59 proposal/views.py:139
-#: proposal/views.py:224 proposal/views.py:254
+#: proposal/models.py:96 proposal/views.py:59 proposal/views.py:139
+#: proposal/views.py:229 proposal/views.py:259
 msgid "Proposals"
 msgstr "Propostas"
 
@@ -335,7 +339,7 @@ msgstr "Participar"
 #: activity/templates/activity/includes/action-button.html:60
 #: activity/templates/activity/includes/card.html:51 activity/views.py:137
 #: attendee/templates/attendee/detail.html:18 attendee/views.py:273
-#: attendee/views.py:286 proposal/views.py:211 proposal/views.py:227
+#: attendee/views.py:286 proposal/views.py:216 proposal/views.py:232
 msgid "Update"
 msgstr "Atualizar"
 
@@ -361,7 +365,7 @@ msgstr "Próximas atividades"
 
 #: activity/templates/activity/list.html:42
 #: activity/templates/activity/list_by_category.html:42
-#: activity/templates/compilation/detail.html:55
+#: activity/templates/compilation/detail.html:65
 #: category/templates/category/detail.html:47
 #: category/templates/category/list.html:28
 #: core/templates/my_certificates.html:47
@@ -370,7 +374,7 @@ msgstr "Infelizmente, não temos nenhuma atividade na área. Espalhe a educaçã
 
 #: activity/templates/activity/list.html:44
 #: activity/templates/activity/list_by_category.html:44
-#: activity/templates/compilation/detail.html:57
+#: activity/templates/compilation/detail.html:67
 #: category/templates/category/detail.html:49
 #: category/templates/category/list.html:30
 #: core/templates/my_certificates.html:49
@@ -481,7 +485,9 @@ msgstr "Nome"
 #: category/views.py:51 core/forms.py:25 core/forms.py:26 proposal/forms.py:8
 #: proposal/forms.py:10 proposal/forms.py:12 proposal/forms.py:14
 #: proposal/forms.py:16 proposal/forms.py:32 proposal/forms.py:34
-#: proposal/forms.py:36 proposal/models.py:144 ticket/models.py:19
+#: proposal/forms.py:36 proposal/forms.py:53 proposal/forms.py:55
+#: proposal/forms.py:57 proposal/forms.py:59 proposal/forms.py:61
+#: proposal/models.py:147 ticket/models.py:19
 msgid "Name"
 msgstr "Nome"
 
@@ -660,7 +666,8 @@ msgstr "Nome Completo"
 #: core/forms.py:29 proposal/forms.py:9 proposal/forms.py:11
 #: proposal/forms.py:13 proposal/forms.py:15 proposal/forms.py:17
 #: proposal/forms.py:33 proposal/forms.py:35 proposal/forms.py:37
-#: proposal/models.py:145
+#: proposal/forms.py:54 proposal/forms.py:56 proposal/forms.py:58
+#: proposal/forms.py:60 proposal/forms.py:62 proposal/models.py:148
 msgid "Email"
 msgstr "Email"
 
@@ -803,22 +810,22 @@ msgstr "Nós certificamos que:"
 msgid "Has attended to:"
 msgstr "Compareceu ao:"
 
-#: attendee/templates/attendee/certificate.html:64
+#: attendee/templates/attendee/certificate.html:76
 msgid "Hours:"
 msgstr "Horas:"
 
-#: attendee/templates/attendee/certificate.html:64
+#: attendee/templates/attendee/certificate.html:76
 #, python-format
 msgid "%(hours)s hour"
 msgid_plural "%(hours)s hours"
 msgstr[0] "%(hours)s hora"
 msgstr[1] "%(hours)s horas"
 
-#: attendee/templates/attendee/certificate.html:66
+#: attendee/templates/attendee/certificate.html:78
 msgid "Organizer:"
 msgstr "Organizador:"
 
-#: attendee/templates/attendee/certificate.html:72
+#: attendee/templates/attendee/certificate.html:84
 msgid ""
 "To confirm the authenticity of this certificate, open the following URL:"
 msgstr "Para confirmar a autenticidade deste certificado, abra a seguinte URL:"
@@ -1288,7 +1295,7 @@ msgstr "Esse usuário já faz parte desta atividade!"
 msgid "Successfully joined up for this activity!"
 msgstr "Inscrito com sucesso nesta atividade!"
 
-#: attendee/views.py:214 proposal/views.py:193
+#: attendee/views.py:214 proposal/views.py:198
 msgid "Successfully joined up for the pre-sale of this activity!"
 msgstr "Inscrito com sucesso na pré-venda desta atividade!"
 
@@ -1463,8 +1470,8 @@ msgstr "Ou usando seu nome de usuário e senha"
 msgid "Forgot Password?"
 msgstr "Esqueceu sua Senha?"
 
-#: core/templates/account/login.html:50 core/templates/base.html:90
-#: core/templates/base.html.py:135 core/views.py:93
+#: core/templates/account/login.html:50 core/templates/base.html:96
+#: core/templates/base.html.py:141 core/views.py:109
 msgid "Sign In"
 msgstr "Acessar"
 
@@ -1486,8 +1493,8 @@ msgid "Password successfully set."
 msgstr "Senha definida com sucesso."
 
 #: core/templates/account/password_change.html:5
-#: core/templates/account/password_change.html:30 core/views.py:104
-#: core/views.py:128 core/views.py:135
+#: core/templates/account/password_change.html:30 core/views.py:120
+#: core/views.py:144 core/views.py:151
 msgid "Change Password"
 msgstr "Alterar Senha"
 
@@ -1534,7 +1541,7 @@ msgstr ""
 msgid "Your password is now changed."
 msgstr "Sua senha foi alterada."
 
-#: core/templates/account/password_set.html:9 core/views.py:110
+#: core/templates/account/password_set.html:9 core/views.py:126
 msgid "Set Password"
 msgstr "Preencher Senha"
 
@@ -1553,7 +1560,7 @@ msgstr ""
 "Por favor acesse com uma\n"
 "    de suas contas."
 
-#: core/templates/account/signup.html:55 core/views.py:98
+#: core/templates/account/signup.html:55 core/views.py:114
 msgid "Sign Up"
 msgstr "Cadastre-se"
 
@@ -1578,29 +1585,41 @@ msgstr "Meus Certificados"
 msgid "Logout"
 msgstr "Sair"
 
-#: core/templates/base.html:78 core/templates/base.html.py:124
-#: core/views.py:37
+#: core/templates/base.html:84 core/templates/base.html.py:130
+#: core/views.py:38
 msgid "Features"
 msgstr ""
 
-#: core/templates/base.html:84 core/templates/base.html.py:130
-#: core/views.py:53
+#: core/templates/base.html:90 core/templates/base.html.py:136
+#: core/views.py:54
 msgid "Get in touch"
 msgstr "Entre em contato"
 
-#: core/views.py:56
+#: core/templates/my_certificates.html:35
+msgid "You are not marked as attended."
+msgstr "Você não está marcado como credenciado."
+
+#: core/templates/my_certificates.html:36
+msgid "Ask for Certificate"
+msgstr "Pedir Certificado"
+
+#: core/templatetags/tags.py:89
+msgid "I need the certificate from {}"
+msgstr "Eu preciso do certificado do \"{}\"!"
+
+#: core/views.py:57
 msgid "Thanks, we will contact you soon!"
 msgstr "Obrigado, nós iremos te contactar em breve!"
 
-#: core/views.py:78
+#: core/views.py:79
 msgid "Profile update"
 msgstr "Atualizar perfil"
 
-#: core/views.py:81
+#: core/views.py:82
 msgid "Profile updated."
 msgstr "Perfil atualizado."
 
-#: core/views.py:116 core/views.py:122
+#: core/views.py:132 core/views.py:138
 msgid "Password Reset"
 msgstr "Redefinir Senha"
 
@@ -1744,15 +1763,19 @@ msgstr ""
 msgid "Justificativa"
 msgstr ""
 
-#: proposal/models.py:92
+#: proposal/models.py:91
+msgid "Pré-requisitos"
+msgstr ""
+
+#: proposal/models.py:95
 msgid "Proposal"
 msgstr "Proposta"
 
-#: proposal/models.py:129 proposal/models.py:167
+#: proposal/models.py:132 proposal/models.py:170
 msgid "Submited Proposal to the \"{}\"!"
 msgstr "Proposta submetida para \"{}\"!"
 
-#: proposal/models.py:155 proposal/models.py:156
+#: proposal/models.py:158 proposal/models.py:159
 msgid "Author"
 msgstr "Ministrante"
 
@@ -1820,11 +1843,11 @@ msgstr "Infelizmente, não dispomos de propostas nessa atividade."
 msgid "Unfortunately, we have no proposals in this activity."
 msgstr "Infelizmente, não dispomos de propostas nessa atividade."
 
-#: proposal/views.py:213
+#: proposal/views.py:218
 msgid "Proposal updated."
 msgstr "Proposta atualizada."
 
-#: proposal/views.py:241
+#: proposal/views.py:246
 #, python-brace-format
 msgid "{proposal}"
 msgstr ""

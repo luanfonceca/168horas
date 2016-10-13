@@ -86,4 +86,4 @@ def get_organizer_email(attendee):
 
 @register.filter
 def get_certificate_subject(attendee):
-    return _('I need the certificate from {}'.format(attendee.activity))
+    return _('I need the certificate from {}').format(attendee.activity)
