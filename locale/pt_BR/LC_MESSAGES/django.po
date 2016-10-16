@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-13 14:12-0300\n"
-"PO-Revision-Date: 2016-10-16 13:41-0300\n"
+"POT-Creation-Date: 2016-10-16 15:32-0200\n"
+"PO-Revision-Date: 2016-10-16 14:34-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -135,7 +135,7 @@ msgstr "Categorias"
 #: activity/models.py:92
 #: activity/templates/activity/includes/action-button.html:14
 #: attendee/models.py:204 attendee/views.py:72 attendee/views.py:255
-#: attendee/views.py:367
+#: attendee/views.py:398
 msgid "Attendees"
 msgstr "Participantes"
 
@@ -182,7 +182,7 @@ msgstr ""
 
 #: activity/templates/activity/delete.html:14
 #: activity/templates/activity/form.html:110
-#: attendee/templates/attendee/form.html:58
+#: attendee/templates/attendee/form.html:61
 #: category/templates/category/delete.html:13
 #: category/templates/category/form.html:17
 #: core/templates/account/password_change.html:26
@@ -282,7 +282,7 @@ msgid "Online only activity?"
 msgstr "Atividade online?"
 
 #: activity/templates/activity/form.html:114
-#: attendee/templates/attendee/form.html:62
+#: attendee/templates/attendee/form.html:65
 #: category/templates/category/form.html:21 core/templates/contact.html:33
 #: core/templates/profile.html:97 proposal/templates/proposal/form.html:162
 #: ticket/templates/ticket/form.html:28
@@ -294,7 +294,7 @@ msgstr "Salvar"
 #: attendee/templates/attendee/includes/card.html:17
 #: attendee/templates/attendee/list.html:13
 #: category/templates/category/detail.html:9
-#: core/templates/my_certificates.html:30 ticket/templates/ticket/list.html:8
+#: core/templates/my_certificates.html:44 ticket/templates/ticket/list.html:8
 msgid "Actions"
 msgstr "Ações"
 
@@ -309,7 +309,7 @@ msgstr "Propostas"
 #: attendee/templates/attendee/detail.html:31
 #: attendee/templates/attendee/detail.html:59
 #: attendee/templates/attendee/includes/card.html:35
-#: core/templates/my_certificates.html:43
+#: core/templates/my_certificates.html:57
 msgid "Open certificate"
 msgstr "Abrir certificado"
 
@@ -339,7 +339,7 @@ msgstr "Participar"
 #: activity/templates/activity/includes/action-button.html:60
 #: activity/templates/activity/includes/card.html:51 activity/views.py:137
 #: attendee/templates/attendee/detail.html:18 attendee/views.py:273
-#: attendee/views.py:286 core/templates/my_certificates.html:36
+#: attendee/views.py:307 core/templates/my_certificates.html:50
 #: proposal/views.py:216 proposal/views.py:232
 msgid "Update"
 msgstr "Atualizar"
@@ -369,7 +369,7 @@ msgstr "Próximas atividades"
 #: activity/templates/compilation/detail.html:65
 #: category/templates/category/detail.html:47
 #: category/templates/category/list.html:28
-#: core/templates/my_certificates.html:63
+#: core/templates/my_certificates.html:77
 msgid "Unfortunately, we have no activities in the area. Spread education."
 msgstr "Infelizmente, não temos nenhuma atividade na área. Espalhe a educação."
 
@@ -378,7 +378,7 @@ msgstr "Infelizmente, não temos nenhuma atividade na área. Espalhe a educaçã
 #: activity/templates/compilation/detail.html:67
 #: category/templates/category/detail.html:49
 #: category/templates/category/list.html:30
-#: core/templates/my_certificates.html:65
+#: core/templates/my_certificates.html:79
 msgid "Tell us an activity!"
 msgstr "Indique-nos uma atividade!"
 
@@ -910,7 +910,7 @@ msgstr "Informações do pagamento"
 msgid "None"
 msgstr "Nenhum"
 
-#: attendee/templates/attendee/form.html:43
+#: attendee/templates/attendee/form.html:46
 msgid ""
 "Before saving, review your information like your full name and cpf, they "
 "will be used in your Certificate!"
@@ -918,7 +918,7 @@ msgstr ""
 "Antes de salvar, revise suas informações como seu Nome Completo e CPF, eles "
 "serão usados em seu Certificado!"
 
-#: attendee/templates/attendee/form.html:50
+#: attendee/templates/attendee/form.html:53
 msgid ""
 "If you already deliver your Certificate we recomend you to re-send it with "
 "the fixed information."
@@ -944,8 +944,8 @@ msgstr "Enviar certificados"
 msgid "Check all"
 msgstr "Credenciar todos"
 
-#: attendee/templates/attendee/list.html:37 attendee/views.py:356
-#: attendee/views.py:370
+#: attendee/templates/attendee/list.html:37 attendee/views.py:387
+#: attendee/views.py:401
 msgid "Shuffle"
 msgstr "Sorteio"
 
@@ -1309,29 +1309,33 @@ msgstr ""
 msgid "Attendee updated."
 msgstr "Participante atualizado."
 
-#: attendee/views.py:313
+#: attendee/views.py:313 core/templates/base.html:74 core/views.py:99
+msgid "My Certificates"
+msgstr "Meus Certificados"
+
+#: attendee/views.py:344
 #, python-brace-format
 msgid "Successfully checked in the attendee \"{0}\"!"
 msgstr "Registrado com sucesso o participante \"{0}\"!"
 
-#: attendee/views.py:338
+#: attendee/views.py:369
 #, python-brace-format
 msgid "Successfully unchecked the attendee \"{0}\"!"
 msgstr "Descredenciado com sucesso o participante \"{0}\"!"
 
-#: attendee/views.py:349
+#: attendee/views.py:380
 msgid "Certificate"
 msgstr "Certificado"
 
-#: attendee/views.py:388
+#: attendee/views.py:419
 msgid "You don't have Attendees checked yet!"
 msgstr "Você não tem nenhum Participante credenciado ainda!"
 
-#: attendee/views.py:410
+#: attendee/views.py:441
 msgid "Payment"
 msgstr "Pagamento"
 
-#: attendee/views.py:492
+#: attendee/views.py:523
 #, python-brace-format
 msgid "Successfully confirmed the attendee \"{0}\"!"
 msgstr "Confirmado com sucesso o participante \"{0}\"!"
@@ -1472,7 +1476,7 @@ msgid "Forgot Password?"
 msgstr "Esqueceu sua Senha?"
 
 #: core/templates/account/login.html:50 core/templates/base.html:96
-#: core/templates/base.html.py:141 core/views.py:109
+#: core/templates/base.html.py:141 core/views.py:132
 msgid "Sign In"
 msgstr "Acessar"
 
@@ -1494,8 +1498,8 @@ msgid "Password successfully set."
 msgstr "Senha definida com sucesso."
 
 #: core/templates/account/password_change.html:5
-#: core/templates/account/password_change.html:30 core/views.py:120
-#: core/views.py:144 core/views.py:151
+#: core/templates/account/password_change.html:30 core/views.py:143
+#: core/views.py:167 core/views.py:174
 msgid "Change Password"
 msgstr "Alterar Senha"
 
@@ -1542,7 +1546,7 @@ msgstr ""
 msgid "Your password is now changed."
 msgstr "Sua senha foi alterada."
 
-#: core/templates/account/password_set.html:9 core/views.py:126
+#: core/templates/account/password_set.html:9 core/views.py:149
 msgid "Set Password"
 msgstr "Preencher Senha"
 
@@ -1561,7 +1565,7 @@ msgstr ""
 "Por favor acesse com uma\n"
 "    de suas contas."
 
-#: core/templates/account/signup.html:55 core/views.py:114
+#: core/templates/account/signup.html:55 core/views.py:137
 msgid "Sign Up"
 msgstr "Cadastre-se"
 
@@ -1578,33 +1582,56 @@ msgstr "você está conectado como %(user_display)s."
 msgid "Index"
 msgstr "Início"
 
-#: core/templates/base.html:74 core/views.py:96
-msgid "My Certificates"
-msgstr "Meus Certificados"
-
 #: core/templates/base.html:78 core/templates/base.html.py:124
 msgid "Logout"
 msgstr "Sair"
 
 #: core/templates/base.html:84 core/templates/base.html.py:130
-#: core/views.py:38
+#: core/views.py:41
 msgid "Features"
 msgstr ""
 
 #: core/templates/base.html:90 core/templates/base.html.py:136
-#: core/views.py:54
+#: core/views.py:57
 msgid "Get in touch"
 msgstr "Entre em contato"
 
-#: core/templates/my_certificates.html:35
+#: core/templates/my_certificates.html:10
+#, python-format
+msgid ""
+"\n"
+"          You already joined on <strong>%(total)s</strong> activity and "
+"attended to <strong>%(attended_total)s</strong>. Adding to you <strong>"
+"%(hours)s</strong> complementary hours!\n"
+"        "
+msgid_plural ""
+"\n"
+"          You already joined on <strong>%(total)s</strong> activities and "
+"attended to <strong>%(attended_total)s</strong>. Adding to you <strong>"
+"%(hours)s</strong> complementary hours!\n"
+"        "
+msgstr[0] ""
+"\n"
+"          Você já participou de <strong>%(total)s</strong> atividade e "
+"compareceu à <strong>%(attended_total)s</strong>. Somando <strong>%(hours)s</"
+"strong> horas complementares!\n"
+"        "
+msgstr[1] ""
+"\n"
+"          Você já participou de <strong>%(total)s</strong> atividades e "
+"compareceu à <strong>%(attended_total)s</strong>. Somando <strong>%(hours)s</"
+"strong> horas complementares!\n"
+"        "
+
+#: core/templates/my_certificates.html:49
 msgid "Update your information."
 msgstr "Atualize suas informações."
 
-#: core/templates/my_certificates.html:49
+#: core/templates/my_certificates.html:63
 msgid "You are not marked as attended."
 msgstr "Você não está marcado como credenciado."
 
-#: core/templates/my_certificates.html:50
+#: core/templates/my_certificates.html:64
 msgid "Ask for Certificate"
 msgstr "Pedir Certificado"
 
@@ -1612,19 +1639,19 @@ msgstr "Pedir Certificado"
 msgid "I need the certificate from {}"
 msgstr "Eu preciso do certificado do \"{}\"!"
 
-#: core/views.py:57
+#: core/views.py:60
 msgid "Thanks, we will contact you soon!"
 msgstr "Obrigado, nós iremos te contactar em breve!"
 
-#: core/views.py:79
+#: core/views.py:82
 msgid "Profile update"
 msgstr "Atualizar perfil"
 
-#: core/views.py:82
+#: core/views.py:85
 msgid "Profile updated."
 msgstr "Perfil atualizado."
 
-#: core/views.py:132 core/views.py:138
+#: core/views.py:155 core/views.py:161
 msgid "Password Reset"
 msgstr "Redefinir Senha"
 

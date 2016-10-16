@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.db.models.functions import Coalesce
 from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import redirect
@@ -109,6 +110,22 @@ class MyCertificates(mixins.PageTitleMixin,
             '-activity__created_at', 'activity__title'
         )
         return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super(MyCertificates, self).get_context_data(**kwargs)
+        queryset = self.get_queryset()
+
+        attened_ones = queryset.exclude(attended_at__isnull=True)
+        total_hours = attened_ones.aggregate(
+            hours=Coalesce(models.Sum('activity__hours'), 0)
+        )
+
+        context.update(
+            total=queryset.count(),
+            attended_total=attened_ones.count(),
+            total_hours=total_hours.get('hours')
+        )
+        return context
 
 
 class CustomLoginView(mixins.PageTitleMixin, account_views.LoginView):

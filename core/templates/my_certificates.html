@@ -4,6 +4,20 @@
 {% load tags %}
 
 {% block content %}
+  {% if object_list.exists %}
+    <div class="row">
+      <h4 class="col s12 light">
+        {% blocktrans with hours=total_hours total=total attended_total=attended_total count total=total %}
+          You already joined on <strong>{{ total }}</strong> activity and attended to <strong>{{ attended_total }}</strong>. Adding to you <strong>{{ hours }}</strong> complementary hours!
+        {% plural %}
+          You already joined on <strong>{{ total }}</strong> activities and attended to <strong>{{ attended_total }}</strong>. Adding to you <strong>{{ hours }}</strong> complementary hours!
+        {% endblocktrans %}
+
+        <!--Você já participou de <strong>{{ object_list.count }}</strong> atividades educacionais e já contabilizou <strong>{{ object_list.total_hours }}</strong> em horas complementares!-->
+      </h4>  
+    </div>
+  {% endif %}
+
   <div class="row masonry-grid">
     {% for object in object_list %}
       <div class="col s12 m4 l4">
