@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from django.db import models
 from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import redirect
 from django.core.mail import send_mail
+from django.utils.timezone import datetime
 
 from vanilla import TemplateView, UpdateView, FormView
 from vanilla.model_views import ListView
@@ -100,8 +102,12 @@ class MyCertificates(mixins.PageTitleMixin,
 
     def get_queryset(self):
         queryset = super(MyCertificates, self).get_queryset()
-        queryset = queryset.filter(profile=self.request.user.profile)
-        queryset.order_by('activity__title')
+        queryset = queryset.filter(
+            profile=self.request.user.profile,
+            activity__start_scheduled_date__lte=datetime.today()
+        ).order_by(
+            '-activity__created_at', 'activity__title'
+        )
         return queryset
 
 
