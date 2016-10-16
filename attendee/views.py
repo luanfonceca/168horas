@@ -274,11 +274,32 @@ class AttendeeUpdate(BaseAttendeeView,
     lookup_field = 'code'
     success_message = _('Attendee updated.')
 
+    def get_context_data(self, **kwargs):
+        context = super(AttendeeUpdate, self).get_context_data(**kwargs)
+        if self.is_from_my_certificates_page:
+            context.update(
+                next='/accounts/my_certificates/'
+            )
+        return context
+
+    @property
+    def is_from_my_certificates_page(self):
+        my_certificates_url = '/accounts/my_certificates/'
+        referer = self.request.META.get('HTTP_REFERER')
+        next_url = self.request.POST.get('next')
+
+        if not referer and not next_url:
+            return False
+        return my_certificates_url in referer or next_url
+
     def get_breadcrumbs(self):
         self.activity = self.get_activity()
         self.object = self.get_object()
+        my_certificates_url = (
+            self.request.user.profile.get_my_certificates_url()
+        )
 
-        return [{
+        breadcrumbs = [{
             'url': self.activity.get_absolute_url(),
             'title': self.activity.title
         }, {
@@ -286,7 +307,17 @@ class AttendeeUpdate(BaseAttendeeView,
             'title': _('Update')
         }]
 
+        if self.is_from_my_certificates_page:
+            breadcrumbs.insert(1, {
+                'url': my_certificates_url,
+                'title': _('My Certificates')
+            })
+
+        return breadcrumbs
+
     def get_success_url(self):
+        if self.request.POST.get('next') is not None:
+            return self.request.user.profile.get_my_certificates_url()
         self.object = self.get_object()
         return self.object.get_absolute_url()
 

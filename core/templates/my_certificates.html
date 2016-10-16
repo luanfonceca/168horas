@@ -26,17 +26,33 @@
           {% endif %}
           <div class="card-action">
             <div class="center-align">
-              {% if object.attended_at %}
-                <a class="btn-large" style="width: 100%" href="{% url 'attendee:certificate' activity_slug=object.activity.slug code=object.code %}" target="_blank">
-                  {% trans 'Open certificate' %}
-                  <i class="material-icons right">file_download</i>
-                </a>
-              {% else %}
-                <a class="btn-large grey darken-2 tooltipped" style="width: 100%" href="mailto:{{ object|get_organizer_email }}?subject={{ object|get_certificate_subject }}" data-position="top" data-delay="50" data-tooltip="{% trans 'You are not marked as attended.' %}" target="_blank">
-                  {% trans 'Ask for Certificate' %}
-                  <i class="material-icons right">help</i>
-                </a>
-              {% endif %}
+              <a class="dropdown-button btn-large waves-effect waves-light" href="javascript:;" data-activates="activity-actions-{{ object.code }}" style="width: 100%;">
+                {% trans 'Actions' %}
+                <i class="material-icons right" style="line-height: 55px;">arrow_drop_down</i>
+              </a>
+              <ul id="activity-actions-{{ object.code }}" class="dropdown-content">
+                <li>
+                  <a href="{{ object.get_update_url }}" class="tooltipped blue-text text-darken-4" data-position="top" data-delay="50" data-tooltip="{% trans 'Update your information.' %}">
+                    {% trans 'Update' %}
+                    <i class="material-icons right">edit</i>
+                  </a>
+                </li>
+                {% if object.attended_at %}
+                  <li>
+                    <a href="{% url 'attendee:certificate' activity_slug=object.activity.slug code=object.code %}" class="blue-text text-darken-4">
+                      {% trans 'Open certificate' %}
+                      <i class="material-icons right">file_download</i>
+                    </a>
+                  </li>
+                {% else %}
+                  <li>
+                    <a href="mailto:{{ object|get_organizer_email }}?subject={{ object|get_certificate_subject }}" data-position="top" data-delay="50" data-tooltip="{% trans 'You are not marked as attended.' %}" target="_blank" class="tooltipped blue-text text-darken-4">
+                      {% trans 'Ask for Certificate' %}
+                      <i class="material-icons right">help</i>
+                    </a>
+                  </li>
+                {% endif %}
+              </ul>
             </div>
           </div>
         </div>

@@ -9,6 +9,9 @@
 {% block content %}
   <form method="POST" name="join_form" id="id_join_form">
     {% csrf_token %}
+    {% if next %}
+      <input type="hidden" id="id_next" name="next" value="{{ next }}"/>
+    {% endif %}
 
     <div class="row">
       {% include "includes/field.html" with field=form.name col_sizes='s12 m6' %}

@@ -362,6 +362,7 @@ class Attendee(models.Model):
         ]
         if self.moip_status in confirmation_status:
             self.status = Attendee.CONFIRMED
+            self.send_payment_confirmation()
 
         self.save()
 
@@ -375,11 +376,6 @@ def send_attendee_joined_email(sender, instance, created, **kwargs):
         instance.activity.notify_pre_sale_organizer(instance)
     else:
         instance.send_welcome_email()
-
-
-def send_payment_confirmation_email(sender, instance, created, **kwargs):
-    if instance.activity.price and instance.status == Attendee.CONFIRMED:
-        instance.send_payment_confirmation()
 
 
 def update_user_profile(sender, instance, created, **kwargs):
@@ -402,5 +398,4 @@ def update_user_profile(sender, instance, created, **kwargs):
 
 
 post_save.connect(send_attendee_joined_email, sender=Attendee)
-post_save.connect(send_payment_confirmation_email, sender=Attendee)
 post_save.connect(update_user_profile, sender=Attendee)

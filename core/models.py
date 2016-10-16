@@ -40,6 +40,9 @@ class Profile(models.Model):
     def get_absolute_url(self):
         return reverse_lazy('profile')
 
+    def get_my_certificates_url(self):
+        return reverse_lazy('my_certificates')
+
     @property
     def ident(self):
         return self.cpf or self.cnpj

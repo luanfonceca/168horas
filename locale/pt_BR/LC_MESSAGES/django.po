@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-13 13:45-0300\n"
-"PO-Revision-Date: 2016-10-13 13:47-0300\n"
+"POT-Creation-Date: 2016-10-13 14:12-0300\n"
+"PO-Revision-Date: 2016-10-13 14:13-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -294,7 +294,7 @@ msgstr "Salvar"
 #: attendee/templates/attendee/includes/card.html:17
 #: attendee/templates/attendee/list.html:13
 #: category/templates/category/detail.html:9
-#: ticket/templates/ticket/list.html:8
+#: core/templates/my_certificates.html:30 ticket/templates/ticket/list.html:8
 msgid "Actions"
 msgstr "Ações"
 
@@ -309,7 +309,7 @@ msgstr "Propostas"
 #: attendee/templates/attendee/detail.html:31
 #: attendee/templates/attendee/detail.html:59
 #: attendee/templates/attendee/includes/card.html:35
-#: core/templates/my_certificates.html:31
+#: core/templates/my_certificates.html:43
 msgid "Open certificate"
 msgstr "Abrir certificado"
 
@@ -339,7 +339,8 @@ msgstr "Participar"
 #: activity/templates/activity/includes/action-button.html:60
 #: activity/templates/activity/includes/card.html:51 activity/views.py:137
 #: attendee/templates/attendee/detail.html:18 attendee/views.py:273
-#: attendee/views.py:286 proposal/views.py:216 proposal/views.py:232
+#: attendee/views.py:286 core/templates/my_certificates.html:36
+#: proposal/views.py:216 proposal/views.py:232
 msgid "Update"
 msgstr "Atualizar"
 
@@ -368,7 +369,7 @@ msgstr "Próximas atividades"
 #: activity/templates/compilation/detail.html:65
 #: category/templates/category/detail.html:47
 #: category/templates/category/list.html:28
-#: core/templates/my_certificates.html:47
+#: core/templates/my_certificates.html:63
 msgid "Unfortunately, we have no activities in the area. Spread education."
 msgstr "Infelizmente, não temos nenhuma atividade na área. Espalhe a educação."
 
@@ -377,7 +378,7 @@ msgstr "Infelizmente, não temos nenhuma atividade na área. Espalhe a educaçã
 #: activity/templates/compilation/detail.html:67
 #: category/templates/category/detail.html:49
 #: category/templates/category/list.html:30
-#: core/templates/my_certificates.html:49
+#: core/templates/my_certificates.html:65
 msgid "Tell us an activity!"
 msgstr "Indique-nos uma atividade!"
 
@@ -1596,10 +1597,14 @@ msgid "Get in touch"
 msgstr "Entre em contato"
 
 #: core/templates/my_certificates.html:35
+msgid "Update your information."
+msgstr "Atualize suas informações."
+
+#: core/templates/my_certificates.html:49
 msgid "You are not marked as attended."
 msgstr "Você não está marcado como credenciado."
 
-#: core/templates/my_certificates.html:36
+#: core/templates/my_certificates.html:50
 msgid "Ask for Certificate"
 msgstr "Pedir Certificado"
 
