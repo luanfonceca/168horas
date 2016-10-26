@@ -12,6 +12,36 @@
       </p>
     {% endif %}
 
+    {% if object.carga_horaria %}
+      <p>
+        Carga Horária: {{ object.get_carga_horaria_display }}        
+      </p>
+    {% endif %}
+
+    {% if object.quantidade_de_vagas %}
+      <p>
+        Quantidade de Vagas: {{ object.quantidade_de_vagas }}        
+      </p>
+    {% endif %}
+
+    {% if object.justificativa %}
+      <p>
+        Justificativa: {{ object.justificativa }}        
+      </p>
+    {% endif %}
+
+    {% if object.objetivos %}
+      <p>
+        Objetivos: {{ object.objetivos }}        
+      </p>
+    {% endif %}
+
+    {% if object.materiais %}
+      <p>
+        Materiais Necessários: {{ object.materiais }}        
+      </p>
+    {% endif %}
+
     <p>
       Enviado por: 
       {{ object.created_by.user.get_full_name }} - {{ object.created_by.user.email }}
