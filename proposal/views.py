@@ -111,9 +111,12 @@ class ProposalList(BaseProposalView,
         queryset = super(ProposalList, self).get_queryset()
         self.activity = self.get_activity()
         user = self.request.user
+        is_organizer = self.activity.organizers.filter(
+            pk=user.profile.pk
+        ).exists()
         queryset = queryset.filter(activity=self.activity)
 
-        if not user.is_staff and user.profile != self.activity.created_by:
+        if not user.is_staff or is_organizer:
             queryset = queryset.filter(created_by=user.profile)
 
         search = self.request.GET.get('search')
@@ -192,7 +195,6 @@ class ProposalCreate(BaseProposalView,
                 email=data.get('author5_email'),
                 proposal=self.object
             )
-
 
         message = _(
             'Successfully joined up for the pre-sale of this activity!'
