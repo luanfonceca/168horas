@@ -43,12 +43,12 @@
     {% endif %}
 
     <p>
-      Enviado por: 
+      <strong>Enviado por:</strong>
       {{ object.created_by.user.get_full_name }} - {{ object.created_by.user.email }}
     </p>
     {% if object.authors.exists %}
       <p>
-        {% if activity.slug == 'sipex-minicursos' %}Ministrantes: {% else %}Autor: {% endif %}
+        <strong>{% if activity.slug == 'sipex-minicursos' %}Ministrantes: {% else %}Autor: {% endif %}</strong>
         {% for ministrante in object.authors.all %}
           {{ ministrante.name }} - {{ ministrante.email }}{% if not forloop.last %},{% endif %}
         {% endfor %}
@@ -57,7 +57,7 @@
 
     {% if object.document %}
       <p>
-        Documento: 
+        <strong>Documento:</strong>
         {% if object.document %}
           <a href="{{ object.document.url }}" target="_blank">
             {{ object.document.name }}
