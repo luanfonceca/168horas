@@ -116,7 +116,7 @@ class ProposalList(BaseProposalView,
         ).exists()
         queryset = queryset.filter(activity=self.activity)
 
-        if not user.is_staff or is_organizer:
+        if not user.is_staff or not is_organizer:
             queryset = queryset.filter(created_by=user.profile)
 
         search = self.request.GET.get('search')
