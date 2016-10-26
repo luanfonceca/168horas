@@ -8,37 +8,37 @@
 
     {% if object.pre_requisitos %}
       <p>
-        Pré-requisitos: {{ object.pre_requisitos }}        
+        <strong>Pré-requisitos:</strong> {{ object.pre_requisitos }}        
       </p>
     {% endif %}
 
     {% if object.carga_horaria %}
       <p>
-        Carga Horária: {{ object.get_carga_horaria_display }}        
+        <strong>Carga Horária:</strong> {{ object.get_carga_horaria_display }}        
       </p>
     {% endif %}
 
     {% if object.quantidade_de_vagas %}
       <p>
-        Quantidade de Vagas: {{ object.quantidade_de_vagas }}        
+        <strong>Quantidade de Vagas:</strong> {{ object.quantidade_de_vagas }}        
       </p>
     {% endif %}
 
     {% if object.justificativa %}
       <p>
-        Justificativa: {{ object.justificativa }}        
+        <strong>Justificativa:</strong> {{ object.justificativa }}        
       </p>
     {% endif %}
 
     {% if object.objetivos %}
       <p>
-        Objetivos: {{ object.objetivos }}        
+        <strong>Objetivos:</strong> {{ object.objetivos }}        
       </p>
     {% endif %}
 
     {% if object.materiais %}
       <p>
-        Materiais Necessários: {{ object.materiais }}        
+        <strong>Materiais Necessários:</strong> {{ object.materiais }}        
       </p>
     {% endif %}
 
