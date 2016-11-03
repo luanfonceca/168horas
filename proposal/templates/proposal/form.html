@@ -96,12 +96,77 @@
           {% include "includes/field.html" with field=form.author5_email %}
         </div>
       </div>
+    {% elif activity.slug == 'concurso-fotografico' %}
+      <div>
+        <h5>{% trans 'Description' %}</h5>
+        <p>O Concurso de Redação da SCTZN tem como finalidade promover a discussão em torno da temática da ciência e alimentação através de uma visão cultural e social com o uso da linguagem escrita. A temática do concurso está de acordo com o tema da SCTZN que é “Ciência alimentando o Brasil” e deverá ser organizada no gênero cordel.</p>
+      </div>
+
+      <ul class="collection with-header">
+        <li class="collection-header"><h4>Regras do concurso</h4></li>
+        <li class="collection-item">O concurso de fotografia da Mostra de Ciência e Tecnologia será promovido pelo Instituto Federal do Rio Grande do Norte – Campus Zona Norte e tem como objetivos: divulgar a cultura local; estabelecer a construção de relacionamento entre os participantes através da exposição de fotografias; e, promover o momento de descontração.</li>
+        <li class="collection-item">O Concurso Fotográfico visa promover a produção da fotografia artística feita pelos participantes Semana de Ciência e Tecnologia do IFRN Natal-Zona Norte (SCTZN), dentro da temática “Ciência alimentando o Brasil”.</li>
+        <li class="collection-item">Para participar do concurso, os interessados devem estar inscritos no evento.</li>
+        <li class="collection-item">Não haverá limite de fotografias artísticas por participante.</li>
+        <li class="collection-item">As imagens devem expressar o tema do concurso: “Ciência alimentando o Brasil”.</li>
+        <li class="collection-item">As inscrições para a modalidade Fotografia Artística são gratuitas e deverão ser realizadas no período de 07 a 10 novembro do corrente ano, até as 23h59m, no site do evento.</li>
+        <li class="collection-item">As fotografias deverão ser digitais, no formato JPEG, encaminhadas via o site do evento.</li>
+        <li class="collection-item">Os finalistas autorizam expressamente a Comissão da SCTZN a expor/utilizar seus nomes e suas imagens, em exposições e eventos e na divulgação do resultado do referido concurso.</li>
+        <li class="collection-item">Os finalistas não receberão nenhum tipo de remuneração em função do uso, exposição/utilização de seus nomes, suas imagens e sua(s) fotografia(s) ou por qualquer outra razão.</li>
+        <li class="collection-item">Os finalistas também autorizam a Comissão da SCTZN a utilizar/expor, posteriormente, suas fotografias, mediante o compromisso de sempre associar o crédito/citação do fotógrafo à fotografia, em exposições, retrospectivas e eventos promovidos pela instituição ou com sua parceria.</li>
+        <li class="collection-item">Os finalistas concordam, caso seja solicitado, em ser fotografados em local e data marcados pela Comissão.</li>
+        <li class="collection-item">O fotógrafo garante, na sua inscrição, a originalidade e autenticidade da fotografia de sua autoria, e tabém declara não haver qualquer restrição ou embaraço à sua exposição, publicação em livro e/ou sua divulgação na mídia.</li>
+        <li class="collection-item">Entende-se por finalistas, os participantes que conseguirem atingir mais pontos nos critérios avaliativos.</li>
+        <li class="collection-item">O concurso será de categoria única, Fotografia Artística, e classificará 3 imagens: 1º, 2º e 3º lugar.</li>
+        <li class="collection-item">As fotografias serão avaliadas quanto aos seus aspectos técnicos, estéticos, criativos, composição, originalidade, uso da luz, atendimento ao tema; e, quanto ao nível de comunicação do texto visual.</li>
+        <li class="collection-item">As fotografias concorrentes podem ser feitas com qualquer tipo de câmera fotográfica: compacta, celular, semiprofissional, profissional.</li>
+        <li class="collection-item">Será permitido o uso de programas de tratamento de imagens, montagens, manipulações diversas.</li>
+        <li class="collection-item">O julgamento e resultado final ocorrerá no último dia da realização da SCTZN.</li>
+        <li class="collection-item">A classificação das fotografias será realizada por uma Comissão Julgadora designada pela Comissão Principal.</li>
+        <li class="collection-item">As decisões da Comissão Julgadora são irrecorríveis, reservando-se a ela, todos os direitos que se fizerem necessários, não cabendo recurso posterior por parte dos inscritos, devido à ausência de tempo.</li>
+        <li class="collection-item">O resultado final do concurso fotográfico será divulgado durante a cerimônia de encerramento da SCTZN.</li>
+        <li class="collection-item">A realização da inscrição implicará na concordância e aceitação de todas as condições do presente Regulamento, por parte do inscrito/fotógrafo.</li>
+        <li class="collection-item">O não cumprimento de qualquer cláusula deste Regulamento implicará na desclassificação do fotógrafo e da sua fotografia.</li>
+        <li class="collection-item">As dúvidas e os casos omissos deste Regulamento serão resolvidos pela Comissão Julgadora.</li>
+      </ul>
+
+      <h5>Formulário</h5>
+      <div class="row" id="proposals">
+        {% include "includes/field.html" with field=form.title|append_attr:'placeholder:Título da Fotografia' col_sizes='s12' %}
+
+        {% include "includes/textarea.html" with field=form.brief col_sizes='s12' %}
+
+        {% include "includes/field.html" with field=form.author1_name %}
+
+        {% include "includes/field.html" with field=form.author1_email %}
+
+        {% include "includes/field.html" with field=form.author1_phone %}
+
+        <div class="file-field input-field col s12">
+          <div class="btn">
+            <span>Carregar Imagem</span>
+            {{ form.images|append_attr:'multiple:multiple' }}
+          </div>
+          <div class="file-path-wrapper">
+            <input class="file-path validate" type="text">
+          </div>
+          <br>
+          {% for error in form.images.errors %}
+            <p class="help-text caption red-text">{{ error }}</p>
+          {% endfor %}
+        </div>
+
+        {% include "includes/field.html" with field=form.camera %}
+
+        {% include "includes/field.html" with field=form.ferramenta %}
+      </div>
     {% else %}
       <div class="row" id="proposals">
         {% include "includes/field.html" with field=form.title col_sizes='s12' %}
 
         {% include "includes/textarea.html" with field=form.brief col_sizes='s12' %}
 
+        {% include "includes/field.html" with field=form.area col_sizes='s12' %}
         {% include "includes/field.html" with field=form.area col_sizes='s12' %}
 
         {% if form.document %}

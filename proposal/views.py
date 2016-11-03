@@ -14,9 +14,10 @@ from core.mixins import (
     FormValidRedirectMixing, LoginRequiredMixin
 )
 from activity.models import Activity
-from proposal.models import Proposal, Author
+from proposal.models import Proposal, Author, Images
 from proposal.forms import (
-    ProposalForm, CustomSIPAXProposalForm, CustomPainelTematicoProposalForm
+    ProposalForm, CustomSIPAXProposalForm, CustomPainelTematicoProposalForm,
+    CustomConcursoFotograficoProposalForm,
 )
 
 
@@ -155,6 +156,8 @@ class ProposalCreate(BaseProposalView,
             return CustomSIPAXProposalForm
         elif self.activity.slug == painel_tematico_slug:
             return CustomPainelTematicoProposalForm
+        elif self.activity.slug == 'concurso-fotografico':
+            return CustomConcursoFotograficoProposalForm
         return ProposalForm
 
     def form_valid(self, form):
@@ -169,7 +172,8 @@ class ProposalCreate(BaseProposalView,
             Author.objects.create(
                 name=data.get('author1_name'),
                 email=data.get('author1_email'),
-                proposal=self.object
+                proposal=self.object,
+                phone=data.get('author1_phone', None),
             )
         if data.get('author2_name') and data.get('author2_email'):
             Author.objects.create(
@@ -195,6 +199,13 @@ class ProposalCreate(BaseProposalView,
                 email=data.get('author5_email'),
                 proposal=self.object
             )
+        if self.request.FILES.getlist('images'):
+            images = self.request.FILES.getlist('images')
+            for image in images:
+                Images.objects.create(
+                    file=image,
+                    proposal=self.object
+                )
 
         message = _(
             'Successfully joined up for the pre-sale of this activity!'

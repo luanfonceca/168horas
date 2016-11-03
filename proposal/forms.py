@@ -71,3 +71,18 @@ class CustomPainelTematicoProposalForm(forms.ModelForm):
             'author4_name', 'author4_email',
             'author5_name', 'author5_email',
         )
+
+
+class CustomConcursoFotograficoProposalForm(forms.ModelForm):
+    author1_name = forms.CharField(label=_('Name'))
+    author1_email = forms.EmailField(label=_('Email'))
+    author1_phone = forms.CharField(label=_('Phone'))
+    images = forms.ImageField(label=_('Imagens'))
+
+    class Meta:
+        model = Proposal
+        fields = (
+            'title', 'brief', 'document',
+            'author1_name', 'author1_email', 'author1_phone',
+            'camera', 'ferramenta', 'images'
+        )

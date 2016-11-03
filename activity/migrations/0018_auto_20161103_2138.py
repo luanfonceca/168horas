@@ -7,13 +7,13 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('activity', '0012_activity_organizers'),
+        ('activity', '0017_auto_20161010_1130'),
     ]
 
     operations = [
-        migrations.AddField(
+        migrations.AlterField(
             model_name='activity',
-            name='activities',
-            field=models.ManyToManyField(related_name='compilations+', verbose_name='Compilations', to='activity.Activity', blank=True),
+            name='organizers',
+            field=models.ManyToManyField(related_name='managed_activities', verbose_name='Categories', to='core.Profile'),
         ),
     ]

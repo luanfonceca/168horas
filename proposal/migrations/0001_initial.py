@@ -8,7 +8,7 @@ import django_extensions.db.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('activity', '0013_merge'),
+        ('activity', '0012_activity_organizers'),
         ('core', '0004_auto_20160201_1807'),
     ]
 

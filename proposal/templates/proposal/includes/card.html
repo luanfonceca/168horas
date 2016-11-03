@@ -42,6 +42,20 @@
       </p>
     {% endif %}
 
+    {% if object.camera %}
+      <p>
+        <strong>Câmera utilizada na captação da imagem:</strong>
+        {{ object.camera }}        
+      </p>
+    {% endif %}
+
+    {% if object.ferramenta %}
+      <p>
+        <strong>Programa utilizado no tratamento da imagem:</strong>
+        {{ object.ferramenta }}        
+      </p>
+    {% endif %}
+
     <p>
       <strong>Enviado por:</strong>
       {{ object.created_by.user.get_full_name }} - {{ object.created_by.user.email }}
@@ -67,8 +81,22 @@
         {% endif %}
       </p>
     {% endif %}
-    <span style="padding: 5px;top: 7px;position: relative;" class="blue darken-4 white-text">
-      {{ object.get_area_display }}
-    </span>
+
+    {% if object.images.exists %}
+      <p>
+        <strong>Imagens:</strong>
+        {% for image in object.images.all %}
+          <a href="{{ image.file.url }}" target="_blank">
+            {{ image.file.name }}
+          </a>
+        {% endfor %}
+      </p>
+    {% endif %}
+
+    {% if object.area %}
+      <span style="padding: 5px;top: 7px;position: relative;" class="blue darken-4 white-text">
+        {{ object.get_area_display }}
+      </span>
+    {% endif %}
   </div>
 </div>

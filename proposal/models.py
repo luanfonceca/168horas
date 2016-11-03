@@ -91,6 +91,14 @@ class Proposal(models.Model):
         _('Pré-requisitos'), max_length=2000,
         null=True, blank=False)
 
+    # Concurso Fotografico
+    camera = models.CharField(
+        _('Câmera utilizada na captação da imagem'), max_length=200,
+        null=True, blank=False)
+    ferramenta = models.CharField(
+        _('Programa utilizado no tratamento da imagem'), max_length=200,
+        null=True, blank=False)
+
     class Meta:
         verbose_name = _('Proposal')
         verbose_name_plural = _('Proposals')
@@ -146,6 +154,8 @@ class Proposal(models.Model):
 class Author(models.Model):
     name = models.CharField(_('Name'), max_length=300)
     email = models.EmailField(_('Email'), max_length=300)
+    phone = models.CharField(
+        _('Phone'), max_length=30, null=True, blank=True)
 
     # relations
     proposal = models.ForeignKey(
@@ -178,6 +188,19 @@ class Author(models.Model):
             subject=subject, message=message, html_message=html_message,
             from_email=settings.NO_REPLY_EMAIL, recipient_list=recipients
         )
+
+
+class Images(models.Model):
+    file = models.FileField(_('File'), null=True, blank=True)
+
+    # relations
+    proposal = models.ForeignKey(
+        to='proposal.Proposal', related_name='images',
+        on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = "Images"
+        verbose_name_plural = "Imagess"
 
 
 def send_proposal_submited_email(sender, instance, created, **kwargs):
