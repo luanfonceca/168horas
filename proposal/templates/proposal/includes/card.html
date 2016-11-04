@@ -64,7 +64,7 @@
       <p>
         <strong>{% if activity.slug == 'sipex-minicursos' %}Ministrantes: {% else %}Autor: {% endif %}</strong>
         {% for ministrante in object.authors.all %}
-          {{ ministrante.name }} - {{ ministrante.email }}{% if not forloop.last %},{% endif %}
+          {{ ministrante.name }} - {{ ministrante.email }}{% if ministrante.phone %} - {{ ministrante.phone }}{% endif %}{% if not forloop.last %},{% endif %}
         {% endfor %}
       </p>
     {% endif %}
