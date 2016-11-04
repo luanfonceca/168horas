@@ -16,8 +16,10 @@ from core.mixins import (
 from activity.models import Activity
 from proposal.models import Proposal, Author, Images
 from proposal.forms import (
-    ProposalForm, CustomSIPAXProposalForm, CustomPainelTematicoProposalForm,
+    ProposalForm, CustomSIPAXProposalForm,
+    CustomPainelTematicoProposalForm,
     CustomConcursoFotograficoProposalForm,
+    CustomConcursoRedacaoProposalForm
 )
 
 
@@ -158,6 +160,8 @@ class ProposalCreate(BaseProposalView,
             return CustomPainelTematicoProposalForm
         elif self.activity.slug == 'concurso-fotografico':
             return CustomConcursoFotograficoProposalForm
+        elif self.activity.slug == 'concurso-de-redacao':
+            return CustomConcursoRedacaoProposalForm
         return ProposalForm
 
     def form_valid(self, form):

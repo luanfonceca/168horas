@@ -86,3 +86,16 @@ class CustomConcursoFotograficoProposalForm(forms.ModelForm):
             'author1_name', 'author1_email', 'author1_phone',
             'camera', 'ferramenta', 'images'
         )
+
+
+class CustomConcursoRedacaoProposalForm(forms.ModelForm):
+    author1_name = forms.CharField(label=_('Name'))
+    author1_email = forms.EmailField(label=_('Email'))
+    author1_phone = forms.CharField(label=_('Phone'))
+
+    class Meta:
+        model = Proposal
+        fields = (
+            'title', 'brief', 'document',
+            'author1_name', 'author1_email', 'author1_phone',
+        )

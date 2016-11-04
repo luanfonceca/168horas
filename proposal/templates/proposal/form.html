@@ -160,6 +160,56 @@
 
         {% include "includes/field.html" with field=form.ferramenta %}
       </div>
+    {% elif activity.slug == 'concurso-de-redacao' %}
+      <div>
+        <h5>{% trans 'Description' %}</h5>
+        <p>O Concurso de Redação da SCTZN tem como finalidade promover a discussão em torno da temática da ciência e alimentação através de uma visão cultural e social com o uso da linguagem escrita. A temática do concurso está de acordo com o tema da SCTZN que é “Ciência alimentando o Brasil” e deverá ser organizada no gênero cordel.</p>
+      </div>
+
+      <ul class="collection with-header">
+        <li class="collection-header"><h4>Regras do concurso</h4></li>
+        <li class="collection-item">O Concurso Literário da SCTzn tem como finalidade promover a discussão em torno da temática da ciência e alimentação através de uma visão cultural e social com o uso da linguagem escrita.</li>
+        <li class="collection-item">O Concurso Literário da SCTzn tem como finalidade promover a discussão em torno da temática da ciência e alimentação através de uma visão cultural e social com o uso da linguagem escrita.</li>
+        <li class="collection-item">Poderão participar do Concurso Literário aqueles que estiverem inscritos no evento.</li>
+        <li class="collection-item">A produção textual deverá ser enviada até o dia 09 de novembro de 2016, às 23h59, através do site. O arquivo deverá estar no formato em PDF, com a identificação do autor.</li>
+        <li class="collection-item">A temática “Ciência alimentando o Brasil” deverá ser organizada no gênero Cordel, respeitando suas características, limitando-se entre 6 a 12 estrofes, sendo cada estrofe composta entre 02 a 06 versos.</li>
+        <li class="collection-item">A Comissão Julgadora será composta por 06 (seis) membros escolhidos entre profissionais da área da Língua Portuguesa.</li>
+        <li class="collection-item">As decisões da Comissão Julgadora são irrecorríveis, reservando-se a ela, todos os direitos que se fizerem necessários, não cabendo recurso posterior por parte dos inscritos, em virtude da ausência de tempo disponível.</li>
+        <li class="collection-item">As inscrições serão efetuadas gratuitamente via on line, no site do evento no período de 01 a 08 de novembro de 2016.</li>
+        <li class="collection-item">Serão observados em cada produção textual, os seguintes aspectos:</li>
+        <li class="collection-item">adequação ao gênero (2,0 pontos);</li>
+        <li class="collection-item">criatividade(2,0 pontos);</li>
+        <li class="collection-item">textualidade (coesão e coerência) (2,0 pontos);</li>
+        <li class="collection-item">estilística adequada ao gênero solicitado (2,0 pontos);</li>
+        <li class="collection-item">adequação ao tema (2,0 pontos).</li>
+        <li class="collection-item">O resultado do Concurso de Redação será anunciado na solenidade de encerramento da SCTZN.</li>
+        <li class="collection-item">Os casos omissos no presente Regulamento serão decididos pela Comissão Organizadora (CO), assim como dirimir quaisquer dúvidas ou controvérsias oriundas do presente Regulamento.</li>
+      </ul>
+
+      <h5>Formulário</h5>
+      <div class="row" id="proposals">
+        {% include "includes/field.html" with field=form.title|append_attr:'placeholder:Título da Redação' col_sizes='s12' %}
+
+        {% include "includes/field.html" with field=form.author1_name %}
+
+        {% include "includes/field.html" with field=form.author1_email %}
+
+        {% include "includes/field.html" with field=form.author1_phone %}
+
+        <div class="file-field input-field col s12">
+          <div class="btn">
+            <span>Carregar Documento</span>
+            {{ form.document }}
+          </div>
+          <div class="file-path-wrapper">
+            <input class="file-path validate" type="text">
+          </div>
+          <br>
+          {% for error in form.document.errors %}
+            <p class="help-text caption red-text">{{ error }}</p>
+          {% endfor %}
+        </div>
+      </div>
     {% else %}
       <div class="row" id="proposals">
         {% include "includes/field.html" with field=form.title col_sizes='s12' %}
