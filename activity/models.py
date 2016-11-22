@@ -171,9 +171,7 @@ class Activity(TitleSlugDescriptionModel):
 
     @property
     def is_closed(self):
-        if self.slug == 'flisol-natal-2016':
-            return True
-        return False
+        return self.status in [Activity.CLOSED, Activity.SOLDOUT]
 
     @property
     def is_open_for_proposals(self):
