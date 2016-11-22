@@ -85,7 +85,7 @@ class Attendee(models.Model):
 
     name = models.CharField(_('Full Name'), max_length=300)
     cpf = models.CharField('CPF', max_length=14)
-    email = models.EmailField(_('Email'))
+    email = models.EmailField(_('Email'), max_length=300)
     phone = models.CharField(_('Phone'), max_length=50, blank=True)
     educational_institution = models.CharField(
         _('Educational Institution'), max_length=200, null=True, blank=True)
