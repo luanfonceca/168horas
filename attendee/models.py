@@ -374,6 +374,8 @@ def send_attendee_joined_email(sender, instance, created, **kwargs):
     if instance.activity.status == instance.activity.PRE_SALE:
         instance.send_pre_sale_welcome_email()
         instance.activity.notify_pre_sale_organizer(instance)
+    elif instance.has_attended:
+        pass
     else:
         instance.send_welcome_email()
 
