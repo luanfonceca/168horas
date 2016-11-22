@@ -1,0 +1,49 @@
+{% load i18n %}
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>
+      {% blocktrans with name=attendee.name %}
+        Certificate of presence to "{{ name }}".
+      {% endblocktrans %}
+    </title>
+    <style>
+      @page {
+        size: 297mm 223mm;
+        background-image: url('{% static 'attendee/img/certificarte-rh-day.png' %}');
+      }
+
+      body, html {
+        position: relative;
+      }
+
+      div {
+        position: fixed;
+        padding-top: 320pt;
+      }
+
+      p {
+        padding-left: 30pt;
+        padding-right: 320pt;
+        font-size: 15pt;
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <p>
+        A <strong>Faculdade Estácio de Natal</strong> - Unidade Zona Norte
+        <br>
+        <br>
+        certifica para os devidos fins que <strong>{{ attendee.name }}</strong>
+        <br>
+        <br>
+        participou do Evento <strong>RH DAY no dia 9 de novembro 2016</strong> com 3H AAC
+      </p>
+    </div>
+  </body>
+</html>

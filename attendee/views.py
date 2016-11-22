@@ -376,8 +376,14 @@ class AttendeeCertificate(BaseAttendeeView,
                           PDFTemplateResponseMixin,
                           views.DetailView):
     lookup_field = 'code'
-    template_name = 'attendee/certificate.html'
+    template_name = 'attendee/certificates/default.html'
     page_title = _('Certificate')
+
+    def get_template_names(self):
+        self.activity = self.get_activity()
+        if self.activity.slug == 'rh-day':
+            return ['attendee/certificates/rh-day.html']
+        return super(AttendeeCertificate, self).get_template_names()
 
 
 class AttendeeShuffle(BaseAttendeeView,
