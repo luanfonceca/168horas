@@ -27,6 +27,7 @@ django-webtest==1.7.8
 django-widget-tweaks==1.4.1
 django-wysiwyg==0.7.1
 django-xhtml2pdf==0.0.3
+djangorestframework==3.5.3
 dj-database-url==0.3.0
 djrill==2.0
 dj-static==0.0.6

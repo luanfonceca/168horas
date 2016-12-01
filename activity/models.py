@@ -16,6 +16,7 @@ from django_extensions.db.fields import CreationDateTimeField, SlugField
 from django_extensions.db.models import TitleSlugDescriptionModel
 
 from web168h import settings
+from attendee.models import Attendee
 
 
 class ActivityManager(models.QuerySet):
@@ -285,6 +286,17 @@ class Activity(TitleSlugDescriptionModel):
             subject=subject, message=message, html_message=html_message,
             from_email=settings.NO_REPLY_EMAIL, recipient_list=recipients
         )
+
+    @property
+    def confirmed_attendees(self):
+        return self.attendee_set.filter(status=Attendee.CONFIRMED)
+
+    @property
+    def gross_sales(self):
+        total_confirmed = self.confirmed_attendees.count()
+        price = self.price or 0
+        return total_confirmed * price
+
 
 
 def resize_activity_photo(sender, instance, **kwargs):

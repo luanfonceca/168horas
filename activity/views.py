@@ -11,12 +11,14 @@ from django.contrib import messages
 
 from vanilla import model_views as views
 from djqscsv import render_to_csv_response
+from rest_framework.generics import RetrieveAPIView
 
 from core.mixins import (
     PageTitleMixin, BreadcrumbMixin,
     OrganizerRequiredMixin,
 )
 from activity.models import Activity
+from activity.serializers import ActivitySalesProgression
 from activity.forms import ActivityForm
 from category.views import BaseCategoryView
 from attendee.models import Attendee
@@ -114,6 +116,16 @@ class ActivityDetailShortUrl(BaseActivityView, views.DetailView):
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
         return redirect(self.object.get_absolute_url())
+
+
+class ActivityDashboard(BaseActivityView, views.DetailView):
+    template_name = 'activity/dashboard.html'
+    full_page_title = True
+
+
+class ActivitySalesProgression(BaseActivityView, RetrieveAPIView):
+    queryset = Activity.objects.all()
+    serializer_class = ActivitySalesProgression
 
 
 class ActivityUpdate(BaseActivityView,

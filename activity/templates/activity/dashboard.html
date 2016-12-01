@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load humanize %}
+{% load static %}
+
+{% load tags %}
+
+{% block extra_css %}
+  <style type="text/css">
+    .indicators .title {
+      font-size: 15pt;
+      display: block;
+    }
+    .indicators .value {
+      font-size: 50pt;
+    }
+  </style>
+{% endblock extra_css %}
+
+{% block content %}
+  <input type="hidden" id="id_slug" name="slug" value="{{ object.slug }}"/>
+
+  <div class="row">
+    {% if object.price %}      
+      <div class="indicators col l6">
+        <span class="title">{% trans 'Gross sales' %}</span>
+        <span class="value">R$ {{ object.gross_sales|intcomma }}</span>
+      </div>
+    {% endif %}
+    <div class="indicators col l6">
+      <span class="title">{% trans 'Confirmed Attendees' %} </span>
+      <span class="value">{{ object.confirmed_attendees.count }}</span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col s12">
+      <canvas id="sales-progression" height="100px"></canvas>
+    </div>
+  </div>
+{% endblock %}
+
+{% block extra_js %}
+  <script type="text/javascript" src="{% static 'js/Chart.min.js' %}"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      var slug = $('#id_slug').val();
+      var url = '/activities/' + slug +'/dashboard/sales/progression/';
+      $.ajax({
+        url: url,
+        method: 'GET',
+      }).success(function(response, status, xhr) {
+        var myChart = new Chart($('#sales-progression'), {
+          type: 'line',
+          data: {
+            labels: response.formatted_days,
+            datasets: [{
+              fill: false,
+              data: response.sales_by_day,
+              backgroundColor: ['#0D47A1',],
+              borderColor: ['#0D47A1',],
+            }],
+          },
+          options: {
+            legend: {
+              display: false,
+            },
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true,
+                  stepSize: 1,
+                }
+              }]
+            }
+          }
+        });
+      });
+    });
+  </script>
+{% endblock extra_js %}
