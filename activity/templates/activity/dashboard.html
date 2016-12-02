@@ -15,6 +15,10 @@
     .indicators .value {
       font-size: 50pt;
     }
+
+    #sales-progression {
+      height: 400px;
+    }
   </style>
 {% endblock extra_css %}
 
@@ -36,7 +40,7 @@
 
   <div class="row">
     <div class="col s12">
-      <canvas id="sales-progression" height="100px"></canvas>
+      <canvas id="sales-progression" height="150px"></canvas>
     </div>
   </div>
 {% endblock %}
@@ -61,16 +65,21 @@
               data: response.sales_by_day,
               backgroundColor: ['#0D47A1',],
               borderColor: ['#0D47A1',],
+              lineTension: 0,
             }],
           },
           options: {
             legend: {
               display: false,
             },
+            title: {
+              display: true,
+              text: 'Últimos ' + response.last_days + ' dias.',
+            },
             scales: {
               yAxes: [{
                 ticks: {
-                  beginAtZero: true,
+                  beginAtZero: false,
                   stepSize: 1,
                 }
               }]
