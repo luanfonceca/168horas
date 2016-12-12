@@ -8,6 +8,7 @@ from django.utils.translation import ugettext as _
 from django.utils.timezone import datetime
 from django.template.loader import render_to_string
 from django.core.mail import send_mail
+from django.utils.dateformat import format as dateformat
 
 from PIL import Image
 import requests
@@ -122,6 +123,9 @@ class Activity(TitleSlugDescriptionModel):
     def get_delete_url(self):
         return reverse('activity:delete', kwargs={'slug': self.slug})
 
+    def get_payment_certificates_url(self):
+        return reverse('activity:payment_certificates', kwargs={'slug': self.slug})
+
     def get_attendee_join_url(self):
         return reverse('attendee:join', kwargs={'activity_slug': self.slug})
 
@@ -177,6 +181,11 @@ class Activity(TitleSlugDescriptionModel):
     @property
     def is_open_for_proposals(self):
         return self.status == self.OPEN_PROPOSALS
+
+    @property
+    def get_id_transacao(self):
+        return '{0}-{1}'.format(self.slug, dateformat(datetime.now(), 'U'))
+
 
     def get_attended_ones(self):
         return self.attendee_set.filter(attended_at__isnull=False)
@@ -235,6 +244,14 @@ class Activity(TitleSlugDescriptionModel):
     @property
     def get_price_as_cents(self):
         return int(self.price * 100)
+
+    @property
+    def certificates_price(self):
+        return 19.00
+
+    @property
+    def get_certificates_price_as_cents(self):
+        return int(self.certificates_price * 100)
 
     @property
     def formatted_price(self):

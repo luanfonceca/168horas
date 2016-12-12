@@ -282,3 +282,20 @@ class ActivitySendCertificates(BaseActivityView,
                 )
             )
         return redirect(self.object.get_attendee_list_url())
+
+
+class ActivityPaymentCertificates(BaseActivityView,
+                                  views.DetailView):
+    template_name = 'activity/payment_certificates.html'
+    full_page_title = True
+
+    def get_breadcrumbs(self):
+        self.object = self.get_object()
+
+        return [{
+            'url': self.object.get_absolute_url(),
+            'title': self.object.title
+        }, {
+            'url': self.object.get_payment_certificates_url(),
+            'title': _('Payment Certificates')
+        }]

@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% load tags %}
+
+{% block extra_css %}
+  <link type="text/css" rel="stylesheet" href="{% static 'attendee/css/mprogress.min.css' %}" />
+{% endblock extra_css %}
+
+{% block content %}
+  <form id="payment_form" action="https://www.moip.com.br/PagamentoMoIP.do" method="POST">
+    <input type="hidden" name="id_carteira" value="luanfonceca@gmail.com">
+    <input type="hidden" name="url_retorno" value="{{ activity.get_full_absolute_url }}">
+    <input type="hidden" name="id_transacao" value="{{ activity.get_id_transacao }}">
+    <input type="hidden" name="descricao" value="Pagamento dos Certificados: {{ activity.title }} para o 168 horas.">
+    <input type="hidden" name="valor" value="{{ activity.get_certificates_price_as_cents }}">
+    <input type="hidden" name="nome" value="{{ activity.title }}">
+    <input type="hidden" name="pagador_nome" value="{{ request.user.get_full_name }}">
+    <input type="hidden" name="pagador_email" value="{{ request.user.email }}">
+
+    <div class="row center">
+      <h4>{% trans 'Redirecting to Moip...' %}</h4>
+      <span class="col s12 m4 offset-m4" id="mprogress">&nbsp;</span>
+    </div>
+
+    <div class="center-align col s4">
+      <span>
+        {% trans 'Or click' %}
+        &nbsp;
+        <button type="submit" class="btn-large waves-effect waves-light blue darken-4">
+          {% trans 'Here' %}
+          <i class="material-icons right">done</i>
+        </button>
+      </span>
+    </div>
+  </form>
+{% endblock %}
+
+{% block extra_js %}
+  <script type="text/javascript" src="{% static 'attendee/js/mprogress.min.js' %}"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      var mp = new Mprogress({
+        template: 3,
+        start: true,
+        parent: '#mprogress',
+      });
+
+      setTimeout(function() {
+        $("#payment_form").submit();
+      }, 3000);
+    });
+  </script>
+{% endblock extra_js %}
