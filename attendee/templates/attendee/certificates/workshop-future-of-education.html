@@ -1,0 +1,48 @@
+{% load i18n %}
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>
+      {% blocktrans with name=attendee.name %}
+        Certificate of presence to "{{ name }}".
+      {% endblocktrans %}
+    </title>
+    <style>
+      @page {
+        size: 297mm 223mm;
+        background-image: url('{% static 'attendee/img/workshop-future-of-education.png' %}');
+      }
+
+      body, html {
+        position: relative;
+      }
+
+      div {
+        position: fixed;
+        padding-top: 310pt;
+      }
+
+      p {
+        text-align: center;
+        font-size: 18pt;
+        color: #fff;
+        line-height: 50pt;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <p>
+        A <strong>Liga de Empreendedorismo Potiguar</strong> certifica para os devidos fins que
+        <br>
+        <strong>{{ attendee.name }}</strong> participou do
+        <strong>Workshop Future of Education</strong>
+        <br>
+        no dia 9 de novembro 2016 com 8 horas de carga horário total.
+      </p>
+    </div>
+  </body>
+</html>

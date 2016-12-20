@@ -1,0 +1,61 @@
+{% load i18n %}
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>
+      {% blocktrans with name=attendee.name %}
+        Certificate of presence to "{{ name }}".
+      {% endblocktrans %}
+    </title>
+    <style>
+      @page {
+        size: 297mm 223mm;
+        /*background-image: url('{% static 'attendee/img/workshop-competencias-para-alta-performance.png' %}');*/
+        background-image: url('{% static 'attendee/img/workshop-competencias-para-alta-performance.png' %}');
+      }
+
+      body, html {
+        position: relative;
+      }
+
+      div {
+        position: fixed;
+        padding-top: 290pt;
+        padding-left: 25pt;
+      }
+
+      p {
+        font-size: 18pt;
+        color: #fff;
+        line-height: 20pt;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <p>
+        Certificamos que
+        <br>
+        <strong>{{ attendee.name }}</strong>
+        <br>
+        <br>
+        <br>
+        Participou do
+        <br>
+        <strong>{{ activity.title|title }}</strong>
+        <br>
+        <br>
+        <br>
+        Carga horária:
+        {% blocktrans count hours=activity.hours %}{{ hours }} hour{% plural %}{{ hours }} hours{% endblocktrans %}
+        <br>
+        <strong>
+          Dia: {{ activity.start_scheduled_date|date:'d/m/Y' }}
+        </strong>
+      </p>
+    </div>
+  </body>
+</html>

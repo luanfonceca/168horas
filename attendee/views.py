@@ -383,6 +383,12 @@ class AttendeeCertificate(BaseAttendeeView,
         self.activity = self.get_activity()
         if self.activity.slug == 'rh-day':
             return ['attendee/certificates/rh-day.html']
+        if self.activity.slug == 'workshop-future-of-education':
+            return ['attendee/certificates/workshop-future-of-education.html']
+        if self.activity.slug == 'workshop-competencias-para-alta-performance':
+            return [
+                'attendee/certificates/workshop-competencias-para-alta-performance.html'
+            ]
         return super(AttendeeCertificate, self).get_template_names()
 
 
