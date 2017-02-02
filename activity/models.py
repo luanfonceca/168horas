@@ -297,7 +297,10 @@ class Activity(TitleSlugDescriptionModel):
             'mailing/payment_notification.html', context)
         subject = _(u'{0} pay the subscription to "{1}"!').format(
             attendee.name, self.title)
-        recipients = [settings.EMAIL_168HORAS, self.created_by.organizer_email]
+        created_by_email = (
+            self.created_by.organizer_email or
+            self.created_by.user.email)
+        recipients = [settings.EMAIL_168HORAS, created_by_email]
 
         send_mail(
             subject=subject, message=message, html_message=html_message,
